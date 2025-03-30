@@ -17,7 +17,7 @@ local jokerInfo = {
 }
 
 function jokerInfo.loc_vars(self, info_queue, card)
-    info_queue[#info_queue+1] = {key = "guestartist31", set = "Other"}
+    info_queue[#info_queue+1] = {key = "artistcredit", set = "Other", vars = { csau_team.plunch } }
     return { vars = { card.ability.extra } }
 end
 

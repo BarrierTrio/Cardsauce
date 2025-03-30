@@ -23,8 +23,7 @@ SMODS.Shader {
 }
 
 local editionInfo = {
-    key = 'e_csau_corrupted',
-    shader = "glitched",
+    shader = "csau_glitched",
     config = {
         min = 2,
         max = 25,
@@ -32,8 +31,8 @@ local editionInfo = {
         mult_chance = 7,
         chip_chance = 10,
     },
-    discovered = false,
     unlocked = true,
+    discovered = true,
     in_shop = true,
     weight = 14,
     extra_cost = 4,

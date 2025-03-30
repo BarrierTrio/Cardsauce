@@ -133,25 +133,6 @@ local face = {"King", "Queen", "Jack"}
 
 
 ---------------------------
---------------------------- Custom Skins
---------------------------- These appear to go unused
----------------------------
-
-local skin_files = {}
-for s in recursiveEnumerate(UsableModPath .. "/assets/1x/skins/"):gmatch("[^\r\n]+") do
-	skin_files[#skin_files + 1] = s:gsub(PathPatternReplace .. "/assets/1x/skins/", "")
-end
-
-local deck_skins = {}
-for _, file in ipairs(skin_files) do
-	deck_skins[#deck_skins + 1] = file:sub(2, -5)
-end
-
-
-
-
-
----------------------------
 --------------------------- Alt Joker Skins for suit-relevant jokers
 ---------------------------
 

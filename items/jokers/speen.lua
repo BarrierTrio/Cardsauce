@@ -36,8 +36,8 @@ local jokerInfo = {
 
 function jokerInfo.loc_vars(self, info_queue, card)
 	info_queue[#info_queue+1] = {key = "wheel2", set = "Other", vars = {G.GAME.probabilities.normal}}
-	info_queue[#info_queue+1] = {key = "guestartist0", set = "Other"}
-	info_queue[#info_queue+1] = {key = "guestartist2", set = "Other"}
+	info_queue[#info_queue+1] = {key = "artistcredit", set = "Other", vars = { csau_team.gote } }
+	info_queue[#info_queue+1] = {key = "codercredit", set = "Other", vars = { csau_team.dps } }
 end
 
 function jokerInfo.add_to_deck(self, card)

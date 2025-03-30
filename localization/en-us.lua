@@ -623,222 +623,29 @@ return {
 					"{C:inactive}Artists",
 				},
 			},
-			guestartist0 = {
+			artistcredit = {
 				name = "Artist",
 				text = {
-					"{E:1}BarrierTrio/Gote{}",
+					"{E:1}#1#{}"
 				},
 			},
-			guestartist1 = {
-				name = "Artist",
+			artistcredit_2 = {
+				name = "Artists",
 				text = {
-					"{E:1}SagaciousCejai{}",
+					"{E:1}#1#{}",
+					"{E:1}#2#{}"
 				},
 			},
-			guestartist2 = {
+			codercredit = {
 				name = "Coding",
 				text = {
-					"{E:1}DPS2004{}",
+					"{E:1}#1#{}"
 				},
 			},
-			guestartist3 = {
-				name = "Coding",
-				text = {
-					"{E:1}Nether{}",
-				},
-			},
-			guestartist4 = {
-				name = "Coding",
-				text = {
-					"{E:1}Mysthaps{}",
-				},
-			},
-			guestartist5 = {
+			vacredit = {
 				name = "Voice Acting",
 				text = {
-					"{E:1}AmtraxVA{}",
-				},
-			},
-			guestartist7 = {
-				name = "Coding",
-				text = {
-					"{E:1}Numbuh214{}",
-				},
-			},
-			guestartist8 = {
-				name = "Artist",
-				text = {
-					"{E:1}Keku{}",
-				},
-			},
-			guestartist9 = {
-				name = "Artist",
-				text = {
-					"{E:1}Gappie{}",
-				},
-			},
-			guestartist10 = {
-				name = "Artist",
-				text = {
-					"{E:1}Winter Grimwell{}",
-				},
-			},
-			guestartist11 = {
-				name = "Artist",
-				text = {
-					"{E:1}FenixSeraph{}",
-				},
-			},
-			guestartist12 = {
-				name = "Artist",
-				text = {
-					"{E:1}WhimsyCherry{}",
-				},
-			},
-			guestartist13 = {
-				name = "Artist",
-				text = {
-					"{E:1}Lyzerus{}",
-				},
-			},
-			guestartist14 = {
-				name = "Artist",
-				text = {
-					"{E:1}Global-Trance{}",
-				},
-			},
-			guestartist15 = {
-				name = "Artist",
-				text = {
-					"{E:1}BardVergil{}",
-				},
-			},
-			guestartist16 = {
-				name = "Artist",
-				text = {
-					"{E:1}GuffNFluff{}",
-				},
-			},
-			guestartist17 = {
-				name = "Artist",
-				text = {
-					"{E:1}Jazz_Jen{}",
-				},
-			},
-			guestartist18 = {
-				name = "Artist",
-				text = {
-					"{E:1}sinewuui{}",
-				},
-			},
-			guestartist19 = {
-				name = "Artist",
-				text = {
-					"{E:1}Akai{}",
-				},
-			},
-			guestartist20 = {
-				name = "Artist",
-				text = {
-					"{E:1}Swizik{}",
-				},
-			},
-			guestartist21 = {
-				name = "Artist",
-				text = {
-					"{E:1}Burdrehnar{}",
-				},
-			},
-			guestartist22 = {
-				name = "Artist",
-				text = {
-					"{E:1}Crisppyboat{}",
-				},
-			},
-			guestartist23 = {
-				name = "Artist",
-				text = {
-					"{E:1}fradavovan{}",
-				},
-			},
-			guestartist24 = {
-				name = "Artist",
-				text = {
-					"{E:1}Alli{}",
-				},
-			},
-			guestartist25 = {
-				name = "Artist",
-				text = {
-					"{E:1}Lyman{}",
-				},
-			},
-			guestartist26 = {
-				name = "Artist",
-				text = {
-					"{E:1}CheesyDraws{}",
-				},
-			},
-			guestartist27 = {
-				name = "Artist",
-				text = {
-					"{E:1}Greeeg{}",
-				},
-			},
-			guestartist28 = {
-				name = "Artist",
-				text = {
-					"{E:1}AlizarinRed{}",
-				},
-			},
-			guestartist29 = {
-				name = "Artist",
-				text = {
-					"{E:1}PaperMoon{}",
-				},
-			},
-			guestartist30 = {
-				name = "Artist",
-				text = {
-					"{E:1}yunkie101{}",
-				},
-			},
-			guestartist31 = {
-				name = "Artist",
-				text = {
-					"{E:1}plunch{}",
-				},
-			},
-			guestartist32 = {
-				name = "Artist",
-				text = {
-					"{E:1}MightyKingWario{}",
-				},
-			},
-			guestartist33 = {
-				name = "Artist",
-				text = {
-					"{E:1}KawaiiRerun{}",
-				},
-			},
-			guestartist41 = {
-				name = "Artist",
-				text = {
-					"{E:1}Cauthen Currie{}",
-				}
-			},
-			twoartists0 = {
-				name = "Artists",
-				text = {
-					"{E:1}BarrierTrio/Gote{}",
-					"{E:1}SagaciousCejai{}",
-				},
-			},
-			twoartists1 = {
-				name = "Artists",
-				text = {
-					"{E:1}Keku{}",
-					"{E:1}GuffNFluff{}",
+					"{E:1}#1#{}"
 				},
 			},
 			drippyforce = {

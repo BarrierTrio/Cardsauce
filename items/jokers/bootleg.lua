@@ -83,7 +83,7 @@ local function updateSprite(card)
 end
 
 function jokerInfo.loc_vars(self, info_queue, card)
-    info_queue[#info_queue+1] = {key = "guestartist0", set = "Other"}
+    info_queue[#info_queue+1] = {key = "artistcredit", set = "Other", vars = { csau_team.gote } }
     return { vars = {  } }
 end
 
@@ -386,7 +386,7 @@ function jokerInfo.generate_ui(self, info_queue, card, desc_nodes, specific_vars
         if mod.config['detailedDescs'] then
             G.FUNCS.csau_generate_detail_desc(self, info_queue, card, desc_nodes, specific_vars, full_UI_table, nil, true)
         else
-            info_queue[#info_queue+1] = {key = "guestartist0", set = "Other"}
+            info_queue[#info_queue+1] = {key = "artistcredit", set = "Other", vars = { csau_team.gote } }
             set_discover_tallies()
             local tally = G.DISCOVER_TALLIES.jokers.of
             local main_start = {

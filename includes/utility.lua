@@ -17,7 +17,7 @@ function load_cardsauce_item(file_key, item_type, no_badges)
 	local info = assert(SMODS.load_file("items/" .. key .. "/" .. file_key .. ".lua"))()
 
 	info.key = file_key
-	if item_type ~= 'Challenge' then
+	if item_type ~= 'Challenge' and item_type ~= 'Edition' then
 		info.atlas = file_key
 		info.pos = { x = 0, y = 0 }
 		if info.hasSoul then

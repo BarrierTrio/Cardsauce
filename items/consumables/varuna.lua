@@ -5,7 +5,7 @@ local consumInfo = {
 }
 
 consumInfo.loc_vars = function(self, info_queue, card)
-    info_queue[#info_queue+1] = {key = "guestartist8", set = "Other"}
+    info_queue[#info_queue+1] = {key = "artistcredit", set = "Other", vars = { csau_team.keku } }
     local hand = self.config.hand_type
     return { vars = {G.GAME.hands[hand].level,localize(hand, 'poker_hands'), G.GAME.hands[hand].l_mult, G.GAME.hands[hand].l_chips, colours = {(G.GAME.hands[hand].level==1 and G.C.UI.TEXT_DARK or G.C.HAND_LEVELS[math.min(7, G.GAME.hands[hand].level)])}} }
 end

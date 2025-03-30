@@ -17,59 +17,118 @@ G.foodjokers = {
 	['j_csau_toeofsatan'] = true,
 }
 
+--- Table containing all names of people who contributed to the mod, used in crediting
+csau_team = {
+	['gote'] = "BarrierTrio/Gote",
+	['dps'] = "DPS2004",
+	['cejai'] = "SagaciousCejai",
+	['nether'] = "Nether",
+	['myst'] = "Mysthaps",
+	['numbuh'] = "Numbuh214",
+	['aure'] = "Aurelius7309",
+	['amtrax'] = "Austin L. Matthews",
+	['tort'] = "tortoise",
+	['proto'] = "Protokyuuu",
+	['shrine'] = "ShrineFox",
+	['cyro'] = "cyrobolic",
+	['recon'] = "ReconBox",
+	['sin'] = "SinCityAssassin",
+	['lyman'] = "Lyman",
+	['akai'] = "Akai",
+	['victin'] = "Victin",
+	['keku'] = "Keku",
+	['gappie'] = "Gappie",
+	['winterg'] = "Winter Grimwell",
+	['fenix'] = "FenixSeraph",
+	['cherry'] = "WhimsyCherry",
+	['trance'] = "Global-Trance",
+	['lyzerus'] = "Lyzerus",
+	['bass'] = "Bassclefff",
+	['frada'] = "fradavovan",
+	['greg'] = "Greeeg",
+	['cheesy'] = "CheesyDraws",
+	['jen'] = "Jazz_Jen",
+	['bard'] = "BardVergil",
+	['guff'] = "GuffNFluff",
+	['sine'] = "sinewuui",
+	['swizik'] = "Swizik",
+	['burd'] = "Burdrehnar",
+	['crispy'] = "Crisppyboat",
+	['alli'] = "Alli",
+	['alizarin'] = "AlizarinRed",
+	['moon'] = "PaperMoon",
+	['yunkie'] = "yunkie101",
+	['plunch'] = "plunch",
+	['wario'] = "MightyKingWario",
+	['rerun'] = "KawaiiRerun",
+	['winterc'] = "TheWinterComet",
+	['gameboy'] = "Sir. Gameboy",
+	['cauthen'] = "Cauthen Currie",
+	['joey'] = "Joey",
+	extra = {
+		['amtrax'] = "(AmtraxVA)",
+		['bass'] = "(bassclefff.bandcamp.com)",
+		['lyman'] = "(JankJonklers)",
+		['akai'] = "(Balatrostuck)",
+		['myst'] = "(LobotomyCorp)",
+		['victin'] = "(Victin's Collection)",
+
+	}
+}
+
 --- Table representing the credits for collab artwork. Properties are tables containing localizaiton info for each face card
 G.csau_collab_credits = {
 	-- Vine
 	csau_wildcards = {
-		King = {key = "guestartist23", set = "Other"}, --fradavovan
-		Queen = {key = "guestartist26", set = "Other"}, --CheesyDraws
-		Jack = {key = "guestartist26", set = "Other"}, --CheesyDraws
+		King = {key = "artistcredit", set = "Other", vars = { csau_team.frada } },
+		Queen = {key = "artistcredit", set = "Other", vars = { csau_team.cheesy } },
+		Jack = {key = "artistcredit", set = "Other", vars = { csau_team.cheesy } },
 	},
 	csau_mascots = {
-		King = {key = "guestartist26", set = "Other"}, --CheesyDraws
-		Queen = {key = "guestartist27", set = "Other"}, --Greeeg
-		Jack = {key = "guestartist12", set = "Other"}, --WhimsyCherry
+		King = {key = "artistcredit", set = "Other", vars = { csau_team.cheesy } },
+		Queen = {key = "artistcredit", set = "Other", vars = { csau_team.greg } },
+		Jack = {key = "artistcredit", set = "Other", vars = { csau_team.cherry } },
 	},
 	csau_classics = {
-		King = {key = "guestartist10", set = "Other"}, --Arthur Effgus
-		Queen = {key = "guestartist10", set = "Other"}, --Arthur Effgus
-		Jack = {key = "guestartist10", set = "Other"}, --Arthur Effgus
+		King = {key = "artistcredit", set = "Other", vars = { csau_team.winterg } },
+		Queen = {key = "artistcredit", set = "Other", vars = { csau_team.winterg } },
+		Jack = {key = "artistcredit", set = "Other", vars = { csau_team.winterg } },
 	},
 	csau_confidants = {
-		King = {key = "guestartist17", set = "Other"}, --Jazz_Jen
-		Queen = {key = "guestartist17", set = "Other"}, --Jazz_Jen
-		Jack = {key = "guestartist17", set = "Other"}, --Jazz_Jen
+		King = {key = "artistcredit", set = "Other", vars = { csau_team.jen } },
+		Queen = {key = "artistcredit", set = "Other", vars = { csau_team.jen } },
+		Jack = {key = "artistcredit", set = "Other", vars = { csau_team.jen } },
 	},
 	-- Varg
 	csau_americans = {
-		King = {key = "guestartist21", set = "Other"}, --Burdrehnar
-		Queen = {key = "guestartist16", set = "Other"}, --GuffNFluff
+		King = {key = "artistcredit", set = "Other", vars = { csau_team.burd } },
+		Queen = {key = "artistcredit", set = "Other", vars = { csau_team.guff } },
 		Jack = nil,
 	},
 	csau_voices = {
-		King = {key = "guestartist13", set = "Other"}, --Lyzerus
-		Queen = {key = "guestartist22", set = "Other"}, --Crisppyboat
-		Jack = {key = "guestartist13", set = "Other"}, --Lyzerus
+		King = {key = "artistcredit", set = "Other", vars = { csau_team.lyzerus } },
+		Queen = {key = "artistcredit", set = "Other", vars = { csau_team.crispy } },
+		Jack = {key = "artistcredit", set = "Other", vars = { csau_team.lyzerus } },
 	},
 	csau_duendes = {
 		King = nil,
-		Queen = {key = "guestartist1", set = "Other"}, --SagaciousCejai
+		Queen = {key = "artistcredit", set = "Other", vars = { csau_team.cejai } },
 		Jack = nil,
 	},
 	csau_powerful = {
 		King = nil,
 		Queen =nil,
-		Jack = {key = "guestartist1", set = "Other"}, --SagaciousCejai
+		Jack = {key = "artistcredit", set = "Other", vars = { csau_team.cejai } },
 	},
 	-- Mike
 	csau_poops = {
-		King = {key = "twoartists0", set = "Other", plural = true}, --Gote + SagaciousCejai
-		Queen = {key = "guestartist0", set = "Other"}, --Gote
-		Jack = {key = "guestartist1", set = "Other"}, --SagaciousCejai
+		King = {key = "artistcredit_2", set = "Other", vars = { csau_team.gote, csau_team.cejai } , plural = true},
+		Queen = {key = "artistcredit", set = "Other", vars = { csau_team.gote } },
+		Jack = {key = "artistcredit", set = "Other", vars = { csau_team.cejai } },
 	},
 	csau_ocs = {
 		King = nil,
-		Queen = {key = "guestartist16", set = "Other"}, --GuffNFluff
+		Queen = {key = "artistcredit", set = "Other", vars = { csau_team.guff } },
 		Jack = nil,
 	},
 }

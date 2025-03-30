@@ -23,7 +23,7 @@ function jokerInfo.check_for_unlock(self, args)
 end
 
 function jokerInfo.loc_vars(self, info_queue, card)
-	info_queue[#info_queue+1] = {key = "guestartist8", set = "Other"}
+	info_queue[#info_queue+1] = {key = "artistcredit", set = "Other", vars = { csau_team.keku } }
 	return { vars = {card.ability.extra.x_mult} }
 end
 

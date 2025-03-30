@@ -19,7 +19,7 @@ function jokerInfo.loc_vars(self, info_queue, card)
 	if not mod.config['detailedDescs'] then
 		info_queue[#info_queue+1] = {key = "rogernote", set = "Other", vars = {next(SMODS.find_card("j_four_fingers")) and 4 or 5}}
 	end
-	info_queue[#info_queue+1] = {key = "guestartist13", set = "Other"}
+	info_queue[#info_queue+1] = {key = "artistcredit", set = "Other", vars = { csau_team.lyzerus } }
 	return { vars = {card.ability.extra.x_mult, next(SMODS.find_card("j_four_fingers")) and 0.4 or 0.5} }
 end
 

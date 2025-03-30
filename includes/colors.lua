@@ -180,7 +180,6 @@ local function replaceReplacedChars(str)
 end
 
 G.FUNCS.apply_colors = function()
-	sendDebugMessage('applying colors')
 	for i=1, 4 do
 		if G["CUSTOMHEX"..i] then
 			local hex = replaceReplacedChars(G["CUSTOMHEX"..i])

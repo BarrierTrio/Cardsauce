@@ -673,7 +673,7 @@ if specific_vars.nominal_chips then
     localize{type = 'other', key = 'card_chips', nodes = desc_nodes, vars = {specific_vars.nominal_chips}}
 end
 if specific_vars.bonus_chips then
-    localize{type = 'other', key = 'card_extra_chips', nodes = desc_nodes, vars = {specific_vars.bonus_chips}}
+    localize{type = 'other', key = 'card_extra_chips', nodes = desc_nodes, vars = {SMODS.signed(specific_vars.bonus_chips)}}
 end
 '''
 position = "at"
@@ -684,7 +684,7 @@ if card.csau_collab_credit then
     else
         localize{type = 'other', key = 'artist', nodes = desc_nodes, vars = {specific_vars.nominal_chips}}
     end
-    localize{type = 'other', key = card.csau_collab_credit.key, nodes = desc_nodes}
+    localize{type = 'other', key = card.csau_collab_credit.key, nodes = desc_nodes, vars = card.csau_collab_credit.vars}
 else
     if specific_vars.nominal_chips then
         localize{type = 'other', key = 'card_chips', nodes = desc_nodes, vars = {specific_vars.nominal_chips}}

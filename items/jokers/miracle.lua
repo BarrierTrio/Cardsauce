@@ -10,7 +10,7 @@ local jokerInfo = {
 }
 
 function jokerInfo.loc_vars(self, info_queue, card)
-	info_queue[#info_queue+1] = {key = "guestartist11", set = "Other"}
+	info_queue[#info_queue+1] = {key = "artistcredit", set = "Other", vars = { csau_team.fenix } }
 	return { vars = {G.GAME.probabilities.normal} }
 end
 

@@ -12,7 +12,7 @@ local jokerInfo = {
 }
 
 function jokerInfo.loc_vars(self, info_queue, card)
-    info_queue[#info_queue+1] = {key = "guestartist32", set = "Other"}
+    info_queue[#info_queue+1] = {key = "artistcredit", set = "Other", vars = { csau_team.wario } }
     return { vars = {card.ability.extra, (G.GAME and G.GAME.hands and G.GAME.hands.Pair.played) or 0} }
 end
 

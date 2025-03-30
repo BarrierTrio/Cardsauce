@@ -13,9 +13,9 @@ local jokerInfo = {
 
 function jokerInfo.loc_vars(self, info_queue, card)
 	if G.SETTINGS.roche then
-		info_queue[#info_queue+1] = {key = "guestartist5", set = "Other"}
+		info_queue[#info_queue+1] = {key = "vacredit", set = "Other", vars = { csau_team.amtrax } }
 	end
-	info_queue[#info_queue+1] = {key = "guestartist0", set = "Other"}
+	info_queue[#info_queue+1] = {key = "artistcredit", set = "Other", vars = { csau_team.gote } }
 	return { vars = {card.ability.gil} }
 end
 
