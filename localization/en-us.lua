@@ -307,6 +307,7 @@ return {
 				"Balatro OST by LouisF"
 			},
 			b_color_selector_desc = "(Click colors to update swirl)",
+			k_csau_chips = "Chips",
 			ph_armageddon = "Annihilated by Odio",
 			ph_saved_vague = "Saved by Joker",
 			k_upgrade_double_ex = "Double Upgrade!",
@@ -2817,7 +2818,7 @@ return {
 			e_csau_corrupted = {
 				name = "Corrupted",
 				text = {
-					"???",
+					"#1#",
 				},
 			}
 		},

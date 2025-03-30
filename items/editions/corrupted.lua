@@ -23,10 +23,14 @@ SMODS.Shader {
 }
 
 local editionInfo = {
+    key = 'e_csau_corrupted',
     shader = "glitched",
     config = {
         min = 2,
         max = 25,
+        x_mult_chance = 3,
+        mult_chance = 7,
+        chip_chance = 10,
     },
     discovered = false,
     unlocked = true,
@@ -60,24 +64,28 @@ editionInfo.calculate = function(self, card, context)
     end
 end
 
-editionInfo.generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, full_UI_table)
+function editionInfo.loc_vars(self, info_queue, card)
+    return { vars = { 'testVar'}}
+end
+
+function editionInfo.generate_ui(self, info_queue, card, desc_nodes, specific_vars, full_UI_table)
     if not full_UI_table.name then
         full_UI_table.name = localize({ type = "name", set = self.set, key = self.key, nodes = full_UI_table.name })
     end
-    local r_mults = {}
-    for i = self.config.min, self.config.max do
-        r_mults[#r_mults+1] = tostring(i)
-    end
-    local loc_mult = ' '..(localize('k_mult'))..' '
-    local mult_ui = {
-        {n=G.UIT.T, config={text = '  +',colour = G.C.MULT, scale = 0.32}},
-        {n=G.UIT.O, config={object = DynaText({string = r_mults, colours = {G.C.RED},pop_in_rate = 9999999, silent = true, random_element = true, pop_delay = 0.5, scale = 0.32, min_cycle_time = 0})}},
-        {n=G.UIT.O, config={object = DynaText({string = {
-            {string = 'rand()', colour = G.C.JOKER_GREY},{string = "#@"..(G.deck and G.deck.cards[1] and G.deck.cards[#G.deck.cards].base.id or 11)..(G.deck and G.deck.cards[1] and G.deck.cards[#G.deck.cards].base.suit:sub(1,1) or 'D'), colour = G.C.RED},
-            loc_mult, loc_mult, loc_mult, loc_mult, loc_mult, loc_mult, loc_mult, loc_mult, loc_mult, loc_mult, loc_mult, loc_mult, loc_mult},
-                                               colours = {G.C.UI.TEXT_DARK},pop_in_rate = 9999999, silent = true, random_element = true, pop_delay = 0.2011, scale = 0.32, min_cycle_time = 0})}},
+
+    local rand_ui = {
+        {
+            n=G.UIT.O, config={object = DynaText({
+                string = {
+                    {string = 'X1.5', colour = G.C.RED, outer_colour = G.C.UI.TEXT_DARK, suffix = localize('k_mult')},
+                    {string = "+10", colour = G.C.MULT, outer_colour = G.C.UI.TEXT_DARK, suffix = ' '..(localize('k_mult'))},
+                    {string = "+50", colour = G.C.CHIPS, outer_colour = G.C.UI.TEXT_DARK, suffix = ' '..(localize('k_csau_chips'))},
+                },
+                colours = {G.C.UI.TEXT_DARK}, pop_in_rate = 9999999, silent = true, random_element = true, pop_delay = 0.2011, scale = 0.32, min_cycle_time = 0
+            })}
+        }
     }
-    desc_nodes[#desc_nodes + 1] = mult_ui
+    desc_nodes[#desc_nodes + 1] = rand_ui
 end
 
 return editionInfo
