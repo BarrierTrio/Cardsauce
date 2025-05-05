@@ -58,6 +58,11 @@ local includes = {
 -- that needs to be run after the game has initialized
 G.FUNCS.initPostSplash = function() end
 
+-- Talisman fix
+local to_number = to_number or function(ass)
+  return ass
+end
+
 for _, include in ipairs(includes) do
 	local init, error = SMODS.load_file("includes/" .. include ..".lua")
 	if error then sendErrorMessage("[Cardsauce] Failed to load "..include.." with error "..error) else

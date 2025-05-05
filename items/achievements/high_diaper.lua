@@ -4,7 +4,7 @@ local trophyInfo = {
         local cards = SMODS.find_card('j_csau_diaper')
         if cards and #cards > 0 then
             for i, v in ipairs(cards) do
-                if v.ability.extra.mult >= 16 then
+                if to_number(v.ability.extra.mult) >= 16 then
                     return true
                 end
             end
