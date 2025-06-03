@@ -54,7 +54,7 @@ function jokerInfo.calculate(self, card, context)
                 }))
             else
                 return {
-                    message = "-"..localize('$') .. to_big(card.ability.extra.dollars_mod),
+                    message = "-"..localize('$') .. card.ability.extra.dollars_mod,
                     colour = G.C.MONEY
                 }
             end
