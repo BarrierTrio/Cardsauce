@@ -6,7 +6,8 @@ local chalInfo = {
     },
     unlocked = function(self)
         return true
-    end
+    end,
+    button_colour = G.C.GREEN,
 }
 
 local sc_ref = Card.set_cost

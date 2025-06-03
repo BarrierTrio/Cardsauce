@@ -219,104 +219,65 @@ G.csau_team = {
 
 --- Table representing the credits for collab artwork. Properties are tables containing localizaiton info for each face card
 G.csau_collab_credits = {
-	csau_default_spades = {
-		Ace = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.keku } },
-	},
-	csau_default_hearts = {
-		Ace = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.keku } },
-	},
-	csau_default_clubs = {
-		Ace = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.keku } },
-	},
-	csau_default_diamonds = {
-		Ace = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.keku } },
-	},
-	default_varg_spades = {
-		Ace = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.keku } },
-	},
-	default_varg_hearts = {
-		Ace = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.keku } },
-	},
-	default_varg_clubs = {
-		Ace = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.keku } },
-	},
-	default_varg_diamonds = {
-		Ace = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.keku } },
-	},
-	-- Vine
 	csau_wildcards = {
-		Ace = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.keku }, specific = { ['csau_default'] = true, ['csau_lightshrooms'] = true, } },
-		King = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.frada } },
-		Queen = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.cheesy } },
-		Jack = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.cheesy } },
+		King = { G.csau_team.frada },
+		Queen = { G.csau_team.cheesy },
+		Jack = { G.csau_team.cheesy },
 	},
 	csau_mascots = {
-		Ace = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.keku }, specific = { ['csau_default'] = true, ['csau_lightshrooms'] = true, } },
-		King = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.cheesy } },
-		Queen = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.greg } },
-		Jack = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.cherry } },
+		King = { G.csau_team.cheesy },
+		Queen = { G.csau_team.greg },
+		Jack = { G.csau_team.cherry },
 	},
 	csau_classics = {
-		Ace = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.keku }, specific = { ['csau_default'] = true, ['csau_lightshrooms'] = true, } },
-		King = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.winterg } },
-		Queen = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.winterg } },
-		Jack = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.winterg } },
+		King = { G.csau_team.winterg },
+		Queen = { G.csau_team.winterg },
+		Jack = { G.csau_team.winterg },
 	},
 	csau_confidants = {
-		Ace = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.keku }, specific = { ['csau_default'] = true, ['csau_lightshrooms'] = true, } },
-		King = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.jen } },
-		Queen = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.jen } },
-		Jack = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.jen } },
+		King = { G.csau_team.jen },
+		Queen = { G.csau_team.jen },
+		Jack = { G.csau_team.jen },
 	},
-	-- Varg
 	csau_americans = {
-		Ace = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.keku }, specific = { ['csau_varg_aces'] = true } },
-		King = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.burd } },
-		Queen = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.guff } },
-		Jack = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.plunch } },
+		King = { G.csau_team.burd },
+		Queen = { G.csau_team.guff },
+		Jack = { G.csau_team.plunch },
 	},
 	csau_voices = {
-		Ace = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.keku }, specific = { ['csau_varg_aces'] = true } },
-		King = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.lyzerus } },
-		Queen = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.crispy } },
-		Jack = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.lyzerus } },
+		King = { G.csau_team.lyzerus },
+		Queen = { G.csau_team.crispy },
+		Jack = { G.csau_team.lyzerus },
 	},
 	csau_duendes = {
-		Ace = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.keku }, specific = { ['csau_varg_aces'] = true } },
-		King = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.winterg } },
-		Queen = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.cejai } },
-		Jack = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.guff } },
+		King = { G.csau_team.winterg },
+		Queen = { G.csau_team.cejai },
+		Jack = { G.csau_team.guff },
 	},
 	csau_powerful = {
-		Ace = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.keku }, specific = { ['csau_varg_aces'] = true } },
-		King = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.gote } },
-		Queen = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.chvsau } },
-		Jack = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.retro } },
+		King = { G.csau_team.gote },
+		Queen = { G.csau_team.chvsau },
+		Jack = { G.csau_team.retro },
 	},
-	-- Mike
 	csau_poops = {
-		Ace = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.wario }, specific = { ['csau_jazz_aces'] = true } },
-		King = {key = "csau_artistcredit_2", set = "Other", vars = { G.csau_team.gote, G.csau_team.cejai } , plural = true},
-		Queen = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.gote } },
-		Jack = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.cejai } },
+		King = { G.csau_team.gote, G.csau_team.cejai },
+		Queen = { G.csau_team.gote },
+		Jack = { G.csau_team.cejai },
 	},
 	csau_ocs = {
-		Ace = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.wario }, specific = { ['csau_jazz_aces'] = true } },
-		King = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.eld } },
-		Queen = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.guff } },
-		Jack = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.gote } },
+		King = { G.csau_team.eld },
+		Queen = { G.csau_team.guff },
+		Jack = { G.csau_team.gote },
 	},
 	csau_pets = {
-		Ace = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.wario }, specific = { ['csau_jazz_aces'] = true } },
-		King = {key = "vacredit", set = "Other", vars = { G.csau_team.fenix } },
-		Queen = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.winterg } },
-		Jack = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.winterg } },
+		King = { G.csau_team.fenix },
+		Queen = { G.csau_team.winterg },
+		Jack = { G.csau_team.winterg },
 	},
 	csau_fingies = {
-		Ace = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.wario }, specific = { ['csau_jazz_aces'] = true }},
-		King = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.winterg } },
-		Queen = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.lwb } },
-		Jack = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.gote } },
+		King = { G.csau_team.winterg },
+		Queen = { G.csau_team.lwb },
+		Jack = { G.csau_team.gote },
 	},
 }
 

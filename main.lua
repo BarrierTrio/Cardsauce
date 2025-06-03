@@ -25,6 +25,13 @@ G.C.STAND = HEX('B85F8E')
 G.C.VHS = HEX('a2615e')
 G.C.MUG = HEX('db9a4d')
 
+SMODS.current_mod.ui_config = {
+	back_colour = HEX('32a46f'),
+	tab_button_colour = G.C.GREEN,
+	author_colour = G.C.GREEN,
+	collection_option_cycle_colour = G.C.GREEN,
+}
+
 local includes = {
 	-- includes utility functions required for following files
 	'tables',

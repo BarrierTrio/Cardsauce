@@ -1,4 +1,3 @@
-
 local default_card_bans = {
     [1] = {id = 'j_8_ball'},
     [2] = {id = 'j_superposition'},
@@ -80,6 +79,7 @@ local chalInfo = {
             return default_tag_bans
         end,
     },
+    button_colour = G.C.GREEN,
 }
 
 

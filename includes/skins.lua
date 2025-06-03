@@ -1,59 +1,3 @@
-local function is_credited(key, card, palette)
-    if G.csau_collab_credits[key][card.config.card.value].specific then
-        if palette.pos_style[card.config.card.value] and palette.pos_style[card.config.card.value].atlas then
-            if G.csau_collab_credits[key][card.config.card.value].specific[palette.pos_style[card.config.card.value].atlas] then
-                return G.csau_collab_credits[key][card.config.card.value].specific[palette.pos_style[card.config.card.value].atlas]
-            end
-        else
-            if G.csau_collab_credits[key][card.config.card.value].specific[palette.atlas] then
-                return G.csau_collab_credits[key][card.config.card.value].specific[palette.atlas]
-            end
-        end
-        return false
-    else
-        return true
-    end
-end
-
-
-local upc_ref = G.FUNCS.update_collab_cards
-G.FUNCS.update_collab_cards = function(key, suit, silent)
-	upc_ref(key, suit, silent)
-    if type(key) == "number" then
-        key = G.COLLABS.options[suit][key]
-    end
-    local deckskin = SMODS.DeckSkins[key]
-    local palette = deckskin.palette_map and deckskin.palette_map[G.SETTINGS.colour_palettes[suit] or ''] or (deckskin.palettes or {})[1]
-    if type(key) == "number" then
-		key = G.COLLABS.options[suit][key]
-	end
-	if G.csau_collab_credits[key] then
-		for i, card in ipairs(G.cdds_cards.cards) do
-			if G.csau_collab_credits[key][card.config.card.value] then
-                local is = is_credited(key, card, palette)
-                if is then
-                    card.no_ui = false
-                    card.csau_collab_credit = G.csau_collab_credits[key][card.config.card.value]
-                    if type(is) == 'table' then
-                        card.csau_collab_credit.vars = is
-                    else
-                        card.csau_collab_credit.vars = G.csau_collab_credits[key][card.config.card.value].vars
-                    end
-                end
-			else
-				card.no_ui = true
-				card.csau_collab_credit = nil
-			end
-		end
-	else
-		for i, card in ipairs(G.cdds_cards.cards) do
-			card.no_ui = true
-			card.csau_collab_credit = nil
-		end
-	end
-end
-
-
 SMODS.Atlas{
 	key = 'alt_color_jokers',
 	path = "colorjokers.png",
@@ -231,6 +175,91 @@ local color = {
     Spades = HEX("8d619a"),
 }
 
+
+
+local function add_credit(desc_nodes, credits)
+    if not desc_nodes then
+        return true
+    else
+        if not type(credits) == 'table' then return end
+        if #credits > 1 then
+            localize{type = 'other', key = 'artists', nodes = desc_nodes, vars = {}}
+        elseif #credits > 0 then
+            localize{type = 'other', key = 'artist', nodes = desc_nodes, vars = {}}
+        end
+        for i, v in ipairs(credits) do
+            localize{type = 'other', key = 'artist_credit', nodes = desc_nodes, vars = { v }}
+        end
+    end
+end
+
+local function keku_ace(atlas)
+    if atlas == 'csau_lightshrooms'
+    or atlas == 'csau_balcolor_shrooms_lc'
+    or atlas == 'csau_balcolor_shrooms_hc'
+    or atlas == 'csau_varg_aces'
+    or atlas == 'csau_balcolor_varg_lc'
+    or atlas == 'csau_balcolor_varg_hc'
+    or atlas == 'csau_default_spades'
+    or atlas == 'csau_default_hearts'
+    or atlas == 'csau_default_clubs'
+    or atlas == 'csau_default_diamonds'
+    or atlas == 'default_varg_spades'
+    or atlas == 'default_varg_hearts'
+    or atlas == 'default_varg_clubs'
+    or atlas == 'default_varg_diamonds'
+    or atlas == 'csau_wildcards'
+    or atlas == 'csau_mascots'
+    or atlas == 'csau_classics'
+    or atlas == 'csau_confidants'
+    or atlas == 'csau_americans'
+    or atlas == 'csau_voices'
+    or atlas == 'csau_duendes'
+    or atlas == 'csau_powerful' then
+        return true
+    end
+    return false
+end
+
+local function wario_ace(atlas)
+    if atlas == 'csau_poops'
+    or atlas == 'csau_ocs'
+    or atlas == 'csau_pets'
+    or atlas == 'csau_fingies'
+    or atlas == 'csau_jazz_aces'
+    or atlas == 'csau_balcolor_jazz_lc'
+    or atlas == 'csau_balcolor_jazz_hc'then
+        return true
+    end
+    return false
+end
+
+
+
+local function credit_function(card, deckskin, palette, info_queue, desc_nodes, specific_vars, full_UI_table)
+    if card and deckskin and palette then
+        if card.base.value == "Ace" then
+            if palette.pos_style and palette.pos_style.Ace then
+                local atlas = palette.pos_style.Ace.atlas
+                if keku_ace(atlas) then
+                    return add_credit(desc_nodes, { G.csau_team.keku })
+                elseif wario_ace(atlas) then
+                    return add_credit(desc_nodes, { G.csau_team.wario })
+                end
+            elseif palette.pos_style and not palette.pos_style.Ace and palette.atlas == 'csau_default' then
+                return add_credit(desc_nodes, { G.csau_team.keku })
+            end
+        elseif (card.base.value == "King" or card.base.value == "Queen" or card.base.value == "Jack")
+        and palette.pos_style and palette.pos_style.King and palette.pos_style.Queen and palette.pos_style.Jack then
+            if G.csau_collab_credits[deckskin.key] then
+                return add_credit(desc_nodes, G.csau_collab_credits[deckskin.key][card.base.value])
+            end
+        end
+    end
+end
+
+
+
 local function assemble_vanilla_palettes(key, suit)
     local suit_y = 0; if suit == "Clubs" then suit_y = 1 elseif suit == "Diamonds" then suit_y = 2 elseif suit == "Spades" then suit_y = 3 end
     SMODS.DeckSkin.add_palette(SMODS.DeckSkins[key], {
@@ -251,7 +280,7 @@ local function assemble_vanilla_palettes(key, suit)
         colour = color[suit],
         suit_icon = {
             atlas = 'csau_suits'
-        }
+        },
     })
 
     SMODS.DeckSkin.add_palette(SMODS.DeckSkins[key], {
@@ -271,7 +300,7 @@ local function assemble_vanilla_palettes(key, suit)
         colour = color[suit],
         suit_icon = {
             atlas = 'csau_suits'
-        }
+        },
     })
 
     SMODS.DeckSkin.add_palette(SMODS.DeckSkins[key], {
@@ -292,7 +321,7 @@ local function assemble_vanilla_palettes(key, suit)
         colour = color[suit],
         suit_icon = {
             atlas = 'csau_suits'
-        }
+        },
     })
 
     SMODS.DeckSkin.add_palette(SMODS.DeckSkins[key], {
@@ -313,7 +342,7 @@ local function assemble_vanilla_palettes(key, suit)
         colour = color[suit],
         suit_icon = {
             atlas = 'csau_suits'
-        }
+        },
     })
     SMODS.DeckSkin.add_palette(SMODS.DeckSkins[key], {
         key = 'csau_'..key..'_jazz',
@@ -333,8 +362,30 @@ local function assemble_vanilla_palettes(key, suit)
         colour = color[suit],
         suit_icon = {
             atlas = 'csau_suits'
-        }
+        },
     })
+
+
+    local ref_gdscui = SMODS.DeckSkins[key].generate_ds_card_ui
+    local ref_hdscui = SMODS.DeckSkins[key].has_ds_card_ui
+    SMODS.DeckSkin:take_ownership(key, {
+        generate_ds_card_ui = function(card, deckskin, palette, info_queue, desc_nodes, specific_vars, full_UI_table)
+            local ref = ref_gdscui(card, deckskin, palette, info_queue, desc_nodes, specific_vars, full_UI_table)
+            if ref then
+                return ref
+            else
+                return credit_function(card, deckskin, palette, info_queue, desc_nodes, specific_vars, full_UI_table)
+            end
+        end,
+        has_ds_card_ui = function(card, deckskin, palette)
+            local ref = ref_hdscui(card, deckskin, palette)
+            if ref then
+                return ref
+            else
+                return credit_function(card, deckskin, palette)
+            end
+        end
+    }, true)
 end
 
 for k, v in pairs(SMODS.DeckSkins) do
@@ -427,7 +478,7 @@ for _, suit in ipairs(suits) do
         colour = color[suit:gsub("^%l", string.upper)],
         suit_icon = {
             atlas = 'csau_suits'
-        }
+        },
     }
     palettes[#palettes+1] = {
         key = 'csau_vineshroom',
@@ -447,7 +498,7 @@ for _, suit in ipairs(suits) do
         colour = color[suit:gsub("^%l", string.upper)],
         suit_icon = {
             atlas = 'csau_suits'
-        }
+        },
     }
 
     palettes[#palettes+1] = {
@@ -469,7 +520,7 @@ for _, suit in ipairs(suits) do
         suit_icon = {
             atlas = 'ui_1',
             pos = 1
-        }
+        },
     }
 
     palettes[#palettes+1] = {
@@ -491,7 +542,7 @@ for _, suit in ipairs(suits) do
         suit_icon = {
             atlas = 'ui_2',
             pos = 1
-        }
+        },
     }
 
     SMODS.DeckSkin{
@@ -502,6 +553,12 @@ for _, suit in ipairs(suits) do
             ['en-us'] = (suit == 'clubs' and "Main Channel") or (suit == 'hearts' and "Extrasauce") or (suit == 'diamonds' and "Fullsauce") or (suit == 'spades' and "Twitch Clips")
         },
         prefix_config = { key = false },
+        generate_ds_card_ui = function(card, deckskin, palette, info_queue, desc_nodes, specific_vars, full_UI_table)
+            return credit_function(card, deckskin, palette, info_queue, desc_nodes, specific_vars, full_UI_table)
+        end,
+        has_ds_card_ui = function(card, deckskin, palette)
+            return credit_function(card, deckskin, palette)
+        end
     }
 
     SMODS.DeckSkin.add_palette(SMODS.DeckSkins['default_'..suit:gsub("^%l", string.upper)], {
@@ -522,7 +579,7 @@ for _, suit in ipairs(suits) do
         colour = color[suit:gsub("^%l", string.upper)],
         suit_icon = {
             atlas = 'csau_suits'
-        }
+        },
     })
 end
 
@@ -546,7 +603,7 @@ for _, suit in ipairs(suits) do
         colour = color[suit:gsub("^%l", string.upper)],
         suit_icon = {
             atlas = 'csau_suits'
-        }
+        },
     }
     if suit == 'hearts' then
         palettes[#palettes+1] = {
@@ -561,7 +618,7 @@ for _, suit in ipairs(suits) do
             colour = HEX('b4665c'),
             suit_icon = {
                 atlas = 'csau_hearts_willo'
-            }
+            },
         }
     end
     palettes[#palettes+1] = {
@@ -583,7 +640,7 @@ for _, suit in ipairs(suits) do
         suit_icon = {
             atlas = 'ui_1',
             pos = 1
-        }
+        },
     }
     palettes[#palettes+1] = {
         key = 'csau_baldef_varg_'..suit.."_hc",
@@ -604,7 +661,7 @@ for _, suit in ipairs(suits) do
         suit_icon = {
             atlas = 'ui_2',
             pos = 1
-        }
+        },
     }
     SMODS.DeckSkin{
         key = "default_varg_"..suit,
@@ -614,6 +671,12 @@ for _, suit in ipairs(suits) do
             ['en-us'] = (suit == 'clubs' and "Main Channel") or (suit == 'hearts' and "Extravarg?") or (suit == 'diamonds' and "Uncut") or (suit == 'spades' and "Twitch Clips")
         },
         prefix_config = { key = false },
+        generate_ds_card_ui = function(card, deckskin, palette, info_queue, desc_nodes, specific_vars, full_UI_table)
+            return credit_function(card, deckskin, palette, info_queue, desc_nodes, specific_vars, full_UI_table)
+        end,
+        has_ds_card_ui = function(card, deckskin, palette)
+            return credit_function(card, deckskin, palette)
+        end
     }
 end
 
@@ -816,7 +879,7 @@ local assemble_character_skins = function(key, suit, name, type)
             colour = color[suit],
             suit_icon = {
                 atlas = 'csau_suits'
-            }
+            },
         }
     }
     if type == 'vine' then
@@ -836,7 +899,7 @@ local assemble_character_skins = function(key, suit, name, type)
             colour = color[suit],
             suit_icon = {
                 atlas = 'csau_suits'
-            }
+            },
         }
     elseif type == "varg" then
         palettes[1].pos_style.Ace = { atlas = 'csau_varg_aces', pos = {x = 0, y = suit_y} }
@@ -865,7 +928,7 @@ local assemble_character_skins = function(key, suit, name, type)
         colour = color[suit],
         suit_icon = {
             atlas = 'csau_suits'
-        }
+        },
     }
 
     if SMODS.Atlases[key.."_1"] and SMODS.Atlases[key.."_2"] then
@@ -876,7 +939,13 @@ local assemble_character_skins = function(key, suit, name, type)
         key = key,
         suit = suit,
         palettes = palettes,
-        loc_txt = name
+        loc_txt = name,
+        generate_ds_card_ui = function(card, deckskin, palette, info_queue, desc_nodes, specific_vars, full_UI_table)
+            return credit_function(card, deckskin, palette, info_queue, desc_nodes, specific_vars, full_UI_table)
+        end,
+        has_ds_card_ui = function(card, deckskin, palette)
+            return credit_function(card, deckskin, palette)
+        end
     }
 end
 

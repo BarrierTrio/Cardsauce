@@ -23,7 +23,8 @@ local chalInfo = {
                 return v.earned
             end
         end
-    end
+    end,
+    button_colour = G.C.GREEN,
 }
 
 return chalInfo
