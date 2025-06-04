@@ -52,4 +52,8 @@ deckInfo.calculate = function(self, back, context)
     end
 end
 
+deckInfo.quip_filter = function(quip, q_type)
+    return (quip and quip.csau_streamer and quip.csau_streamer == 'joel')
+end
+
 return deckInfo

@@ -30,4 +30,8 @@ deckInfo.apply = function(self, back)
     }))
 end
 
+deckInfo.quip_filter = function(quip)
+    return (quip and quip.csau_streamer and quip.csau_streamer == 'joel')
+end
+
 return deckInfo
