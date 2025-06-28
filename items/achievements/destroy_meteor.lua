@@ -1,9 +1,7 @@
 local trophyInfo = {
     rarity = 1,
     unlock_condition = function(self, args)
-        if args.type == "destroy_meteor" then
-            return true
-        end
+        return args.type == 'destroy_meteor'
     end,
 }
 

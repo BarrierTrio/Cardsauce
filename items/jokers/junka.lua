@@ -30,7 +30,8 @@ local jokerInfo = {
 
 function jokerInfo.loc_vars(self, info_queue, card)
     info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.yunkie } }
-    return { vars = { card.ability.extra.x_mult_mod, card.ability.extra.prob_mod, G.FUNCS.csau_add_chance(card.ability.extra.prob_extra, {multiply = true}), card.ability.extra.prob, card.ability.extra.x_mult } }
+    local num, dom = SMODS.get_probability_vars(card, card.ability.extra.prob_extra, card.ability.extra.prob)
+    return { vars = {card.ability.extra.x_mult_mod, card.ability.extra.prob_mod, num, dom, card.ability.extra.x_mult } }
 end
 
 function jokerInfo.locked_loc_vars(self, info_queue, card)
@@ -46,8 +47,10 @@ function jokerInfo.check_for_unlock(self, args)
 end
 
 function jokerInfo.calculate(self, card, context)
-    if context.vhs_death and not context.blueprint then
-        if not card.ability.extra.destroyed and pseudorandom('junka') < G.FUNCS.csau_add_chance(card.ability.extra.prob_extra, {multiply = true}) / card.ability.extra.prob then
+    if card.debuff then return end
+
+    if context.vhs_death and not context.blueprint and not card.ability.extra.destroyed then
+        if SMODS.pseudorandom_probability(card, pseudoseed('csau_junka'), card.ability.extra.prob_extra, card.ability.extra.prob) then
             card.ability.extra.destroyed = true
             G.E_MANAGER:add_event(Event({
                 func = function()
@@ -74,13 +77,11 @@ function jokerInfo.calculate(self, card, context)
             card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize{type = 'variable', key = 'a_xmult', vars = {card.ability.extra.x_mult}}, delay = 0.4 })
         end
     end
-    if context.joker_main and context.cardarea == G.jokers then
-        if to_big(card.ability.extra.x_mult) > to_big(1) then
-            return {
-                message = localize{type='variable',key='a_xmult',vars={card.ability.extra.x_mult}},
-                Xmult_mod = card.ability.extra.x_mult,
-            }
-        end
+
+    if context.joker_main and to_big(card.ability.extra.x_mult) > to_big(1) then
+        return {
+            x_mult = card.ability.extra.x_mult,
+        }
     end
 end
 

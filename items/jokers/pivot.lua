@@ -1,6 +1,10 @@
 local jokerInfo = {
 	name = 'Pivyot Joker',
-	config = {},
+	config = {
+		extra = {
+			chance = 3
+		}
+	},
 	rarity = 1,
 	cost = 5,
 	blueprint_compat = true,
@@ -13,24 +17,21 @@ local jokerInfo = {
 
 function jokerInfo.loc_vars(self, info_queue, card)
 	info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.gote } }
-	return { vars = {G.GAME.probabilities.normal} }
+	return { vars = {SMODS.get_probability_vars(card, 1, card.ability.extra.chance)} }
 end
 
 function jokerInfo.calculate(self, card, context)
-	if context.cardarea == G.jokers and context.before and not self.debuff then
-		if context.scoring_name == "High Card" then
-			if pseudorandom('pivot') < G.GAME.probabilities.normal / 3 then
-				return {
-					card = card,
-					level_up = true,
-					message = localize('k_level_up_ex')
-				}
-			end
-		end
+	if card.debuff then return end
+
+	if context.cardarea == G.jokers and context.before and context.scoring_name == "High Card"
+	and	SMODS.pseudorandom_probability(card, pseudoseed('csau_pivyot'), 1, card.ability.extra.chance) then
+		return {
+			card = card,
+			level_up = true,
+			message = localize('k_level_up_ex')
+		}
 	end
 end
-
-
 
 return jokerInfo
 	
