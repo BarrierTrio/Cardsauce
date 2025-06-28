@@ -9,7 +9,7 @@ local trophyInfo = {
     rarity = 2,
     unlock_condition = function(self, args)
         if args.type == 'modify_jokers' and #G.jokers.cards > 0 then
-            return G.FUNCS.have_multiple_jokers(high_one_jokers, 4)
+            return G.FUNCS.have_multiple_jokers(high_one_jokers, 2)
         end
 
         return false

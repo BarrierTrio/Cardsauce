@@ -19,7 +19,8 @@ local jokerInfo = {
 
 function jokerInfo.loc_vars(self, info_queue, card)
     info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.burlap } }
-    return { vars = { card.ability.extra.money_mod, SMODS.get_probability_vars(card, 1, card.ability.extra.prob), card.ability.extra.money, } }
+    local num, dom = SMODS.get_probability_vars(card, 1, card.ability.extra.prob)
+    return { vars = { card.ability.extra.money_mod, num, dom, card.ability.extra.money } }
 end
 
 function jokerInfo.calculate(self, card, context)
@@ -27,7 +28,7 @@ function jokerInfo.calculate(self, card, context)
 
     if context.before and not context.blueprint then
         card.ability.extra.money = card.ability.extra.money + card.ability.extra.money_mod
-        if to_big(card.ability.extra.money) >= to_big(card.abiltiy.extra.ach_dollars) then
+        if to_big(card.ability.extra.money) >= to_big(card.ability.extra.ach_dollars) then
             check_for_unlock({ type = "high_feature" })
         end
 

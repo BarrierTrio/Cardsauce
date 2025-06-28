@@ -17,7 +17,8 @@ local jokerInfo = {
 
 function jokerInfo.loc_vars(self, info_queue, card)
     info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.wario } }
-    return { vars = {card.ability.extra.chips_mod, SMODS.get_probability_vars(card, 1, card.ability.extra.chance), card.ability.extra.chips} }
+    local num, dom = SMODS.get_probability_vars(card, 1, card.ability.extra.chance)
+    return { vars = {card.ability.extra.chips_mod, num, dom, card.ability.extra.chips} }
 end
 
 function jokerInfo.add_to_deck(self, card, from_debuff)

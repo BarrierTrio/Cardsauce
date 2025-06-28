@@ -20,7 +20,8 @@ local jokerInfo = {
 
 function jokerInfo.loc_vars(self, info_queue, card)
     info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.akai } }
-    return { vars = {SMODS.get_probability_vars(card, 1, card.ability.extra.chance), card.ability.extra.x_mult, card.ability.extra.cardid} }
+    local num, dom = SMODS.get_probability_vars(card, 1, card.ability.extra.chance)
+    return { vars = {num, dom, card.ability.extra.x_mult, card.ability.extra.cardid} }
 end
 
 function jokerInfo.calculate(self, card, context)

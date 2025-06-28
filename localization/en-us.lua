@@ -1801,8 +1801,8 @@ return {
 			j_csau_red = {
 				name = "Why Are You Red?",
 				text = {
-					"{C:green}#1# in #2#{} chance to",
-					"convert all scored cards to {V:1}#3#{}",
+					"{C:green}#1# in #2#{} chance to convert",
+					"all scored cards to {V:1}#3#{}",
 					"{C:attention}after scoring{}",
 				},
 			},

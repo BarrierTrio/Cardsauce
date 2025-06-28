@@ -1,6 +1,6 @@
 local consumInfo = {
     name = 'Gold Experience',
-    set = 'Stand',
+    set = 'csau_Stand',
     config = {
         stand_mask = true,
         aura_colors = { 'fff679DC' , 'f9d652DC' },
@@ -10,7 +10,7 @@ local consumInfo = {
         }
     },
     cost = 4,
-    rarity = 'arrow_StandRarity',
+    rarity = 'csau_StandRarity',
     hasSoul = true,
     part = 'vento',
     blueprint_compat = true
@@ -19,9 +19,10 @@ local consumInfo = {
 function consumInfo.loc_vars(self, info_queue, card)
     info_queue[#info_queue+1] = G.P_CENTERS.m_gold
     info_queue[#info_queue+1] = {key = "artistcredit", set = "Other", vars = { G.jojobal_mod_team.wario } }
-    return { 
-        vars = { 
-            SMODS.get_probability_vars(card, 1, card.ability.extra.prob),
+    local num, dom = SMODS.get_probability_vars(card, 1, card.ability.extra.prob)
+    return {
+        vars = {
+            num, dom,
             localize(G.GAME and G.GAME.wigsaw_suit or "Hearts", 'suits_plural'),
             colours = {
                 G.C.SUITS[G.GAME and G.GAME.wigsaw_suit or "Hearts"]

@@ -33,14 +33,8 @@ local jokerInfo = {
 
 function jokerInfo.loc_vars(self, info_queue, card)
     info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.donk } }
-    return {
-        vars = {
-            card.ability.extra.mult_mod,
-            card.ability.extra.prob_mod,
-            SMODS.get_probability_vars(card, card.ability.extra.prob_extra, card.ability.extra.prob),
-            card.ability.extra.mult,
-        }
-    }
+    local num, dom = SMODS.get_probability_vars(card, card.ability.extra.prob_extra, card.ability.extra.prob)
+    return { vars = { card.ability.extra.mult_mod, card.ability.extra.prob_mod, num, dom, card.ability.extra.mult } }
 end
 
 function jokerInfo.in_pool(self, args)

@@ -30,14 +30,8 @@ local jokerInfo = {
 
 function jokerInfo.loc_vars(self, info_queue, card)
     info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.yunkie } }
-    return { 
-        vars = {
-            card.ability.extra.x_mult_mod,
-            card.ability.extra.prob_mod,
-            SMODS.get_probability_vars(card, card.ability.extra.prob_extra, card.ability.extra.prob),
-            card.ability.extra.x_mult
-        }
-    }
+    local num, dom = SMODS.get_probability_vars(card, card.ability.extra.prob_extra, card.ability.extra.prob)
+    return { vars = {card.ability.extra.x_mult_mod, card.ability.extra.prob_mod, num, dom, card.ability.extra.x_mult } }
 end
 
 function jokerInfo.locked_loc_vars(self, info_queue, card)

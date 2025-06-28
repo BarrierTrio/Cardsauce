@@ -1,6 +1,6 @@
 local consumInfo = {
     name = 'Metallica',
-    set = 'Stand',
+    set = 'csau_Stand',
     config = {
         stand_mask = true,
         aura_colors = { 'F97C87DA', 'CE3749DA' },
@@ -9,7 +9,7 @@ local consumInfo = {
         }
     },
     cost = 4,
-    rarity = 'arrow_StandRarity',
+    rarity = 'csau_StandRarity',
     hasSoul = true,
     blueprint_compat = false,
     part = 'vento',

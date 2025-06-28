@@ -25,7 +25,8 @@ local consumInfo = {
 
 function consumInfo.loc_vars(self, info_queue, card)
     info_queue[#info_queue+1] = {key = "vhs_activation", set = "Other"}
-    return { vars = {  SMODS.get_probability_vars(card, 1, card.ability.extra.prob), card.ability.extra.x_mult, card.ability.extra.runtime-card.ability.extra.uses } }
+    local num, dom = SMODS.get_probability_vars(card, 1, card.ability.extra.prob)
+    return { vars = { num, dom, card.ability.extra.x_mult, card.ability.extra.runtime-card.ability.extra.uses } }
 end
 
 function consumInfo.calculate(self, card, context)

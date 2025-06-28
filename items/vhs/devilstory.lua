@@ -10,7 +10,7 @@ local consumInfo = {
         destroyed = false,
         extra = {
             dollars = 3,
-            runtime = 3,
+            runtime = 10,
             uses = 0,
             ach_enhancement = 'm_gold',
             ach_count = 5
@@ -38,7 +38,7 @@ end
 function consumInfo.calculate(self, card, context)
     if card.debuff or context.blueprint or not card.ability.activated then return end
 
-    if context.before and #context.scoring_hand >= card.abiltiy.extra.ach_count then
+    if context.before and #context.scoring_hand >= card.ability.extra.ach_count then
         local ach = 0
         for _, v in ipairs(context.scoring_hand) do
             local enhancements = SMODS.get_enhancements(v)
@@ -47,7 +47,7 @@ function consumInfo.calculate(self, card, context)
             end
         end
 
-        if ach > card.abiltiy.extra.ach_count then
+        if ach >= card.ability.extra.ach_count then
             check_for_unlock({ type = 'high_horse' })
         end
     end

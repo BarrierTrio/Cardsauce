@@ -1,6 +1,6 @@
 local consumInfo = {
     name = 'Gold Experience Requiem',
-    set = 'Stand',
+    set = 'csau_Stand',
     config = {
         stand_mask = true,
         aura_colors = { '99d3ffDC' , 'd3f5fbDC' },
@@ -10,7 +10,7 @@ local consumInfo = {
         }
     },
     cost = 10,
-    rarity = 'arrow_EvolvedRarity',
+    rarity = 'csau_EvolvedRarity',
     hasSoul = true,
     part = 'vento',
     blueprint_compat = true,
