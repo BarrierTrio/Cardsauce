@@ -1574,7 +1574,7 @@ return {
 			j_csau_pivot = {
 				name = "Pivyot Joker",
 				text = {
-					"{C:green}#1# in 3{} chance to upgrade",
+					"{C:green}#1# in #2#{} chance to upgrade",
 					"level of played {C:attention}High Card{}",
 				},
 			},

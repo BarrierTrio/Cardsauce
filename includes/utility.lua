@@ -587,16 +587,12 @@ end
 G.FUNCS.csau_add_chance = function(num, extra)
 	local multiply = extra and extra.multiply or false
 	local startAtOne = extra and extra.start_at_one or false
-	if G.FUNCS.powers_active and G.FUNCS.powers_active() then
-		return 0
-	else
-		if multiply then
-			if G.GAME.probabilities and G.GAME.probabilities.normal then
-				return ((startAtOne and 1 or 0) + num) * G.GAME.probabilities.normal
-			end
+	if multiply then
+		if G.GAME.probabilities and G.GAME.probabilities.normal then
+			return ((startAtOne and 1 or 0) + num) * G.GAME.probabilities.normal
 		end
-		return (startAtOne and 1 or 0) + num
 	end
+	return (startAtOne and 1 or 0) + num
 end
 
 -- Based on code from Ortalab
