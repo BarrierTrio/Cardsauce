@@ -24,7 +24,7 @@ function jokerInfo.calculate(self, card, context)
 	if card.debuff or not context.bfore then return end
 
 	for _, v in ipairs(context.full_hand) do
-		if not SMODS.in_scoring(v, context.scoring_hand) and SMODS.pseudorandom_probability(G.GAME.blind, pseudoseed('csau_depressed'), 1, card.ability.extra.prob) then
+		if not SMODS.in_scoring(v, context.scoring_hand) and SMODS.pseudorandom_probability(card, pseudoseed('csau_depressed'), 1, card.ability.extra.prob) then
 			v.ability.perma_mult = (v.ability.perma_mult or 0) + card.ability.extra.mult_mod
 			card_eval_status_text(v, 'extra', nil, nil, nil, {
 				message = localize('k_upgrade_ex'),

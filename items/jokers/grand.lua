@@ -35,7 +35,7 @@ function jokerInfo.calculate(self, card, context)
             end
         end
 
-        if trigger and SMODS.pseudorandom_probability(G.GAME.blind, pseudoseed('csau_grand'), 1, card.ability.extra.chance) then
+        if trigger and SMODS.pseudorandom_probability(card, pseudoseed('csau_grand'), 1, card.ability.extra.chance) then
             return {
                 message = localize{type='variable',key='a_xmult',vars={to_big(card.ability.extra.x_mult)}},
                 Xmult_mod = card.ability.extra.x_mult,

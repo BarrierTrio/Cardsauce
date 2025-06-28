@@ -25,7 +25,7 @@ function jokerInfo.calculate(self, card, context)
         context.other_card['agga_retrigger_count'..card.ID] = (context.other_card['agga_retrigger_count'..card.ID] and context.other_card['agga_retrigger_count'..card.ID] + 1) or 0
 
         if context.other_card['agga_retrigger_count'..card.ID] > 0 then
-            if card.ability.extra.x_mult > 1 and SMODS.pseudorandom_probability(G.GAME.blind, pseudoseed('csau_agga'), 1, card.ability.extra.prob) then
+            if card.ability.extra.x_mult > 1 and SMODS.pseudorandom_probability(card, pseudoseed('csau_agga'), 1, card.ability.extra.prob) then
                 if card.ability.extra.x_mult >= 3 then
                     check_for_unlock({ type = "high_agga" })
                 end

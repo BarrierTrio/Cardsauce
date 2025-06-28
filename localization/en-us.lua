@@ -2511,10 +2511,10 @@ return {
 			j_csau_junka = {
 				name = "Black Spine Junka",
 				text = {
-					"Gains {X:mult,C:white} X#1# {} Mult, {C:green}+#2#{} chance, and has a",
-					"{C:green}#3# in #4#{} chance to {C:red}self destruct{}",
+					"Gains {X:mult,C:white}X#1#{} Mult, {C:green}+#2#{} chance, and has a",
+					"{C:green}#3# in #4#{} chance to {C:red,E:1}self destruct{}",
 					"each time a {C:vhs}VHS Tape{} finishes",
-					"{C:inactive}(Currently {}{X:mult,C:white} X#5# {}{C:inactive} Mult{}{C:inactive}){}",
+					"{C:inactive}(Currently {}{X:mult,C:white X#5#{}{C:inactive} Mult{}{C:inactive}){}",
 				},
 				unlock = {
 					"Discover {E:1,C:attention}#1#{} {E:1,C:vhs}VHS Tapes",
@@ -2592,7 +2592,7 @@ return {
 			j_csau_expiredmeds = {
 				name = "Expired Medicine",
 				text = {
-					"When {C:attention}sold{} reappears in the",
+					"When {C:attention}sold{}, reappears in the",
 					"next shop with {C:chips}+#1#{} Chips",
 					"{C:green}#2# in #3#{} chance to {C:attention}reset{} instead",
 					"{C:inactive}(Currently {}{C:chips}+#4#{}{C:inactive} Chips{}{C:inactive}){}",
@@ -3071,8 +3071,8 @@ return {
 			c_csau_vento_gold = {
 				name = "Gold Experience",
 				text = {
-					"{C:green}#1# in #2#{} chance for scored {V:1}#3#{}",
-					"to become {C:attention}Gold Cards{}",
+					"{C:green}#1# in #2#{} chance for scored",
+					"{V:1}#3#{} to become {C:attention}Gold Cards{}",
 					"{s:0.1} {}",
 					"{C:stand}Evolves{} after using {C:tarot}The Arrow{}",
 				},
@@ -3080,9 +3080,8 @@ return {
 			c_csau_vento_gold_requiem = {
 				name = "Gold Experience Requiem",
 				text = {
-					"{C:green}#1# in #2#{} chance to {C:planet}level up{} played {C:attention}poker hand{}",
-					"{s:0.1} {}",
-					"Each scoring {C:attention}Gold Card{} increases odds by {C:green}#3#{}",
+					"{C:green}#1# in #2#{} chance per scoring {C:attention}Gold Card{}",
+					"to {C:planet}level up{} played {C:attention}poker hand{}",
 				},
 			},
 			c_csau_vento_moody = {

@@ -584,17 +584,6 @@ G.FUNCS.csau_all_suit = function(hand, suit)
 	return true
 end
 
-G.FUNCS.csau_add_chance = function(num, extra)
-	local multiply = extra and extra.multiply or false
-	local startAtOne = extra and extra.start_at_one or false
-	if multiply then
-		if G.GAME.probabilities and G.GAME.probabilities.normal then
-			return ((startAtOne and 1 or 0) + num) * G.GAME.probabilities.normal
-		end
-	end
-	return (startAtOne and 1 or 0) + num
-end
-
 -- Based on code from Ortalab
 --- Replaces a card in-place with a card of the specified key
 --- @param card Card Balatro card table of the card to replace
@@ -1108,9 +1097,17 @@ G.FUNCS.find_activated_tape = function(key)
 	return false
 end
 
-SMODS.food_expires = function(context)
-	if next(SMODS.find_card('j_csau_bunji')) then return false end
-	return true
+SMODS.food_expires = function()
+	local bunjis = SMODS.find_card('j_csau_bunji')
+	local expires = true
+	for _, v in ipairs(bunjis) do
+		if not v.debuff then
+			expires = true
+			break
+		end
+	end
+
+	return expires
 end
 
 SMODS.return_to_hand = function(card, context)
