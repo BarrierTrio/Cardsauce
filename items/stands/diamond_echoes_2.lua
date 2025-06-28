@@ -67,10 +67,6 @@ local get_first_non_matching = function(suit, hand)
     return nil
 end
 
-function consumInfo.on_evolve(self, old_stand, new_stand)
-    sendDebugMessage('hello')
-end
-
 function consumInfo.calculate(self, card, context)
     local bad_context = context.repetition or context.blueprint or context.individual or context.retrigger_joker
     if context.before and not card.debuff and not bad_context then

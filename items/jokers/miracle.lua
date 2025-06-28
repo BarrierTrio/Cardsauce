@@ -56,38 +56,49 @@ function jokerInfo.calculate(self, card, context)
 				end
 
 				local miracle_center = 'c_base'
-				if SMODS.pseudorandom_probability(card, pseudoseed('csau_miracle_enhance'), 1, card.ability.extra.chance) then
-					miracle_center = pseudorandom_element(pair_enhancements, pseudoseed('csau_miracle_enhancements'))
+				if #pair_enhancements > 0 and SMODS.pseudorandom_probability(card, pseudoseed('csau_miracle_enhance'), 1, card.ability.extra.chance) then
+					miracle_center = #pair_enhancements == 1 and pair_enhancements[1] or pseudorandom_element(pair_enhancements, pseudoseed('csau_miracle_enhancements'))
 				end
 
-				local new_card = create_playing_card(
-					{
-						front = G.P_CARDS[pseudorandom_element(filtered_cards, pseudoseed('csau_miracle_card'))],
-						center = G.P_CENTERS[miracle_center]
-					},
-					G.hand,
-					nil,
-					#new_cards == 0,
-					{G.C.SECONDARY_SET.Enhanced}
-				)
-				new_cards[#new_cards+1] = new_card
-
+				local seal = nil
 				if #pair_seals > 0 and SMODS.pseudorandom_probability(card, pseudoseed('csau_miracle_seal_1'), 1, card.ability.extra.chance) then
 					check_for_unlock({ type = "miracle_inherit" })
-					new_card:set_seal(pseudorandom_element(pair_seals, pseudoseed('csau_miracle_seal_2')), true)
+					seal = #pair_seals == 1 and pair_seals[1] or pseudorandom_element(pair_seals, pseudoseed('csau_miracle_seal_2'))
 				end
 
+				local edition = nil
 				if #pair_editions > 0 and SMODS.pseudorandom_probability(card, pseudoseed('csau_miracle_edition_1'), 1, card.ability.extra.chance) then
 					check_for_unlock({ type = "miracle_inherit" })
-					new_card:set_edition({[pseudorandom_element(pair_editions, pseudoseed('csau_miracle_edition_2'))] = true}, true, true)
+					edition = #pair_editions == 1 and pair_editions[1] or pseudorandom_element(pair_editions, pseudoseed('csau_miracle_edition_2'))
 				end
+
+				local new_card = SMODS.add_card({
+					set = 'Enhanced',
+					enhancement = miracle_center,
+					key = miracle_center,
+					front = pseudorandom_element(filtered_cards, pseudoseed('csau_miracle_card')),
+					skip_materialize = true,
+					edition = edition,
+					seal = seal
+				})
+				new_cards[#new_cards+1] = new_card
+
+				new_card.states.visible = nil
+				G.E_MANAGER:add_event(Event({
+					trigger = 'after',
+					func = function()
+						new_card:start_materialize()
+						return true
+					end
+				}))
+				delay(0.2)
 			end
 		end
 
 		playing_card_joker_effects(new_cards)
 
 		return {
-			message = {type = 'variable', key = 'a_plus_card', vars = {#new_cards}},
+			message = localize{type = 'variable', key = 'a_plus_card', vars = {#new_cards}},
 			colour = G.C.IMPORTANT,
 		}
 	end

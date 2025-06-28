@@ -72,10 +72,8 @@ function G.FUNCS.ach_vineshroom_check()
 end
 
 G.FUNCS.reset_trophies = function(e)
-	sendDebugMessage('resetting trophies')
 	local warning_text = e.UIBox:get_UIE_by_ID('warn')
 	if warning_text.config.colour ~= G.C.WHITE then
-		sendDebugMessage('warning')
 		warning_text:juice_up()
 		warning_text.config.colour = G.C.WHITE
 		warning_text.config.shadow = true
@@ -86,12 +84,9 @@ G.FUNCS.reset_trophies = function(e)
 			e.config.disable_button = nil;return true end}))
 		play_sound('tarot2', 1, 0.4)
 	else
-		sendDebugMessage('starting wipe')
 		G.FUNCS.wipe_on()
 		for k, v in pairs(SMODS.Achievements) do
-			sendDebugMessage('found achievement')
 			if starts_with(k, 'ach_csau_') then
-				sendDebugMessage('resetting achievement')
 				G.SETTINGS.ACHIEVEMENTS_EARNED[k] = nil
 				G.ACHIEVEMENTS[k].earned = nil
 			end
