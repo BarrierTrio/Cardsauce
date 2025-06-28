@@ -427,8 +427,6 @@ return {
 			k_aced = "Aced!",
 			k_twoed = "Twoed!",
 			k_twoed_aced = "Two-Aced!",
-			k_plus_one = "+1 ",
-			k_plus_one_card = "+1 Card",
 			k_plus_two = "+2 ",
 			k_child = "Child",
 			k_plus_judge = "+1 Judgement",
@@ -554,6 +552,7 @@ return {
 		v_dictionary = {
 			a_plus_discard = "+#1# Discard",
 			a_plus_hand = "+#1# Hand",
+			a_plus_card = "+#1# Cards",
 			a_red = "#1#!!!",
 			a_duane = "#1#!",
 			a_chance = "#1# in #2#",
@@ -745,7 +744,7 @@ return {
 			ach_csau_high_feature = "Have IT'S A FEATURE pay out $50 or more",
 			ach_csau_high_muppet = "Get Movin' Right Along to X4 Mult",
 			ach_csau_high_supper = "Proc WAAUGGHGHHHHGHH 10 times in one hand",
-			ach_csau_high_horse = "Put Gold Seals on 5 Gold Cards at once with Devil Story",
+			ach_csau_high_horse = "Play a hand of 5 scoring Gold Cards while Devil Story is playing",
 			ach_csau_play_flushfib = "Play a Flush Fibonacci",
 			ach_csau_play_flushblackjack = "Play a Flush Blackjack",
 			ach_csau_preserve_gros = "Use Scourge of Pantsylvania to preserve Gros Michel",
@@ -760,7 +759,7 @@ return {
 			ach_csau_activate_quixotic = "Use a Quixotic Card",
 			ach_csau_activate_roche = "Receive a gift from Motorcyclist Joker",
 			ach_csau_fuckingkill_jimbo = "Fucking kill Jimbo",
-			ach_csau_high_one = "Have 2 High Card enhancing Jokers in your Joker slots",
+			ach_csau_high_one = "Have 2 unique High Card enhancing Jokers in your Joker slots",
 			ach_csau_miracle_inherit = "Use Miracle of Life to create a child that inherits an Enhancement, Seal, or Edition",
 			ach_csau_reno_colors = "Set the title screen colors to black and red",
 			ach_csau_skin_vineshroom = "Customize your deck to use the Classic Vineshroom for the Ace of Clubs",
@@ -1488,8 +1487,8 @@ return {
 			j_csau_maskedjoker = {
 				name = "Masked Joker",
 				text = {
-					"If played hand is all",
-					"{C:attention}Steel Cards{}, each gives",
+					"If played hand is all {C:attention}Steel Cards{},",
+					"each {C:attention}scoring{} card gives",
 					"{C:chips}+#1#{} Chips and {C:mult}+#2#{} Mult",
 				},
 			},
@@ -1734,8 +1733,8 @@ return {
 			j_csau_miracle = {
 				name = "Miracle of Life",
 				text = {
-                    "{C:green}#1# in 2{} chance to add",
-                    "a new {C:attention}playing card to",
+                    "{C:green}#1# in #2#{} chance to add",
+                    "a new {C:attention}playing card{} to",
                     "your hand for every",
                     "{C:attention}Pair{} in played hand",
                 },
@@ -1844,8 +1843,8 @@ return {
 				text = {
 					"If {C:attention}first hand{} of round contains",
 					"only {C:attention}face cards{}, earn {C:money}$#1#{} and",
-					"{C:green}#2# in 3{} chance to destroy",
-					"{C:attention}#3#{} random card in {C:attention}played hand{}"
+					"{C:green}#2# in #3#{} chance to destroy",
+					"{C:attention}#4#{} random card in {C:attention}played hand{}"
 				},
 			},
 			j_csau_muppet = {
@@ -2298,8 +2297,8 @@ return {
 			j_csau_plaguewalker = {
 				name = "Plaguewalker",
 				text = {
-					"{C:attention}Glass Cards{} have {X:mult,C:white} X3 {} Mult",
-					"and {C:green}#1# in 2{} chance to break"
+					"{C:attention}Glass Cards{} have {X:mult,C:white}X#1#{} Mult",
+					"and {C:green}#2# in #3#{} chance to break"
 				},
 			},
 			j_csau_skeletor = {

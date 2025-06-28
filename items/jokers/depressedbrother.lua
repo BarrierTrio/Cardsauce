@@ -17,22 +17,22 @@ local jokerInfo = {
 
 function jokerInfo.loc_vars(self, info_queue, card)
 	info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.cejai } }
-	return { vars = {G.GAME.probabilities.normal, card.ability.extra.prob, card.ability.extra.mult_mod } }
+	return { vars = {SMODS.get_probability_vars(card, 1, card.ability.extra.prob), card.ability.extra.mult_mod } }
 end
 
 function jokerInfo.calculate(self, card, context)
-	local bad_context = context.repetition or context.individual or context.blueprint
-	if context.cardarea == G.jokers and context.before and not card.debuff and not bad_context then
-		local proc = false
-		for i, v in ipairs(context.full_hand) do
-			if not table.contains(context.scoring_hand, v) then
-				if pseudorandom('soak') < G.GAME.probabilities.normal / card.ability.extra.prob then
-					proc = true
-					v.ability.perma_mult = v.ability.perma_mult or 0
-					v.ability.perma_mult = v.ability.perma_mult + card.ability.extra.mult_mod
-					card_eval_status_text(v, 'extra', nil, nil, nil, {message = localize('k_upgrade_ex'), colour = G.C.MULT, func = function() card:juice_up() end})
+	if card.debuff or not context.bfore then return end
+
+	for _, v in ipairs(context.full_hand) do
+		if not SMODS.in_scoring(v, context.scoring_hand) and SMODS.pseudorandom_probability(G.GAME.blind, pseudoseed('csau_depressed'), 1, card.ability.extra.prob) then
+			v.ability.perma_mult = (v.ability.perma_mult or 0) + card.ability.extra.mult_mod
+			card_eval_status_text(v, 'extra', nil, nil, nil, {
+				message = localize('k_upgrade_ex'),
+				colour = G.C.MULT,
+				func = function() 
+					card:juice_up()
 				end
-			end
+			})
 		end
 	end
 end

@@ -1,6 +1,10 @@
 local jokerInfo = {
 	name = 'Miracle of Life',
-	config = {},
+	config = {
+		extra = {
+			chance = 2
+		}
+	},
 	rarity = 2,
 	cost = 6,
 	blueprint_compat = true,
@@ -11,119 +15,81 @@ local jokerInfo = {
 
 function jokerInfo.loc_vars(self, info_queue, card)
 	info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.fenix } }
-	return { vars = {G.GAME.probabilities.normal} }
+	return { vars = {SMODS.get_probability_vars(card, 1, card.ability.extra.chance)} }
 end
 
 function jokerInfo.calculate(self, card, context)
-	if context.cardarea == G.jokers and context.before and not card.debuff then
-		if next(context.poker_hands["Pair"]) then
-			local id_count = {}
-			local pair_count = 0
-			local pairs_list = {}
+	if card.debuff then return end
 
-			for k, v in ipairs(context.scoring_hand) do
-				local id = v:get_id()
-
-				if not id_count[id] then
-					id_count[id] = {count = 0, items = {}}
-				end
-				id_count[id].count = id_count[id].count + 1
-				table.insert(id_count[id].items, v)
-			end
-
-			for id, data in pairs(id_count) do
-				local num_pairs = math.floor(data.count / 2)
-				pair_count = pair_count + num_pairs
-
-				for i = 1, num_pairs do
-					table.insert(pairs_list, {data.items[2 * i - 1], data.items[2 * i]})
-				end
-			end
-			local counter = 0
-			for i, pair in ipairs(pairs_list) do
-				local item1 = pair[1]
-				local item2 = pair[2]
-				local items = {item1, item2}
-
+	if context.cardarea == G.jokers and context.before and next(context.poker_hands['Pair']) then
+		local new_cards = {}
+		for _, pair in ipairs(context.poker_hands['Pair']) do
+			if SMODS.pseudorandom_probability(card, pseudoseed('csau_miracle'), 1, card.ability.extra.chance) then
 				local pair_suits = {}
-				local pair_effects = {}
+				local pair_enhancements = {}
 				local pair_seals = {}
 				local pair_editions = {}
 
-				for _i, item in ipairs(items) do
-					table.insert(pair_suits, item.base.suit)
-					table.insert(pair_effects, item.ability.effect)
+				for _, item in ipairs({pair[1], pair[2]}) do
+					pair_suits[SMODS.Suits[item.base.suit].card_key] = true
+
+					if item.config.center.key ~= 'c_base' then
+						table.insert(pair_enhancements, item.config.center.key)
+					end
+					
 					if item.seal then
 						table.insert(pair_seals, item.seal)
 					end
+
 					if item.edition then
 						table.insert(pair_editions, item.edition.type)
 					end
 				end
-				if pseudorandom('miracle') < G.GAME.probabilities.normal / 2 then
-					counter = counter + 1
-					local filtered_cards = {}
-					for k, v in pairs(G.P_CARDS) do
-						if string.find(v.name, pair_suits[1]) or string.find(v.name, pair_suits[2]) then
-							table.insert(filtered_cards, k)
-						end
+
+				local filtered_cards = {}
+
+				for k, _ in pairs(G.P_CARDS) do
+					local suit_key = string.sub(k, 1, 1)
+					if pair_suits[suit_key] then
+						table.insert(filtered_cards, k)
 					end
-					local _card = create_playing_card({front = G.P_CARDS[pseudorandom_element(filtered_cards, pseudoseed('miracle_card'))], center = G.P_CENTERS.c_base}, G.hand, nil, nil, {G.C.SECONDARY_SET.Enhanced})
-					if pseudorandom('miracle_eff') < G.GAME.probabilities.normal / 2 then
-						local rand_eff = pseudorandom_element(pair_effects, pseudoseed('miracle_effects'))
-						if rand_eff ~= "Base" then
-							check_for_unlock({ type = "miracle_inherit" })
-							if rand_eff == "Bonus" then
-								_card:set_ability(G.P_CENTERS.m_bonus, nil, false)
-							elseif rand_eff == "Mult" then
-								_card:set_ability(G.P_CENTERS.m_mult, nil, false)
-							elseif rand_eff == "Wild Card" then
-								_card:set_ability(G.P_CENTERS.m_wild, nil, false)
-							elseif rand_eff == "Glass Card" then
-								_card:set_ability(G.P_CENTERS.m_glass, nil, false)
-							elseif rand_eff == "Steel Card" then
-								_card:set_ability(G.P_CENTERS.m_steel, nil, false)
-							elseif rand_eff == "Stone Card" then
-								_card:set_ability(G.P_CENTERS.m_stone, nil, false)
-							elseif rand_eff == "Gold Card" then
-								_card:set_ability(G.P_CENTERS.m_gold, nil, false)
-							elseif rand_eff == "Lucky Card" then
-								_card:set_ability(G.P_CENTERS.m_lucky, nil, false)
-							end
-						end
-						_card:juice_up()
-					end
-					if #pair_seals > 0 then
-						if pseudorandom('miracle_s') < G.GAME.probabilities.normal / 2 then
-							check_for_unlock({ type = "miracle_inherit" })
-							local rand_seal = pseudorandom_element(pair_seals, pseudoseed('miracle_seals'))
-							_card:set_seal(rand_seal, true)
-						end
-					end
-					if #pair_editions > 0 then
-						if pseudorandom('miracle_e') < G.GAME.probabilities.normal / 2 then
-							check_for_unlock({ type = "miracle_inherit" })
-							local rand_edition = pseudorandom_element(pair_editions, pseudoseed('miracle_editions'))
-							if rand_edition == "foil" then
-								_card:set_edition({foil = true}, true, true)
-							elseif rand_edition == "holo" then
-								_card:set_edition({holo = true}, true, true)
-							elseif rand_edition == "polychrome" then
-								_card:set_edition({polychrome = true}, true, true)
-							end
-						end
-					end
-					G.GAME.blind:debuff_card(_card)
-					G.hand:sort()
-					if context.blueprint_card then context.blueprint_card:juice_up() else card:juice_up() end
+				end
+
+				local miracle_center = 'c_base'
+				if SMODS.pseudorandom_probability(card, pseudoseed('csau_miracle_enhance'), 1, card.ability.extra.chance) then
+					miracle_center = pseudorandom_element(pair_enhancements, pseudoseed('csau_miracle_enhancements'))
+				end
+
+				local new_card = create_playing_card(
+					{
+						front = G.P_CARDS[pseudorandom_element(filtered_cards, pseudoseed('csau_miracle_card'))],
+						center = G.P_CENTERS[miracle_center]
+					},
+					G.hand,
+					nil,
+					#new_cards == 0,
+					{G.C.SECONDARY_SET.Enhanced}
+				)
+				new_cards[#new_cards+1] = new_card
+
+				if #pair_seals > 0 and SMODS.pseudorandom_probability(card, pseudoseed('csau_miracle_seal_1'), 1, card.ability.extra.chance) then
+					check_for_unlock({ type = "miracle_inherit" })
+					new_card:set_seal(pseudorandom_element(pair_seals, pseudoseed('csau_miracle_seal_2')), true)
+				end
+
+				if #pair_editions > 0 and SMODS.pseudorandom_probability(card, pseudoseed('csau_miracle_edition_1'), 1, card.ability.extra.chance) then
+					check_for_unlock({ type = "miracle_inherit" })
+					new_card:set_edition({[pseudorandom_element(pair_editions, pseudoseed('csau_miracle_edition_2'))] = true}, true, true)
 				end
 			end
-			if counter == 1 then
-				card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('k_plus_one')..localize('k_child'), colour = G.C.IMPORTANT})
-			elseif counter == 2 then
-				card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('k_plus_two')..localize('k_child'), colour = G.C.IMPORTANT})
-			end
 		end
+
+		playing_card_joker_effects(new_cards)
+
+		return {
+			message = {type = 'variable', key = 'a_plus_card', vars = {#new_cards}},
+			colour = G.C.IMPORTANT,
+		}
 	end
 end
 
