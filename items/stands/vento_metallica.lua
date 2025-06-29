@@ -41,7 +41,7 @@ function consumInfo.calculate(self, card, context)
         if transformed > 0 then
             return {
                 func = function()
-                    G.FUNCS.flare_stand_aura(card, 0.50)
+                    G.FUNCS.csau_flare_stand_aura(card, 0.50)
                 end,
                 extra = {
                     message = localize('k_metal'),
@@ -61,7 +61,7 @@ function consumInfo.calculate(self, card, context)
 
     if context.individual and context.cardarea == G.play and not card.debuff and not context.repetition then
         if context.other_card.config.center.key == 'm_steel'and context.other_card.base.value == 'Jack' then
-            G.FUNCS.flare_stand_aura(card, 0.50)
+            G.FUNCS.csau_flare_stand_aura(card, 0.50)
         end
     end
 end
