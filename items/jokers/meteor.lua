@@ -26,7 +26,7 @@ function jokerInfo.check_for_unlock(self, args)
 end
 
 function jokerInfo.calculate(self, card, context)
-    if context.check_enhancement and context.other_card:get_id() == card.ability.extra.id and not context.other_card.config.center.key == 'm_glass' then
+    if context.check_enhancement and context.other_card.base.value == card.ability.extra.id and not context.other_card.config.center.key == 'm_glass' then
         return {
             ['m_glass'] = true
         }
@@ -35,7 +35,7 @@ function jokerInfo.calculate(self, card, context)
     if context.remove_playing_cards then
         local tally = 0
         for _, v in ipairs(context.removed) do
-            if v:get_id() == card.ability.extra.id and not v.config.center.key == 'm_glass' then
+            if v.base.value == card.ability.extra.id and not v.config.center.key == 'm_glass' then
                 tally = tally + 1
             end
         end

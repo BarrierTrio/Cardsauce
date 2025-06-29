@@ -556,7 +556,8 @@ return {
 			a_red = "#1#!!!",
 			a_duane = "#1#!",
 			a_chance = "#1# in #2#",
-			a_outlaw_debuffs = "All #1# debuffed!"
+			a_outlaw_debuffs = "All #1# debuffed!",
+			a_multilevel = "Level Up X#1#!",
 		},
 		challenge_names = {
 			c_csau_tucker = "Tucker's Challenge",
