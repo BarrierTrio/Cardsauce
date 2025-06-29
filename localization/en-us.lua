@@ -2797,7 +2797,7 @@ return {
 				text = {
 					"While {C:attention}playing{}, each played {C:attention}Enhanced{} card",
 					"gives {C:money}$#1#{} when scored",
-					"{C:vhs}Running Time{}: {C:attention}#2#{} Hands"
+					"{C:vhs}Running Time{}: {C:attention}#2#{} Cards"
 				},
 			},
 			c_csau_rentafriend = {

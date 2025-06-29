@@ -37,7 +37,9 @@ function jokerInfo.calculate(self, card, context)
         }
     end
 
-    if context.destroy_card and not context.blueprint and SMODS.pseudorandom_probability(card, pseudoseed('csau_monkey'), 1, card.ability.extra.prob) then
+    if context.blueprint then return end
+
+    if context.destroy_card and context.cardarea == G.play and SMODS.pseudorandom_probability(card, pseudoseed('csau_monkey'), 1, card.ability.extra.prob) then
         return {
             remove = true
         }
