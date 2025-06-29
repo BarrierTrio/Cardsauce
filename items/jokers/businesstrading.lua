@@ -67,7 +67,7 @@ function jokerInfo.calculate(self, card, context)
     end
 
     if context.end_of_round and not context.individual and not context.repetition then
-        card.ability.csau_business_activated = nil
+        card.ability.csau_business_activated = {}
     end
 end
 
