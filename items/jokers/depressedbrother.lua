@@ -22,7 +22,7 @@ function jokerInfo.loc_vars(self, info_queue, card)
 end
 
 function jokerInfo.calculate(self, card, context)
-	if card.debuff or not context.bfore then return end
+	if card.debuff or not context.before then return end
 
 	for _, v in ipairs(context.full_hand) do
 		if not SMODS.in_scoring(v, context.scoring_hand) and SMODS.pseudorandom_probability(card, pseudoseed('csau_depressed'), 1, card.ability.extra.prob) then
