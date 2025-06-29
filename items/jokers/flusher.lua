@@ -3,7 +3,7 @@ local jokerInfo = {
     config = {
         extra = {
             prob = 5,
-            prob_extra = 0,
+            prob_extra = 1,
             prob_mod = 1,
         },
     },
@@ -46,7 +46,7 @@ function jokerInfo.calculate(self, card, context)
     end
 
     if context.end_of_round and to_big(card.ability.extra.prob_extra) > to_big(0) then
-        card.ability.extra.prob_extra = 0
+        card.ability.extra.prob_extra = 1
         return {
             message = localize('k_reset'),
             colour = G.C.GREEN
