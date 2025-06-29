@@ -54,7 +54,7 @@ function consumInfo.calculate(self, card, context)
             local flare_card = context.blueprint_card or card
             return {
                 func = function()
-                    G.FUNCS.flare_stand_aura(flare_card, 0.50)
+                    G.FUNCS.csau_flare_stand_aura(flare_card, 0.50)
                 end,
                 extra = {
                     card = flare_card,
