@@ -7,6 +7,7 @@ local jokerInfo = {
             chance = 3,
             destroyed = {},
         },
+        csau_business_activated = {}
     },
     rarity = 1,
     cost = 6,
