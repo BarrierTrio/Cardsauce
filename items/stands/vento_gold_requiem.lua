@@ -18,7 +18,7 @@ local consumInfo = {
 
 function consumInfo.loc_vars(self, info_queue, card)
     info_queue[#info_queue+1] = G.P_CENTERS.m_gold
-    info_queue[#info_queue+1] = {key = "artistcredit_2", set = "Other", vars = { G.jojobal_mod_team.reda, G.jojobal_mod_team.wario } }
+    info_queue[#info_queue+1] = {key = "artistcredit_2", set = "Other", vars = { G.csau_team.reda, G.csau_team.wario } }
     return { vars = { SMODS.get_probability_vars(card, 1, card.ability.extra.chance) }}
 end
 
