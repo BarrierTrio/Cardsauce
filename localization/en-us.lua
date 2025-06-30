@@ -492,7 +492,8 @@ return {
 			k_vhs_fin = "Fin!",
 			k_outlaw_default = "Debuffs all ranks scored last hand",
 			k_ufo_alert = "Nothing to abduct!",
-			b_planet_card="Planet Card",
+			b_planet_card = "Planet Card",
+			k_survived = 'Survived!',
 
 
 			-- badge titles
@@ -1703,12 +1704,11 @@ return {
 			j_csau_wingsoftime = {
 				name = "Wings of Time",
 				text = {
-                    "Prevents Death if chips",
-                    "scored are at least {C:attention}23%",
-                    "of required chips and",
-					"reverts to Ante {C:attention}1",
-					"lose all {C:money}money{} and all",
-					"hands drop to {C:planet}Level 1{}",
+                    "If chips scored are at least",
+                    "{C:attention}23%{} of required chips, prevents",
+                    "{C:red,E:1}death{}, then sets {C:attention}Ante{} to {C:attention}1{},",
+					"sets {C:attention}Money{} to {C:money}$0{}, and sets all",
+					"{C:attention}Poker Hands{} to {C:planet}Level 1{}",
                     "{S:1.1,C:red,E:2}self destructs{}",
                 },
 				unlock = {
@@ -2960,8 +2960,8 @@ return {
 				text = {
 					"While {C:attention}playing{}, scoring cards give",
 					"{X:mult,C:white}X#1#{} and add {C:green}+#2#{} chance to this Tape",
-					"When completely used, you {C:attention}die",
-					"When sold, {C:green}#3# in #4#{} chance to {C:attention}die",
+					"When completely used, you {C:red,E:1}die{}",
+					"When sold, {C:green}#3# in #4#{} chance to {C:red,E:1}die{}",
 					"{C:vhs}Running Time{}: {C:attention}#5#{} cards"
 				},
 			},
