@@ -9,7 +9,7 @@ local consumInfo = {
         activated = false,
         destroyed = false,
         extra = {
-            runtime = 2,
+            runtime = 6,
             uses = 0,
         }
     },
@@ -26,11 +26,19 @@ function consumInfo.loc_vars(self, info_queue, card)
 end
 
 function consumInfo.calculate(self, card, context)
-    if context.using_consumeable and context.consumeable.config.center.key == 'c_wheel' then
+    if context.using_consumeable and context.consumeable.config.center.key == 'c_wheel_of_fortune' then
         card.ability.extra.uses = card.ability.extra.uses+1
         if to_big(card.ability.extra.uses) >= to_big(card.ability.extra.runtime) then
             G.FUNCS.destroy_tape(card)
             card.ability.destroyed = true
+        else
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    card:juice_up()
+                    play_sound('generic1')
+                    return true
+                end
+            }))
         end
     end
 end

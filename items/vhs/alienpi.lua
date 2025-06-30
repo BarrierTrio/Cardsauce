@@ -36,10 +36,8 @@ function consumInfo.calculate(self, card, context)
     if card.debuff then return end
 
     if card.ability.activated and context.individual and context.cardarea == G.play then
-        card.ability.extra.uses = card.ability.extra.uses + 1
-        if to_big(card.ability.extra.uses) >= to_big(card.ability.extra.runtime) then
-            G.STATE = G.STATES.GAME_OVER
-        else
+        card.ability.extra.uses = math.min(card.ability.extra.runtime, card.ability.extra.uses + 1)
+        if to_big(card.ability.extra.uses) < to_big(card.ability.extra.runtime) then
             card.ability.extra.chance = card.ability.extra.chance + 1
             return {
                 x_mult = card.ability.extra.x_mult,
@@ -48,8 +46,30 @@ function consumInfo.calculate(self, card, context)
         end
     end
 
+    if context.after and to_big(card.ability.extra.uses) >= to_big(card.ability.extra.runtime) then
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                G.STATE = G.STATES.GAME_OVER
+                G.PROFILES[G.SETTINGS.profile].high_scores.current_streak.amt = 0
+                G:save_settings()
+                G.FILE_HANDLER.force = true
+                G.STATE_COMPLETE = false
+                return true
+            end
+        }))
+    end
+
     if context.selling_self and SMODS.pseudorandom_probability(card, pseudoseed('csau_alienpi'), card.ability.extra.chance, card.ability.extra.rate) then
-        G.STATE = G.STATES.GAME_OVER
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                G.STATE = G.STATES.GAME_OVER
+                G.PROFILES[G.SETTINGS.profile].high_scores.current_streak.amt = 0
+                G:save_settings()
+                G.FILE_HANDLER.force = true
+                G.STATE_COMPLETE = false
+                return true
+            end
+        }))
     end
 end
 

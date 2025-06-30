@@ -84,10 +84,38 @@ match_indent = true
 [[patches]]
 [patches.pattern]
 target = "card.lua"
-pattern = "if my_pos and G.jokers.cards[my_pos+1] and not self.getting_sliced and not G.jokers.cards[my_pos+1].ability.eternal and not G.jokers.cards[my_pos+1].getting_sliced then "
+pattern = '''sliced_card.getting_sliced = true
+G.GAME.joker_buffer = G.GAME.joker_buffer - 1'''
 position = "at"
-payload = "if my_pos and G.jokers.cards[my_pos+1] and not self.getting_sliced and not G.jokers.cards[my_pos+1].ability.eternal and not G.jokers.cards[my_pos+1].getting_sliced and SMODS.will_destroy_card() then "
+payload = '''
+self.ability.mult = self.ability.mult + sliced_card.sell_cost*2
+local will_slice = true
+if SMODS.will_destroy_card() then
+    sliced_card.getting_sliced = true
+    G.GAME.joker_buffer = G.GAME.joker_buffer - 1
+else
+    will_slice = false
+end'''
 match_indent = true
+
+
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = '''G.GAME.joker_buffer = 0
+self.ability.mult = self.ability.mult + sliced_card.sell_cost*2
+self:juice_up(0.8, 0.8)
+sliced_card:start_dissolve({HEX("57ecab")}, nil, 1.6)'''
+position = "at"
+payload = '''if will_slice then
+    G.GAME.joker_buffer = 0
+    sliced_card:start_dissolve({HEX("57ecab")}, nil, 1.6)
+else
+    sliced_card:juice_up()
+end'''
+match_indent = true
+
+
 
 # Make Perkeo only copy consumables (and not Stands)
 # (Slightly modified code from Cryptid, this should conflict with Cryptid's lovely patch of this,
@@ -112,40 +140,6 @@ target = "card.lua"
 pattern = '''local card = copy_card(pseudorandom_element(G.consumeables.cards, pseudoseed('perkeo')), nil)'''
 position = "at"
 payload = '''local card = copy_card(pseudorandom_element(eligibleJokers, pseudoseed('perkeo')), nil)'''
-match_indent = true
-
-[[patches]]
-[patches.pattern]
-target = "card.lua"
-pattern = '''if self.ability.name == 'Ectoplasm' or self.ability.name == 'Hex' or pseudorandom('wheel_of_fortune') < G.GAME.probabilities.normal/self.ability.extra then'''
-position = "at"
-payload = '''if self.ability.name == 'Ectoplasm' or self.ability.name == 'Hex' or pseudorandom('wheel_of_fortune') < (G.FUNCS.nutbuster_active() and 3 or G.GAME.probabilities.normal)/self.ability.extra then'''
-match_indent = true
-
-# Cryptid compatibility version of the above patch:
-[[patches]]
-[patches.pattern]
-target = "card.lua"
-pattern = '''if self.ability.name == 'Ectoplasm' or self.ability.name == 'Hex' or pseudorandom('wheel_of_fortune') < cry_prob(self.ability.cry_prob, self.ability.extra, self.ability.cry_rigged)/self.ability.extra then'''
-position = "at"
-payload = '''if self.ability.name == 'Ectoplasm' or self.ability.name == 'Hex' or pseudorandom('wheel_of_fortune') < (G.FUNCS.nutbuster_active() and 3 or cry_prob(self.ability.cry_prob, self.ability.extra, self.ability.cry_rigged))/self.ability.extra then'''
-match_indent = true
-
-[[patches]]
-[patches.pattern]
-target = 'functions/common_events.lua'
-pattern = "elseif _c.name == \"The Wheel of Fortune\" then loc_vars = {G.GAME.probabilities.normal, cfg.extra};  info_queue[#info_queue+1] = G.P_CENTERS.e_foil; info_queue[#info_queue+1] = G.P_CENTERS.e_holo; info_queue[#info_queue+1] = G.P_CENTERS.e_polychrome; "
-position = 'at'
-payload = "elseif _c.name == \"The Wheel of Fortune\" then loc_vars = {G.FUNCS.nutbuster_active() and 3 or G.GAME.probabilities.normal, _c.config.extra};  info_queue[#info_queue+1] = G.P_CENTERS.e_foil; info_queue[#info_queue+1] = G.P_CENTERS.e_holo; info_queue[#info_queue+1] = G.P_CENTERS.e_polychrome;"
-match_indent = true
-
-# Cryptid compatibility version of the above patch:
-[[patches]]
-[patches.pattern]
-target = 'functions/common_events.lua'
-pattern = "elseif _c.name == \"The Wheel of Fortune\" then loc_vars = {cfg.cry_prob and cry_prob(cfg.cry_prob, cfg.extra, cfg.cry_rigged) or G.GAME.probabilities.normal, cfg.extra};  info_queue[#info_queue+1] = G.P_CENTERS.e_foil; info_queue[#info_queue+1] = G.P_CENTERS.e_holo; info_queue[#info_queue+1] = G.P_CENTERS.e_polychrome;"
-position = 'at'
-payload = "elseif _c.name == \"The Wheel of Fortune\" then loc_vars = {G.FUNCS.nutbuster_active() and 3 or cfg.cry_prob and cry_prob(cfg.cry_prob, cfg.extra, cfg.cry_rigged) or G.GAME.probabilities.normal, _c.config.extra};  info_queue[#info_queue+1] = G.P_CENTERS.e_foil; info_queue[#info_queue+1] = G.P_CENTERS.e_holo; info_queue[#info_queue+1] = G.P_CENTERS.e_polychrome;"
 match_indent = true
 
 [[patches]]

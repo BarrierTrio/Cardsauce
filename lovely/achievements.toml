@@ -85,23 +85,28 @@ match_indent = true
 [[patches]]
 [patches.pattern]
 target = "card.lua"
-pattern = '''
-local sliced_card = G.jokers.cards[my_pos+1]
-'''
-position = "before"
+pattern = '''joker_to_destroy.getting_sliced = true'''
+position = "at"
 payload = '''
-check_for_unlock({ type = "unlock_killjester" })
-'''
+local will_slice = false
+if SMODS.will_destroy_card() then
+    will_slice = true
+end'''
 match_indent = true
 
 [[patches]]
 [patches.pattern]
 target = "card.lua"
-pattern = "if joker_to_destroy and not (context.blueprint_card or self).getting_sliced then"
+pattern = '''joker_to_destroy:start_dissolve({G.C.RED}, nil, 1.6)'''
 position = "at"
 payload = '''
-if joker_to_destroy and not (context.blueprint_card or self).getting_sliced and SMODS.will_destroy_card() then
-check_for_unlock({ type = "unlock_killjester" })
+if will_slice then
+    check_for_unlock({ type = "unlock_killjester" })
+    joker_to_destroy:start_dissolve({G.C.RED}, nil, 1.6)
+else
+    joker_to_destroy:juice_up()
+end
+
 '''
 match_indent = true
 
