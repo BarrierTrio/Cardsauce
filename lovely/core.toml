@@ -433,15 +433,3 @@ position = "at"
 payload = '{n=G.UIT.O, config={w=_sizeX*1,h=_sizeY*1, colour = G.C.BLUE, object = tag_sprite, focus_with_object = true}},'
 match_indent = true
 times = 1
-
-[[patches]]
-[patches.pattern]
-target = "functions/common_events.lua"
-pattern = "local extrafunc = nil"
-position = "after"
-payload = '''if extra and extra.func then
-    extrafunc = extra.func
-end
-'''
-match_indent = true
-times = 1
