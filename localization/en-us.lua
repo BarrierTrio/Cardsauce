@@ -1680,15 +1680,7 @@ return {
 			j_csau_sohappy = {
 				name = "I'm So Happy",
 				text = {
-					"{C:blue}+2{} hands, {C:red}-1{} discard",
-					"{C:inactive}(Turns upside-down after",
-					"{C:inactive}each round played)",
-				},
-			},
-			j_csau_sohappy2 = {
-				name = "I'm So Happy",
-				text = {
-					"{C:blue}+2{} hands, {C:red}-1{} discard",
+					"{C:blue}+#1#{} hands, {C:red}-#2#{} discard",
 					"{C:inactive}(Turns upside-down after",
 					"{C:inactive}each round played)",
 				},
@@ -1696,7 +1688,7 @@ return {
 			j_csau_sosad = {
 				name = "I'm So Sad",
 				text = {
-					"{C:red}+2{} discards, {C:blue}-1{} hand",
+					"{C:red}+#1#{} discards, {C:blue}-#2#{} hand",
 					"{C:inactive}(Turns upside-down after{}",
 					"{C:inactive}each round played){}",
 				},
@@ -2379,8 +2371,9 @@ return {
 			j_csau_bulk = {
 				name = "Bulkin' The Mouscles",
 				text = {
-					"This Joker gains {X:mult,C:white} X#1# {} Mult each time a card",
-					"is {C:attention}Enhanced{} or upgraded a rank",
+					"This Joker gains {X:mult,C:white} X#1# {} Mult",
+					"each time a card is {C:attention}Enhanced{}",
+					"or upgraded a {C:attention}rank{}",
 					"{C:inactive}(Currently {X:mult,C:white} X#2# {C:inactive} Mult)",
 				},
 			},

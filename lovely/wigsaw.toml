@@ -55,13 +55,13 @@ payload = '''context.other_card:is_suit(G.GAME and G.GAME.wigsaw_suit or "Hearts
 [patches.pattern]
 target = 'card.lua'
 pattern = '''elseif self.ability.name == 'Rough Gem' then loc_vars = {self.ability.extra}
-elseif self.ability.name == 'Bloodstone' then loc_vars = {''..(G.GAME and G.GAME.probabilities.normal or 1), self.ability.extra.odds, self.ability.extra.Xmult}
+elseif self.ability.name == 'Bloodstone' then local a, b = SMODS.get_probability_vars(self, 1, self.ability.extra.odds); loc_vars = {a, b, self.ability.extra.Xmult}
 elseif self.ability.name == 'Arrowhead' then loc_vars = {self.ability.extra}
 elseif self.ability.name == 'Onyx Agate' then loc_vars = {self.ability.extra}'''
 position = 'at'
 match_indent = true
 payload = '''elseif self.ability.name == 'Rough Gem' then loc_vars = {self.ability.extra, localize(G.GAME and G.GAME.wigsaw_suit or 'Diamonds', 'suits_singular'), colours = {G.C.SUITS[G.GAME and G.GAME.wigsaw_suit or 'Diamonds']}}
-elseif self.ability.name == 'Bloodstone' then loc_vars = {''..(G.GAME and G.GAME.probabilities.normal or 1), self.ability.extra.odds, self.ability.extra.Xmult, localize(G.GAME and G.GAME.wigsaw_suit or 'Hearts', 'suits_singular'), colours = {G.C.SUITS[G.GAME and G.GAME.wigsaw_suit or 'Hearts']}}
+elseif self.ability.name == 'Bloodstone' then local a, b = SMODS.get_probability_vars(self, 1, self.ability.extra.odds); loc_vars = {''..(G.GAME and G.GAME.probabilities.normal or 1), self.ability.extra.odds, self.ability.extra.Xmult, localize(G.GAME and G.GAME.wigsaw_suit or 'Hearts', 'suits_singular'), colours = {G.C.SUITS[G.GAME and G.GAME.wigsaw_suit or 'Hearts']}}
 elseif self.ability.name == 'Arrowhead' then loc_vars = {self.ability.extra, localize(G.GAME and G.GAME.wigsaw_suit or 'Spades', 'suits_singular'), colours = {G.C.SUITS[G.GAME and G.GAME.wigsaw_suit or 'Spades']}}
 elseif self.ability.name == 'Onyx Agate' then loc_vars = {self.ability.extra, localize(G.GAME and G.GAME.wigsaw_suit or 'Clubs', 'suits_singular'), colours = {G.C.SUITS[G.GAME and G.GAME.wigsaw_suit or 'Clubs']}}'''
 
@@ -76,8 +76,11 @@ elseif self.ability.name == 'Onyx Agate' then loc_vars = {self.ability.extra}'''
 position = 'at'
 match_indent = true
 payload = '''elseif self.ability.name == 'Rough Gem' then loc_vars = {self.ability.extra, localize(G.GAME and G.GAME.wigsaw_suit or 'Diamonds', 'suits_singular'), colours = {G.C.SUITS[G.GAME and G.GAME.wigsaw_suit or 'Diamonds']}}
-elseif self.ability.name == 'Bloodstone' then loc_vars = {cry_prob(self.ability.cry_prob, self.ability.extra.odds, self.ability.cry_rigged), self.ability.extra.odds, self.ability.extra.Xmult, localize(G.GAME and G.GAME.wigsaw_suit or 'Hearts', 'suits_singular'), colours = {G.C.SUITS[G.GAME and G.GAME.wigsaw_suit or 'Hearts']}}
-elseif self.ability.name == 'Arrowhead' then loc_vars = {self.ability.extra, localize(G.GAME and G.GAME.wigsaw_suit or 'Spades', 'suits_singular'), colours = {G.C.SUITS[G.GAME and G.GAME.wigsaw_suit or 'Spades']}}
+elseif self.ability.name == 'Bloodstone' then
+loc_vars = {cry_prob(self.ability.cry_prob, self.ability.extra.odds, self.ability.cry_rigged), self.ability.extra.odds, self.ability.extra.Xmult, localize(G.GAME and G.GAME.wigsaw_suit or 'Hearts', 'suits_singular'), colours = {G.C.SUITS[G.GAME and G.GAME.wigsaw_suit or 'Hearts']}}
+elseif self.ability.name == 'Arrowhead' then
+sendDebugMessage('found arrowhead vars')
+loc_vars = {self.ability.extra, localize(G.GAME and G.GAME.wigsaw_suit or 'Spades', 'suits_singular'), colours = {G.C.SUITS[G.GAME and G.GAME.wigsaw_suit or 'Spades']}}
 elseif self.ability.name == 'Onyx Agate' then loc_vars = {self.ability.extra, localize(G.GAME and G.GAME.wigsaw_suit or 'Clubs', 'suits_singular'), colours = {G.C.SUITS[G.GAME and G.GAME.wigsaw_suit or 'Clubs']}}'''
 
 [[patches]]
@@ -217,3 +220,16 @@ position = "at"
 payload = '''G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.1,func = function() G.hand.highlighted[i]:change_suit(G.GAME and G.GAME.wigsaw_suit or self.ability.consumeable.suit_conv);return true end }))'''
 match_indent = true
 times = 1
+
+
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = '''local faces = false'''
+position = "after"
+payload = '''sendDebugMessage('rtb code')'''
+match_indent = true
+times = 1
+
+
+

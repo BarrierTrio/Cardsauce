@@ -248,6 +248,38 @@ function Card:set_ability(center, initial, delay_sprites)
         self.no_shadow = true
     end
 
+    if self.playing_card and center ~= G.P_CENTERS.c_base and not initial then
+        local bulks = SMODS.find_card('j_csau_bulk')
+        for _, v in ipairs(bulks) do
+            if not v.debuff then
+                v.ability.extra.x_mult = v.ability.extra.x_mult + v.ability.extra.x_mult_mod
+                card_eval_status_text(v, 'extra', nil, nil, nil, {
+                    message = localize{type='variable',key='a_xmult',vars={v.ability.extra.x_mult}},
+                })
+            end
+        end
+    end
+
+    return ret
+end
+
+local ref_card_base = Card.set_base
+function Card:set_base(card, initial, delay_sprites)
+    local old_id = self.base and self.base.id
+    local ret = ref_card_base(self, card, initial, delay_sprites)
+
+    if not initial and self.base.id > old_id then
+        local bulks = SMODS.find_card('j_csau_bulk')
+        for _, v in ipairs(bulks) do
+            if not v.debuff then
+                v.ability.extra.x_mult = v.ability.extra.x_mult + v.ability.extra.x_mult_mod
+                card_eval_status_text(v, 'extra', nil, nil, nil, {
+                    message = localize{type='variable',key='a_xmult',vars={v.ability.extra.x_mult}},
+                })
+            end
+        end
+    end
+
     return ret
 end
 
