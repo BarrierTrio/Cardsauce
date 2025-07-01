@@ -268,7 +268,7 @@ function Card:set_base(card, initial, delay_sprites)
     local old_id = self.base and self.base.id
     local ret = ref_card_base(self, card, initial, delay_sprites)
 
-    if not initial and self.base.id > old_id then
+    if not initial and old_id and self.base.id > old_id then
         local bulks = SMODS.find_card('j_csau_bulk')
         for _, v in ipairs(bulks) do
             if not v.debuff then
