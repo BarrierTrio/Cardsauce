@@ -12,7 +12,7 @@ local chalInfo = {
     },
     restrictions = {
         banned_other = {
-            id = 'bl_csau_mochamike', type = 'blind',
+            { id = 'bl_csau_mochamike', type = 'blind'}
         }
     },
     unlocked = function(self)
