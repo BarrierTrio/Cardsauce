@@ -84,11 +84,10 @@ local function reduced_set_ability(card, center)
         card.ability.to_do_poker_hand = pseudorandom_element(_poker_hands, pseudoseed('to_do'))
     end
 
-    local old_pos = card.config.center.pos
     card.config.center.pos = center.pos
-    card:set_sprites(center)
+    card.config.center.atlas = center.atlas
+    card:set_sprites(card.config.center)
     card:set_cost()
-    card.config.center.pos = old_pos
 end
 
 local function get_all_in_one_joker(card)
@@ -107,15 +106,10 @@ end
 
 function jokerInfo.remove_from_deck(self, card, from_debuff)
     if card.ability.bootlegged_key then
-        if from_debuff then
-            card.config.center = G.P_CENTERS[card.ability.bootlegged_key]
-            local ret = card:remove_from_deck(from_debuff)
-            card.config.center = G.P_CENTERS['j_csau_bootleg']
-            return ret
-        end
-        
-        card.ability.bootlegged_key = nil
-        card.ability.name = 'Bootleg Joker'
+        card.config.center = G.P_CENTERS[card.ability.bootlegged_key]
+        local ret = card:remove_from_deck(from_debuff)
+        card.config.center = G.P_CENTERS['j_csau_bootleg']
+        return ret
     end
 end
 
@@ -124,6 +118,11 @@ function jokerInfo.load(self, card, card_table, other_card)
         reduced_set_ability(card, G.P_CENTERS[card_table.ability.bootlegged_key])
         card.ability.bootlegged_key = card_table.ability.bootlegged_key
     end
+end
+
+function jokerInfo.set_sprites(self, card, initial, delay_sprites)
+    card.config.center.atlas = 'csau_bootleg'
+    card.config.center.pos = { x = 0, y = 0 }
 end
 
 function jokerInfo.calc_dollar_bonus(self, card)
@@ -137,13 +136,15 @@ end
 
 function jokerInfo.calculate(self, card, context)
     if context.setting_blind and not card.getting_sliced and not card.debuff and not context.blueprint and not context.retrigger_joker then
-        local center = pseudorandom_element(G.P_CENTER_POOLS.Joker, pseudoseed('csau_bootleg_center'))
+        local center = G.P_CENTERS['j_turtle_bean'] --pseudorandom_element(G.P_CENTER_POOLS.Joker, pseudoseed('csau_bootleg_center'))
         reduced_set_ability(card, center)
         card.ability.bootlegged_key = center.key
+        card.config.center.atlas = 'csau_bootleg'
         card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize{type = 'name_text', key = center.key, set = center.set}, colour = G.C.IMPORTANT})
 
         card.config.center = G.P_CENTERS[card.ability.bootlegged_key]
-        card:add_to_deck(from_debuff)
+        card.added_to_deck = nil
+        card:add_to_deck()
         card.config.center = G.P_CENTERS['j_csau_bootleg']
     end
 
@@ -152,7 +153,7 @@ function jokerInfo.calculate(self, card, context)
         if card.ability.bootlegged_key then
             -- make sure values are reset
             card.config.center = G.P_CENTERS[card.ability.bootlegged_key]
-            card:remove_from_deck(nil, true)
+            card:remove_from_deck()
             card.config.center = G.P_CENTERS['j_csau_bootleg']
             card.ability.bootlegged_key = nil
 
@@ -189,8 +190,6 @@ end
 function jokerInfo.generate_ui(self, info_queue, card, desc_nodes, specific_vars, full_UI_table)
     if not card then
         card = self:create_fake_card()
-    else
-        info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.gote } }
     end
 
     if card.ability and card.ability.bootlegged_key then
@@ -239,9 +238,15 @@ function jokerInfo.generate_ui(self, info_queue, card, desc_nodes, specific_vars
         return
     end
 
+    info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.gote } }
     if mod.config['detailedDescs'] then
-        G.FUNCS.csau_generate_detail_desc(self, info_queue, card, desc_nodes, specific_vars, full_UI_table, nil, true)
+        G.FUNCS.csau_generate_detail_desc(self, info_queue, card, desc_nodes, specific_vars, full_UI_table, nil)
     else
+        if card.area and card.area == G.jokers or card.config.center.discovered then
+            -- If statement makes it so that this function doesnt activate in the "Joker Unlocked" UI and cause 'Not Discovered' to be stuck in the corner
+            full_UI_table.name = localize{type = 'name', key = self.key, set = self.set, name_nodes = {}, vars = specific_vars or {}}
+        end
+
         set_discover_tallies()
         local tally = G.DISCOVER_TALLIES.jokers.of
         local main_start = {

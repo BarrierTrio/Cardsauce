@@ -23,7 +23,7 @@ local function dynamic_badges(info)
 			return scale_fac
 		end
 		local scale_fac = {}
-		local min_scale_fac = 1
+		local min_scale_fac = 0.4
 		local strings = { "Cardsauce" }
 		local badge_colour = HEX('32A852')
 		local text_colour = G.C.WHITE
@@ -74,7 +74,7 @@ local function dynamic_badges(info)
 						align = "cm",
 						colour = badge_colour,
 						r = 0.1,
-						minw = 2 / min_scale_fac,
+						minw = 1 / min_scale_fac,
 						minh = 0.36,
 						emboss = 0.05,
 						padding = 0.03 * 0.9,

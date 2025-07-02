@@ -491,6 +491,7 @@ return {
 			k_bighunks = "Mult!",
 			k_vhs_fin = "Fin!",
 			k_outlaw_default = "Debuffs all ranks scored last hand",
+			k_abducted = "Abducted!",
 			k_ufo_alert = "Nothing to abduct!",
 			b_planet_card = "Planet Card",
 			k_survived = 'Survived!',
@@ -1308,7 +1309,10 @@ return {
 				},
 			},
 			j_csau_chad = {
-				name = "No No No No No No No No No No No",
+				name = {
+					"No No No No No No",
+					"No No No No No",
+				},
 				text = {
 					"Greetings, Cloud, it is me, Chudlot. As you can plainly see,",
 					"my lifelong dream of transmogrifying myself into a Joker",
@@ -1322,10 +1326,14 @@ return {
 				},
 			},
 			j_csau_chad_detailed = {
-				name = "No No No No No No No No No No No",
+				name = {
+					"No No No No No No",
+					"No No No No No",
+				},
 				text = {
-					"{X:mult,C:white}X2{} Mult for every other {C:attention}copy{} of",
-					"this Joker, {C:attention}Showman{}, or {C:attention}Hanging Chad{}"
+					"{X:mult,C:white}X2{} Mult for every other",
+					"{C:attention}copy{} of this Joker, {C:attention}Showman{},",
+					"or {C:attention}Hanging Chad{}"
 				},
 			},
 			j_csau_disguy = {
@@ -1359,9 +1367,9 @@ return {
 			j_csau_odio_detailed = {
 				name = "Odious Joker",
 				text = {
-					"{C:attention}Transforms{} into a new form during each {C:attention}Boss Blind{}",
-					"Form determined by the current {C:attention}Ante{} level",
-					"{C:inactive}(Final transformation in {C:attention}Endless Mode{C:inactive})"
+					"{C:attention}Transforms{} into a new form",
+					"during each {C:attention}Boss Blind{}",
+					"Form determined by current {C:attention}Ante{}",
 				},
 			},
 			j_csau_odio1 = {
@@ -1445,7 +1453,10 @@ return {
 				}
 			},
 			j_csau_besomeone = {
-				name = "Be Someone Forever",
+				name = {
+					"{s:0.9}Be Someone{}",
+					"{s:0.9}Forever{}",
+				},
 				text = {
 					"Played {C:attention}High Cards{}",
 					"are redrawn",
@@ -1489,16 +1500,17 @@ return {
 			j_csau_maskedjoker = {
 				name = "Masked Joker",
 				text = {
-					"If played hand is all {C:attention}Steel Cards{},",
-					"each {C:attention}scoring{} card gives",
-					"{C:chips}+#1#{} Chips and {C:mult}+#2#{} Mult",
+					"If played hand contains only",
+					"{C:attention}Steel Cards{}, each {C:attention}scoring{} card",
+					"gives {C:chips}+#1#{} Chips and {C:mult}+#2#{} Mult",
 				},
 			},
 			j_csau_deathcard = {
 				name = "Deathcard",
 				text = {
-					"When {C:attention}sold{}, reappears in the next shop",
-					"with {C:mult}+#3#{} Mult and {C:money}+$#1#{} Cost",
+					"When {C:attention}sold{}, reappears in the",
+					"next shop with {C:mult}+#3#{} Mult",
+					"and {C:money}+$#1#{} Cost",
 					"{C:inactive}(Currently {}{C:mult}+#2#{}{C:inactive} Mult{}{C:inactive}){}",
 				},
 			},
@@ -1656,8 +1668,9 @@ return {
 			j_csau_depressedbrother = {
 				name = "Depressed Brother",
 				text = {
-					"All {C:attention}unscored{} cards have {C:green}#1# in #2#{} chance",
-					"to permanently gain {C:mult}+#3#{} Mult"
+					"All {C:attention}unscored{} cards have a",
+					"{C:green}#1# in #2#{} chance to permanently",
+					"gain {C:mult}+#3#{} Mult"
 				},
 			},
 			j_csau_code = {
@@ -1768,11 +1781,10 @@ return {
 			j_csau_kings = {
 				name = "2 Kings 2:23-24",
 				text = {
-					"Destroys {C:attention}42{} random cards",
-					"in your deck when acquired.",
-					"{C:inactive}(Cards destroyed this way are{}",
-					"{C:inactive}added back to your deck when{}",
-					"{C:inactive}this Joker is sold/destroyed){}",
+					"Removes {C:attention}42{} random cards",
+					"in your deck when acquired",
+					"and returns them when this",
+					"Joker is {C:attention}sold{} or {C:attention}destroyed{}"
 				},
 				unlock = {
 					"Use an {E:1,C:spectral}Immolate{} card"
@@ -1821,13 +1833,11 @@ return {
 				name = "Let Fate Decide",
 				text = {
 					"Rolls a chance cube at end of round",
-					"{C:green}1 in 6{} chance to create a",
-					"random {C:attention}Free Joker Tag{},",
-					"{C:green}1 in 6{} chance to create a",
-					"random {C:attention}Booster Pack Tag{},",
-					"{C:green}1 in 6{} chance to create",
-					"{C:attention}2{} completely random {C:attention}Tags{},",
-					"or {C:green}3 in 6{} chance to get nothing",
+					"{C:green}1 in 2{} chance of no effect",
+					"{C:green}1 in 2{} chance to create {C:attention}1{} random",
+					"{C:attention}Joker Tag{}, {C:attention}1{} random {C:attention}Booster Pack Tag{},",
+					"or {C:attention}2{} completely random {C:attention}Tags{}",
+					
 					"{s:0.8,C:inactive}(Odds not affected by probability manipulation){}"
 				},
 			},
@@ -1843,10 +1853,10 @@ return {
 			j_csau_muppet = {
 				name = "Movin' Right Along",
 				text = {
-					"This Joker gains {X:mult,C:white}X#2#{} Mult for each",
-					"time you leave the shop with the",
-					"same amount of {C:money}money{} you had",
-					"when you entered",
+					"This Joker gains {X:mult,C:white}X#2#{} Mult",
+					"each time you leave the {C:attention}shop{}",
+					"with the same amount of {C:money}money{}",
+					"you had when you entered",
 					"{C:inactive}(Currently {}{X:mult,C:white}X#1#{} {C:inactive}Mult){}",
 				},
 				unlock = {
@@ -1865,8 +1875,9 @@ return {
 			j_csau_joeycastle = {
 				name = "Joey's Castle",
 				text = {
-					"Earn {C:money}$#1#{} per discarded {V:1}#2#{} card,",
-					"{C:inactive}suit changes every round"
+					"Earn {C:money}$#1#{} per discarded",
+					"{V:1}#2#{} card,",
+					"{C:inactive,s:0.8}suit changes every round"
 				},
 			},
 			j_csau_grand = {
@@ -1949,9 +1960,8 @@ return {
 			j_csau_meteor = {
 				name = "Meteor",
 				text = {
-					"Played {C:attention}7s{} that aren't {C:attention}Glass Cards",
-					"act as them as well as their",
-					"current {C:attention}Enhancement"
+					"Played {C:attention}7s{} act",
+					"as {C:attention}Glass Cards{}"
 				},
 				unlock={
 					"Sell or destroy",
@@ -1959,9 +1969,13 @@ return {
 				},
 			},
 			j_csau_frich = {
-				name = "Gourmand of Faramore",
+				name = {
+					"Gourmand of",
+					"Faramore",
+				},
 				text = {
-					"{C:attention}Food Jokers{} appear twice as often"
+					"{C:attention}Food Jokers{} appear",
+					"{C:attention}twice{} as often"
 				},
 				unlock={
 					"Discover",
@@ -1969,7 +1983,10 @@ return {
 				},
 			},
 			j_csau_bunji = {
-				name = "Scourge Of Pantsylvania",
+				name = {
+					"Scourge Of",
+					"Pantsylvania",
+				},
 				text = {
 					"{C:attention}Food Jokers{} never expire"
 				},
@@ -1979,7 +1996,10 @@ return {
 				},
 			},
 			j_csau_koffing = {
-				name = "That Fucking Koffing Again",
+				name = {
+					"{s:0.9}That Fucking{}",
+					"{s:0.9}Koffing Again{}",
+				},
 				text = {
 					"Your first {C:attention}Shop Reroll{} each",
 					"shop rerolls {C:attention}Booster Packs"
@@ -1988,8 +2008,9 @@ return {
 			j_csau_dud = {
 				name = "The Dud",
 				text = {
-					"When sold, removes all {C:attention}stickers",
-					"from a random {C:attention}Joker{} with stickers"
+					"When sold, removes all",
+					"{C:attention}stickers from a random",
+					"{C:attention}Joker{} with stickers"
 				},
 				unlock = {
 					"Win a run with any",
@@ -2017,17 +2038,19 @@ return {
 			j_csau_grannycream = {
 				name = "Granny Cream",
 				text = {
-					"If scored hand has under {C:chips}#1#{} Chips,",
-					"spend Chips from this Joker to make it {C:chips}#1#{}",
+					"If scored hand has under",
+					"{C:chips}#1#{} Chips, spend Chips from",
+					"this Joker to make it {C:chips}#1#{}",
 					"{C:inactive}({}{C:chips}#2#{}{C:inactive} Chips remaining){}",
 				},
 			},
 			j_csau_drippy = {
 				name = "Dripping Joker",
 				text = {
-					"When {C:attention}first hand{} of round is played,",
-					"add a random {C:attention}Enhancement{}",
-					"to a card held in hand",
+					"When {C:attention}first hand{} of round",
+					"is played, add a random",
+					"{C:attention}Enhancement{} to a card",
+					"held in hand",
 				},
 			},
 			j_csau_sts = {
@@ -2146,7 +2169,8 @@ return {
 				text = {
 					"{C:tarot}Wheel of Fortune{} cards have",
 					"{C:green}3 in 4{} chance to succeed",
-					"{s:0.8,C:inactive}(Odds not affected by probability manipulation){}",
+					"{s:0.8,C:inactive}(Odds not affected by",
+					"{s:0.8,C:inactive}probability manipulation){}",
 				},
 				unlock={
 					"Have a {E:1,C:tarot}Wheel of Fortune{} trigger",
@@ -2202,7 +2226,8 @@ return {
 			j_csau_facade = {
 				name = "Couple's Joker",
 				text = {
-					"{C:mult}+#1#{} Mult for every {C:attention}Pair{} played this run",
+					"{C:mult}+#1#{} Mult for every {C:attention}Pair{}",
+					"played this run",
 					"{C:inactive}(Currently {}{C:mult}+#2#{}{C:inactive} Mult{}{C:inactive}){}",
 				},
 			},
@@ -2270,8 +2295,9 @@ return {
 			j_csau_passport = {
 				name = "Passport",
 				text = {
-					"This Joker gains {X:mult,C:white} X#1# {} Mult for",
-					"each {C:attention}Voucher{} redeemed this run",
+					"This Joker gains {X:mult,C:white} X#1# {} Mult",
+					"for each {C:attention}Voucher{} redeemed",
+					"this run",
 					"{C:inactive}(Currently {X:mult,C:white} X#2# {C:inactive} Mult)",
 				},
 			},
@@ -2336,10 +2362,15 @@ return {
 				},
 			},
 			j_csau_protogent = {
-				name = "Protegent Antivirus",
+				name = {
+					"Protegent",
+					"Antivirus",
+				},
 				text = {
-					"{C:green}#1# in #2#{} chance to disable {C:attention}Boss Blinds{}",
-					"{C:green}#1# in #3#{} chance to prevent death",
+					"{C:green}#1# in #2#{} chance to",
+					"disable {C:attention}Boss Blinds{}",
+					"{C:green}#1# in #3#{} chance",
+					"to prevent {C:red,E:1}death{}",
 					"{S:1.1,C:red,E:2}self destructs{}",
 				},
 			},
@@ -2391,8 +2422,9 @@ return {
 			j_csau_mrkill = {
 				name = "Mr. Kill",
 				text = {
-					"If {C:attention}first discard{} of round has only",
-					"{C:attention}1{} card, {C:attention}destroy{} it and gain its Chips",
+					"If {C:attention}first discard{} of round",
+					"has only {C:attention}1{} card, {C:attention}destroy{} it",
+					"and gain its Chips",
 					"{C:inactive}(Currently {C:chips}+#1#{}{C:inactive} Chips)",
 				},
 			},
@@ -2412,9 +2444,10 @@ return {
 			j_csau_memehouse = {
 				name = "Meme House",
 				text = {
-					"Create a {C:tarot}Tarot{} card if played hand",
-                    "contains a {C:attention}Full House{} and",
-					"{C:attention}3{} or more {C:attention}face{} cards",
+					"Create a {C:tarot}Tarot{} card if",
+					"played hand contains a",
+					"{C:attention}Full House{} and {C:attention}3{} or more",
+					"{C:attention}face{} cards",
 					"{C:inactive}(Must have room)",
 				},
 			},
@@ -2444,7 +2477,7 @@ return {
 			j_csau_vinewrestle = {
 				name = "Vinewrestle",
 				text = {
-					"Create a {C:attention}random free Joker Tag",
+					"Create a random {C:attention}Joker Tag{}",
 					"when {C:attention}Boss Blind{} is defeated",
 				},
 			},
@@ -2465,8 +2498,9 @@ return {
 			j_csau_skeletonmetal = {
 				name = "Skeleton Metal",
 				text = {
-					"When {C:attention}final hand{} of round is played,",
-					"add {C:attention}#1#{} random {C:attention}Steel Cards{} to your hand",
+					"When {C:attention}final hand{} of round",
+					"is played, add {C:attention}#1#{} random",
+					"{C:attention}Steel Cards{} to your hand",
 				},
 			},
 			j_csau_byebye = {
@@ -2483,10 +2517,12 @@ return {
 					"on any difficulty",
 				},
 			},
-			j_csau_ufo={
-				name="UFO COMODIN",
-				text={
-					"Upon purchase, {C:attention}removes{} a random Joker",
+			j_csau_ufo = {
+				name = "UFO COMODIN",
+				text = {
+					"Upon purchase, {C:attention}removes{}",
+					"a random Joker",
+					"{s:0.1} {}",
 					"After {C:attention}#1#{} rounds, sell this card",
 					"to return it {C:dark_edition}Negative{}",
 				},
@@ -2494,9 +2530,11 @@ return {
 			j_csau_wigsaw = {
 				name = "Wigsaw",
 				text = {
-					"All {C:attention}suit{} effects target the suit with",
-					"the {C:attention}most cards{} in your full deck instead",
-					"{C:inactive}(Not active if {C:attention}2 or more suits{C:inactive} are tied)"
+					"All {C:attention}suit{} effects target the",
+					"suit with the {C:attention}most cards{}",
+					"in your full deck",
+					"{C:inactive,s:0.8}(Not applicable if{}",
+					"{C:attention,s:0.8}multiple suits{} {C:inactive,s:0.8}are tied){}"
 				},
 				unlock = {
 					"{E:1,s:1.3}?????"
@@ -2527,8 +2565,8 @@ return {
 			j_csau_photodad = {
 				name = "Photodad",
 				text = {
-					"When {C:attention}final hand{} of round is played,",
-					"create a {C:tarot}The Arrow{} card",
+					"When {C:attention}final hand{} of round",
+					"is played, create {C:tarot}The Arrow{}",
 					"{C:inactive}(Must have room)",
 				},
 			},
@@ -2540,16 +2578,21 @@ return {
 				},
 			},
 			j_csau_genres = {
-				name = "Battle of the Genres",
+				name = {
+					"{s:0.8}Battle of{}",
+					"{s:0.8}the Genres{}"
+				},
 				text = {
-					"{C:attention}+#1#{} Hand Size for each {C:vhs}VHS Tape{} held",
+					"{C:attention}+#1#{} Hand Size for",
+					"each {C:vhs}VHS Tape{} held",
 					"{C:inactive}(Currently {}{C:attention}+#2#{}{C:inactive} Hand Size{}{C:inactive}){}",
 				},
 			},
 			j_csau_endlesstrash = {
 				name = "ENDLESS TRASH",
 				text = {
-					"{C:mult}+#1#{} Discard for each {C:vhs}VHS Tape{} held",
+					"{C:mult}+#1#{} Discard for",
+					"each {C:vhs}VHS Tape{} held",
 				},
 			},
 			j_csau_hack = {
@@ -2557,7 +2600,8 @@ return {
 				text = {
 					"{C:chips}+#1#{} Chips per unique",
 					"{C:vhs}VHS Tape{} obtained this run",
-					"Double if {C:attention}Director's Cut{} is redeemed",
+					"{C:attention}Double{} Chips if you",
+					"have {C:attention}Director's Cut{}",
 					"{C:inactive}(Currently {C:chips}+#2#{}{C:inactive} Chips)",
 				},
 			},
@@ -2660,7 +2704,10 @@ return {
 				},
 			},
 			c_csau_swhs = {
-				name = "Star Wars Holiday Special",
+				name = {
+					"{s:0.9}Star Wars{}",
+					"{s:0.9}Holiday Special{}",
+				},
 				text = {
 					"While {C:attention}playing{}, each played card",
 					"gives {C:money}$#1#{} when scored",
@@ -2710,13 +2757,16 @@ return {
 			c_csau_nukie = {
 				name = "Nukie",
 				text = {
-					"While {C:attention}playing{}, each {C:attention}Wheel of Fortune{}",
-					"used has a chance to give {C:dark_edition}Negative",
-					"{C:vhs}Running Time{}: {C:attention}#1#{} Wheel of Fortunes"
+					"While {C:attention}playing{}, {C:attention}Wheel of Fortune{}",
+					"has a chance to give{C:dark_edition}Negative",
+					"{C:vhs}Running Time{}: {C:attention}#1#{} Wheels"
 				},
 			},
 			c_csau_sataniccults = {
-				name = "Law Enforcement Guide to Satanic Cults",
+				name = {
+					"{s:0.8}Law Enforcement Guide to{}",
+					"Satanic Cults"
+				},
 				text = {
 					"While {C:attention}playing{}, {C:attention}Gold Cards{} give",
 					"{X:mult,C:white}X#1#{} Mult when held in hand",
@@ -2734,23 +2784,25 @@ return {
 			c_csau_topslots = {
 				name = "Top Slots",
 				text = {
-					"While {C:attention}playing{}, at end of round",
-					"gain {C:money}$#1#{} per {C:attention}#2#%{} over required chips",
-					"{C:inactive}(Max of {}{C:money}$#3#{}{C:inactive}){}",
-					"{C:green}#4# in #5#{} chance to {C:attention}double{} winnings",
-					"{C:green}#4# in #6#{} chance to {C:attention}triple{} winnings",
+					"While {C:attention}playing{}, gain {C:money}$#1#{} {C:inactive}[Max:{} {C:money}$#3#{}{C:inactive}]{}",
+					"per {C:attention}#2#%{} over required chips at",
+					"end of round",
+					"{C:green}#4# in #5#{} chance to {C:attention}double{}",
+					"{C:green}#4# in #6#{} chance to {C:attention}triple{}",
 					"{C:vhs}Running Time{}: {C:attention}#7#{} Rounds"
 				},
 			},
 			c_csau_topslots_alt_title = {
-				name = "Top Slots - Spotting The Best",
+				name = {
+					"Top Slots -",
+					"{S:0.9}Spotting The Best{}",
+				},
 				text = {
-					"While {C:attention}playing{}, at end of round",
-					"gain {C:money}$#1#{} per {C:attention}#2#%{} over the required",
-					"chips to beat the blind",
-					"{C:inactive}(Max initial winnings: {C:money}$#3#{C:inactive})",
-					"{C:green}#4# in #5#{} chance to {C:attention}double{} winnings",
-					"{C:green}#4# in #6#{} chance to {C:attention}triple{} winnings",
+					"While {C:attention}playing{}, gain {C:money}$#1#{} {C:inactive}[Max:{} {C:money}$#3#{}{C:inactive}]{}",
+					"per {C:attention}#2#%{} over required chips at",
+					"end of round",
+					"{C:green}#4# in #5#{} chance to {C:attention}double{}",
+					"{C:green}#4# in #6#{} chance to {C:attention}triple{}",
 					"{C:vhs}Running Time{}: {C:attention}#7#{} Rounds"
 				},
 			},
@@ -2772,9 +2824,9 @@ return {
 			c_csau_fatefulfindings = {
 				name = "Fateful Findings",
 				text = {
-					"While {C:attention}playing{}, steal the next {C:tarot}Tarot{}, {C:planet}Planet{}",
-					"or {C:spectral}Spectral{} card found in a {C:attention}Booster Pack{}",
-					"and put it in your consumables",
+					"While {C:attention}playing{}, {C:attention}steal{} the first",
+					"{C:tarot}Tarot{}, {C:planet}Planet{} or {C:spectral}Spectral{} card",
+					"from a {C:attention}Booster Pack{}",
 					"{C:vhs}Running Time{}: {C:attention}#1#{} Cards"
 				},
 			},
@@ -2789,8 +2841,9 @@ return {
 			c_csau_devilstory = {
 				name = "Devil Story",
 				text = {
-					"While {C:attention}playing{}, each played {C:attention}Enhanced{} card",
-					"gives {C:money}$#1#{} when scored",
+					"While {C:attention}playing{}, each played",
+					"{C:attention}Enhanced{} card gives {C:money}$#1#{}",
+					"when scored",
 					"{C:vhs}Running Time{}: {C:attention}#2#{} Cards"
 				},
 			},
@@ -2803,7 +2856,10 @@ return {
 				},
 			},
 			c_csau_tbone = {
-				name = "T-Bone's World of Clowning",
+				name = {
+					"{s:0.9}T-Bone's World{}",
+					"{s:0.9}of Clowning{}",
+				},
 				text = {
 					"Each Joker gives {C:mult}+#1#{} Mult",
 					"while this tape is {C:attention}playing{}",
@@ -2811,7 +2867,10 @@ return {
 				},
 			},
 			c_csau_wwvcr = {
-				name = "Wayne's World VCR Board Game",
+				name = {
+					"{s:0.9}Wayne's World{}",
+					"{s:0.9}VCR Board Game{}",
+				},
 				text = {
 					"While {C:attention}playing{}, {C:chips}+#1#{} Chips if you",
 					"do not have the {C:inactive}Grey Poupon{s:0.55}TM{}",
@@ -2842,7 +2901,11 @@ return {
 				},
 			},
 			c_csau_osteo = {
-				name = "The Osteoporosis Dance",
+				name = {
+					"{s:0.9}The{}",
+					"{s:0.8}Osteoporosis{}",
+					"{s:0.9}Dance{}",
+				},
 				text = {
 					"While {C:attention}playing{}, gain {C:blue}+1{} Hand",
 					"when {C:attention}Blind{} is selected",
@@ -2860,9 +2923,8 @@ return {
 			c_csau_lowblow = {
 				name = "Low Blow",
 				text = {
-					"{C:attention}Retrigger{} lowest ranked card used",
-					"in scoring {C:attention}#1#{} additional times",
-					"while this tape is {C:attention}playing{}",
+					"While {C:attention}playing{}, retrigger the ",
+					"{C:attentionlowest ranked{} scoring card {C:attention}#1#{} times",
 					"{C:vhs}Running Time{}: {C:attention}#2#{} Hands"
 				},
 			},
@@ -2878,8 +2940,9 @@ return {
 				name = "Space Cop",
 				text = {
 					"While {C:attention}playing{}, {C:planet}Planet Cards{}",
-					"level up by {C:attention}double{} the standard increment",
-					"{C:vhs}Running Time{}: {C:attention}#1# {C:planet}Planet Cards"
+					"level up by {C:attention}double{}",
+					"the standard increment",
+					"{C:vhs}Running Time{}: {C:attention}#1# {C:planet}Planets"
 				},
 			},
 			c_csau_theroom = {
@@ -2917,10 +2980,12 @@ return {
 			c_csau_ritf_detailed = {
 				name = "Robot in the Family",
 				text = {
-					"While {C:attention}playing{}, all scored cards give Mult",
-					"and all cards held in hand give Chips",
+					"While playing{}, all scored cards",
+					"give Mult and all cards held in hand",
+					"give Chips",
 					"{s:0.1} {}",
-					"Mult and Chips given are digits of pi in order",
+					"Mult and Chips given are the",
+					"digits of pi in order",
 					"{C:vhs}Running Time{}: {C:attention}#1#{} Hands"
 				},
 			},
@@ -2941,7 +3006,10 @@ return {
 				},
 			},
 			c_csau_donbeveridge = {
-				name = "Don Beveridge Customerization Seminar",
+				name = {
+					"Don Beveridge",
+					"{s:0.9}Customerization Seminar{}",
+				},
 				text = {
 					"While {C:attention}playing{}, {C:attention}Food Jokers{}",
 					"do not expire",
@@ -2952,14 +3020,17 @@ return {
 				name = "Alien Private Eye",
 				text = {
 					"While {C:attention}playing{}, scoring cards give",
-					"{X:mult,C:white}X#1#{} and add {C:green}+#2#{} chance to this Tape",
-					"When completely used, you {C:red,E:1}die{}",
+					"{X:mult,C:white}X#1#{} and add {C:green}+#2#{} chance",
 					"When sold, {C:green}#3# in #4#{} chance to {C:red,E:1}die{}",
+					"When completely used, you {C:red,E:1}die{}",
 					"{C:vhs}Running Time{}: {C:attention}#5#{} cards"
 				},
 			},
 			c_csau_supershow = {
-				name = "The Super Mario Bros. Super Show",
+				name = {
+					"{s:0.8}The Super Mario Bros.{}",
+					"Super Show",
+				},
 				text = {
 					"While {C:attention}playing{}, creates {C:attention}copies",
 					"of destroyed cards and gives",
@@ -3428,8 +3499,8 @@ return {
 			v_csau_plant = {
 				name = 'Plant Appraiser',
 				text = {
-					"{C:stand}Evolved Stands{} can be purchased",
-					"from the {C:attention}shop{}"
+					"{C:stand}Evolved Stands{} can be",
+					"purchased from the {C:attention}shop{}"
 				},
 				unlock = {
 					"Buy a total of",

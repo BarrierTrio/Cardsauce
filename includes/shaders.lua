@@ -402,3 +402,32 @@ SMODS.DrawStep {
     end,
     conditions = { vortex = false, facing = 'front' },
 }
+
+
+
+
+
+---------------------------
+--------------------------- 2 Kings VFX
+---------------------------
+
+local old_back_ds = SMODS.DrawSteps.back.func
+SMODS.DrawStep:take_ownership('back', {
+    func = function(self, layer)
+        if not self.csau_2kings_rank then
+            return old_back_ds(self, layer)
+        end
+
+        local overlay = G.C.WHITE
+        if self.csau_2kings_rank > 3 then
+            self.back_overlay = self.back_overlay or {}
+            self.back_overlay[1] = 0.5 + ((self.csau_2kings_total - self.csau_2kings_rank)%7)/50
+            self.back_overlay[2] = 0.5 + ((self.csau_2kings_total - self.csau_2kings_rank)%7)/50
+            self.back_overlay[3] = 0.5 + ((self.csau_2kings_total - self.csau_2kings_rank)%7)/50
+            self.back_overlay[4] = 1
+            overlay = self.back_overlay
+        end
+
+        self.children.back:draw(overlay)
+    end
+})
