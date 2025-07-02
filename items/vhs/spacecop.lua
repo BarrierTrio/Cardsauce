@@ -24,21 +24,20 @@ function consumInfo.loc_vars(self, info_queue, card)
 end
 
 function consumInfo.calculate(self, card, context)
-    if card.ability.activated and context.modify_level_increment and context.card then
-        if context.card.ability and context.card.ability.set == 'Planet' then
-            card.ability.extra.uses = card.ability.extra.uses+1
-            if to_big(card.ability.extra.uses) >= to_big(card.ability.extra.runtime) then
-                G.FUNCS.destroy_tape(card)
-                card.ability.destroyed = true
-            end
-            
-            return {
-                mult_inc = 2,
-                message = localize('k_spacecop'),
-                colour = G.C.SECONDARY_SET.Planet
-            }
-            
+    if card.ability.activated and context.modify_level_increment and context.card
+    and context.card.ability and context.card.ability.set == 'Planet' then
+        card.ability.extra.uses = card.ability.extra.uses+1
+        if to_big(card.ability.extra.uses) >= to_big(card.ability.extra.runtime) then
+            G.FUNCS.destroy_tape(card)
+            card.ability.destroyed = true
         end
+        
+        return {
+            mult_inc = 2,
+            message = localize('k_spacecop'),
+            colour = G.C.SECONDARY_SET.Planet
+        }
+        
     end
 end
 

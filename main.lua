@@ -41,6 +41,7 @@ local includes = {
 	'hooks/card',
 	'hooks/cardarea',
 	'hooks/state_events',
+	'hooks/common_events',
 	'hooks/misc_functions',
 	'hooks/UI_definitions',
 	'hooks/overrides',
