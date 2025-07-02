@@ -40,8 +40,13 @@ function consumInfo.calculate(self, card, context)
             local in_range = nil
             for _, v in ipairs(ranges) do
                 local search_adjacent = unscored:get_id()+v
-                if search_adjacent < 1 then search_adjacent = 14 - search_adjacent end
-                if search_adjacent > 14 then search_adjacent = search_adjacent % 14 end
+                if search_adjacent < 2 then 
+                    search_adjacent = 15 - search_adjacent
+                end
+                if search_adjacent > 14 then
+                    search_adjacent = search_adjacent % 14
+                end
+                sendDebugMessage('search adjacent: '.. search_adjacent)
                 
                 if scoring_ranks[search_adjacent] then 
                     in_range = v
