@@ -403,3 +403,15 @@ position = "at"
 payload = '{n=G.UIT.O, config={w=_sizeX*1,h=_sizeY*1, colour = G.C.BLUE, object = tag_sprite, focus_with_object = true}},'
 match_indent = true
 times = 1
+
+
+[[patches]]
+[patches.pattern]
+target = "game.lua"
+pattern = '''if _ch.restrictions.banned_cards then'''
+position = "after"
+payload = '''   if type(_ch.restrictions.banned_cards) == 'function' then
+        _ch.restrictions.banned_cards = _ch.restrictions.banned_cards()
+	end'''
+match_indent = true
+times = 1
