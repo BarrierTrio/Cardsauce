@@ -5,27 +5,6 @@ priority = 9999999
 
 [[patches]]
 [patches.pattern]
-target = "functions/common_events.lua"
-pattern = "amount = amount or 1"
-position = "after"
-payload = '''
-    local eff = {}
-    SMODS.calculate_context({modify_level_increment = true, card = card, hand = hand, amount = amount}, eff)
-    local flags = SMODS.trigger_effects(eff)
-    for i, v in ipairs(eff) do
-        if v.jokers then
-            if v.jokers.mult_inc then
-                amount = amount * v.jokers.mult_inc
-            end
-        end
-    end
-    check_for_unlock({ type = "hand_level", hand = hand, level = G.GAME.hands[hand].level, level_after = G.GAME.hands[hand].level+amount })
-'''
-match_indent = true
-overwrite = false
-
-[[patches]]
-[patches.pattern]
 target = "functions/state_events.lua"
 pattern = '''
     for k, v in ipairs(G.play.cards) do

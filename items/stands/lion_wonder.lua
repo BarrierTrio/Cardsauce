@@ -79,7 +79,7 @@ function consumInfo.calculate(self, card, context)
         end
     end
 
-    if context.fnwk_card_destroyed and context.removed.csau_removed_by_wonder and not context.blueprint and not context.retrigger_joker then
+    if context.csau_card_destroyed and context.removed.csau_removed_by_wonder and not context.blueprint and not context.retrigger_joker then
         card.ability.extra.xmult = card.ability.extra.xmult + card.ability.extra.xmult_mod
 
         local update_sprite = false

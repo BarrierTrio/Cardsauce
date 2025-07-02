@@ -265,3 +265,21 @@ pattern = '''card:set_base(G.P_CARDS[('%s_%s'):format(_suit.card_key, _rank.card
 position = 'at'
 match_indent = true
 payload = '''card:set_base(G.P_CARDS[('%s_%s'):format(_suit.card_key, _rank.card_key)], nil, delay_sprites)'''
+
+[[patches]]
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = '''G.E_MANAGER:add_event(Event({
+    func = function()
+        if cards_destroyed[i].shattered then
+            cards_destroyed[i]:shatter()
+        else
+            cards_destroyed[i]:start_dissolve()
+        end
+        return true
+    end
+}))'''
+position = "after"
+payload = '''SMODS.calculate_context({csau_card_destroyed = true, removed = cards_destroyed[i] })'''
+match_indent = true
+times = 1
