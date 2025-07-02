@@ -222,14 +222,3 @@ match_indent = true
 times = 1
 
 
-[[patches]]
-[patches.pattern]
-target = "card.lua"
-pattern = '''local faces = false'''
-position = "after"
-payload = '''sendDebugMessage('rtb code')'''
-match_indent = true
-times = 1
-
-
-

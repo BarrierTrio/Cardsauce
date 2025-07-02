@@ -29,14 +29,19 @@ end
 function jokerInfo.calculate(self, card, context)
     if context.joker_main then
         local play_more_than = 0
-        local most_played = context.scoring_name
+        local most_played = {}
         for k, v in pairs(G.GAME.hands) do
-            if v.played >= play_more_than and v.visible then
-                play_more_than = v.played
-                most_played = k
+            if v.visible and v.played > 0 then
+                if v.played > play_more_than then
+                    most_played = {[k] = true}
+                    play_more_than = v.played
+                elseif v.played == play_more_than then
+                    most_played[k] = true
+                end
             end
         end
-        if most_played == context.scoring_name then
+        
+        if most_played[context.scoring_name] then
             return {
                 chips = card.ability.extra.chips,
                 mult = card.ability.extra.mult

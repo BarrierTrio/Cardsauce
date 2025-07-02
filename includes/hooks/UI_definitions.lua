@@ -219,16 +219,6 @@ function create_shop_card_ui(card, type, area)
 							{n=G.UIT.O, config={object = DynaText({string = {{prefix = localize('$'), ref_table = card, ref_value = 'cost'}}, colours = {G.C.MONEY},shadow = true, silent = true, bump = true, pop_in = 0, scale = 0.5})}},
 						}}
 					}}
-				local t2 = card.ability.set == 'Voucher' and {
-					n=G.UIT.ROOT, config = {ref_table = card, minw = 1.1, maxw = 1.3, padding = 0.1, align = 'bm', colour = G.C.GREEN, shadow = true, r = 0.08, minh = 0.94, func = 'can_redeem', one_press = true, button = 'redeem_from_shop', hover = true}, nodes={
-						{n=G.UIT.T, config={text = localize('b_redeem'),colour = G.C.WHITE, scale = 0.4}}
-					}} or card.ability.set == 'Booster' and {
-					n=G.UIT.ROOT, config = {ref_table = card, minw = 1.1, maxw = 1.3, padding = 0.1, align = 'bm', colour = G.C.GREEN, shadow = true, r = 0.08, minh = 0.94, func = 'can_open', one_press = true, button = 'open_booster', hover = true}, nodes={
-						{n=G.UIT.T, config={text = localize('b_open'),colour = G.C.WHITE, scale = 0.5}}
-					}} or {
-					n=G.UIT.ROOT, config = {ref_table = card, minw = 1.1, maxw = 1.3, padding = 0.1, align = 'bm', colour = G.C.GOLD, shadow = true, r = 0.08, minh = 0.94, func = 'can_buy', one_press = true, button = 'buy_from_shop', hover = true}, nodes={
-						{n=G.UIT.T, config={text = localize('b_buy'),colour = G.C.WHITE, scale = 0.5}}
-					}}
 
 				local function get_t3(align, ghost, invisible)
 					ghost = ghost or false
@@ -273,16 +263,14 @@ function create_shop_card_ui(card, type, area)
 				center_nodes[#center_nodes+1] = buy
 				local center_column = {n=G.UIT.C, config={align = 'bm', minh=(((2.4*47/41)+0.3)+1.04+(card.ability.set == 'Booster' and 0.8 or 0))*scale}, nodes = center_nodes}
 
-
-
 				local left_nodes = {}
 				left_nodes[#left_nodes+1] = get_t3('cl', true, true)
 				local left_column = {n=G.UIT.C, config={align = 'cm'}, nodes = left_nodes}
 
 				local right_nodes = {}
-				right_nodes[#right_nodes+1] = {n=G.UIT.R, config = {id = 'morshu_save', ref_table = card, minh = 0.8, padding = 0.1, align = 'cr', colour = G.C.PURPLE, shadow = true, r = 0.08, minw = 1.2, one_press = true, button = 'save_to_morshu', hover = true, focus_args = {type = 'none'}}, nodes={
+				right_nodes[#right_nodes+1] = {n=G.UIT.R, config = {id = 'morshu_save', ref_table = card, minh = 0.8, padding = 0.1, align = 'cr', colour = G.C.PURPLE, shadow = true, r = 0.08, minw = 1.5, one_press = true, button = 'save_to_morshu', hover = true, focus_args = {type = 'none'}}, nodes={
 					{n=G.UIT.C, config = {align = 'cm', maxw = 1}, nodes={
-						{n=G.UIT.T, config={text = localize('b_save'),colour = G.C.WHITE, scale = 0.4}}
+						{n=G.UIT.T, config={text = localize('b_save'),colour = G.C.WHITE, scale = 0.5}}
 					}}
 				}}
 				if card.ability.consumeable and card:can_use_consumeable(true, true) then
@@ -361,6 +349,7 @@ function create_shop_card_ui(card, type, area)
 			end)
 		}))
 	else
+		sendDebugMessage('default shop card UI')
 		cscui_ref(card, type, area)
 	end
 end
