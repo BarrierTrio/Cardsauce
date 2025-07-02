@@ -1,6 +1,3 @@
-local current_mod = SMODS.current_mod
-local mod_path = SMODS.current_mod.path:match("Mods/[^/]+")..'/'
-
 ---------------------------
 --------------------------- Loading/Debug Functions
 ---------------------------
@@ -534,43 +531,6 @@ end
 --------------------------- Csau Joker helper functions
 ---------------------------
 
---- Sets sprite dimensions and scale for a center that has a specified width and height property
---- @param centerInfo table An SMODS center table, such as a Joker or Consumable
---- @param card Card A Balatro card object represent an instance of the given center
-G.FUNCS.csau_set_big_sprites = function(centerInfo, card)
-	if card.config.center.discovered or card.bypass_discovery_center then
-		card.children.center.scale = {x=centerInfo.width,y=centerInfo.height}
-		card.children.center.scale_mag = math.min(centerInfo.width/card.children.center.T.w,centerInfo.height/card.children.center.T.h)
-		card.children.center:reset()
-
-		if centerInfo.hasSoul then
-			card.children.floating_sprite.scale = {x=centerInfo.width,y=centerInfo.height}
-			card.children.floating_sprite.scale_mag = math.min(centerInfo.width/card.children.floating_sprite.T.w,centerInfo.height/card.children.floating_sprite.T.h)
-			card.children.floating_sprite:reset()
-		end
-	end
-end
-
-local function cardarea_check(card)
-	local cardarea = card.ability.set == 'Joker' and G.jokers or G.consumeables
-	return card.area == cardarea
-end
-
---- Contextually swaps descriptions for cards based on the "detailedDescs" settings in mod config, params identical to center.generate_ui
-G.FUNCS.csau_generate_detail_desc = function(self, info_queue, card, desc_nodes, specific_vars, full_UI_table, key, no_title)
-	no_title = no_title or false
-	key = key or card.config.center.key
-	if (cardarea_check(card) or card.config.center.discovered) and not no_title then
-		-- If statement makes it so that this function doesnt activate in the "Joker Unlocked" UI and cause 'Not Discovered' to be stuck in the corner
-		full_UI_table.name = localize{type = 'name', key = key, set = self.set, name_nodes = {}, vars = specific_vars or {}}
-	end
-	if current_mod.config['detailedDescs'] and G.localization.descriptions[self.set][key.."_detailed"] then
-		localize{type = 'descriptions', key = key.."_detailed", set = self.set, nodes = desc_nodes, vars = self.loc_vars and self.loc_vars(self, info_queue, card).vars or {}}
-	else
-		localize{type = 'descriptions', key = key, set = self.set, nodes = desc_nodes, vars = self.loc_vars and self.loc_vars(self, info_queue, card).vars or {}}
-	end
-end
-
 --- Utility function to check if all cards in hand are of the same suit. DO NOT USE WHEN RETURNING QUANTUM ENHANCEMENTS
 --- @param hand table Array table of Balatro card objects, representing a played hand
 --- @param suit string Key of the suit to check
@@ -625,83 +585,6 @@ G.FUNCS.csau_transform_card = function(card, to_key, evolve)
 		if card.edition.polychrome then play_sound('polychrome1', 1.2, 0.7) end
 		if card.edition.negative then play_sound('negative', 1.5, 0.4) end
 	end
-end
-
-
-
-
-
----------------------------
---------------------------- Sticker Scaling
----------------------------
-
---- Scales a physical card with nonstandard dimensions relative to the standardized joker sticker size
---- @param sticker table A balatro/SMODS table representing a sticker
---- @param card Card A balatro card object n which this sticker is drawn
---- @return table | nil transform The underlying width and height values of the original, unscaled card
---- @return table | nil visualTransform The visual width and height values of the original, unscaled card
-function scale_joker_sticker(sticker, card)
-    if not sticker or not card then
-        return nil, nil
-    end
-
-    if sticker.atlas.px ~= card.children.center.atlas.px and sticker.atlas.py ~= card.children.center.atlas.px then
-        local x_scale = sticker.atlas.px / card.children.center.atlas.px
-        local y_scale = sticker.atlas.py / card.children.center.atlas.py
-		-- dividing 71/95 is 0.74736842105, using this we can make sure that stickers are not too wide or too tall
-		-- if the aspect ratio of a card is not the same as a standard card
-		if card.config.center.display_size then
-			local target_ratio = 71/95
-			local ratio = card.config.center.display_size.w / card.config.center.display_size.h
-			if ratio > target_ratio then
-				-- Too wide
-				x_scale = x_scale * (ratio*2)
-			else
-				-- Too tall
-				y_scale = y_scale * (ratio*2)
-			end
-		end
-		local x_mod = 0
-		local y_mod = 0
-		if card.config.center.sticker_offset then
-			if card.config.center.sticker_offset.x then
-				x_mod = card.config.center.sticker_offset.x
-			end
-			if card.config.center.sticker_offset.y then
-				y_mod = card.config.center.sticker_offset.y
-			end
-		end
-        local t = {w = card.T.w, h = card.T.h, x = card.T.x, y = card.T.y}
-        local vt = {w = card.VT.w, h = card.VT.h, x = card.VT.x, y = card.VT.y}
-		card.T.x = sticker.T.x + x_mod
-		card.VT.x = sticker.T.x + x_mod
-		card.T.y = sticker.T.y + y_mod
-		card.VT.y = sticker.T.y + y_mod
-
-        card.T.w  = sticker.T.w * x_scale
-        card.VT.w = sticker.T.w * x_scale
-        card.T.h = sticker.T.h * y_scale
-        card.VT.h = sticker.T.h * y_scale
-        return t, vt
-    end
-
-    return nil, nil
-end
-
---- Resets a card's dimensions and scale based on the given transform values
---- @param card Card A balatro card object
---- @param t table Underlying transform values to reset to
---- @param vt table Visual transform values to reset to
-function reset_sticker_scale(card, t, vt)
-    if not t and not vt then return end
-	card.T.x = t and t.x
-	card.VT.x = vt and vt.x
-	card.T.y = t and t.y
-	card.VT.y = vt and vt.y
-    card.T.w = t and t.w or G.CARD_W
-    card.VT.w = vt and vt.w or G.CARD_W
-    card.T.h = t and t.h or G.CARD_H
-    card.VT.h = vt and vt.h or G.CARD_H
 end
 
 
@@ -787,6 +670,18 @@ G.FUNCS.destroy_tape = function(card, delay_time, ach, silent, text)
             return true
         end
     }))
+end
+
+G.FUNCS.find_activated_tape = function(key)
+	local tapes = SMODS.find_card(key)
+	if tapes and #tapes > 0 then
+		for i, v in ipairs(tapes) do
+			if v.ability.activated then
+				return v
+			end
+		end
+	end
+	return false
 end
 
 local ref_select_card = G.FUNCS.can_select_card
@@ -950,6 +845,55 @@ G.FUNCS.csau_set_stand_sprites = function(stand)
 	end
 end
 
+function G.FUNCS.csau_preview_cardarea(preview_num, scale)
+	local preview_cards = {}
+	local count = 0
+	local deck_size = #G.deck.cards
+
+	while count < preview_num and deck_size >= 1 do
+		local card = G.deck.cards[deck_size]
+		if card then
+			table.insert(preview_cards, card)
+			count = count + 1
+		end
+		deck_size = deck_size - 1
+	end
+
+	if count < 1 then
+		return nil
+	end
+
+	local scale = scale or 0.7
+    local preview_area = CardArea(
+            0, 0,
+            (math.min(preview_num, #preview_cards) * G.CARD_W)*scale,
+            G.CARD_H*scale,
+            {card_limit = #preview_cards, type = 'title', highlight_limit = 0, card_w = G.CARD_W*scale}
+    )
+
+    for i=1, #preview_cards do
+        local copied_card = copy_card(preview_cards[i], nil, nil, G.playing_card)
+		copied_card:hard_set_T(copied_card.T.x, copied_card.T.y, G.CARD_W*scale, G.CARD_H*scale)
+        preview_area:emplace(copied_card)
+    end
+
+    return {{
+        n=G.UIT.R, 
+        config = {align = "cm", colour = G.C.CLEAR, r = 0.0, padding = 0.5},
+        nodes={{
+            n=G.UIT.O, config = {object = preview_area}
+        }}
+    }}
+end
+
+
+
+
+
+---------------------------
+--------------------------- CSAU Discoveries
+---------------------------
+
 G.FUNCS.discovery_check = function(args)
 	local csau_only = args.csau_only or false
 	if not args.mode then return end
@@ -984,57 +928,13 @@ G.FUNCS.discovery_check = function(args)
 	return false
 end
 
-local function check_secret(name, visible)
-	for k, v in pairs(SMODS.PokerHands) do
-		if k == name then
-			if v.visible == visible then
-				return true
-			end
-		end
-	end
-end
 
-G.FUNCS.recheck_hand = function(last_hand, scoring)
-	local text,disp_text,poker_hands,scoring_hand,non_loc_disp_text = G.FUNCS.get_poker_hand_info(scoring)
-	G.FUNCS.ach_pepsecretunlock(text)
-	if G.GAME.current_round.current_hand.handname ~= disp_text then delay(0.3) end
-	G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0, blockable = false,
-		 func = function()
-			 if text ~= G.GAME.last_hand_played then
-				 G.GAME.hands[G.GAME.last_hand_played].played = G.GAME.hands[G.GAME.last_hand_played].played - 1
-				 G.GAME.hands[G.GAME.last_hand_played].played_this_round = G.GAME.hands[G.GAME.last_hand_played].played_this_round + 1
-			 end
-			 if check_secret(G.GAME.last_hand_played, true) and check_secret(text, false) then
-				 check_for_unlock({ type = "red_convert" })
-			 end
-			 G.GAME.hands[text].played = G.GAME.hands[text].played + 1
-			 G.GAME.hands[text].played_this_round = G.GAME.hands[text].played_this_round + 1
-			 G.GAME.last_hand_played = text
-			 set_hand_usage(text)
-			 G.GAME.hands[text].visible = true
-			 update_hand_text({sound = G.GAME.current_round.current_hand.handname ~= disp_text and 'button' or nil, volume = 0.4, immediate = true, nopulse = true,
-							   delay = G.GAME.current_round.current_hand.handname ~= disp_text and 0.4 or 0}, {handname=disp_text, level=G.GAME.hands[text].level, mult = G.GAME.hands[text].mult, chips = G.GAME.hands[text].chips})
-			 hand_chips = G.GAME.hands[text].chips
-			 mult = G.GAME.hands[text].mult
-			 return true
-		 end
-	}))
-	G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0, blockable = false,
-		 func = function()
-			 update_hand_text({sound = G.GAME.current_round.current_hand.handname ~= last_hand and 'button' or nil, volume = 0.4, immediate = true, nopulse = true,
-							   delay = G.GAME.current_round.current_hand.handname ~= last_hand and 0.4 or 0}, {handname=last_hand, level=G.GAME.hands[last_hand].level, mult = G.GAME.hands[last_hand].mult, chips = G.GAME.hands[last_hand].chips})
-			 return true
-		 end
-	}))
-	G.E_MANAGER:add_event(Event({trigger = 'after', delay = 4.5, blockable = false,
-		 func = function()
-			 update_hand_text({sound = G.GAME.current_round.current_hand.handname ~= disp_text and 'button' or nil, volume = 0.4, immediate = true, nopulse = nil,
-							   delay = G.GAME.current_round.current_hand.handname ~= disp_text and 0.4 or 0}, {handname=disp_text, level=G.GAME.hands[text].level, mult = G.GAME.hands[text].mult, chips = G.GAME.hands[text].chips})
-			 return true
-		 end
-	}))
-	return text
-end
+
+
+
+---------------------------
+--------------------------- Loc Text Helper
+---------------------------
 
 --- Formats a numeral for display. Numerals between 0 and 1 are written out fully
 --- @param n number Numeral to format
@@ -1085,20 +985,27 @@ function csau_format_display_number(n, number_type, caps_style)
 	return ret
 end
 
-G.FUNCS.find_activated_tape = function(key)
-	local tapes = SMODS.find_card(key)
-	if tapes and #tapes > 0 then
-		for i, v in ipairs(tapes) do
-			if v.ability.activated then
-				return v
-			end
-		end
-	end
-	return false
-end
 
-SMODS.food_expires = function()
-	local bunjis = SMODS.find_card('j_csau_bunji')
+
+
+
+---------------------------
+--------------------------- One-off Card Helpers
+---------------------------
+
+function SMODS.food_expires()
+    local bagels = G.FUNCS.find_activated_tape('c_csau_donbeveridge')
+    if bagels and not bagels.ability.destroyed then
+        bagels:juice_up()
+        bagels.ability.extra.uses = bagels.ability.extra.uses+1
+        if to_big(bagels.ability.extra.uses) >= to_big(bagels.ability.extra.runtime) then
+            G.FUNCS.destroy_tape(bagels)
+            bagels.ability.destroyed = true
+        end
+        return false
+    end
+
+    local bunjis = SMODS.find_card('j_csau_bunji')
 	local expires = true
 	for _, v in ipairs(bunjis) do
 		if not v.debuff then
@@ -1110,7 +1017,7 @@ SMODS.food_expires = function()
 	return expires
 end
 
-SMODS.return_to_hand = function(card, context)
+function SMODS.return_to_hand(card, context)
 	if not G.GAME.blind.disabled and G.GAME.blind.name == 'The Vod' then 
         return true
     elseif G.GAME.fnwk_extra_blinds then
@@ -1236,7 +1143,7 @@ function G.FUNCS.stand_preview_deck(amount)
 	return preview_cards
 end
 
-SMODS.spectral_downside = function()
+function SMODS.spectral_downside()
 	local rem = G.FUNCS.find_activated_tape('c_csau_remlezar')
 	if rem and not rem.ability.destroyed then
 		rem:juice_up()
@@ -1250,7 +1157,7 @@ SMODS.spectral_downside = function()
 	return true
 end
 
-SMODS.will_destroy_card = function()
+function SMODS.will_destroy_card()
 	local sew = G.FUNCS.find_activated_tape('c_csau_sew')
 	if sew and not sew.ability.destroyed then
 		sew.ability.extra.uses = sew.ability.extra.uses+1

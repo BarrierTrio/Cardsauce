@@ -25,15 +25,14 @@ local function get_fingers(card)
 end
 
 function jokerInfo.loc_vars(self, info_queue, card)
-    info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.cejai } }
-    if not mod.config['detailedDescs'] then
+    if not csau_config['detailedDescs'] then
         info_queue[#info_queue+1] = {key = "rogernote", set = "Other", vars = {next(SMODS.find_card("j_four_fingers")) and 4 or 5}}
     end
-    return { vars = { get_fingers(card) } }
-end
-
-function jokerInfo.generate_ui(self, info_queue, card, desc_nodes, specific_vars, full_UI_table)
-    G.FUNCS.csau_generate_detail_desc(self, info_queue, card, desc_nodes, specific_vars, full_UI_table)
+    info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.cejai } }
+    return { 
+        vars = { get_fingers(card) },
+        key = self.key..(csau_config['detailedDescs'] and '_detailed' or '')
+    }
 end
 
 function jokerInfo.calculate(self, card, context)

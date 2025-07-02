@@ -232,36 +232,6 @@ match_indent = true
 [[patches]]
 [patches.pattern]
 target = "functions/common_events.lua"
-pattern = "if card and card.juice_up then card:juice_up(0.6, 0.1) end"
-position = "at"
-payload = "if card and card.juice_up then card:juice_up(extra ~= nil and extra.juice_num1 or 0.6, extra ~= nil and extra.juice_num2 or 0.1) end"
-match_indent = true
-
-[[patches]]
-[patches.pattern]
-target = "functions/common_events.lua"
-pattern = "card:juice_up(0.6, 0.1)"
-position = "at"
-payload = "card:juice_up(extra ~= nil and extra.juice_num1 or 0.6, extra ~= nil and extra.juice_num2 or 0.1)"
-match_indent = true
-
-[[patches]]
-[patches.pattern]
-target = "functions/common_events.lua"
-pattern = '''G.ROOM.jiggle = G.ROOM.jiggle + 0.7
-end
-'''
-position = "after"
-payload = '''
-if card and extra and extra.update_sprites then
-    card:set_sprites(card.config.center)
-end
-'''
-match_indent = true
-
-[[patches]]
-[patches.pattern]
-target = "functions/common_events.lua"
 pattern = '''
 if specific_vars.nominal_chips then
     localize{type = 'other', key = 'card_chips', nodes = desc_nodes, vars = {specific_vars.nominal_chips}}

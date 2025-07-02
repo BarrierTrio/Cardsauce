@@ -5,13 +5,16 @@ local consumInfo = {
         aura_colors = { 'bd53f3DC', '491d96DC' },
         stand_mask = true,
         evolved = true,
+        extra = {
+            hand_mod = 1,
+            discard_mod = 1
+        }
     },
     cost = 10,
     rarity = 'csau_EvolvedRarity',
-    alerted = true,
     hasSoul = true,
     part = 'stone',
-    in_progress = true,
+    blueprint_compat = true
 }
 
 function consumInfo.loc_vars(self, info_queue, card)
@@ -19,10 +22,6 @@ function consumInfo.loc_vars(self, info_queue, card)
 end
 
 function consumInfo.in_pool(self, args)
-    if next(SMODS.find_card('j_showman')) then
-        return true
-    end
-
     if G.GAME.used_jokers['c_csau_stone_white_moon']
     or G.GAME.used_jokers['c_csau_stone_white'] then
         return false
@@ -33,25 +32,32 @@ end
 
 function consumInfo.calculate(self, card, context)
     if context.before and not card.debuff then
-        ease_hands_played(1)
+        ease_hands_played(card.ability.extra.hand_mod)
+        local flare_card = context.blueprint_card or card
         return {
             func = function()
-                G.FUNCS.csau_flare_stand_aura(card, 0.38)
+                G.FUNCS.csau_flare_stand_aura(flare_card, 0.50)
             end,
-            card = card,
-            message = localize{type = 'variable', key = 'a_plus_hand', vars = {1}},
-            colour = G.C.BLUE
+            extra = {
+                card = flare_card,
+                message = localize{type = 'variable', key = 'a_plus_hand', vars = {card.ability.extra.hand_mod}},
+                colour = G.C.BLUE
+            }
         }
     end
-    if context.pre_discard then
-        ease_discard(1)
+
+    if context.pre_discard and not card.debuff then
+        ease_discard(card.ability.extra.discard_mod)
+        local flare_card = context.blueprint_card or card
         return {
             func = function()
-                G.FUNCS.csau_flare_stand_aura(card, 0.38)
+                G.FUNCS.csau_flare_stand_aura(flare_card, 0.50)
             end,
-            card = card,
-            message = localize{type = 'variable', key = 'a_plus_discard', vars = {1}},
-            colour = G.C.RED
+            extra = {
+                card = flare_card,
+                message = localize{type = 'variable', key = 'a_plus_discard', vars = {card.ability.extra.discard_mod}},
+                colour = G.C.RED
+            }
         }
     end
 end

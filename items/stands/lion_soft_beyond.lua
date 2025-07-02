@@ -6,15 +6,14 @@ local consumInfo = {
         stand_mask = true,
         evolved = true,
         extra = {
-            perma_reduction = 1,
+            perma_mod = 1,
         }
     },
     cost = 10,
     rarity = 'csau_EvolvedRarity',
-    alerted = true,
     hasSoul = true,
     part = 'lion',
-    in_progress = true,
+    blueprint_compat = true,
 }
 
 function consumInfo.loc_vars(self, info_queue, card)
@@ -24,53 +23,77 @@ function consumInfo.loc_vars(self, info_queue, card)
 end
 
 function consumInfo.in_pool(self, args)
-    if next(SMODS.find_card('j_showman')) then
-        return true
-    end
-
-    if G.GAME.used_jokers['c_csau_lion_soft'] then
-        return false
-    end
-    
-    return true
+    return (not G.GAME.used_jokers['c_csau_lion_soft'])
 end
 
 function consumInfo.calculate(self, card, context)
-    local bad_context = context.repetition or context.blueprint or context.individual or context.retrigger_joker
-    if context.before and not card.debuff and not bad_context then
-        local enhanced = {}
-        for k, v in ipairs(context.scoring_hand) do
-            if (v.config.center == G.P_CENTERS.m_bonus or v.config.center == G.P_CENTERS.m_mult) and not v.debuff then
-                local mult = v.config.center == G.P_CENTERS.m_mult
-                enhanced[#enhanced+1] = v
-                local colour = v.config.center == G.P_CENTERS.m_bonus and G.C.CHIPS or v.config.center == G.P_CENTERS.m_mult and G.C.MULT
-                if v.config.center == G.P_CENTERS.m_bonus then
-                    v.ability.perma_bonus = v.ability.perma_bonus or 0
-                    v.ability.perma_bonus = v.ability.perma_bonus + (v.config.center.config.bonus*card.ability.extra.perma_reduction)
-                elseif v.config.center == G.P_CENTERS.m_mult then
-                    v.ability.perma_mult = v.ability.perma_mult or 0
-                    v.ability.perma_mult = v.ability.perma_mult + (v.config.center.config.mult*card.ability.extra.perma_reduction)
+    if context.before and not card.debuff then
+        local enhanced = 0
+        for _, v in ipairs(context.scoring_hand) do
+            if ((v.config.center.key == 'm_bonus' or v.config.center.key == 'm_mult') or v.jjba_soft_effect) and not v.debuff then
+                enhanced = enhanced + 1
+
+                if not v.jjba_soft_effect then
+                    v.jjba_soft_effect = v.config.center.key
                 end
-                v.vampired = true
-                v:set_ability(G.P_CENTERS.c_base, nil, true)
+
+                if v.jjba_soft_effect == 'm_bonus' then
+                    v.ability.perma_bonus = v.ability.perma_bonus or 0
+                    v.ability.perma_bonus = v.ability.perma_bonus + (G.P_CENTERS[v.jjba_soft_effect].config.bonus*card.ability.extra.perma_mod)
+                elseif v.jjba_soft_effect == 'm_mult' then
+                    v.ability.perma_mult = v.ability.perma_mult or 0
+                    v.ability.perma_mult = v.ability.perma_mult + (G.P_CENTERS[v.jjba_soft_effect].config.mult*card.ability.extra.perma_mod)
+                end
+                
+                local color = v.jjba_soft_effect == 'm_mult' and G.C.MULT or G.C.CHIPS
                 G.E_MANAGER:add_event(Event({
                     func = function()
-                        card_eval_status_text(v, 'extra', nil, nil, nil, {message = localize('k_soft_and_wet'), colour = (mult and G.C.MULT or G.C.CHIPS)})
-                        v.vampired = nil
+                        if v.config.center.key == 'm_bonus' or v.config.center.key == 'm_mult' then
+                            v:set_ability(G.P_CENTERS.c_base)
+                        end
+
+                        v:juice_up()
+                        play_sound('generic1', 0.9 + math.random()*0.1, 0.8)
+                        attention_text({
+                            text = localize('k_upgrade_ex'),
+                            scale = 0.7,
+                            hold = 0.55,
+                            backdrop_colour = color,
+                            align = 'tm',
+                            major = v,
+                            offset = {x = 0, y = -0.05*G.CARD_H}
+                        })
                         return true
                     end
                 }))
+                delay(0.3)
             end
         end
-        if #enhanced > 0 then
-            G.E_MANAGER:add_event(Event({
+
+        if enhanced > 0 then
+            local flare_card = context.blueprint_card or card
+            return {
                 func = function()
-                    G.FUNCS.csau_flare_stand_aura(card, 0.38)
-                    card:juice_up()
-                    return true
-                end
-            }))
+                    G.FUNCS.csau_flare_stand_aura(flare_card, 0.50)
+                end,
+                extra = {
+                    message = localize('k_soft_and_wet'),
+                    colour = G.C.STAND,
+                    card = flare_card
+                }
+            }
         end
+    end
+
+    if context.after and not context.retrigger_joker and not context.blueprint then
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                for _, v in ipairs(context.scoring_hand) do
+                    v.jjba_soft_effect = nil
+                end
+                return true
+            end
+        }))
     end
 end
 

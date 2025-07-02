@@ -1,5 +1,4 @@
 local consumInfo = {
-    key = 'c_csau_lands_smooth',
     name = 'Smooth Operators',
     set = 'csau_Stand',
     config = {
@@ -11,10 +10,9 @@ local consumInfo = {
     },
     cost = 4,
     rarity = 'csau_StandRarity',
-    alerted = true,
     hasSoul = true,
     part = 'lands',
-    in_progress = true,
+    blueprint_compat = false,
 }
 
 function consumInfo.loc_vars(self, info_queue, card)
@@ -23,8 +21,7 @@ function consumInfo.loc_vars(self, info_queue, card)
 end
 
 function consumInfo.calculate(self, card, context)
-    local bad_context = context.repetition or context.blueprint or context.individual or context.retrigger_joker
-    if not context.before or bad_context then return end
+    if not context.before or context.blueprint then return end
 
     local scoring_ranks = {}
     for _, scored in ipairs(context.scoring_hand) do
@@ -53,7 +50,8 @@ function consumInfo.calculate(self, card, context)
             end
 
             if in_range then 
-                change_cards[#change_cards+1] = { card = unscored, mod = in_range}
+                SMODS.modify_rank(unscored, in_range, true)
+                change_cards[#change_cards+1] = unscored
                 G.E_MANAGER:add_event(Event({
                     trigger = 'after',
                     delay = 0.15,
@@ -75,7 +73,7 @@ function consumInfo.calculate(self, card, context)
             trigger = 'after',
             delay = 0.1,
             func = function()
-                SMODS.modify_rank(v.card, v.mod)
+                v:set_sprites(nil, G.P_CARDS[v.config.card_key])
                 return true 
             end
         }))
@@ -87,9 +85,9 @@ function consumInfo.calculate(self, card, context)
             trigger = 'after',
             delay = 0.25,
             func = function() 
-                v.card:flip()
+                v:flip()
                 play_sound('tarot2', 1, 0.6)
-                v.card:juice_up(0.3, 0.3)
+                v:juice_up(0.3, 0.3)
                 return true 
             end 
         }))
@@ -97,7 +95,7 @@ function consumInfo.calculate(self, card, context)
 
     return {
         func = function()
-            G.FUNCS.csau_flare_stand_aura(card, 0.38)
+            G.FUNCS.csau_flare_stand_aura(card, 0.50)
         end,
         message = localize('k_smooth_operators'),
         message_card = card

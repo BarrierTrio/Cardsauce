@@ -349,7 +349,6 @@ function create_shop_card_ui(card, type, area)
 			end)
 		}))
 	else
-		sendDebugMessage('default shop card UI')
 		cscui_ref(card, type, area)
 	end
 end

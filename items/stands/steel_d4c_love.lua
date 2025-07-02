@@ -8,10 +8,9 @@ local consumInfo = {
     },
     cost = 10,
     rarity = 'csau_EvolvedRarity',
-    alerted = true,
     hasSoul = true,
     part = 'steel',
-    in_progress = true,
+    blueprint_compat = false
 }
 
 function consumInfo.loc_vars(self, info_queue, card)
@@ -20,15 +19,7 @@ function consumInfo.loc_vars(self, info_queue, card)
 end
 
 function consumInfo.in_pool(self, args)
-    if next(SMODS.find_card('j_showman')) then
-        return true
-    end
-
-    if G.GAME.used_jokers['c_csau_steel_d4c'] then
-        return false
-    end
-    
-    return true
+    return (not G.GAME.used_jokers['c_csau_steel_d4c'])
 end
 
 local ref_cie = SMODS.calculate_individual_effect

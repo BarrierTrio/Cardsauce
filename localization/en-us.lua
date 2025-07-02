@@ -334,6 +334,7 @@ return {
 			csau_corrupted = "Corrupted",
 		},
 		dictionary = {
+			-- item string info
 			k_asteroid = "Asteroid",
 			k_galaxy = "Galaxy",
 			k_galaxy_q = "Galaxy?",
@@ -345,6 +346,8 @@ return {
 			b_csau_evolved_cards = "Evolved Stands",
 			b_vhs_cards = "VHS Tapes",
 			b_and_activate = "& PLAY",
+
+			-- credits
 			vs_credits1 = "Direction",
 			vs_credits2 = "Artists",
 			vs_credits2_2 = "Playing Cards",
@@ -356,6 +359,7 @@ return {
 			vs_credits8 = "Shaders",
 			vs_credits9 = "Logo",
 
+			-- config options
 			vs_options_sub = "(Restart required to apply)",
 			vs_options_muteWega = "Mute WAAUGGHGHHHHGHH",
 			vs_options_muteWega_desc = "Check this box to mute WAAUGGHGHHHHGHH's screams",
@@ -416,11 +420,15 @@ return {
 				"Balatro OST by LouisF"
 			},
 			b_color_selector_desc = "(Click colors to update swirl)",
+
+			-- save strings
 			ph_armageddon = "Annihilated by Odio",
 			ph_saved_vague = "Saved by Joker",
 			ph_saved_wings = "Saved by Epoch",
 			ph_saved_proto = "Saved by Protogent",
 			ph_saved_marilyn = "Saved by Marilyn Manson",
+
+			-- various card callouts
 			k_upgrade_double_ex = "Double Upgrade!",
 			k_cavestorytext = "A black wind flows through you...",
 			k_plus_hand = "+1 Hand",
@@ -455,11 +463,11 @@ return {
 			k_worthless_ex = "Worthless!",
 			k_noluck_ex = "No Luck!",
 			k_sipped_ex = "Sipped!",
-			k_sts_hearts = "Twice-Fired",
-			k_sts_clubs = "Infinite Stones",
-			k_sts_diamonds = "Galvanism",
-			k_sts_spades = "Execration",
-			k_sts_wild = "Deification",
+			k_sts_Hearts = "Twice-Fired",
+			k_sts_Clubs = "Infinite Stones",
+			k_sts_Diamonds = "Galvanism",
+			k_sts_Spades = "Execration",
+			k_sts_Wild = "Deification",
 			k_disguy_1 = "BLS BLAY GAME BINTY!!!",
 			k_disguy_2 = "ONLY 20 MINOOT!!!",
 			k_analog_pack = "Analog Pack",
@@ -496,20 +504,13 @@ return {
 			b_planet_card = "Planet Card",
 			k_survived = 'Survived!',
 
-
 			-- badge titles
 			ba_vinny = "Vinesauce",
 			ba_vinny_wotw = "Wheel of the Weird",
 			ba_vinny_pa = "Public Access",
-			co_vinny = "32A852",
-			te_vinny = "FFFFFF",
 			ba_joel = "Vargskelethor",
 			ba_mike = "Jabroni Mike",
-			co_mike = "8867a5",
-			te_mike = "FFFF00",
 			ba_redvox = "Red Vox",
-			co_redvox = "841f20",
-			te_redvox = "cac5b7",
 			ba_rlm = "RedLetterMedia",
 			ba_rlm_botw = "Best of the Worst",
 			ba_rlm_p = "Plinketto",
@@ -518,12 +519,11 @@ return {
 			ba_rlm_wotw = "Wheel of the Worst",
 			ba_rlm_hitb = "Half in the Bag",
 			ba_rlm_r = "Re:View",
-			ba_rlm_r = "Re:View",
 			ba_jojo = "Jojo's Bizarre Adventure",
 			ba_uzumaki = "Uzumaki",
 			ba_monkeywrench = "Monkey Wrench",
 
-			-- badge colors for jojo parts
+			-- badge names for jojo parts
 			ba_phantom = 'Phantom Blood',
 			ba_battle = 'Battle Tendency',
 			ba_stardust = 'Stardust Crusaders',
@@ -533,7 +533,6 @@ return {
 			ba_steel = 'Steel Ball Run',
 			ba_lion = 'JoJolion',
 			ba_lands = 'The JOJOLands',
-
 			ba_feedback = 'Purple Haze Feedback',
 
 			-- stand related loc strings
@@ -549,7 +548,7 @@ return {
 			k_soft_and_wet = "Stolen!",
 			k_bites_the_dust = "Bites the Dust!",
 			k_thehand = "Swipe!",
-			k_stand_stickers="Stand Stickers",
+			k_stand_stickers = "Stand Stickers",
 		},
 		v_dictionary = {
 			a_plus_discard = "+#1# Discard",
@@ -2061,7 +2060,7 @@ return {
 					"first card scored!",
 				},
 			},
-			j_csau_sts_base = {
+			j_csau_sts_Base = {
 				name = "Murder the Monolith",
 				text = {
 					"{C:attention}Transforms{} into a different Joker",
@@ -2069,20 +2068,20 @@ return {
 					"first card scored each round!",
 				},
 			},
-			j_csau_sts_hearts = {
+			j_csau_sts_Hearts = {
 				name = "Twice-Fired",
 				text = {
-					"Played cards are {C:attention}Retriggered{}",
+					"Retrigger {C:attention}all{} scoring cards",
 				},
 			},
-			j_csau_sts_clubs = {
+			j_csau_sts_Clubs = {
 				name = "Infinite Stones",
 				text = {
-					"After each hand played, add a",
-					"{C:attention}Stone{} card to your hand"
+					"Add a {C:attention}Stone Card{} to your hand",
+					"after each hand played"
 				},
 			},
-			j_csau_sts_diamonds = {
+			j_csau_sts_Diamonds = {
 				name = "Galvanism",
 				text = {
 					"Every {C:attention}played card{} counts in scoring",
@@ -2090,20 +2089,21 @@ return {
 					"{C:inactive}(Currently {}{C:mult}+#2#{}{C:inactive} Mult{}{C:inactive}){}",
 				},
 			},
-			j_csau_sts_spades = {
+			j_csau_sts_Spades = {
 				name = "Execration",
 				text = {
 					"{X:mult,C:white}X#3#{} Mult",
-					"All cards retrigger {C:attention}twice",
-					"Draw #4# more cards after hand is played",
-					"Reduce Hands to {C:blue}#5#{} and Discards to {C:red}#6#",
+					"All scoring cards retrigger {C:attention}twice{}",
+					"Draw {C:attention}#4#{} more cards after each hand",
+					"Set Hands to {C:blue}#5#{} and Discards to {C:red}#6#",
 				},
 			},
-			j_csau_sts_wild = {
+			j_csau_sts_Wild = {
 				name = "Deification",
 				text = {
-					"Each card played without an",
-					"{C:attention}Enhancement{} gains a random {C:attention}Enhancement{}",
+					"Each {C:attention}scoring{} card without",
+					"an {C:attention}Enhancement{} gains a",
+					"random {C:attention}Enhancement{}",
 				},
 			},
 			j_csau_tetris = {
@@ -3058,7 +3058,8 @@ return {
 			c_csau_stardust_tohth = {
 				name = "Tohth",
 				text = {
-					"{C:attention}Preview{} the top {C:attention}#1#{} cards in your deck{}",
+					"{C:attention}Preview{} the top {C:attention}#1#{}",
+					" cards in your deck{}",
 				},
 			},
 			c_csau_stardust_world = {
@@ -3071,7 +3072,8 @@ return {
 			c_csau_diamond_crazy = {
 				name = "Crazy Diamond",
 				text = {
-					"Played {C:attention}debuffed{} cards are {C:attention}healed{}",
+					"Played {C:attention}debuffed{} cards",
+					"are {C:attention}healed{}",
 				},
 			},
 			c_csau_diamond_hand = {
@@ -3087,9 +3089,8 @@ return {
 				text = {
 					"If {C:attention}first hand{} of round",
 					"has only {C:attention}#1#{} card, cards",
-					"with matching {C:attention}suit{} give",
+					"of {V:1}#4#{}#5# {C:attention}suit{} give",
 					"{C:mult}+#2#{} Mult when scored",
-					"{C:inactive}(Current suit:{} {V:1}#4#{}{C:inactive})",
 					"{s:0.1} {}",
 					"{C:stand}Evolves{} after {C:attention}#3#{} rounds",
 				},
@@ -3097,13 +3098,10 @@ return {
 			c_csau_diamond_echoes_2 = {
 				name = "Echoes ACT2",
 				text = {
-					"If {C:attention}first hand{} of round",
-					"has only {C:attention}#1#{} card, cards",
-					"with matching {C:attention}suit{} give",
-					"{C:mult}+#2#{} Mult when scored",
-					"The first {C:attention}non-matching{}",
-					"card turns into that suit",
-					"{C:inactive}(Current suit:{} {V:1}#4#{}{C:inactive})",
+					"If {C:attention}first hand{} of round has only",
+					"{C:attention}#1#{} card, the first {C:attention}scoring{} card",
+					"each hand becomes {V:1}#4#{}{C:attention}#5#{}",
+					"{V:1}#4#{}{C:attention}#6#{} give#7# {C:mult}+#2#{} Mult when scored",
 					"{s:0.1} {}",
 					"{C:stand}Evolves{} after {C:attention}#3#{} rounds",
 				},
@@ -3123,14 +3121,18 @@ return {
 					"Whenever you {C:attention}destroy{} a card,",
 					"gain {C:chips}+#1#{} hand this Ante {C:inactive}({C:chips}+#2#{C:inactive})",
 					"{s:0.1} {}",
-					"{C:stand}Evolves{} after destroying {C:attention}#3#{} cards {C:inactive}({C:attention}#4#{C:inactive}/#3#)"
+					"{C:stand}Evolves{} after destroying",
+					"{C:attention}#3#{} cards {C:inactive}({C:attention}#4#{C:inactive}/#3#)"
 				},
 			},
 			c_csau_diamond_killer_btd = {
-				name = "Killer Queen: Bites the Dust",
+				name = {
+					"Killer Queen:",
+					"Bites the Dust",
+				},
 				text = {
 					"After your {C:attention}last card{} is scored,",
-					"retrigger the others in {C:attention}reverse order{}"
+					"retrigger hand in {C:attention}reverse order{}"
 				},
 			},
 			c_csau_vento_gold = {
@@ -3143,10 +3145,14 @@ return {
 				},
 			},
 			c_csau_vento_gold_requiem = {
-				name = "Gold Experience Requiem",
+				name = {
+					"Gold Experience",
+					"Requiem",
+				},
 				text = {
-					"{C:green}#1# in #2#{} chance per scoring {C:attention}Gold Card{}",
-					"to {C:planet}level up{} played {C:attention}poker hand{}",
+					"{C:green}#1# in #2#{} chance per scoring",
+					"{C:attention}Gold Card{} to {C:planet}level up{}",
+					"played {C:attention}poker hand{}",
 				},
 			},
 			c_csau_vento_moody = {
@@ -3161,7 +3167,8 @@ return {
 				text = {
 					"Played {C:attention}Jacks{} become {C:attention}Steel Cards{}",
 					"{s:0.1} {}",
-					"{C:attention}Steel Jacks{} act as {C:attention}Glass Cards{} when played",
+					"{C:attention}Steel Jacks{} act as",
+					"{C:attention}Glass Cards{} when scored",
 				},
 			},
 			c_csau_vento_epitaph = {
@@ -3180,10 +3187,13 @@ return {
 				},
 			},
 			c_csau_vento_watchtower = {
-				name = "All Along Watchtower",
+				name = {
+					"All Along The",
+					"Watchtower",
+				},
 				text = {
-					"{X:mult,C:white}X#1#{} Mult if deck is {C:attention}52{} cards,",
-					"{C:attention}2-A{} for each suit"
+					"{X:mult,C:white}X#1#{} Mult if deck is",
+					"{C:attention}52{} cards, {C:attention}2-A{} for each suit"
 				},
 			},
 			c_csau_stone_stone = {
@@ -3227,7 +3237,8 @@ return {
 					"{C:attention}Retrigger{} each played {C:attention}6{}",
 					"{C:attention}Retrigger{} each played {C:attention}Straight{}",
 					"{s:0.1} {}",
-					"{C:stand}Evolves{} after using {C:attention}#1#{} {C:tarot}The Moon{} cards",
+					"{C:stand}Evolves{} after using",
+					"{C:attention}#1#{} {C:tarot}The Moon{} cards",
 				},
 			},
 			c_csau_stone_white_heaven = {
@@ -3288,7 +3299,10 @@ return {
 				},
 			},
 			c_csau_steel_d4c = {
-				name = "Dirty Deeds Done Dirt Cheap",
+				name = {
+					"Dirty Deeds Done",
+					"Dirt Cheap",
+				},
 				text = {
 					"Your first scored {C:attention}Pair{}",
 					"each round is {C:attention}destroyed{}",
@@ -3370,8 +3384,8 @@ return {
 				name = "Bigmouth Strikes Again",
 				text = {
 					"{C:attention}Flushes{} may be made with {C:attention}4{} cards",
-					"If a fifth is played with a different suit,",
-					"{C:attention}transform{} it into the {C:attention}Flush's suit{}",
+					"All additional cards or {C:attention}Wild Cards{} will",
+					"{C:attention}transform{} into the {C:attention}Flush's suit{}",
 				},
 			},
 		},

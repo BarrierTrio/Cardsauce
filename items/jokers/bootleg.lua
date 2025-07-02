@@ -215,7 +215,7 @@ function jokerInfo.generate_ui(self, info_queue, card, desc_nodes, specific_vars
         end
 
         if desc_nodes == full_UI_table.main and not full_UI_table.name then
-            full_UI_table.name = localize { type = 'name', set = target.set, key = res.name_key or target.key, nodes = full_UI_table.name, vars = res.name_vars or target.vars or {} }
+            full_UI_table.name = localize { type = 'name', set = target.set, key = res.name_key or target.key, nodes = full_UI_table.name, vars = {} }
         elseif desc_nodes ~= full_UI_table.main and not desc_nodes.name then
             desc_nodes.name = localize{type = 'name_text', key = res.name_key or target.key, set = target.set }
         end
@@ -239,14 +239,9 @@ function jokerInfo.generate_ui(self, info_queue, card, desc_nodes, specific_vars
     end
 
     info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.gote } }
-    if mod.config['detailedDescs'] then
-        G.FUNCS.csau_generate_detail_desc(self, info_queue, card, desc_nodes, specific_vars, full_UI_table, nil)
+    if csau_config['detailedDescs'] then
+        localize{type = 'descriptions', key = self.key.."_detailed", set = self.set, nodes = desc_nodes, vars = self.loc_vars and self.loc_vars(self, info_queue, card).vars or {}}
     else
-        if card.area and card.area == G.jokers or card.config.center.discovered then
-            -- If statement makes it so that this function doesnt activate in the "Joker Unlocked" UI and cause 'Not Discovered' to be stuck in the corner
-            full_UI_table.name = localize{type = 'name', key = self.key, set = self.set, name_nodes = {}, vars = specific_vars or {}}
-        end
-
         set_discover_tallies()
         local tally = G.DISCOVER_TALLIES.jokers.of
         local main_start = {

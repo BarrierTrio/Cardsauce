@@ -22,7 +22,7 @@ function jokerInfo.loc_vars(self, info_queue, card)
 end
 
 function jokerInfo.calculate(self, card, context)
-    if context.individual and context.cardarea == G.play and not context.blueprint then
+    if context.individual and context.cardarea == G.play and not context.blueprint and not card.debuff then
         context.other_card['agga_retrigger_count'..card.ID] = (context.other_card['agga_retrigger_count'..card.ID] and context.other_card['agga_retrigger_count'..card.ID] + 1) or 0
 
         if context.other_card['agga_retrigger_count'..card.ID] > 0 then
@@ -45,7 +45,7 @@ function jokerInfo.calculate(self, card, context)
         end
     end
 
-    if context.joker_main and context.cardarea == G.jokers and to_big(card.ability.extra.x_mult) > to_big(1) then
+    if context.joker_main and context.cardarea == G.jokers and not card.debuff and to_big(card.ability.extra.x_mult) > to_big(1) then
         return {
             message = localize{type='variable',key='a_xmult',vars={to_big(card.ability.extra.x_mult)}},
             Xmult_mod = card.ability.extra.x_mult,

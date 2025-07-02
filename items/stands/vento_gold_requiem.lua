@@ -23,10 +23,7 @@ function consumInfo.loc_vars(self, info_queue, card)
 end
 
 function consumInfo.in_pool(self, args)
-    if next(SMODS.find_card('j_showman')) then
-        return true
-    end
-    return (not G.GAME.used_jokers['c_jojobal_vento_gold'])
+    return (not G.GAME.used_jokers['c_csau_vento_gold'])
 end
 
 function consumInfo.calculate(self, card, context)

@@ -11,7 +11,7 @@ local consumInfo = {
 }
 
 function consumInfo.loc_vars(self, info_queue, card)
-    if G.GAME and G.GAME.csau_unlimited_stands then
+    if G.GAME and G.GAME.modifiers.csau_unlimited_stands then
         info_queue[#info_queue+1] = {key = "csau_stand_info_unlimited", set = "Other"}
     else
         if card.area then
@@ -45,7 +45,7 @@ function consumInfo.can_use(self, card)
         return false
     end
 
-    return G.GAME.csau_unlimited_stands or (to_big(G.FUNCS.csau_get_num_stands()) < to_big(G.GAME.modifiers.max_stands))
+    return G.GAME.modifiers.csau_unlimited_stands or (to_big(G.FUNCS.csau_get_num_stands()) < to_big(G.GAME.modifiers.max_stands))
 end
 
 return consumInfo

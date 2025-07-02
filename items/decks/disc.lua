@@ -25,7 +25,7 @@ function deckInfo.loc_vars(self, info_queue, card)
 end
 
 function deckInfo.apply(self, back)
-    G.GAME.csau_unlimited_stands = true
+    G.GAME.modifiers.csau_unlimited_stands = true
 end
 
 return deckInfo

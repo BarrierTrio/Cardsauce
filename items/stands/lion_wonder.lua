@@ -12,10 +12,9 @@ local consumInfo = {
     },
     cost = 4,
     rarity = 'csau_StandRarity',
-    alerted = true,
     hasSoul = true,
     part = 'lion',
-    in_progress = true,
+    blueprint_compat = true,
 }
 
 function consumInfo.loc_vars(self, info_queue, card)
@@ -31,7 +30,7 @@ local forms = {
 }
 
 for i = 1, #forms do
-    if forms[i] then
+    if i ~= 1 then
         SMODS.Atlas({ key = forms[i], path ="stands/"..forms[i]..".png", px = 71, py = 95 })
     end
 end
@@ -59,19 +58,30 @@ end
 
 function consumInfo.calculate(self, card, context)
     if context.joker_main then
+        local flare_card = context.blueprint_card or card
         return {
-            xmult = card.ability.extra.xmult,
+            func = function()
+                G.FUNCS.csau_flare_stand_aura(flare_card, 0.50)
+            end,
+            extra = {
+                xmult = card.ability.extra.xmult,
+                card = flare_card
+            }
         }
     end
-    local bad_context = context.repetition or context.blueprint or context.individual or context.retrigger_joker
-    if context.final_scoring_step and not bad_context then
-        local trigger = false
-        for i, v in ipairs(context.scoring_hand) do
-            if v.ability.effect == 'Lucky Card' and not v.debuff then
-                trigger = true
-                card.ability.extra.xmult = card.ability.extra.xmult + card.ability.extra.xmult_mod
-            end
+        
+    if context.destroy_card and not context.blueprint and not context.retrigger_joker and not card.debuff then
+        if SMODS.has_enhancement(context.destroy_card, 'm_lucky') and SMODS.in_scoring(context.destroy_card, context.scoring_hand) and not context.destroy_card.debuff then
+            context.destroy_card.csau_removed_by_wonder = true
+            return {
+                remove = true,
+            }
         end
+    end
+
+    if context.fnwk_card_destroyed and context.removed.csau_removed_by_wonder and not context.blueprint and not context.retrigger_joker then
+        card.ability.extra.xmult = card.ability.extra.xmult + card.ability.extra.xmult_mod
+
         local update_sprite = false
         if to_big(card.ability.extra.xmult) >= to_big(1.9) and card.ability.extra.form == 'lion_wonder' then
             card.ability.extra.form = 'lion_wonder_2'
@@ -80,29 +90,22 @@ function consumInfo.calculate(self, card, context)
             card.ability.extra.form = 'lion_wonder_3'
             update_sprite = true
         end
+
         if update_sprite then
             G.E_MANAGER:add_event(Event({trigger = 'after', func = function()
-                updateSprite(card)
-                card:juice_up()
-                return true end }))
+            updateSprite(card)
+            card:juice_up()
+            return true end }))
         end
-        if trigger then
-            return {
-                func = function()
-                    G.FUNCS.csau_flare_stand_aura(card, 0.38)
-                end,
-                message = localize('k_upgrade_ex'),
-                colour = G.C.RED,
-                card = card
-            }
-        end
-    end
-    if context.destroy_card and context.cardarea == G.play and not bad_context then
-        if context.destroy_card.ability.effect == 'Lucky Card' and table.contains(context.scoring_hand, context.destroy_card) and not context.destroy_card.debuff then
-            return {
-                remove = true,
-            }
-        end
+
+        return {
+            func = function()
+                G.FUNCS.csau_flare_stand_aura(card, 0.50)
+            end,
+            message = localize('k_upgrade_ex'),
+            colour = G.C.RED,
+            card = card
+        }
     end
 end
 
