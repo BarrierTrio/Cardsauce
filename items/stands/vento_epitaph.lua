@@ -7,7 +7,7 @@ local consumInfo = {
         evolve_key = 'c_csau_vento_epitaph_king',
         extra = {
             evolve_skips = 0,
-            evolve_num = 4,
+            evolve_num = 3,
             preview = 1,
         }
     },
@@ -41,9 +41,10 @@ function consumInfo.calculate(self, card, context)
         card.ability.extra.evolve_skips = card.ability.extra.evolve_skips + 1
         if card.ability.extra.evolve_skips >= card.ability.extra.evolve_num then
             check_for_unlock({ type = "evolve_kingcrimson" })
-            G.FUNCS.evolve_stand(card)
+            G.FUNCS.csau_evolve_stand(card)
         else
             return {
+                no_retrigger = true,
                 message = card.ability.extra.evolve_skips..'/'..card.ability.extra.evolve_num,
                 colour = G.C.STAND
             }

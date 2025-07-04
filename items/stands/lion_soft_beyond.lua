@@ -10,7 +10,7 @@ local consumInfo = {
         }
     },
     cost = 10,
-    rarity = 'csau_EvolvedRarity',
+    rarity = 'csau_evolvedRarity',
     hasSoul = true,
     part = 'lion',
     blueprint_compat = true,
@@ -28,10 +28,10 @@ end
 
 function consumInfo.calculate(self, card, context)
     if context.before and not card.debuff then
-        local enhanced = 0
+        local enhanced = {}
         for _, v in ipairs(context.scoring_hand) do
             if ((v.config.center.key == 'm_bonus' or v.config.center.key == 'm_mult') or v.jjba_soft_effect) and not v.debuff then
-                enhanced = enhanced + 1
+                enhanced[#enhanced+1] = v
 
                 if not v.jjba_soft_effect then
                     v.jjba_soft_effect = v.config.center.key
@@ -45,35 +45,31 @@ function consumInfo.calculate(self, card, context)
                     v.ability.perma_mult = v.ability.perma_mult + (G.P_CENTERS[v.jjba_soft_effect].config.mult*card.ability.extra.perma_mod)
                 end
                 
-                local color = v.jjba_soft_effect == 'm_mult' and G.C.MULT or G.C.CHIPS
-                G.E_MANAGER:add_event(Event({
-                    func = function()
-                        if v.config.center.key == 'm_bonus' or v.config.center.key == 'm_mult' then
-                            v:set_ability(G.P_CENTERS.c_base)
-                        end
-
-                        v:juice_up()
-                        play_sound('generic1', 0.9 + math.random()*0.1, 0.8)
-                        attention_text({
-                            text = localize('k_upgrade_ex'),
-                            scale = 0.7,
-                            hold = 0.55,
-                            backdrop_colour = color,
-                            align = 'tm',
-                            major = v,
-                            offset = {x = 0, y = -0.05*G.CARD_H}
-                        })
-                        return true
-                    end
-                }))
-                delay(0.3)
+                if v.config.center.key == 'm_bonus' or v.config.center.key == 'm_mult' then
+                    v:set_ability(G.P_CENTERS.c_base, nil, 'manual')
+                end
             end
         end
 
-        if enhanced > 0 then
+        if #enhanced > 0 then
             local flare_card = context.blueprint_card or card
             return {
                 func = function()
+                    for i, v in ipairs(enhanced) do
+                        local color = v.jjba_soft_effect == 'm_mult' and G.C.MULT or G.C.CHIPS
+                        local percent = (i-0.999)/(#enhanced-0.998)*0.2
+                        G.E_MANAGER:add_event(Event({
+                            func = function()
+                                v:set_sprites(v.config.center)
+                                return true
+                            end
+                        }))
+                        card_eval_status_text(v, 'extra', nil, percent, nil, {
+                            message = localize('k_upgrade_ex'),
+                            colour = color,
+                            delay = 0.25
+                        })
+                    end
                     G.FUNCS.csau_flare_stand_aura(flare_card, 0.50)
                 end,
                 extra = {

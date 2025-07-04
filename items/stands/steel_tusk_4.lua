@@ -65,11 +65,18 @@ local consumInfo = {
         evolved = true,
         extra = {
             chips = 55,
-            hand_mod = 1
+            hand_mod = 1,
+            valid_ids = {
+                [2] = true,
+                [3] = true,
+                [5] = true,
+                [8] = true,
+                [14] = true,
+            }
         }
     },
     cost = 10,
-    rarity = 'csau_EvolvedRarity',
+    rarity = 'csau_evolvedRarity',
     alerted = true,
     hasSoul = true,
     part = 'steel',
@@ -109,31 +116,27 @@ function consumInfo.remove_from_deck(self, card, from_debuff)
 end
 
 function consumInfo.calculate(self, card, context)
-    if context.individual and context.cardarea == G.play and not card.debuff then
-        if context.other_card:get_id() == 2 or
-        context.other_card:get_id() == 3 or
-        context.other_card:get_id() == 5 or
-        context.other_card:get_id() == 8 or
-        context.other_card:get_id() == 14 then
-            local flare_card = context.blueprint_card or card
-            return {
-                func = function()
-                    G.FUNCS.csau_flare_stand_aura(flare_card, 0.50)
-                end,
-                extra = {
-                    chips = card.ability.extra.chips,
-                    card = flare_card
-                }
-            }
-        end
-    end
+    if card.debuff then return end
 
-    if context.before and not card.debuff and next(context.poker_hands['csau_Fibonacci']) then
-        ease_hands_played(card.ability.extra.hand_mod)
+    if context.individual and context.cardarea == G.play and card.ability.extra.valid_ids[context.other_card:get_id()] then
         local flare_card = context.blueprint_card or card
         return {
             func = function()
                 G.FUNCS.csau_flare_stand_aura(flare_card, 0.50)
+            end,
+            extra = {
+                chips = card.ability.extra.chips,
+                card = flare_card
+            }
+        }
+    end
+
+    if context.before and next(context.poker_hands['csau_Fibonacci']) then
+        local flare_card = context.blueprint_card or card
+        return {
+            func = function()
+                G.FUNCS.csau_flare_stand_aura(flare_card, 0.50)
+                ease_hands_played(card.ability.extra.hand_mod)
             end,
             extra = {
                 card = flare_card,

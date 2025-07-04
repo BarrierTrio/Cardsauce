@@ -11,7 +11,7 @@ local consumInfo = {
         }
     },
     cost = 10,
-    rarity = 'csau_EvolvedRarity',
+    rarity = 'csau_evolvedRarity',
     hasSoul = true,
     part = 'stone',
     blueprint_compat = true
@@ -31,7 +31,9 @@ function consumInfo.in_pool(self, args)
 end
 
 function consumInfo.calculate(self, card, context)
-    if context.before and not card.debuff then
+    if card.debuff then return end
+
+    if context.before then
         ease_hands_played(card.ability.extra.hand_mod)
         local flare_card = context.blueprint_card or card
         return {
@@ -40,13 +42,13 @@ function consumInfo.calculate(self, card, context)
             end,
             extra = {
                 card = flare_card,
-                message = localize{type = 'variable', key = 'a_plus_hand', vars = {card.ability.extra.hand_mod}},
+                message = localize{type = 'variable', key = 'a_hands', vars = {card.ability.extra.hand_mod}},
                 colour = G.C.BLUE
             }
         }
     end
 
-    if context.pre_discard and not card.debuff then
+    if context.pre_discard then
         ease_discard(card.ability.extra.discard_mod)
         local flare_card = context.blueprint_card or card
         return {

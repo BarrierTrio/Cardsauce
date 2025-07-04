@@ -7,7 +7,7 @@ local consumInfo = {
         aura_colors = { '151590DC', '5f277dDC' },
     },
     cost = 10,
-    rarity = 'csau_EvolvedRarity',
+    rarity = 'csau_evolvedRarity',
     hasSoul = true,
     part = 'diamond',
     blueprint_compat = false,
@@ -57,14 +57,17 @@ function SMODS.calculate_main_scoring(context, scoring_hand)
 end
 
 function consumInfo.calculate(self, card, context)
-    if not context.blueprint and context.before then
+    if card.debuff then return end
+
+    if not context.blueprint and not context.retrigger_joker and context.before then
         card.ability.index = 0
     end
 
-    if not context.blueprint and context.individual and context.cardarea == G.play and not card.debuff then
+    if not context.retrigger_joker and not context.blueprint and context.individual and context.cardarea == G.play then
         card.ability.index = card.ability.index + 1
         if card.ability.index == #context.scoring_hand then
             return {
+                no_retrigger = true,
                 func = function()
                     G.FUNCS.csau_flare_stand_aura(card, 0.50)
                 end,
@@ -74,6 +77,7 @@ function consumInfo.calculate(self, card, context)
             }
         elseif card.ability.index > #context.scoring_hand then
             return {
+                no_retrigger = true,
                 func = function()
                     G.FUNCS.csau_flare_stand_aura(card, 0.50)
                 end,
@@ -81,7 +85,7 @@ function consumInfo.calculate(self, card, context)
         end
     end
 
-    if not context.blueprint and context.end_of_round and not context.individual then
+    if not context.retrigger_joker and not context.blueprint and context.end_of_round and context.main_eval then
         card.ability.index = 0
     end
 end

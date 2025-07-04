@@ -24,64 +24,59 @@ function consumInfo.loc_vars(self, info_queue, card)
 end
 
 local forms = {
-    [1] = "lion_wonder",
-    [2] = "lion_wonder_2",
-    [3] = "lion_wonder_3",
+    ['lion_wonder'] = true,
+    ['lion_wonder_2'] = true,
+    ['lion_wonder_3'] = true,
 }
 
-for i = 1, #forms do
-    if i ~= 1 then
-        SMODS.Atlas({ key = forms[i], path ="stands/"..forms[i]..".png", px = 71, py = 95 })
-    end
-end
+SMODS.Atlas({ key = 'lion_wonder_2', path = "stands/lion_wonder_2.png", px = 71, py = 95 })
+SMODS.Atlas({ key = 'lion_wonder_3', path = "stands/lion_wonder_3.png", px = 71, py = 95 })
 
-local function updateSprite(card)
-    if card.ability.extra.form then
-        if card.config.center.atlas ~= card.ability.extra.form then
-            local old_atlas = card.config.center.atlas
-            card.config.center.atlas = "csau_"..card.ability.extra.form
-            card:set_sprites(card.config.center)
-            card.config.center.atlas = old_atlas
-            if G.SETTINGS.highest_wonderofu ~= forms[3] then
-                G.SETTINGS.highest_wonderofu = card.ability.extra.form
-                G:save_settings()
-            end
-        end
+function consumInfo.set_sprites(self, card, context)
+    if not card.config.center.discovered and (G.OVERLAY_MENU or G.STAGE == G.STAGES.MAIN_MENU) then
+        return
     end
-end
 
-function consumInfo.set_sprites(self, card, _front)
-    if card.config.center.discovered or card.bypass_discovery_center then
-        card.children.center:reset()
+    if G.SETTINGS.highest_wonder then
+        card.ability.extra.form = G.SETTINGS.highest_wonder
+
+        card.config.center.atlas = "csau_"..card.ability.extra.form
+        card:set_sprites(card.config.center)
+        card.config.center.atlas = 'jojoba_lion_wonder'
     end
 end
 
 function consumInfo.calculate(self, card, context)
-    if context.joker_main then
+    if card.debuff then return end
+
+    if context.joker_main and card.ability.extra.xmult > 1 then
         local flare_card = context.blueprint_card or card
         return {
             func = function()
                 G.FUNCS.csau_flare_stand_aura(flare_card, 0.50)
             end,
             extra = {
-                xmult = card.ability.extra.xmult,
+                x_mult = card.ability.extra.xmult,
                 card = flare_card
             }
         }
     end
         
-    if context.destroy_card and not context.blueprint and not context.retrigger_joker and not card.debuff then
+    if context.destroy_card and not context.blueprint and not context.retrigger_joker then
         if SMODS.has_enhancement(context.destroy_card, 'm_lucky') and SMODS.in_scoring(context.destroy_card, context.scoring_hand) and not context.destroy_card.debuff then
+            sendDebugMessage('marking destruction')
             context.destroy_card.csau_removed_by_wonder = true
             return {
+                no_retrigger = true,
                 remove = true,
             }
         end
     end
 
-    if context.csau_card_destroyed and context.removed.csau_removed_by_wonder and not context.blueprint and not context.retrigger_joker then
+    if context.csau_card_destroyed and context.removed.csau_removed_by_wonder and not context.blueprint then
         card.ability.extra.xmult = card.ability.extra.xmult + card.ability.extra.xmult_mod
 
+        sendDebugMessage('upgrading wonder')
         local update_sprite = false
         if to_big(card.ability.extra.xmult) >= to_big(1.9) and card.ability.extra.form == 'lion_wonder' then
             card.ability.extra.form = 'lion_wonder_2'
@@ -91,31 +86,31 @@ function consumInfo.calculate(self, card, context)
             update_sprite = true
         end
 
-        if update_sprite then
-            G.E_MANAGER:add_event(Event({trigger = 'after', func = function()
-            updateSprite(card)
-            card:juice_up()
-            return true end }))
-        end
-
         return {
             func = function()
                 G.FUNCS.csau_flare_stand_aura(card, 0.50)
+                G.E_MANAGER:add_event(Event({
+                    func = function()
+                        if update_sprite then
+                            card.config.center.atlas = "csau_"..card.ability.extra.form
+                            card:set_sprites(card.config.center)
+                            card.config.center.atlas = 'jojoba_lion_wonder'
+
+                            G.SETTINGS.highest_wonder = card.ability.extra.form
+                            G:save_settings()
+                        end
+                        
+                        context.removed:juice_up()
+                        return true
+                    end
+                }))
             end,
-            message = localize('k_upgrade_ex'),
-            colour = G.C.RED,
-            card = card
+            extra = {
+                message = localize('k_upgrade_ex'),
+                colour = G.C.RED,
+                card = card
+            }
         }
-    end
-end
-
-
-function consumInfo.update(self, card)
-    if card.area.config.collection and G.SETTINGS.highest_wonderofu and card.ability.extra.form ~= G.SETTINGS.highest_wonderofu then
-        card.ability.extra.form = G.SETTINGS.highest_wonderofu
-        updateSprite(card)
-    elseif G.screenwipe then
-        updateSprite(card)
     end
 end
 

@@ -10,7 +10,7 @@ local consumInfo = {
         }
     },
     cost = 10,
-    rarity = 'csau_EvolvedRarity',
+    rarity = 'csau_evolvedRarity',
     hasSoul = true,
     part = 'vento',
     blueprint_compat = true,
@@ -18,7 +18,7 @@ local consumInfo = {
 
 function consumInfo.loc_vars(self, info_queue, card)
     info_queue[#info_queue+1] = G.P_CENTERS.m_gold
-    info_queue[#info_queue+1] = {key = "artistcredit_2", set = "Other", vars = { G.csau_team.reda, G.csau_team.wario } }
+    info_queue[#info_queue+1] = {key = "csau_artistcredit_2", set = "Other", vars = { G.csau_team.reda, G.csau_team.wario } }
     return { vars = { SMODS.get_probability_vars(card, 1, card.ability.extra.chance) }}
 end
 
@@ -35,28 +35,26 @@ function consumInfo.calculate(self, card, context)
             end
         end
 
-        local levels = #tick_cards
-        if levels > 0 then
-            for i = 1, levels do
-                G.E_MANAGER:add_event(Event({ 
-                    trigger = 'before',
-                    delay = 0.3,
-                    func = function() 
-                        tick_cards[i]:juice_up()
-                        play_sound('card1')
-                    return true 
-                end })) 
-            end
-
+        if #tick_cards > 0 then
             local flare_card = context.blueprint_card or card
             return {
                 func = function()
                     G.FUNCS.csau_flare_stand_aura(flare_card, 0.50)
+                    for i = 1, #tick_cards do
+                        G.E_MANAGER:add_event(Event({
+                            trigger = 'after',
+                            delay = 0.3,
+                            func = function()
+                                tick_cards[i]:juice_up()
+                                play_sound('card1')
+                            return true
+                        end }))
+                    end
                 end,
                 extra = {
                     card = flare_card,
-                    level_up = levels,
-                    message = localize{type = 'variable', key = 'a_multilevel', vars = {levels}},
+                    level_up = #tick_cards,
+                    message = localize{type = 'variable', key = 'a_multilevel', vars = {#tick_cards}},
                 }
             }
         end

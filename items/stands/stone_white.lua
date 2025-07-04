@@ -33,7 +33,7 @@ function consumInfo.in_pool(self, args)
 end
 
 function consumInfo.calculate(self, card, context)
-    if context.cardarea == G.play and context.repetition and not context.repetition_only then
+    if context.cardarea == G.play and context.repetition then
         if context.other_card:get_id() == 6 then
             if not context.blueprint and not context.retrigger_joker then
                 card.ability.extra.evolve_scores = card.ability.extra.evolve_scores + 1
@@ -54,9 +54,10 @@ function consumInfo.calculate(self, card, context)
     if context.after and not card.debuff and not context.blueprint and not context.retrigger_joker and not card.ability.extra.evolved then
         if to_big(card.ability.extra.evolve_scores) >= to_big(card.ability.extra.evolve_num) then
             card.ability.extra.evolved = true
-            G.FUNCS.evolve_stand(card)
+            G.FUNCS.csau_evolve_stand(card)
         else
             return {
+                no_retrigger = true,
                 message = localize{type='variable',key='a_remaining',vars={card.ability.extra.evolve_num - card.ability.extra.evolve_scores}},
                 colour = G.C.STAND
             }

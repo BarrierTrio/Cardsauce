@@ -25,25 +25,23 @@ local function is_removed(card, removed)
 end
 
 function consumInfo.calculate(self, card, context)
-    local bad_context = context.repetition or context.blueprint or context.individual or context.retrigger_joker
-    if context.remove_playing_cards and not bad_context then
+    if context.remove_playing_cards and not context.blueprint and not context.retrigger_joker then
         local juice = false
-        for i, card in ipairs(context.removed) do
-            local pos = card.rank
+        for i, removed in ipairs(context.removed) do
             local cards_to_convert = {}
             for i=1, 2 do
                 local mod = -1
                 if i == 2 then mod = 1 end
-                if card.area.cards[card.rank+mod] and not is_removed(card.area.cards[card.rank+mod], context.removed) then
-                    cards_to_convert[#cards_to_convert+1] = card.area.cards[card.rank+mod]
+                if removed.area.cards[removed.rank+mod] and not is_removed(removed.area.cards[removed.rank+mod], context.removed) then
+                    cards_to_convert[#cards_to_convert+1] = removed.area.cards[removed.rank+mod]
                 end
             end
             if #cards_to_convert > 0 then
-                for i, v in ipairs(cards_to_convert) do
+                for _, v in ipairs(cards_to_convert) do
                     G.E_MANAGER:add_event(Event({
                         func = function()
-                            v:set_ability(card.config.center)
-                            v:set_base(card.config.card)
+                            v:set_ability(removed.config.center)
+                            v:set_base(removed.config.card)
                             v:juice_up()
                             return true
                         end
@@ -54,6 +52,7 @@ function consumInfo.calculate(self, card, context)
         end
         if juice then
             return {
+                no_retrigger = true,
                 func = function()
                     card:juice_up()
                     G.FUNCS.csau_flare_stand_aura(card, 0.50)

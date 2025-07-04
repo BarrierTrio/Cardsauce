@@ -102,6 +102,8 @@ local debt_collection = function(card)
 end
 
 function consumInfo.calculate(self, card, context)
+    if card.debuff then return end
+
     if context.end_of_round and not context.blueprint and context.game_over and not context.retrigger_joker then
         local collect = debt_collection(card)
         if collect.saved then
@@ -112,8 +114,10 @@ function consumInfo.calculate(self, card, context)
                     v:start_dissolve({G.C.GOLD})
                 end
             end
+            
             ease_dollars(collect.ease)
             return {
+                no_retrigger = true,
                 func = function()
                     G.FUNCS.csau_flare_stand_aura(card, 0.50)
                     card:juice_up()

@@ -404,7 +404,6 @@ payload = '{n=G.UIT.O, config={w=_sizeX*1,h=_sizeY*1, colour = G.C.BLUE, object 
 match_indent = true
 times = 1
 
-
 [[patches]]
 [patches.pattern]
 target = "game.lua"
@@ -415,3 +414,35 @@ payload = '''   if type(_ch.restrictions.banned_cards) == 'function' then
 	end'''
 match_indent = true
 times = 1
+
+# Add the delayed property to sprites that are delayed
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+match_indent = true
+position = 'at'
+pattern = '''
+if delay_sprites then 
+    G.E_MANAGER:add_event(Event({
+        func = function()
+            if not self.REMOVED then
+                self:set_sprites(center)
+            end
+            return true
+        end
+    })) 
+'''
+payload = '''
+if delay_sprites == 'quantum' or delay_sprites == 'manual' then
+elseif delay_sprites then 
+    self.ability.delayed = true
+    G.E_MANAGER:add_event(Event({
+        func = function()
+            if not self.REMOVED then
+                self:set_sprites(center)
+                self.ability.delayed = false
+            end
+            return true
+        end
+    })) 
+'''

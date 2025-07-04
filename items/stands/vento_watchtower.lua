@@ -10,6 +10,7 @@ local consumInfo = {
     },
     cost = 4,
     rarity = 'csau_StandRarity',
+    alerted = true,
     hasSoul = true,
     part = 'feedback',
     blueprint_compat = true

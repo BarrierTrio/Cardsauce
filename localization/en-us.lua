@@ -2558,7 +2558,8 @@ return {
 				text = {
 					"This Joker gains {C:mult}+#1#{} Mult every",
 					"round you have a {C:stand}Stand{},",
-					"resets when a {C:stand}Stand{} is sold",
+					"resets when a {C:stand}Stand{} is",
+					"{C:attention}sold{} or {C:attention}destroyed{}",
 					"{C:inactive}(Currently {}{C:mult}+#2#{}{C:inactive} Mult{}{C:inactive}){}",
 				},
 			},
@@ -3321,21 +3322,24 @@ return {
 			c_csau_lion_soft = {
 				name = "Soft & Wet",
 				text = {
-					"Scoring {C:attention}Bonus{}/{C:attention}Mult Cards{}",
-					"lose their enhancements but",
+					"Scoring {C:attention}Bonus{} and {C:attention}Mult Cards{}",
+					"lose their {C:attention}Enhancements{} but",
 					"permanently gain {C:attention}half{} their",
-					"enhancements' bonuses",
+					"Chip and Mult bonuses",
 					"{s:0.1} {}",
 					"{C:stand}Evolves{} after playing a {C:attention}Secret Hand{}",
 				},
 			},
 			c_csau_lion_soft_beyond = {
-				name = "Soft & Wet: Go Beyond",
+				name = {
+					"Soft & Wet:",
+					"Go Beyond",
+				},
 				text = {
-					"Scoring {C:attention}Bonus{}/{C:attention}Mult Cards{}",
-					"lose their enhancements but",
-					"permanently gain {C:attention}all{} of",
-					"their enhancements' bonuses"
+					"Scoring {C:attention}Bonus{} and {C:attention}Mult Cards{}",
+					"lose their {C:attention}Enhancements{} but",
+					"permanently gain {C:attention}all{} their",
+					"Chip and Mult bonuses"
 				},
 			},
 			c_csau_lion_paper = {

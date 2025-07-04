@@ -24,10 +24,10 @@ end
 
 function consumInfo.calculate(self, card, context)
     if context.before and not card.debuff then
-        local stones = 0
+        local stones = {}
         for _, v in ipairs(context.scoring_hand) do
             if v.config.center.key == 'm_stone' or v.csau_stone_effect then
-                stones = stones + 1            
+                stones[#stones+1] = v     
    
                 if not v.csau_stone_effect then
                     v.csau_stone_effect = true
@@ -36,34 +36,30 @@ function consumInfo.calculate(self, card, context)
                 v.ability.perma_bonus = v.ability.perma_bonus or 0
                 v.ability.perma_bonus = v.ability.perma_bonus + card.ability.extra.chips
 
-                G.E_MANAGER:add_event(Event({
-                    func = (function()
-                        if v.config.center.key == 'm_stone' then
-                            v:set_ability(G.P_CENTERS.c_base)
-                        end
-                        v:juice_up()
-                        play_sound('generic1', 0.9 + math.random()*0.1, 0.8)
-                        attention_text({
-                            text = localize('k_upgrade_ex'),
-                            scale = 0.7, 
-                            hold = 0.55,
-                            backdrop_colour = G.C.CHIPS,
-                            align = 'tm',
-                            major = v,
-                            offset = {x = 0, y = -0.05*G.CARD_H}
-                        })
-                        return true
-                    end)
-                }))
-                delay(0.3)
+                if v.config.center.key == 'm_stone' then
+                    v:set_ability(G.P_CENTERS.c_base, nil, 'manual')
+                end
             end         
         end
 
-        if stones > 0 then
+        if #stones > 0 then
             local flare_card = context.blueprint_card or card
             return {
                 func = function()
-                    G.FUNCS.csau_flare_stand_aura(flare_card, 0.50)
+                    for i, v in ipairs(stones) do
+                        local percent = (i-0.999)/(#stones-0.998)*0.2
+                        G.E_MANAGER:add_event(Event({
+                            func = function()
+                                v:set_sprites(v.config.center)
+                                return true
+                            end
+                        }))
+                        card_eval_status_text(v, 'extra', nil, percent, nil, {
+                            message = localize('k_upgrade_ex'),
+                            delay = 0.25
+                        })
+                    end
+                    G.FUNCS.csau_flare_stand_aura(flare_card, 0.5)
                 end,
                 extra = {
                     message = localize('k_stone_free'),

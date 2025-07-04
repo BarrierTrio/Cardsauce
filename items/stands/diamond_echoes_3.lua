@@ -11,7 +11,7 @@ local consumInfo = {
         }
     },
     cost = 10,
-    rarity = 'csau_EvolvedRarity',
+    rarity = 'csau_evolvedRarity',
     hasSoul = true,
     part = 'diamond',
     blueprint_compat = true,
@@ -33,38 +33,37 @@ function consumInfo.in_pool(self, args)
 end
 
 function consumInfo.calculate(self, card, context)
-    if context.individual and context.cardarea == G.play and not card.debuff then
-        if context.other_card.ability.effect == 'Stone Card' then
-            local flare_card = context.blueprint_card or card
-            return {
-                func = function()
-                    G.FUNCS.csau_flare_stand_aura(flare_card, 0.50)
-                end,
-                extra = {
-                    x_mult = card.ability.extra.xmult,
-                    card = flare_card
-                }
+    if card.debuff then return end
+
+    if context.individual and context.cardarea == G.play and SMODS.has_enhancement(context.other_card, 'm_stone') then
+        local flare_card = context.blueprint_card or card
+
+        local mult = next(context.poker_hands['Flush']) and card.ability.extra.mult or nil
+        return {
+            func = function()
+                G.FUNCS.csau_flare_stand_aura(flare_card, 0.50)
+            end,
+            extra = {
+                mult = mult,
+                x_mult = card.ability.extra.xmult,
+                card = flare_card
             }
-        end
-        if next(context.poker_hands['Flush']) and not context.other_card.debuff then
-            local flare_card = context.blueprint_card or card
-			return {
-                func = function()
-                    G.FUNCS.csau_flare_stand_aura(flare_card, 0.50)
-                end,
-                extra = {
-                    mult = card.ability.extra.mult,
-				    card = flare_card
-                }
-			}
-		end
+        }
     end
 end
 
 local ref_is = Card.is_suit
 function Card:is_suit(suit, bypass_debuff, flush_calc)
-    if next(SMODS.find_card("c_csau_diamond_echoes_3")) and SMODS.has_enhancement(self, 'm_stone') then return true end
-    return ref_is(self, suit, bypass_debuff, flush_calc)
+    local echoes = SMODS.find_card("c_csau_diamond_echoes_3")
+    local valid = false
+    for _, v in ipairs(echoes) do
+        if not v.debuff then
+            valid = true
+            break;
+        end
+    end
+    
+    return valid or ref_is(self, suit, bypass_debuff, flush_calc)
 end
 
 

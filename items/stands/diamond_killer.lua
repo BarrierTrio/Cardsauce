@@ -39,7 +39,7 @@ function consumInfo.calculate(self, card, context)
         card.ability.extra.evolve_cards = card.ability.extra.evolve_cards + hands
         if to_big(card.ability.extra.evolve_cards) >= to_big(card.ability.extra.evolve_num) then
             check_for_unlock({ type = "evolve_btd" })
-            G.FUNCS.evolve_stand(card)
+            G.FUNCS.csau_evolve_stand(card)
             return
         end
         
@@ -49,6 +49,7 @@ function consumInfo.calculate(self, card, context)
             card:juice_up()
             return true
         end }))
+        delay(0.65)
     end
 
     if context.setting_blind and card.ability.extra.hands > 0 then
@@ -65,9 +66,11 @@ function consumInfo.calculate(self, card, context)
         }
     end
 
-    if not context.blueprint and context.end_of_round and not context.individual and G.GAME.blind:get_type() == 'Boss' and card.ability.extra.hands > 0 then
+    if not context.blueprint and not context.retrigger_joker and context.end_of_round
+    and context.main_eval and G.GAME.blind:get_type() == 'Boss' and card.ability.extra.hands > 0 then
         card.ability.extra.hands = 0
         return {
+            no_retrigger = true,
             message = localize('k_reset'),
         }
     end

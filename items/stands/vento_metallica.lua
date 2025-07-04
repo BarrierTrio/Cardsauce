@@ -18,11 +18,11 @@ local consumInfo = {
 function consumInfo.loc_vars(self, info_queue, card)
     info_queue[#info_queue+1] = G.P_CENTERS.m_steel
     info_queue[#info_queue+1] = G.P_CENTERS.m_glass
-    info_queue[#info_queue+1] = {key = "artistcredit", set = "Other", vars = { G.csau_team.gote } }
+    info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.gote } }
 end
 
 function consumInfo.calculate(self, card, context)
-    if context.blueprint or context.retrigger_joker or card.debuff then return end
+    if card.debuff or context.blueprint or context.retrigger_joker then return end
 
     if context.before then
         local transformed = 0
@@ -51,18 +51,16 @@ function consumInfo.calculate(self, card, context)
         end
     end
 
-    if context.check_enhancement then
-		if context.other_card.config.center.key == 'm_steel' and context.other_card.base.value == 'Jack' then
-            return {
-                ['m_glass'] = true,
-            }
-        end
+    if context.check_enhancement and context.other_card.config.center.key == 'm_steel' and context.other_card.base.value == 'Jack' then
+        return {
+            ['m_glass'] = true,
+        }
 	end
 
-    if context.individual and context.cardarea == G.play and not card.debuff and not context.repetition then
-        if context.other_card.config.center.key == 'm_steel'and context.other_card.base.value == 'Jack' then
-            G.FUNCS.csau_flare_stand_aura(card, 0.50)
-        end
+    if context.individual and context.cardarea == G.play and context.other_card.config.center.key == 'm_steel'
+    and context.other_card.base.value == 'Jack' then
+        G.FUNCS.csau_flare_stand_aura(card, 0.50)
+        delay(0.5)
     end
 end
 
