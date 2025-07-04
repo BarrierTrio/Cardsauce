@@ -418,33 +418,24 @@ times = 1
 [[patches]]
 [patches.pattern]
 target = "game.lua"
-pattern = '''if _ch.restrictions.banned_tags then
-    for k, v in ipairs(_ch.restrictions.banned_tags) do
-        G.GAME.banned_keys[v.id] = true
-    end
-end
-if _ch.restrictions.banned_other then
-    for k, v in ipairs(_ch.restrictions.banned_other) do
-        G.GAME.banned_keys[v.id] = true
-    end
-end'''
+pattern = '''if _ch.restrictions.banned_tags then'''
 position = "after"
-payload = '''if _ch.restrictions.banned_tags then
-    if type(_ch.restriction.banned_tags) == 'function' then
+payload = '''
+    if type(_ch.restrictions.banned_tags) == 'function' then
         _ch.restrictions.banned_tags = _ch.restrictions.banned_tags()
-    end
-    for k, v in ipairs(_ch.restrictions.banned_tags) do
-        G.GAME.banned_keys[v.id] = true
-    end
-end
-if _ch.restrictions.banned_other then
-    if type(_ch.restriction.banned_other) == 'function' then
+    end'''
+match_indent = true
+times = 1
+
+[[patches]]
+[patches.pattern]
+target = "game.lua"
+pattern = '''if _ch.restrictions.banned_other then'''
+position = "after"
+payload = '''   
+    if type(_ch.restrictions.banned_other) == 'function' then
         _ch.restrictions.banned_other = _ch.restrictions.banned_other()
-    end
-    for k, v in ipairs(_ch.restrictions.banned_other) do
-        G.GAME.banned_keys[v.id] = true
-    end
-end'''
+    end'''
 match_indent = true
 times = 1
 
