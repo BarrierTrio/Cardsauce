@@ -14,6 +14,10 @@ local jokerInfo = {
 	streamer = "other",
 }
 
+function jokerInfo.loc_vars(self, info_queue, card)
+	return { vars = {}, key = self.key..(csau_config['detailedDescs'] and '_detailed' or '') }
+end
+
 function jokerInfo.in_pool(self, args)
 	if to_big(G.GAME.round_resets.ante) < to_big(9) then
 		return true
@@ -49,12 +53,10 @@ local function updateSprite(card)
 	end
 end
 
-function jokerInfo.generate_ui(self, info_queue, card, desc_nodes, specific_vars, full_UI_table)
-	G.FUNCS.csau_generate_detail_desc(self, info_queue, card, desc_nodes, specific_vars, full_UI_table, "j_csau_"..card.ability.extra.form)
-end
-
 function jokerInfo.calculate(self, card, context)
-	if context.setting_blind and G.GAME.blind.boss and not card.debuff and not (context.blueprint_card or card).getting_sliced and not context.blueprint_card then
+	if card.debuff then return end
+
+	if context.setting_blind and G.GAME.blind.boss and not context.blueprint and not card.getting_sliced then
 		if not card.ability.extra.form ~= "odio9" and G.GAME.round_resets.ante ~= 1 and G.GAME.round_resets.ante < 10  then
 			local form = forms[G.GAME.round_resets.ante]
 			local trigger = true
@@ -87,7 +89,8 @@ function jokerInfo.calculate(self, card, context)
 			end
 		end
 	end
-	if context.end_of_round and G.GAME.blind.boss and not context.other_card then
+
+	if context.end_of_round and G.GAME.blind:get_type() == 'Boss' and context.main_eval then
 		if not card.getting_sliced and card.ability.extra.form ~= "odio9" then
 			if G.GAME.round_resets.ante == 8 then
 				local form = forms[9]
@@ -115,7 +118,8 @@ function jokerInfo.calculate(self, card, context)
 			end
 		end
 	end
-	if context.individual and context.cardarea == G.play and not card.debuff then
+
+	if context.individual and context.cardarea == G.play then
 		if card.ability.extra.form == "odio2" then
 			local big_card = nil
 			for k, v in ipairs(context.full_hand) do
@@ -129,6 +133,7 @@ function jokerInfo.calculate(self, card, context)
 			end
 		end
 	end
+
 	if context.joker_main and context.cardarea == G.jokers then
 		if card.ability.extra.form == "odio4" then
 			local empty_hand_slots = 5 - #context.full_hand
@@ -141,7 +146,8 @@ function jokerInfo.calculate(self, card, context)
 			end
 		end
 	end
-	if context.cardarea == G.jokers and context.before and not card.debuff then
+
+	if context.cardarea == G.jokers and context.before then
 		if card.ability.extra.form == "odio5" then
 			local faces = {}
 			for k, v in ipairs(context.scoring_hand) do
@@ -165,6 +171,7 @@ function jokerInfo.calculate(self, card, context)
 			end
 		end
 	end
+
 	if context.other_joker and card ~= context.other_joker then
 		if card.ability.extra.form == "odio7" then
 			G.E_MANAGER:add_event(Event({
@@ -179,6 +186,7 @@ function jokerInfo.calculate(self, card, context)
 			}
 		end
 	end
+
 	if context.selling_self then
 		if card.ability.extra.form == "odio9" then
 			if G.STATE == G.STATES.SELECTING_HAND then

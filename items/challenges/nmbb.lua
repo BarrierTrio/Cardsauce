@@ -10,6 +10,11 @@ local chalInfo = {
     jokers = {
         { id = 'j_csau_blackjack', eternal = true}
     },
+    restrictions = {
+        banned_other = {
+            { id = 'bl_csau_mochamike', type = 'blind'}
+        }
+    },
     unlocked = function(self)
         return G.FUNCS.discovery_check({ mode = 'key', key = 'j_csau_blackjack' })
     end

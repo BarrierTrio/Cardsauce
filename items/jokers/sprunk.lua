@@ -33,7 +33,8 @@ local jokerInfo = {
 
 function jokerInfo.loc_vars(self, info_queue, card)
     info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.donk } }
-    return { vars = {card.ability.extra.mult_mod, card.ability.extra.prob_mod, G.FUNCS.csau_add_chance(card.ability.extra.prob_extra, {multiply = true}), card.ability.extra.prob, card.ability.extra.mult }}
+    local num, dom = SMODS.get_probability_vars(card, card.ability.extra.prob_extra, card.ability.extra.prob)
+    return { vars = { card.ability.extra.mult_mod, card.ability.extra.prob_mod, num, dom, card.ability.extra.mult } }
 end
 
 function jokerInfo.in_pool(self, args)
@@ -378,25 +379,29 @@ local function fake_crash()
 end
 
 function jokerInfo.calculate(self, card, context)
-    local bad_context = context.repetition or context.individual or context.blueprint
-    if context.cardarea == G.jokers and context.before and not card.debuff and not bad_context and SMODS.food_expires(context) then
-        if pseudorandom('essenceofcrash') < G.FUNCS.csau_add_chance(card.ability.extra.prob_extra, {multiply = true}) / card.ability.extra.prob then
-            if pseudorandom('sprunkdit') < (card.ability.hidden_prob.manip and G.GAME.probabilities.normal or card.ability.hidden_prob.non_manip_rate) / card.ability.hidden_prob.prob then
-                send("RUN DELETED! LOL")
-                check_for_unlock({ type = "get_sprunked" })
-                if G.STAGE == G.STAGES.RUN then
-                    G.STATE = G.STATES.GAME_OVER
-                    G.STATE_COMPLETE = false
-                end
-                remove_save()
-            else
-                G:save_progress()
-            end
-            G:save_settings()
-            fake_crash()
-        end
+    if card.debuff or context.cardarea ~= G.jokers then
+        return
     end
-    if context.joker_main and context.cardarea == G.jokers and not card.debuff and to_big(card.ability.extra.mult) > to_big(0) and not bad_context then
+
+    if context.before and SMODS.food_expires() and SMODS.pseudorandom_probability(card, pseudoseed('csau_sprunk_crash'), card.ability.extra.prob_extra, card.ability.extra.prob) then
+        local numerator = card.ability.hidden_prob.manip and 1 or card.ability.hidden_prob.non_manip_rate
+        if SMODS.pseudorandom_probability(card, pseudoseed('csau_sprunk_delete'), numerator, card.ability.hidden_prob.prob) then
+            send("RUN DELETED! LOL")
+            check_for_unlock({ type = "get_sprunked" })
+            if G.STAGE == G.STAGES.RUN then
+                G.STATE = G.STATES.GAME_OVER
+                G.STATE_COMPLETE = false
+            end
+            remove_save()
+        else
+            G:save_progress()
+        end
+
+        G:save_settings()
+        fake_crash()
+    end
+
+    if context.joker_main and to_big(card.ability.extra.mult) > to_big(0) then
         return {
             mult = card.ability.extra.mult,
         }
@@ -406,26 +411,31 @@ end
 local ed_ref = ease_dollars
 function ease_dollars(mod, instant)
     ed_ref(mod, instant)
-    if to_big(mod) < to_big(0) then
-        local sprunk = SMODS.find_card("j_csau_sprunk")
-        if #sprunk > 0 then
-            for i, v in ipairs(sprunk) do
-                if not v.debuff then
-                    G.E_MANAGER:add_event(Event({
-                        trigger = 'immediate',
-                        blockable = false,
-                        blocking = true,
-                        func = function()
-                            v.ability.extra.mult = v.ability.extra.mult + (-mod * v.ability.extra.mult_mod)
-                            if SMODS.food_expires() then
-                                v.ability.extra.prob_extra = v.ability.extra.prob_extra + (-mod * v.ability.extra.prob_mod)
-                            end
-                            card_eval_status_text(v, 'extra', nil, nil, nil, {message = localize{type='variable',key='a_mult',vars={v.ability.extra.mult}}, colour = G.C.IMPORTANT})
-                            return true
-                        end
-                    }))
+    if to_big(mod) >= to_big(0) then
+        return
+    end
+    
+    local sprunks = SMODS.find_card("j_csau_sprunk")
+    if not next(sprunks) then
+        return
+    end
+
+    for _, v in ipairs(sprunks) do
+        if not v.debuff then
+            G.E_MANAGER:add_event(Event({
+                trigger = 'immediate',
+                blockable = false,
+                blocking = true,
+                func = function()
+                    v.ability.extra.mult = v.ability.extra.mult + (-mod * v.ability.extra.mult_mod)
+                    if SMODS.food_expires() then
+                        v.ability.extra.prob_extra = v.ability.extra.prob_extra + (-mod * v.ability.extra.prob_mod)
+                    end
+
+                    card_eval_status_text(v, 'extra', nil, nil, nil, {message = localize{type='variable',key='a_mult',vars={v.ability.extra.mult}}, colour = G.C.IMPORTANT})
+                    return true
                 end
-            end
+            }))
         end
     end
 end

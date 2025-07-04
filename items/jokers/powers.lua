@@ -12,19 +12,6 @@ local jokerInfo = {
     streamer = "joel",
 }
 
-G.FUNCS.powers_active = function(card)
-    card = card or nil
-    local powers = SMODS.find_card("j_csau_powers")
-    for i, v in ipairs(powers) do
-        if (card and v ~= card) or not card then
-            if not v.debuff then
-                return true
-            end
-        end
-    end
-    return false
-end
-
 function jokerInfo.check_for_unlock(self, args)
     if args.type == "wheel_nope" then
         return true
@@ -42,34 +29,11 @@ function jokerInfo.calculate(self, card, context)
             xmult = card.ability.extra,
         }
     end
-end
 
-local function activate(bool)
-    if bool then
-        G.GAME.probabilities.csau_backup = G.GAME.probabilities.normal
-        G.GAME.probabilities.normal = 0
-    else
-        G.GAME.probabilities.normal = G.GAME.probabilities.csau_backup
-    end
-end
-
-function jokerInfo.add_to_deck(self, card)
-    activate(true)
-end
-
-function jokerInfo.remove_from_deck(self, card)
-    activate(false)
-end
-
-function jokerInfo.update(self, card)
-    if card.debuff and not card.ability.debuff then
-        card.ability.debuff = true
-        if not G.FUNCS.powers_active(card) then
-            activate(false)
-        end
-    elseif not card.debuff and card.ability.debuff then
-        card.ability.debuff = false
-        activate(true)
+    if context.fix_probability then
+        return {
+            numerator = 0
+        }
     end
 end
 

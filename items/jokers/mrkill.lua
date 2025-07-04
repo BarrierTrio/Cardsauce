@@ -26,8 +26,8 @@ function jokerInfo.calculate(self, card, context)
     if context.discard and to_big(G.GAME.current_round.discards_used) <= to_big(0) and #context.full_hand == 1 and context.discard and not context.blueprint and not card.debuff then
         local destroy = context.full_hand[1]
         local rank = SMODS.Ranks[destroy.base.value]
-        local chips = rank.nominal
-        local bonus_chip = context.other_card.ability.perma_bonus or 0
+        local chips = SMODS.has_no_rank(destroy) and 0 or rank.nominal
+        local bonus_chip = destroy.ability.bonus + (destroy.ability.perma_bonus or 0)
         card.ability.extra.chips = card.ability.extra.chips + chips + bonus_chip
         return {
             message = localize{type='variable',key='a_chips',vars={card.ability.extra.chips}},

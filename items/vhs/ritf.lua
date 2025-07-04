@@ -25,7 +25,10 @@ local consumInfo = {
 function consumInfo.loc_vars(self, info_queue, card)
     info_queue[#info_queue+1] = {key = "vhs_activation", set = "Other"}
     info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.yunkie } }
-    return { vars = { card.ability.extra.runtime-card.ability.extra.uses } }
+    return { 
+        vars = { card.ability.extra.runtime-card.ability.extra.uses },
+        key = self.key..(csau_config['detailedDescs'] and '_detailed' or '')
+    }
 end
 
 local pi_digits = "314159265358979323846264338327950288419716939937510582097494459230781640628620899862803482534211706798214808651328230664709384460955058223172"
@@ -58,10 +61,6 @@ function consumInfo.calculate(self, card, context)
             card.ability.destroyed = true
         end
     end
-end
-
-function consumInfo.generate_ui(self, info_queue, card, desc_nodes, specific_vars, full_UI_table)
-    G.FUNCS.csau_generate_detail_desc(self, info_queue, card, desc_nodes, specific_vars, full_UI_table)
 end
 
 function consumInfo.can_use(self, card)

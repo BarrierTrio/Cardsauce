@@ -28,13 +28,12 @@ function jokerInfo.in_pool(self, args)
 end
 
 function jokerInfo.calculate(self, card, context)
-    if context.individual and context.cardarea == G.play and not card.debuff then
-        if context.other_card.ability.effect == "Steel Card" then
-            return {
-                x_mult = card.ability.extra.x_mult,
-                card = card
-            }
-        end
+    if context.individual and context.cardarea == G.play and not card.debuff
+    and SMODS.has_enhancement(context.other_card, 'm_steel') then
+        return {
+            x_mult = card.ability.extra.x_mult,
+            card = card
+        }
     end
 end
 

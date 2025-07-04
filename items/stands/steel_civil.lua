@@ -6,7 +6,6 @@ local function force_fool_card()
     return nil
 end
 
-
 SMODS.Consumable:take_ownership('c_fool', {
     loc_vars = function(self, info_queue, card)
         local fool_c = G.GAME.last_tarot_planet and G.P_CENTERS[G.GAME.last_tarot_planet] or nil
@@ -16,8 +15,8 @@ SMODS.Consumable:take_ownership('c_fool', {
         
         -- imported cardsauce logic
         local last_tarot_planet = localize('k_none')
-        if fool_c and fool_c.key == 'c_csau_arrow' then
-            last_tarot_planet = fool_c and localize{type = 'name_text', key = fool_c.key, set = fool_c.set, vars = { G.GAME.csau_max_stands or 1, (card.area.config.collection and localize('k_csau_stand')) or (G.GAME.csau_max_stands > 1 and localize('b_csau_stand_cards') or localize('k_csau_stand')) }} or localize('k_none')
+        if fool_c and fool_c.key == 'c_arrow_tarot_arrow' then
+            last_tarot_planet = fool_c and localize{type = 'name_text', key = fool_c.key, set = fool_c.set, vars = { G.GAME.modifiers.max_stands or 1, (card.area.config.collection and localize('k_stand')) or (G.GAME.modifiers.max_stands > 1 and localize('b_stand_cards') or localize('k_stand')) }} or localize('k_none')
         else
             last_tarot_planet = fool_c and localize{type = 'name_text', key = fool_c.key, set = fool_c.set} or localize('k_none')
         end
@@ -117,10 +116,9 @@ local consumInfo = {
     },
     cost = 4,
     rarity = 'csau_StandRarity',
-    alerted = true,
     hasSoul = true,
     part = 'steel',
-    in_progress = true,
+    blueprint_compat = false
 }
 
 function consumInfo.loc_vars(self, info_queue, card)
@@ -131,12 +129,10 @@ end
 
 
 function consumInfo.calculate(self, card, context)
-    local bad_context = context.repetition or context.blueprint or context.individual or context.retrigger_joker
-    if context.using_consumeable and not card.debuff and not bad_context then
-        local cons = context.consumeable
-        if cons.ability.name == "Hanged Man" then
-            G.FUNCS.csau_flare_stand_aura(card, 0.38)
-        end
+    if card.debuff and not context.blueprint and not context.retrigger_joker then return end
+    
+    if context.using_consumeable and context.consumable.config.center.key == 'c_hanged_man' then
+        G.FUNCS.csau_flare_stand_aura(card, 0.50)
     end
 end
 

@@ -2,7 +2,6 @@ local consumInfo = {
     name = 'Black Spine',
     set = "VHS",
     cost = 3,
-    alerted = true,
     nosleeve = true,
     config = {
         use_activate = true,
@@ -10,7 +9,6 @@ local consumInfo = {
             runtime = 1
         }
     },
-    origin = 'rlm',
     origin = {
         'rlm',
         'rlm_bs',
@@ -24,12 +22,14 @@ function consumInfo.loc_vars(self, info_queue, card)
 end
 
 function consumInfo.activate(self, card, on)
+    G.GAME.banned_keys[card.config.center.key] = true
     local key = pseudorandom_element(get_current_pool('VHS', nil, nil, 'blackspine'), pseudoseed('blackspine'))
     local it = 1
     while key == 'UNAVAILABLE' do
         it = it + 1
         key = pseudorandom_element(get_current_pool('VHS', nil, nil, 'blackspine'), pseudoseed('blackspine_resample'..it))
     end
+    G.GAME.banned_keys[card.config.center.key] = nil
     G.FUNCS.csau_transform_card(card, key)
 end
 

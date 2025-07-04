@@ -4,6 +4,7 @@
 SMODS.current_mod.optional_features = {
 	retrigger_joker = true,
 	post_trigger = true,
+	quantum_enhancements = true,
 	cardareas = {
 		deck = true,
 		discard = true,
@@ -40,6 +41,7 @@ local includes = {
 	'hooks/card',
 	'hooks/cardarea',
 	'hooks/state_events',
+	'hooks/common_events',
 	'hooks/misc_functions',
 	'hooks/UI_definitions',
 	'hooks/overrides',

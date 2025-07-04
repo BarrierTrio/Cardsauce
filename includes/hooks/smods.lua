@@ -80,3 +80,20 @@ SMODS.card_collection_UIBox = function(_pool, rows, args)
 	end
 	return ref_ccuib(_pool, rows, args)
 end
+
+-- total override of this function for bootleg purposes
+function SMODS.find_card(key, count_debuffed)
+    local results = {}
+    if not G.jokers or not G.jokers.cards then return {} end
+    for _, area in ipairs(SMODS.get_card_areas('jokers')) do
+        if area.cards then
+            for _, v in pairs(area.cards) do
+                if v and type(v) == 'table' and (v.config.center.key == key or (v.config.center.key == 'j_csau_bootleg' and v.ability.bootlegged_key == key)) 
+				and (count_debuffed or not v.debuff) then
+                    table.insert(results, v)
+                end
+            end
+        end
+    end
+    return results
+end

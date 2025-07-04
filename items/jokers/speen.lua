@@ -38,36 +38,35 @@ local jokerInfo = {
 }
 
 function jokerInfo.loc_vars(self, info_queue, card)
-	info_queue[#info_queue+1] = {key = "wheel2", set = "Other", vars = {G.GAME.probabilities.normal}}
+	local num, _ =  SMODS.get_probability_vars(card, 1, 1)
+	info_queue[#info_queue+1] = {key = "wheel2", set = "Other", vars = {num}}
 	info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.gote } }
 	info_queue[#info_queue+1] = {key = "codercredit", set = "Other", vars = { G.csau_team.dps } }
 end
 
 function jokerInfo.calculate(self, card, context)
-	if context.reroll_shop and not card.getting_sliced and not card.debuff and not (context.blueprint_card or card).getting_sliced and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
-		G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
-		G.E_MANAGER:add_event(Event({
-			func = (function()
-				G.E_MANAGER:add_event(Event({
-					func = function() 
-						local card = create_card('Tarot',G.consumeables, nil, nil, nil, nil, 'c_wheel_of_fortune', 'car')
-						card:add_to_deck()
-						G.consumeables:emplace(card)
-						G.GAME.consumeable_buffer = 0
-						return true
-					end}))   
-					card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_speen'), colour = G.C.PURPLE})
-				return true
-			end)}
-		))
+	if card.debuff or not context.reroll_shop or #G.consumeables.cards + G.GAME.consumeable_buffer >= G.consumeables.config.card_limit then 
+		return 
 	end
-end
 
-function jokerInfo.update(self, dt)
+	G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
+	G.E_MANAGER:add_event(Event({
+		func = (function()
+			G.E_MANAGER:add_event(Event({
+				func = function() 
+					local new_card = create_card('Tarot', G.consumeables, nil, nil, nil, nil, 'c_wheel_of_fortune', 'car')
+					new_card:add_to_deck()
+					G.consumeables:emplace(new_card)
+					G.GAME.consumeable_buffer = 0
+					return true
+				end}))
+				card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_speen'), colour = G.C.PURPLE})
+			return true
+		end)}
+	))
 end
 
 local loveUpdateReference = love.update
-
 function love.update(dt)
 	if mod.speenTimer and G.SETTINGS.GAMESPEED then
 		mod.speenTimer = (mod.speenTimer + (dt * (G.SETTINGS.GAMESPEED / 4))) % (math.pi * 4)

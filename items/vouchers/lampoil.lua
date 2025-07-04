@@ -31,15 +31,12 @@ function voucherInfo.redeem(self, card, area, copier)
         -- recreate shop card UIs for existing cards
         for k, v in pairs(G.I.CARD) do
             if v.area and v.area.config.type == 'shop' then
-                if v.children.price then v.children.price:remove() end
-                v.children.price = nil
-                if v.children.buy_button then v.children.buy_button:remove() end
-                v.children.buy_button = nil
-                if v.children.buy_and_use_button then v.children.buy_and_use_button:remove() end
-                v.children.buy_and_use_button = nil
+                if v.children.price then v.children.price:remove(); v.children.price = nil end
+                if v.children.buy_button then v.children.buy_button:remove(); v.children.buy_button = nil end
+                if v.children.buy_and_use_button then v.children.buy_and_use_button:remove(); v.children.buy_and_use_button = nil end
                 remove_nils(v.children)
 
-                create_shop_card_ui(v)
+                create_shop_card_ui(v, nil, v.area)
             end
         end
     end

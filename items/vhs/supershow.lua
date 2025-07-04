@@ -25,39 +25,44 @@ end
 
 function consumInfo.calculate(self, card, context)
     if card.ability.activated and context.remove_playing_cards then
-        local emp_area = G.play
-        if #G.play.cards > 0 then
-            emp_area = G.hand
-        end
-        for i, v in ipairs(context.removed) do
-            if not card.ability.destroyed then
-                check_for_unlock({ type = "activate_supershow" })
-                G.E_MANAGER:add_event(Event({
-                    func = function()
-                        local _card = copy_card(v, nil, nil, nil, true)
-                        _card:start_materialize({G.C.SECONDARY_SET.Enhanced})
-                        emp_area:emplace(_card)
-                        local edition = poll_edition('whoreallydiedthatday', nil, true, true)
-                        _card:set_edition(edition, true)
-                        table.insert(G.playing_cards, _card)
-                        if emp_area == G.play then
-                            G.E_MANAGER:add_event(Event({
-                                func = function()
-                                    G.deck.config.card_limit = G.deck.config.card_limit + 1
-                                    draw_card(G.play,G.deck, 90,'up', nil)
-                                    return true
-                                end}))
-                        end
-                        playing_card_joker_effects({_card})
-                        return true
-                    end}))
-                card.ability.extra.uses = card.ability.extra.uses+1
-                if to_big(card.ability.extra.uses) >= to_big(card.ability.extra.runtime) then
-                    G.FUNCS.destroy_tape(card)
-                    card.ability.destroyed = true
+        check_for_unlock({ type = "activate_supershow" })
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                local new_cards = {}
+                for _, v in ipairs(context.removed) do
+                    if not card.ability.destroyed then
+                        G.playing_card = (G.playing_card and G.playing_card + 1) or 1
+                        local new_card = copy_card(v, nil, nil, G.playing_card, true)
+                        new_card:set_edition(poll_edition('csau_supershow', nil, true, true), true)
+                        new_card:add_to_deck()
+                        G.deck.config.card_limit = G.deck.config.card_limit + 1
+                        table.insert(G.playing_cards, new_card)
+
+                        new_card.states.visible = false
+                        new_card:hard_set_T(G.ROOM.T.x + G.ROOM.T.w/2 - new_card.T.w/2, G.ROOM.T.y + G.ROOM.T.h/2 - new_card.T.h/2, new_card.T.w, new_card.T.h)
+                        
+                        G.E_MANAGER:add_event(Event({
+                            trigger = 'immediate',
+                            func = function()
+                                card:juice_up()
+                                new_card:start_materialize({G.C.SECONDARY_SET.Enhanced})
+                                return true
+                            end
+                        }))
+                        delay(0.65)
+                        draw_card(nil, G.deck, 90, 'up', nil, new_card)
+
+                        new_cards[#new_cards+1] = new_card
+                    end
                 end
+
+                if #new_cards > 0 then
+                    playing_card_joker_effects(new_cards)
+                end
+
+                return true
             end
-        end
+        }))
     end
 end
 

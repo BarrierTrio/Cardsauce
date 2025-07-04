@@ -1,15 +1,18 @@
+local high_one_jokers = {
+    'j_csau_besomeone',
+    'j_csau_pivot',
+    'j_csau_meat',
+    'j_csau_dontmind',
+}
+
 local trophyInfo = {
     rarity = 2,
     unlock_condition = function(self, args)
-        if G.jokers and #G.jokers.cards > 0 then
-            local jokers = {
-                'j_csau_besomeone',
-                'j_csau_pivyot',
-                'j_csau_meat',
-                'j_csau_dontmind',
-            }
-            return G.FUNCS.have_multiple_jokers(jokers, 4)
+        if args.type == 'modify_jokers' and #G.jokers.cards > 0 then
+            return G.FUNCS.have_multiple_jokers(high_one_jokers, 2)
         end
+
+        return false
     end,
 }
 

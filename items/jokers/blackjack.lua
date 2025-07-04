@@ -38,22 +38,6 @@ SMODS.PokerHand {
     end,
 }
 
-local function allOneSuit(hand)
-    local suits = SMODS.Suit.obj_buffer
-    for j = 1, #suits do
-        local t = {}
-        local suit = suits[j]
-        local flush_count = 0
-        for i=1, #hand do
-            if hand[i]:is_suit(suit, nil, true) then flush_count = flush_count + 1;  t[#t+1] = hand[i] end
-        end
-        if flush_count == #hand then
-            return true
-        end
-    end
-    return false
-end
-
 SMODS.PokerHand {
     key = "csau_FlushBlackjack",
     chips = 84,

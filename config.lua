@@ -23,10 +23,6 @@ return {
 	['enableEasterEggs'] = true,
 	['enableStands'] = true,
 	['enableVHSs'] = true,
-	['enableEditions'] = true,
-	['enableTags'] = true,
-	['enableVouchers'] = true,
-	['enableBoosters'] = true,
 	['forceDisableOrtalab'] = false,
 	['forceEnableOrtalab'] = false,
 }

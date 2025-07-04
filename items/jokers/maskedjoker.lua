@@ -3,7 +3,9 @@ local jokerInfo = {
 	config = {
 		extra = {
 			chips = 29,
-			mult = 16
+			mult = 16,
+			ach_count = 5,
+			enhancement = 'm_steel'
 		}
 	},
 	rarity = 2,
@@ -15,42 +17,40 @@ local jokerInfo = {
 }
 
 function jokerInfo.loc_vars(self, info_queue, card)
-	info_queue[#info_queue+1] = G.P_CENTERS.m_steel
+	info_queue[#info_queue+1] = G.P_CENTERS[card.ability.extra.enhancement]
 	info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.gote } }
 	return { vars = {card.ability.extra.chips, card.ability.extra.mult}}
 end
 
 function jokerInfo.in_pool(self, args)
 	for _, v in ipairs(G.playing_cards) do
-		if v.ability.effect == "Steel Card" then
+		if v.config.center.key == self.config.extra.enhancement then
 			return true
 		end
 	end
 end
 
-local function choomeraCheck(context)
-	local all_steel = true
-	for k, v in ipairs(context.scoring_hand) do
-		if v.ability.name ~= 'Steel Card' then
-			all_steel = false
-		end
-	end
-	if all_steel and to_big(#context.scoring_hand) >= to_big(5) and next(find_joker('Chromed Up')) then
-		check_for_unlock({ type = "ult_choomera" })
-	end
-end
-
 function jokerInfo.calculate(self, card, context)
-	if context.individual and context.cardarea == G.play and not card.debuff then
-		local chimera = true
-		for k, v in ipairs(context.full_hand) do
-			chimera = chimera and v.ability.name == 'Steel Card'
+	if card.debuff then return end
+
+	if context.before and not context.blueprint then
+		card.ability.csau_masked_steel_tally = 0
+		for _, v in ipairs(context.full_hand) do
+			if SMODS.has_enhancement(v, card.ability.extra.enhancement) then
+				card.ability.csau_masked_steel_tally = card.ability.csau_masked_steel_tally + 1
+			end
 		end
-		if not chimera then
-			return nil
+	end
+
+	if context.individual and context.cardarea == G.play and to_big(card.ability.csau_masked_steel_tally) >= #context.full_hand then
+		if to_big(card.ability.csau_masked_steel_tally) >= to_big(card.ability.extra.ach_count) then
+			check_for_unlock({ type = "activate_claus" })
+
+			if next(SMODS.find_card('j_csau_chromedup')) then
+				check_for_unlock({ type = "ult_choomera" })
+			end
 		end
-		check_for_unlock({ type = "activate_claus" })
-		choomeraCheck(context)
+
 		return {
 			chips = card.ability.extra.chips,
 			mult = card.ability.extra.mult,
