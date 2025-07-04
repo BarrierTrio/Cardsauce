@@ -280,14 +280,13 @@ local bonus_padding = 1.15
 local support_padding = 0.015
 local artist_size = 0.3675
 local seperator_mod = 1
-local first_column_text_mod = 1.15
+local first_column_text_mod = 0.98
 local special_thanks_mod = 1
 local special_thanks_padding = 0
 local artist_padding = 0.015
 local coding_scale = 0.90
 local logo_scale = 0.9
 local shader_scale = 0.9
-local logo_shader_padding_mod = 1.5
 text_scale = 0.98
 
 SMODS.current_mod.credits_tab = function()
