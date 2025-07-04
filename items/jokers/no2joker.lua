@@ -23,6 +23,7 @@ function jokerInfo.calculate(self, card, context)
     if context.retrigger_joker_check and not context.retrigger_joker then
         if context.other_card.ability and context.other_card.ability.set == "csau_Stand" then
             return {
+                no_retrigger_juice = true,
                 message = localize('k_again_ex'),
                 repetitions = card.ability.extra,
                 card = card,

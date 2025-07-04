@@ -2275,7 +2275,8 @@ return {
 			j_csau_no2joker = {
 				name = "No. 2 Joker",
 				text = {
-					"All {C:stand}Stands{} retrigger once",
+					"All {C:stand}Stands{} retrigger",
+					"{C:inactive}(if applicable){}"
 				},
 			},
 			j_csau_triptoamerica = {
