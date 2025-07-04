@@ -311,6 +311,9 @@ SMODS.current_mod.credits_tab = function()
 								{n=G.UIT.R, config={align = "tm", padding = 0}, nodes={
 									{n=G.UIT.T, config={text = G.csau_team.keku, scale = text_scale*0.55*first_column_text_mod, colour = G.C.UI.TEXT_LIGHT, shadow = true}},
 								}},
+								{n=G.UIT.R, config={align = "tm", padding = 0}, nodes={
+									{n=G.UIT.T, config={text = G.csau_team.winterc, scale = text_scale*0.55*first_column_text_mod, colour = G.C.UI.TEXT_LIGHT, shadow = true}},
+								}},
 							}},
 						}},
 						{n=G.UIT.R, config={align = "tm", padding = 0,outline_colour = G.C.CLEAR, r = 0.1, outline = 1}, nodes={
