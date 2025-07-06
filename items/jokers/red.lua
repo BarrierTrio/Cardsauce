@@ -16,7 +16,7 @@ local jokerInfo = {
 
 function jokerInfo.loc_vars(self, info_queue, card)
     info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.gappie } }
-    local num, dom = SMODS.get_probability_vars(card, 1, card.ability.extra.prob)
+    local num, dom = SMODS.get_probability_vars(card, 1, card.ability.extra.prob, 'csau_red')
     return {
         vars = {
             num, dom,
@@ -31,7 +31,7 @@ end
 function jokerInfo.calculate(self, card, context)
     if card.debuff or context.blueprint then return end
 
-    if context.cardarea == G.jokers and context.after and SMODS.pseudorandom_probability(card, pseudoseed('csau_red'), 1, card.ability.extra.prob) then
+    if context.cardarea == G.jokers and context.after and SMODS.pseudorandom_probability(card, 'csau_red', 1, card.ability.extra.prob) then
         check_for_unlock({ type = "activate_red" })
         card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize{type = 'variable', key = 'a_red', vars = {string.upper(localize(G.GAME and G.GAME.wigsaw_suit or "Hearts", 'suits_plural'))}}})
         

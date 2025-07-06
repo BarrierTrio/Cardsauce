@@ -33,7 +33,7 @@ local jokerInfo = {
 
 function jokerInfo.loc_vars(self, info_queue, card)
     info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.donk } }
-    local num, dom = SMODS.get_probability_vars(card, card.ability.extra.prob_extra, card.ability.extra.prob)
+    local num, dom = SMODS.get_probability_vars(card, card.ability.extra.prob_extra, card.ability.extra.prob, 'csau_sprunk_crash')
     return { vars = { card.ability.extra.mult_mod, card.ability.extra.prob_mod, num, dom, card.ability.extra.mult } }
 end
 
@@ -383,9 +383,9 @@ function jokerInfo.calculate(self, card, context)
         return
     end
 
-    if context.before and SMODS.food_expires() and SMODS.pseudorandom_probability(card, pseudoseed('csau_sprunk_crash'), card.ability.extra.prob_extra, card.ability.extra.prob) then
+    if context.before and SMODS.food_expires() and SMODS.pseudorandom_probability(card, 'csau_sprunk_crash', card.ability.extra.prob_extra, card.ability.extra.prob) then
         local numerator = card.ability.hidden_prob.manip and 1 or card.ability.hidden_prob.non_manip_rate
-        if SMODS.pseudorandom_probability(card, pseudoseed('csau_sprunk_delete'), numerator, card.ability.hidden_prob.prob) then
+        if SMODS.pseudorandom_probability(card, 'csau_sprunk_delete', numerator, card.ability.hidden_prob.prob) then
             send("RUN DELETED! LOL")
             check_for_unlock({ type = "get_sprunked" })
             if G.STAGE == G.STAGES.RUN then

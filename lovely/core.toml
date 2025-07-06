@@ -260,22 +260,6 @@ end
 '''
 match_indent = true
 
-[[patches]]
-[patches.pattern]
-target = 'card.lua'
-pattern = '''function Card:set_base(card, initial)'''
-position = 'at'
-match_indent = true
-payload = '''function Card:set_base(card, initial, delay_sprites)'''
-
-[[patches]]
-[patches.pattern]
-target = 'card.lua'
-pattern = '''if next(card) then'''
-position = 'at'
-match_indent = true
-payload = '''if next(card) and not delay_sprites then'''
-
 # CardArea:emplace()
 [[patches]]
 [patches.pattern]
@@ -438,36 +422,3 @@ payload = '''
     end'''
 match_indent = true
 times = 1
-
-
-# Add the delayed property to sprites that are delayed
-[[patches]]
-[patches.pattern]
-target = 'card.lua'
-match_indent = true
-position = 'at'
-pattern = '''
-if delay_sprites then 
-    G.E_MANAGER:add_event(Event({
-        func = function()
-            if not self.REMOVED then
-                self:set_sprites(center)
-            end
-            return true
-        end
-    })) 
-'''
-payload = '''
-if delay_sprites == 'quantum' or delay_sprites == 'manual' then
-elseif delay_sprites then 
-    self.ability.delayed = true
-    G.E_MANAGER:add_event(Event({
-        func = function()
-            if not self.REMOVED then
-                self:set_sprites(center)
-                self.ability.delayed = false
-            end
-            return true
-        end
-    })) 
-'''

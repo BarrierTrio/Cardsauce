@@ -17,7 +17,7 @@ local jokerInfo = {
 
 function jokerInfo.loc_vars(self, info_queue, card)
 	info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.cejai } }
-	local num, dom = SMODS.get_probability_vars(card, 1, card.ability.extra.prob)
+	local num, dom = SMODS.get_probability_vars(card, 1, card.ability.extra.prob, 'csau_depressed')
 	return { vars = {num, dom, card.ability.extra.mult_mod } }
 end
 
@@ -25,7 +25,7 @@ function jokerInfo.calculate(self, card, context)
 	if card.debuff or not context.before then return end
 
 	for _, v in ipairs(context.full_hand) do
-		if not SMODS.in_scoring(v, context.scoring_hand) and SMODS.pseudorandom_probability(card, pseudoseed('csau_depressed'), 1, card.ability.extra.prob) then
+		if not SMODS.in_scoring(v, context.scoring_hand) and SMODS.pseudorandom_probability(card, 'csau_depressed', 1, card.ability.extra.prob) then
 			v.ability.perma_mult = (v.ability.perma_mult or 0) + card.ability.extra.mult_mod
 			card_eval_status_text(v, 'extra', nil, nil, nil, {
 				message = localize('k_upgrade_ex'),

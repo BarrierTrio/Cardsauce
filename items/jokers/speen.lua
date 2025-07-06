@@ -38,7 +38,7 @@ local jokerInfo = {
 }
 
 function jokerInfo.loc_vars(self, info_queue, card)
-	local num, _ =  SMODS.get_probability_vars(card, 1, 1)
+	local num, _ =  SMODS.get_probability_vars(card, 1, 1, 'wheel_of_fortune')
 	info_queue[#info_queue+1] = {key = "wheel2", set = "Other", vars = {num}}
 	info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.gote } }
 	info_queue[#info_queue+1] = {key = "codercredit", set = "Other", vars = { G.csau_team.dps } }

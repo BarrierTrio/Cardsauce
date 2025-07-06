@@ -18,8 +18,8 @@ local jokerInfo = {
 function jokerInfo.loc_vars(self, info_queue, card)
     info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.fenix } }
 
-    local num, dom1 = SMODS.get_probability_vars(card, 1, card.ability.extra.prob_1)
-    local _, dom2 = SMODS.get_probability_vars(card, 1, card.ability.extra.prob_2)
+    local num, dom1 = SMODS.get_probability_vars(card, 1, card.ability.extra.prob_1, 'csau_bjbros1')
+    local _, dom2 = SMODS.get_probability_vars(card, 1, card.ability.extra.prob_2, 'csau_bjbros2')
     return { vars = {num, dom1, dom2 } }
 end
 
@@ -31,12 +31,12 @@ function jokerInfo.calculate(self, card, context)
     if context.scoring_name == "Two Pair"  then
         local bj1 = false
         local bj2 = false
-        if SMODS.pseudorandom_probability(card, pseudoseed('csau_bjbros1'), 1, card.ability.extra.prob_1) then
+        if SMODS.pseudorandom_probability(card, 'csau_bjbros1', 1, card.ability.extra.prob_1) then
             bj1 = true
         end
 
         for _, v in ipairs(context.scoring_hand) do
-            if SMODS.pseudorandom_probability(card, pseudoseed('csau_bjbros2'), 1, card.ability.extra.prob_2) then
+            if SMODS.pseudorandom_probability(card, 'csau_bjbros2', 1, card.ability.extra.prob_2) then
                 if not bj2 then bj2 = true end
 
                 v:set_ability(pseudorandom_element(G.P_CENTER_POOLS.Enhanced, pseudoseed('csau_brothers_enhancement')), nil, true)

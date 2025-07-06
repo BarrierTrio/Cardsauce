@@ -63,39 +63,6 @@ match_indent = true
 [[patches]]
 [patches.pattern]
 target = "card.lua"
-pattern = '''sliced_card.getting_sliced = true
-G.GAME.joker_buffer = G.GAME.joker_buffer - 1'''
-position = "at"
-payload = '''
-self.ability.mult = self.ability.mult + sliced_card.sell_cost*2
-local will_slice = true
-if SMODS.will_destroy_card() then
-    sliced_card.getting_sliced = true
-    G.GAME.joker_buffer = G.GAME.joker_buffer - 1
-else
-    will_slice = false
-end'''
-match_indent = true
-
-[[patches]]
-[patches.pattern]
-target = "card.lua"
-pattern = '''G.GAME.joker_buffer = 0
-self.ability.mult = self.ability.mult + sliced_card.sell_cost*2
-self:juice_up(0.8, 0.8)
-sliced_card:start_dissolve({HEX("57ecab")}, nil, 1.6)'''
-position = "at"
-payload = '''if will_slice then
-    G.GAME.joker_buffer = 0
-    sliced_card:start_dissolve({HEX("57ecab")}, nil, 1.6)
-else
-    sliced_card:juice_up()
-end'''
-match_indent = true
-
-[[patches]]
-[patches.pattern]
-target = "card.lua"
 pattern = '''self.cost = math.max(1, math.floor((self.base_cost + self.extra_cost + 0.5)*(100-G.GAME.discount_percent)/100))'''
 position = "at"
 payload = '''

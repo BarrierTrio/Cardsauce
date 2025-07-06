@@ -1157,37 +1157,6 @@ function SMODS.spectral_downside()
 	return true
 end
 
-function SMODS.will_destroy_card()
-	local sew = G.FUNCS.find_activated_tape('c_csau_sew')
-	if sew and not sew.ability.destroyed then
-		sew.ability.extra.uses = sew.ability.extra.uses+1
-		if sew.ability.extra.uses >= sew.ability.extra.runtime then
-			G.FUNCS.destroy_tape(sew)
-			sew.ability.destroyed = true
-		else
-			G.E_MANAGER:add_event(Event({
-				trigger = 'after',
-				delay = 0.4,
-				blocking = false,
-				blockable = false,
-                func = function()
-                    card_eval_status_text(sew, 'extra', nil, nil, nil, {
-						message = localize('k_survived'),
-						colour = G.C.FILTER,
-						sound = 'generic1',
-						blocking = false,
-						blockable = false,
-					})
-                    return true
-                end
-            }))
-			
-		end
-		return false
-	end
-	return true
-end
-
 G.FUNCS.have_multiple_jokers = function(tbl, amount)
 	local found = 0
 	for _, v in ipairs(tbl) do

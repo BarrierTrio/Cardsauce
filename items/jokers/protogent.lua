@@ -17,8 +17,8 @@ local jokerInfo = {
 
 function jokerInfo.loc_vars(self, info_queue, card)
     info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.rerun } }
-    local num, dom1 = SMODS.get_probability_vars(card, 1, card.ability.extra.boss_prob)
-    local _, dom2 = SMODS.get_probability_vars(card, 1, card.ability.extra.save_prob)
+    local num, dom1 = SMODS.get_probability_vars(card, 1, card.ability.extra.boss_prob, 'csau_proto_boss')
+    local _, dom2 = SMODS.get_probability_vars(card, 1, card.ability.extra.save_prob, 'csau_proto_save')
     return { vars = { num, dom1, dom2 } }
 end
 
@@ -26,7 +26,7 @@ function jokerInfo.calculate(self, card, context)
     if card.debuff or context.blueprint then return end
 
     if context.setting_blind and G.GAME.blind:get_type() == 'Boss' and not card.getting_sliced
-    and SMODS.pseudorandom_probability(card, pseudoseed('csau_proto_boss'), 1, card.ability.extra.boss_prob) then
+    and SMODS.pseudorandom_probability(card, 'csau_proto_boss', 1, card.ability.extra.boss_prob) then
         G.E_MANAGER:add_event(Event({
             func = function()
                 G.GAME.blind:disable()
@@ -52,7 +52,7 @@ function jokerInfo.calculate(self, card, context)
         }
     end
 
-    if context.game_over and SMODS.pseudorandom_probability(card, pseudoseed('csau_proto_save'), 1, card.ability.extra.save_prob) then
+    if context.game_over and SMODS.pseudorandom_probability(card, 'csau_proto_save', 1, card.ability.extra.save_prob) then
         G.E_MANAGER:add_event(Event({
             func = function()
                 G.hand_text_area.blind_chips:juice_up()

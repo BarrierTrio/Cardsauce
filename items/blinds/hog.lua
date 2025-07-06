@@ -41,7 +41,7 @@ function blindInfo.recalc_debuff(self, card, from_blind)
         return false
     elseif card:is_face(true) and not card.csau_hog_checked then
         card.csau_hog_checked = true
-        if SMODS.pseudorandom_probability(G.GAME.blind, pseudoseed('csau_hog'), 1, 2) then
+        if SMODS.pseudorandom_probability(G.GAME.blind, 'csau_hog', 1, 2) then
             card.csau_hogstruck = true
             return true
         end
@@ -51,10 +51,10 @@ function blindInfo.recalc_debuff(self, card, from_blind)
 end
 
 function blindInfo.loc_vars(self)
-    return {vars = {SMODS.get_probability_vars(self, 1, 2)} }
+    return {vars = {SMODS.get_probability_vars(self, 1, 2, 'csau_hog')} }
 end
 function blindInfo.collection_loc_vars(self)
-    return {vars = {SMODS.get_probability_vars(self, 1, 2)} }
+    return {vars = {SMODS.get_probability_vars(self, 1, 2, 'csau_hog')} }
 end
 
 function blindInfo.defeat(self)
@@ -71,7 +71,7 @@ function blindInfo.press_play(self)
     G.E_MANAGER:add_event(Event({
         func = function()
             for i, v in ipairs(G.play.cards) do
-                if v.csau_hogstruck and SMODS.pseudorandom_probability(G.GAME.blind, pseudoseed('csau_hog'), 1, 2) then
+                if v.csau_hogstruck and SMODS.pseudorandom_probability(G.GAME.blind, 'csau_hog', 1, 2) then
                     destroy = true
                     if v.ability.name == 'Glass Card' then
                         v:shatter()

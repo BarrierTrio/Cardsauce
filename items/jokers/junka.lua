@@ -30,7 +30,7 @@ local jokerInfo = {
 
 function jokerInfo.loc_vars(self, info_queue, card)
     info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.yunkie } }
-    local num, dom = SMODS.get_probability_vars(card, card.ability.extra.prob_extra, card.ability.extra.prob)
+    local num, dom = SMODS.get_probability_vars(card, card.ability.extra.prob_extra, card.ability.extra.prob, 'csau_junka')
     return { vars = {card.ability.extra.x_mult_mod, card.ability.extra.prob_mod, num, dom, card.ability.extra.x_mult } }
 end
 
@@ -50,7 +50,7 @@ function jokerInfo.calculate(self, card, context)
     if card.debuff then return end
 
     if context.vhs_death and not context.blueprint and not card.ability.extra.destroyed then
-        if SMODS.pseudorandom_probability(card, pseudoseed('csau_junka'), card.ability.extra.prob_extra, card.ability.extra.prob) then
+        if SMODS.pseudorandom_probability(card, 'csau_junka', card.ability.extra.prob_extra, card.ability.extra.prob) then
             card.ability.extra.destroyed = true
             G.E_MANAGER:add_event(Event({
                 func = function()

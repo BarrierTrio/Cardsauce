@@ -20,7 +20,7 @@ local jokerInfo = {
 
 function jokerInfo.loc_vars(self, info_queue, card)
     info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.akai } }
-    local num, dom = SMODS.get_probability_vars(card, 1, card.ability.extra.chance)
+    local num, dom = SMODS.get_probability_vars(card, 1, card.ability.extra.chance, 'csau_grand')
     return { vars = {num, dom, card.ability.extra.x_mult, card.ability.extra.cardid} }
 end
 
@@ -36,7 +36,7 @@ function jokerInfo.calculate(self, card, context)
             end
         end
 
-        if trigger and SMODS.pseudorandom_probability(card, pseudoseed('csau_grand'), 1, card.ability.extra.chance) then
+        if trigger and SMODS.pseudorandom_probability(card, 'csau_grand', 1, card.ability.extra.chance) then
             return {
                 message = localize{type='variable',key='a_xmult',vars={to_big(card.ability.extra.x_mult)}},
                 Xmult_mod = card.ability.extra.x_mult,

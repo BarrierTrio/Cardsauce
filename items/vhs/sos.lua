@@ -25,12 +25,12 @@ local consumInfo = {
 
 function consumInfo.loc_vars(self, info_queue, card)
     info_queue[#info_queue+1] = {key = "vhs_activation", set = "Other"}
-    local num, dom = SMODS.get_probability_vars(card, 1, card.ability.extra.prob)
+    local num, dom = SMODS.get_probability_vars(card, 1, card.ability.extra.prob, 'csau_sos')
     return { vars = { num, dom, card.ability.extra.x_mult, card.ability.extra.runtime-card.ability.extra.uses } }
 end
 
 function consumInfo.calculate(self, card, context)
-    if context.joker_main and card.ability.activated and SMODS.pseudorandom_probability(card, pseudoseed('csau_sos'), 1, card.ability.extra.prob) then
+    if context.joker_main and card.ability.activated and SMODS.pseudorandom_probability(card, 'csau_sos', 1, card.ability.extra.prob) then
         return {
             x_mult = card.ability.extra.x_mult,
             card = card

@@ -17,7 +17,7 @@ local jokerInfo = {
 
 function jokerInfo.loc_vars(self, info_queue, card)
     info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.wario } }
-    local num, dom = SMODS.get_probability_vars(card, 1, card.ability.extra.chance)
+    local num, dom = SMODS.get_probability_vars(card, 1, card.ability.extra.chance, 'csau_expired_reset')
     return { vars = {card.ability.extra.chips_mod, num, dom, card.ability.extra.chips} }
 end
 
@@ -44,7 +44,7 @@ function jokerInfo.calculate(self, card, context)
             edition = card.edition and card.edition.type or nil
         }
 
-        if SMODS.pseudorandom_probability(card, pseudoseed('csau_expired_reset'), 1, card.ability.extra.chance) then
+        if SMODS.pseudorandom_probability(card, 'csau_expired_reset', 1, card.ability.extra.chance) then
             G.GAME.csau_unique_meds_acquired = 0
             return {
                 message = localize('k_reset'),

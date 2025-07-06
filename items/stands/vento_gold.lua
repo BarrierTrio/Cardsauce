@@ -19,7 +19,7 @@ local consumInfo = {
 function consumInfo.loc_vars(self, info_queue, card)
     info_queue[#info_queue+1] = G.P_CENTERS.m_gold
     info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.wario } }
-    local num, dom = SMODS.get_probability_vars(card, 1, card.ability.extra.prob)
+    local num, dom = SMODS.get_probability_vars(card, 1, card.ability.extra.prob, 'csau_goldexperience')
     return {
         vars = {
             num, dom,
@@ -41,7 +41,7 @@ function consumInfo.calculate(self, card, context)
         sendDebugMessage('gold experience iteration')
         for i, v in ipairs(context.scoring_hand) do
             if v.config.center.key ~= 'm_gold' and v:is_suit(G.GAME and G.GAME.wigsaw_suit or "Hearts")
-            and SMODS.pseudorandom_probability(card, pseudoseed('csau_goldexperience'), 1, card.ability.extra.prob) then
+            and SMODS.pseudorandom_probability(card, 'csau_goldexperience', 1, card.ability.extra.prob) then
                 gold[#gold+1] = v
                 v:set_ability(G.P_CENTERS.m_gold, nil, 'manual')
                 sendDebugMessage('setting '..i..' to gold')

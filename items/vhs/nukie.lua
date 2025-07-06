@@ -18,7 +18,7 @@ local consumInfo = {
 
 
 function consumInfo.loc_vars(self, info_queue, card)
-    local num, _ =  SMODS.get_probability_vars(card, 1, 1)
+    local num, _ =  SMODS.get_probability_vars(card, 1, 1, 'wheel_of_fortune')
 	info_queue[#info_queue+1] = {key = "wheel2", set = "Other", vars = {num}}
     info_queue[#info_queue+1] = {key = "vhs_activation", set = "Other"}
     info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.wario } }

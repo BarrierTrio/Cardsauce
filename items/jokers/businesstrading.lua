@@ -19,7 +19,7 @@ local jokerInfo = {
 
 function jokerInfo.loc_vars(self, info_queue, card)
     info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.keku } }
-    local num, dom = SMODS.get_probability_vars(card, 1, card.ability.extra.chance)
+    local num, dom = SMODS.get_probability_vars(card, 1, card.ability.extra.chance, 'csau_business_1')
     return { vars = {card.ability.extra.dollars, num, dom, card.ability.extra.destroy} }
 end
 
@@ -37,7 +37,7 @@ function jokerInfo.calculate(self, card, context)
 
     if context.before and context.cardarea == G.jokers and to_big(G.GAME.current_round.hands_played) == to_big(0) and all_faces(context.full_hand) then
         card.ability.csau_business_activated = {}
-        if SMODS.pseudorandom_probability(card, pseudoseed('csau_business_1'), 1, card.ability.extra.chance) then
+        if SMODS.pseudorandom_probability(card, 'csau_business_1', 1, card.ability.extra.chance) then
             local idx_tbl = {}
             for i=1, #context.full_hand do
                 idx_tbl[#idx_tbl+1] = i

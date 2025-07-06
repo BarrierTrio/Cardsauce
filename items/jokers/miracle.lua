@@ -15,7 +15,7 @@ local jokerInfo = {
 
 function jokerInfo.loc_vars(self, info_queue, card)
 	info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.fenix } }
-	return { vars = {SMODS.get_probability_vars(card, 1, card.ability.extra.chance)} }
+	return { vars = {SMODS.get_probability_vars(card, 1, card.ability.extra.chance, 'csau_miracle')} }
 end
 
 function jokerInfo.calculate(self, card, context)
@@ -24,7 +24,7 @@ function jokerInfo.calculate(self, card, context)
 	if context.cardarea == G.jokers and context.before and next(context.poker_hands['Pair']) then
 		local new_cards = {}
 		for _, pair in ipairs(context.poker_hands['Pair']) do
-			if SMODS.pseudorandom_probability(card, pseudoseed('csau_miracle'), 1, card.ability.extra.chance) then
+			if SMODS.pseudorandom_probability(card, 'csau_miracle', 1, card.ability.extra.chance) then
 				local pair_suits = {}
 				local pair_enhancements = {}
 				local pair_seals = {}
@@ -56,18 +56,18 @@ function jokerInfo.calculate(self, card, context)
 				end
 
 				local miracle_center = 'c_base'
-				if #pair_enhancements > 0 and SMODS.pseudorandom_probability(card, pseudoseed('csau_miracle_enhance'), 1, card.ability.extra.chance) then
+				if #pair_enhancements > 0 and SMODS.pseudorandom_probability(card, 'csau_miracle_enhance', 1, card.ability.extra.chance) then
 					miracle_center = #pair_enhancements == 1 and pair_enhancements[1] or pseudorandom_element(pair_enhancements, pseudoseed('csau_miracle_enhancements'))
 				end
 
 				local seal = nil
-				if #pair_seals > 0 and SMODS.pseudorandom_probability(card, pseudoseed('csau_miracle_seal_1'), 1, card.ability.extra.chance) then
+				if #pair_seals > 0 and SMODS.pseudorandom_probability(card, 'csau_miracle_seal_1', 1, card.ability.extra.chance) then
 					check_for_unlock({ type = "miracle_inherit" })
 					seal = #pair_seals == 1 and pair_seals[1] or pseudorandom_element(pair_seals, pseudoseed('csau_miracle_seal_2'))
 				end
 
 				local edition = nil
-				if #pair_editions > 0 and SMODS.pseudorandom_probability(card, pseudoseed('csau_miracle_edition_1'), 1, card.ability.extra.chance) then
+				if #pair_editions > 0 and SMODS.pseudorandom_probability(card, 'csau_miracle_edition_1', 1, card.ability.extra.chance) then
 					check_for_unlock({ type = "miracle_inherit" })
 					edition = #pair_editions == 1 and pair_editions[1] or pseudorandom_element(pair_editions, pseudoseed('csau_miracle_edition_2'))
 				end

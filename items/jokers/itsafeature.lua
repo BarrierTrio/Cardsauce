@@ -19,7 +19,7 @@ local jokerInfo = {
 
 function jokerInfo.loc_vars(self, info_queue, card)
     info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.burlap } }
-    local num, dom = SMODS.get_probability_vars(card, 1, card.ability.extra.prob)
+    local num, dom = SMODS.get_probability_vars(card, 1, card.ability.extra.prob, 'csau_feature')
     return { vars = { card.ability.extra.money_mod, num, dom, card.ability.extra.money } }
 end
 
@@ -32,7 +32,7 @@ function jokerInfo.calculate(self, card, context)
             check_for_unlock({ type = "high_feature" })
         end
 
-        if to_big(card.ability.extra.money) > to_big(0) and SMODS.pseudorandom_probability(card, pseudoseed('csau_feature'), 1, card.ability.extra.prob) then
+        if to_big(card.ability.extra.money) > to_big(0) and SMODS.pseudorandom_probability(card, 'csau_feature', 1, card.ability.extra.prob) then
             card.ability.csau_feature_activated = true
         end
 

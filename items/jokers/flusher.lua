@@ -18,7 +18,7 @@ local jokerInfo = {
 
 function jokerInfo.loc_vars(self, info_queue, card)
     info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.gote } }
-    local num, dom = SMODS.get_probability_vars(card, card.ability.extra.prob_extra, card.ability.extra.prob)
+    local num, dom = SMODS.get_probability_vars(card, card.ability.extra.prob_extra, card.ability.extra.prob, 'csau_flusher')
     return { vars = {num, dom, card.ability.extra.prob_mod } }
 end
 
@@ -26,7 +26,7 @@ function jokerInfo.calculate(self, card, context)
     if card.debuff then return end
 
     if context.cardarea == G.jokers and context.before and context.scoring_name == "Flush"
-    and SMODS.pseudorandom_probability(card, pseudoseed('csau_flusher'), card.ability.extra.prob_extra, card.ability.extra.prob) then
+    and SMODS.pseudorandom_probability(card, 'csau_flusher', card.ability.extra.prob_extra, card.ability.extra.prob) then
         return {
             card = card,
             level_up = true,
@@ -40,7 +40,7 @@ function jokerInfo.calculate(self, card, context)
         card.ability.extra.prob_extra = card.ability.extra.prob_extra + 1
         return {
             card = card,
-            message = localize{type = 'variable', key = 'a_chance', vars = {SMODS.get_probability_vars(card, card.ability.extra.prob_extra, card.ability.extra.prob)}},
+            message = localize{type = 'variable', key = 'a_chance', vars = {SMODS.get_probability_vars(card, card.ability.extra.prob_extra, card.ability.extra.prob, 'csau_flusher')}},
             colour = G.C.GREEN
         }
     end

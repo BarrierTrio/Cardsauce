@@ -128,54 +128,6 @@ match_indent = true
 
 [[patches]]
 [patches.pattern]
-target = 'card.lua'
-pattern = '''function Card:set_base(card, initial)'''
-position = 'at'
-match_indent = true
-payload = '''function Card:set_base(card, initial, delay_sprites)'''
-
-[[patches]]
-[patches.pattern]
-target = 'card.lua'
-pattern = '''if next(card) then'''
-position = 'at'
-match_indent = true
-payload = '''if next(card) and not delay_sprites then'''
-
-[[patches]]
-[patches.pattern]
-target = '=[SMODS _ "src/utils.lua"]'
-pattern = '''function SMODS.modify_rank(card, amount)'''
-position = 'at'
-match_indent = true
-payload = '''function SMODS.modify_rank(card, amount, delay_sprites)'''
-
-[[patches]]
-[patches.pattern]
-target = '=[SMODS _ "src/utils.lua"]'
-pattern = '''return SMODS.change_base(card, nil, rank_key)'''
-position = 'at'
-match_indent = true
-payload = '''return SMODS.change_base(card, nil, rank_key, delay_sprites)'''
-
-[[patches]]
-[patches.pattern]
-target = '=[SMODS _ "src/utils.lua"]'
-pattern = '''function SMODS.change_base(card, suit, rank)'''
-position = 'at'
-match_indent = true
-payload = '''function SMODS.change_base(card, suit, rank, delay_sprites)'''
-
-[[patches]]
-[patches.pattern]
-target = '=[SMODS _ "src/utils.lua"]'
-pattern = '''card:set_base(G.P_CARDS[('%s_%s'):format(_suit.card_key, _rank.card_key)])'''
-position = 'at'
-match_indent = true
-payload = '''card:set_base(G.P_CARDS[('%s_%s'):format(_suit.card_key, _rank.card_key)], nil, delay_sprites)'''
-
-[[patches]]
-[patches.pattern]
 target = "functions/state_events.lua"
 pattern = '''G.E_MANAGER:add_event(Event({
     func = function()

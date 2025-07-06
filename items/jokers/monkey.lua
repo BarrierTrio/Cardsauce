@@ -17,7 +17,7 @@ local jokerInfo = {
 
 function jokerInfo.loc_vars(self, info_queue, card)
     info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.lyzerus } }
-    local num, dom = SMODS.get_probability_vars(card, 1, card.ability.extra.prob)
+    local num, dom = SMODS.get_probability_vars(card, 1, card.ability.extra.prob, 'csau_monkey')
     return { vars = { card.ability.extra.mult, num, dom } }
 end
 
@@ -40,7 +40,7 @@ function jokerInfo.calculate(self, card, context)
     if context.blueprint then return end
 
     if context.destroy_card and context.cardarea == G.play and SMODS.in_scoring(context.destroy_card, context.scoring_hand)
-    and SMODS.pseudorandom_probability(card, pseudoseed('csau_monkey'), 1, card.ability.extra.prob) then
+    and SMODS.pseudorandom_probability(card, 'csau_monkey', 1, card.ability.extra.prob) then
         return {
             remove = true
         }

@@ -28,7 +28,7 @@ local consumInfo = {
 function consumInfo.loc_vars(self, info_queue, card)
     info_queue[#info_queue+1] = {key = "vhs_activation", set = "Other"}
     info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.gong } }
-    local num, dom = SMODS.get_probability_vars(card, card.ability.extra.chance, card.ability.extra.rate)
+    local num, dom = SMODS.get_probability_vars(card, card.ability.extra.chance, card.ability.extra.rate, 'csau_alienpi')
     return { vars = { card.ability.extra.x_mult, card.ability.extra.chance_mod, num, dom, card.ability.extra.runtime - card.ability.extra.uses } }
 end
 
@@ -59,7 +59,7 @@ function consumInfo.calculate(self, card, context)
         }))
     end
 
-    if context.selling_self and SMODS.pseudorandom_probability(card, pseudoseed('csau_alienpi'), card.ability.extra.chance, card.ability.extra.rate) then
+    if context.selling_self and SMODS.pseudorandom_probability(card, 'csau_alienpi', card.ability.extra.chance, card.ability.extra.rate) then
         G.E_MANAGER:add_event(Event({
             func = function()
                 G.STATE = G.STATES.GAME_OVER

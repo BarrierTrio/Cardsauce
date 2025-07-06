@@ -19,7 +19,7 @@ local consumInfo = {
 function consumInfo.loc_vars(self, info_queue, card)
     info_queue[#info_queue+1] = G.P_CENTERS.m_gold
     info_queue[#info_queue+1] = {key = "csau_artistcredit_2", set = "Other", vars = { G.csau_team.reda, G.csau_team.wario } }
-    return { vars = { SMODS.get_probability_vars(card, 1, card.ability.extra.chance) }}
+    return { vars = { SMODS.get_probability_vars(card, 1, card.ability.extra.chance, 'csau_ge_requiem') }}
 end
 
 function consumInfo.in_pool(self, args)
@@ -30,7 +30,7 @@ function consumInfo.calculate(self, card, context)
     if context.before and not card.debuff then
         local tick_cards = {}
         for _, v in ipairs(context.scoring_hand) do
-            if SMODS.has_enhancement(v, 'm_gold') and SMODS.pseudorandom_probability(card, pseudoseed('csau_ge_requiem'), 1, card.ability.extra.chance) then
+            if SMODS.has_enhancement(v, 'm_gold') and SMODS.pseudorandom_probability(card, 'csau_ge_requiem', 1, card.ability.extra.chance) then
                 tick_cards[#tick_cards+1] = v
             end
         end
