@@ -9,7 +9,7 @@ Join the discord [here](https://discord.gg/evwdM4Tvc5)!
 
 ## Installation
 
-This mod requires [Lovely](https://github.com/ethangreen-dev/lovely-injector) and the latest version of [Steammodded](https://github.com/Steamopollys/Steamodded) **(Version 1.0.0~BETA-0427a or later)**. Without these dependencies, this mod will not function.
+This mod requires [Lovely](https://github.com/ethangreen-dev/lovely-injector) and the latest version of [Steammodded](https://github.com/Steamopollys/Steamodded) **(Version 1.0.0~BETA-0711a or later)**. Without these dependencies, this mod will not function.
 
 Once you've installed both lovely and Steammodded, download the latest release zip file from the **Releases** tab and put the folder inside it in your Balatro Mods folder (`%APPDATA%/Balatro/Mods`). That's it! 
 
