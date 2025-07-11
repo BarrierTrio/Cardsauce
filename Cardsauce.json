@@ -1,7 +1,7 @@
 {
 	"id": "Cardsauce",
 	"name": "Cardsauce",
-	"author": ["BarrierTrio/Gote & Keku"],
+	"author": ["BarrierTrio/Gote, Keku, & TheWinterComet"],
 	"description": "A Vinesauce-themed expansion for Balatro, made in collaboration with the Balatro Discord and Vinesauce communities!",
 	"prefix": "csau",
 	"main_file": "main.lua",
@@ -11,7 +11,7 @@
 	"display_name": "Cardsauce",
 	"version": "2.1.1",
 	"dependencies": [
-		"Steamodded (>=1.0.0~BETA-0419a)"
+		"Steamodded (>=1.0.0~BETA-0711a)"
 	],
 	"conflicts": [
 	], 
