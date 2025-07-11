@@ -7,11 +7,10 @@ local consumInfo = {
         aura_colors = { '151590DC', '5f277dDC' },
     },
     cost = 10,
-    rarity = 'csau_EvolvedRarity',
-    alerted = true,
+    rarity = 'csau_evolvedRarity',
     hasSoul = true,
     part = 'diamond',
-    in_progress = true,
+    blueprint_compat = false,
 }
 
 function consumInfo.loc_vars(self, info_queue, card)
@@ -20,15 +19,7 @@ function consumInfo.loc_vars(self, info_queue, card)
 end
 
 function consumInfo.in_pool(self, args)
-    if next(SMODS.find_card('j_showman')) then
-        return true
-    end
-
-    if G.GAME.used_jokers['c_csau_diamond_killer'] then
-        return false
-    end
-    
-    return true
+    return (not G.GAME.used_jokers['c_csau_diamond_killer'])
 end
 
 local get_btd = function()
@@ -44,7 +35,7 @@ end
 local get_card_areas = SMODS.get_card_areas
 function SMODS.get_card_areas(_type, context)
     local t = get_card_areas(_type, context)
-    if  _type == 'playing_cards' then
+    if _type == 'playing_cards' then
         if get_btd() then
             local new_area = {cards = {}, reverse = true}
             for i= #G.play.cards - 1, 1, -1 do
@@ -59,37 +50,42 @@ end
 local calc_main = SMODS.calculate_main_scoring
 function SMODS.calculate_main_scoring(context, scoring_hand)
     if get_btd() and context.cardarea and context.cardarea.reverse then
-        calc_main(context, true)
+        return calc_main(context, true)
     else
-        calc_main(context, scoring_hand)
+        return calc_main(context, scoring_hand)
     end
 end
 
 function consumInfo.calculate(self, card, context)
-    if context.before then
+    if card.debuff then return end
+
+    if not context.blueprint and not context.retrigger_joker and context.before then
         card.ability.index = 0
     end
-    local bad_context = context.repetition or context.blueprint or context.retrigger_joker
-    if context.individual and context.cardarea == G.play and not card.debuff then
+
+    if not context.retrigger_joker and not context.blueprint and context.individual and context.cardarea == G.play then
         card.ability.index = card.ability.index + 1
         if card.ability.index == #context.scoring_hand then
             return {
+                no_retrigger = true,
                 func = function()
-                    G.FUNCS.csau_flare_stand_aura(card, 0.38)
+                    G.FUNCS.csau_flare_stand_aura(card, 0.50)
                 end,
                 message = localize('k_bites_the_dust'),
                 colour = G.C.STAND,
                 card = card
             }
-        elseif card.ability.index > #context.scoring_hand and not bad_context then
+        elseif card.ability.index > #context.scoring_hand then
             return {
+                no_retrigger = true,
                 func = function()
-                    G.FUNCS.csau_flare_stand_aura(card, 0.38)
+                    G.FUNCS.csau_flare_stand_aura(card, 0.50)
                 end,
             }
         end
     end
-    if context.end_of_round then
+
+    if not context.retrigger_joker and not context.blueprint and context.end_of_round and context.main_eval then
         card.ability.index = 0
     end
 end

@@ -22,7 +22,7 @@ sleeveInfo.loc_vars = function(self, info_queue)
 end
 
 function sleeveInfo.apply(self, back)
-    G.GAME.csau_unlimited_stands = true
+    G.GAME.modifiers.csau_unlimited_stands = true
 end
 
 return sleeveInfo

@@ -9,14 +9,17 @@ local consumInfo = {
             evolve_scores = 0,
             evolve_num = 20,
             evolved = false,
+            valid_ids = {
+                [2] = true,
+                [14] = true,
+            }
         }
     },
     cost = 4,
     rarity = 'csau_StandRarity',
-    alerted = true,
     hasSoul = true,
     part = 'steel',
-    in_progress = true,
+    blueprint_compat = true
 }
 
 function consumInfo.loc_vars(self, info_queue, card)
@@ -25,10 +28,6 @@ function consumInfo.loc_vars(self, info_queue, card)
 end
 
 function consumInfo.in_pool(self, args)
-    if next(SMODS.find_card('j_showman')) then
-        return true
-    end
-
     if G.GAME.used_jokers['c_csau_steel_tusk_2']
     or G.GAME.used_jokers['c_csau_steel_tusk_3']
     or G.GAME.used_jokers['c_csau_steel_tusk_4'] then
@@ -36,31 +35,45 @@ function consumInfo.in_pool(self, args)
     end
     
     return true
-end
+end 
 
 function consumInfo.calculate(self, card, context)
-    local bad_context = context.repetition or context.blueprint or context.retrigger_joker
-    if context.individual and context.cardarea == G.play and not card.debuff then
-        if context.other_card:get_id() == 14 or context.other_card:get_id() == 2 then
-            if not bad_context then
-                card.ability.extra.evolve_scores = card.ability.extra.evolve_scores + 1
-            end
-            if to_big(card.ability.extra.evolve_scores) >= to_big(card.ability.extra.evolve_num) then
-                if not card.ability.extra.evolved and not bad_context then
-                    card.ability.extra.evolved = true
+    if card.debuff then return end
+
+    if context.individual and context.cardarea == G.play and card.ability.extra.valid_ids[context.other_card:get_id()] then
+        if not context.blueprint and not context.retrigger_joker then
+            card.ability.extra.evolve_scores = card.ability.extra.evolve_scores + 1
+        end
+
+        local flare_card = context.blueprint_card or card
+        return {
+            func = function()
+                G.FUNCS.csau_flare_stand_aura(flare_card, 0.50)
+            end,
+            extra = {
+                chips = card.ability.extra.chips,
+                card = flare_card
+            }
+        }
+    end
+
+    if context.after and not context.blueprint and not context.retrigger_joker and not card.ability.extra.evolved then
+        if to_big(card.ability.extra.evolve_scores) >= to_big(card.ability.extra.evolve_num) then
+            card.ability.extra.evolved = true
+            G.E_MANAGER:add_event(Event({
+                func = (function()
                     G.FUNCS.csau_evolve_stand(card)
-                end
-            else
-                return {
-                    func = function()
-                        G.FUNCS.csau_flare_stand_aura(card, 0.38)
-                    end,
-                    chips = card.ability.extra.chips
-                }
-            end
+                    return true
+                end)
+            }))
+        else
+            return {
+                no_retrigger = true,
+                message = localize{type='variable',key='a_remaining',vars={card.ability.extra.evolve_num - card.ability.extra.evolve_scores}},
+                colour = G.C.STAND
+            }
         end
     end
 end
-
 
 return consumInfo

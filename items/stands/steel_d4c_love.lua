@@ -7,11 +7,10 @@ local consumInfo = {
         evolved = true,
     },
     cost = 10,
-    rarity = 'csau_EvolvedRarity',
-    alerted = true,
+    rarity = 'csau_evolvedRarity',
     hasSoul = true,
     part = 'steel',
-    in_progress = true,
+    blueprint_compat = false
 }
 
 function consumInfo.loc_vars(self, info_queue, card)
@@ -20,29 +19,37 @@ function consumInfo.loc_vars(self, info_queue, card)
 end
 
 function consumInfo.in_pool(self, args)
-    if next(SMODS.find_card('j_showman')) then
-        return true
-    end
-
-    if G.GAME.used_jokers['c_csau_steel_d4c'] then
-        return false
-    end
-    
-    return true
+    return (not G.GAME.used_jokers['c_csau_steel_d4c'])
 end
 
-local ref_cie = SMODS.calculate_individual_effect
-SMODS.calculate_individual_effect = function(effect, scored_card, key, amount, from_edition)
-    if next(SMODS.find_card('c_csau_steel_d4c_love')) and scored_card and scored_card.ability.effect and scored_card.ability.effect == 'Lucky Card' and not from_edition then
-        if key == 'mult' and effect.mult == G.P_CENTERS.m_lucky.config.mult or key == 'p_dollars' and effect.p_dollars == G.P_CENTERS.m_lucky.config.p_dollars then
-            local d4cl = SMODS.find_card('c_csau_steel_d4c_love')
-            for i, v in ipairs(d4cl) do
-                G.FUNCS.csau_flare_stand_aura(v, 0.38)
+local ref_eval_card = eval_card
+function eval_card(card, context)
+    local ret, post = ref_eval_card(card, context)
+
+    if card and context.cardarea == G.play and context.main_scoring and not card.debuff and card.config.center.key == 'm_lucky'
+    and not ret.playing_card.mult and not ret.playing_card.p_dollars then
+        local love_trains = SMODS.find_card('c_csau_steel_d4c_love')
+        local valid = false
+        for _, v in ipairs(love_trains) do
+            if not v.debuff then 
+                valid = true
+                break
+            end
+        end
+
+        if valid then
+            local triggers = {'mult', 'p_dollars'}
+            local key = pseudorandom_element(triggers, pseudoseed('csau_lovetrain'))
+            ret.playing_card[key] = (ret.playing_card[key] or 0) + card.ability[key]
+
+            if key == 'p_dollars' and ret.playing_card[key] ~= 0 then
+                G.GAME.dollar_buffer = (G.GAME.dollar_buffer or 0) + ret.playing_card[key]
+                G.E_MANAGER:add_event(Event({func = (function() G.GAME.dollar_buffer = 0; return true end)}))
             end
         end
     end
-    return ref_cie(effect, scored_card, key, amount, from_edition)
-end
 
+    return ret, post
+end
 
 return consumInfo

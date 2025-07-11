@@ -10,10 +10,9 @@ local consumInfo = {
     },
     cost = 4,
     rarity = 'csau_StandRarity',
-    alerted = true,
     hasSoul = true,
     part = 'stardust',
-    in_progress = true,
+    blueprint_compat = true,
 }
 
 function consumInfo.loc_vars(self, info_queue, card)
@@ -30,15 +29,19 @@ function consumInfo.calculate(self, card, context)
                 break
             end
         end
+
         if all then
+            local flare_card = context.blueprint_card or card
             ease_hands_played(card.ability.extra.hand_mod)
             return {
                 func = function()
-                    G.FUNCS.csau_flare_stand_aura(card, 0.38)
+                    G.FUNCS.csau_flare_stand_aura(flare_card, 0.50)
                 end,
-                card = card,
-                message = localize{type = 'variable', key = 'a_hands', vars = {card.ability.extra.hand_mod}},
-                colour = G.C.BLUE
+                extra = {
+                    card = flare_card,
+                    message = localize{type = 'variable', key = 'a_hands', vars = {card.ability.extra.hand_mod}},
+                    colour = G.C.BLUE
+                }
             }
         end
     end

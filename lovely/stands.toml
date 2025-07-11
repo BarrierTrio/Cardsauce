@@ -5,98 +5,6 @@ priority = 9999999
 
 [[patches]]
 [patches.pattern]
-target = "functions/common_events.lua"
-pattern = "local mult = card:get_chip_mult()"
-position = "before"
-payload = '''
-local proc = nil
-if next(SMODS.find_card('c_csau_steel_d4c_love')) then
-    local triggers = {
-        [1] = 'mult',
-        [2] = 'dollars',
-    }
-    proc = triggers[pseudorandom('d4c_lovetrain', 1, 2)]
-end
-'''
-match_indent = true
-times = 1
-
-[[patches]]
-[patches.pattern]
-target = "functions/common_events.lua"
-pattern = "local mult = card:get_chip_mult()"
-position = "at"
-payload = "local mult = card:get_chip_mult(proc)"
-match_indent = true
-times = 1
-
-[[patches]]
-[patches.pattern]
-target = "functions/common_events.lua"
-pattern = "local p_dollars = card:get_p_dollars()"
-position = "at"
-payload = "local p_dollars = card:get_p_dollars(proc)"
-match_indent = true
-times = 1
-
-[[patches]]
-[patches.pattern]
-target = "card.lua"
-pattern = "function Card:get_chip_mult()"
-position = "at"
-payload = "function Card:get_chip_mult(proc)"
-match_indent = true
-times = 1
-
-[[patches]]
-[patches.pattern]
-target = "card.lua"
-pattern = "if pseudorandom('lucky_mult') < G.GAME.probabilities.normal/5 then"
-position = "at"
-payload = "if proc and proc == 'mult' or (pseudorandom('lucky_mult') < G.GAME.probabilities.normal/5) then"
-match_indent = true
-times = 1
-
-# Cryptid compatibility version of the above patch:
-[[patches]]
-[patches.pattern]
-target = "card.lua"
-pattern = "if pseudorandom('lucky_mult') < cry_prob(self.ability.cry_prob, 5, self.ability.cry_rigged)/5 then"
-position = "at"
-payload = "if proc and proc == 'mult' or pseudorandom('lucky_mult') < cry_prob(self.ability.cry_prob, 5, self.ability.cry_rigged)/5 then"
-match_indent = true
-times = 1
-
-[[patches]]
-[patches.pattern]
-target = "card.lua"
-pattern = "function Card:get_p_dollars()"
-position = "at"
-payload = "function Card:get_p_dollars(proc)"
-match_indent = true
-times = 1
-
-[[patches]]
-[patches.pattern]
-target = "card.lua"
-pattern = "if pseudorandom('lucky_money') < G.GAME.probabilities.normal/15 then"
-position = "at"
-payload = "if proc and proc == 'dollars' or (pseudorandom('lucky_money') < G.GAME.probabilities.normal/15) then"
-match_indent = true
-times = 1
-
-# Cryptid compatibility version of the above patch:
-[[patches]]
-[patches.pattern]
-target = "card.lua"
-pattern = "if pseudorandom('lucky_money') < cry_prob(self.ability.cry_prob, 15, self.ability.cry_rigged)/15 then"
-position = "at"
-payload = "if proc and proc == 'dollars' or (pseudorandom('lucky_money') < cry_prob(self.ability.cry_prob, 15, self.ability.cry_rigged)/15) then"
-match_indent = true
-times = 1
-
-[[patches]]
-[patches.pattern]
 target = "card.lua"
 pattern = '''if self.ability.set == 'Joker' and not self.sticker_run then'''
 position = "before"
@@ -217,3 +125,21 @@ else
 end
 '''
 match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = '''G.E_MANAGER:add_event(Event({
+    func = function()
+        if cards_destroyed[i].shattered then
+            cards_destroyed[i]:shatter()
+        else
+            cards_destroyed[i]:start_dissolve()
+        end
+        return true
+    end
+}))'''
+position = "after"
+payload = '''SMODS.calculate_context({csau_card_destroyed = true, removed = cards_destroyed[i] })'''
+match_indent = true
+times = 1

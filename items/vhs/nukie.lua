@@ -9,7 +9,7 @@ local consumInfo = {
         activated = false,
         destroyed = false,
         extra = {
-            runtime = 2,
+            runtime = 6,
             uses = 0,
         }
     },
@@ -18,20 +18,27 @@ local consumInfo = {
 
 
 function consumInfo.loc_vars(self, info_queue, card)
-    info_queue[#info_queue+1] = {key = "wheel2", set = "Other", vars = {G.GAME.probabilities.normal}}
+    local num, _ =  SMODS.get_probability_vars(card, 1, 1, 'wheel_of_fortune')
+	info_queue[#info_queue+1] = {key = "wheel2", set = "Other", vars = {num}}
     info_queue[#info_queue+1] = {key = "vhs_activation", set = "Other"}
     info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.wario } }
     return { vars = { card.ability.extra.runtime-card.ability.extra.uses } }
 end
 
 function consumInfo.calculate(self, card, context)
-    if context.using_consumeable then
-        if context.consumeable.config.center.key == 'c_wheel' then
-            card.ability.extra.uses = card.ability.extra.uses+1
-            if to_big(card.ability.extra.uses) >= to_big(card.ability.extra.runtime) then
-                G.FUNCS.destroy_tape(card)
-                card.ability.destroyed = true
-            end
+    if context.using_consumeable and context.consumeable.config.center.key == 'c_wheel_of_fortune' then
+        card.ability.extra.uses = card.ability.extra.uses+1
+        if to_big(card.ability.extra.uses) >= to_big(card.ability.extra.runtime) then
+            G.FUNCS.destroy_tape(card)
+            card.ability.destroyed = true
+        else
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    card:juice_up()
+                    play_sound('generic1')
+                    return true
+                end
+            }))
         end
     end
 end

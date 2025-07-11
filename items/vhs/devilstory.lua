@@ -10,8 +10,10 @@ local consumInfo = {
         destroyed = false,
         extra = {
             dollars = 3,
-            runtime = 3,
+            runtime = 10,
             uses = 0,
+            ach_enhancement = 'm_gold',
+            ach_count = 5
         },
     },
     origin = {
@@ -34,31 +36,34 @@ function consumInfo.loc_vars(self, info_queue, card)
 end
 
 function consumInfo.calculate(self, card, context)
-    if card.ability.activated and context.individual and context.cardarea == G.play and not card.debuff and not context.blueprint and not context.repetition then
-        local count = 0
-        for i, v in ipairs(context.scoring_hand) do
-            if v.ability.effect ~= "Base" then
-                count = count + 1
-                return {
-                    dollars = card.ability.extra.dollars
-                }
+    if card.debuff or context.blueprint or not card.ability.activated then return end
+
+    if context.before and #context.scoring_hand >= card.ability.extra.ach_count then
+        local ach = 0
+        for _, v in ipairs(context.scoring_hand) do
+            local enhancements = SMODS.get_enhancements(v)
+            if enhancements[card.ability.extra.ach_enhancement] then
+                ach = ach + 1
             end
         end
-        if count > 0 then
-            if count >= 5 then
-                check_for_unlock({ type = "high_horse" })
-            end
-            G.E_MANAGER:add_event(Event({
-                func = function()
-                    card.ability.extra.uses = card.ability.extra.uses+1
-                    if to_big(card.ability.extra.uses) >= to_big(card.ability.extra.runtime) then
-                        G.FUNCS.destroy_tape(card)
-                        card.ability.destroyed = true
-                    end
-                    return true
+
+        if ach >= card.ability.extra.ach_count then
+            check_for_unlock({ type = 'high_horse' })
+        end
+    end
+
+    if to_big(card.ability.extra.uses) < to_big(card.ability.extra.runtime) and context.individual
+    and context.cardarea == G.play and next(SMODS.get_enhancements(context.other_card)) then
+        card.ability.extra.uses = math.max(0, card.ability.extra.uses + 1)
+        return {
+            dollars = card.ability.extra.dollars,
+            func = function()
+                if to_big(card.ability.extra.uses) >= to_big(card.ability.extra.runtime) then
+                    G.FUNCS.destroy_tape(card)
+                    card.ability.destroyed = true
                 end
-            }))
-        end
+            end
+        }
     end
 end
 

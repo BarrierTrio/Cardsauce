@@ -285,33 +285,9 @@ SMODS.Consumable:take_ownership('c_ankh', {
         --otherwise, the selected joker can be totally random and all other non-eternal jokers can be removed
 
         local chosen_joker = pseudorandom_element(G.jokers.cards, pseudoseed('ankh_choice'))
-        local downside = SMODS.spectral_downside()
-        if downside then
-            local deletable_jokers = {}
-            for _, v in pairs(G.jokers.cards) do
-                if not v.ability.eternal then deletable_jokers[#deletable_jokers + 1] = v end
-            end
-
-            local _first_dissolve = nil
-            G.E_MANAGER:add_event(Event({
-                trigger = 'before',
-                delay = 0.75,
-                func = function()
-                    for k, v in pairs(deletable_jokers) do
-                        if v ~= chosen_joker and SMODS.will_destroy_card() then
-                            check_for_unlock({ type = "unlock_killjester" })
-                            v:start_dissolve(nil, _first_dissolve)
-                            _first_dissolve = true
-                        end
-                    end
-                    return true
-                end
-            }))
-        end
-        
+                
         G.E_MANAGER:add_event(Event({
             trigger = 'before',
-            delay = downside and 0.4 or 0,
             func = function()
                 local new_copy = copy_card(chosen_joker, nil, nil, nil, chosen_joker.edition and chosen_joker.edition.negative)
                 new_copy:start_materialize()
@@ -323,6 +299,31 @@ SMODS.Consumable:take_ownership('c_ankh', {
                 return true
             end
         }))
+
+        local downside = SMODS.spectral_downside()
+        if downside then
+            delay(0.4)
+            local deletable_jokers = {}
+            for _, v in pairs(G.jokers.cards) do
+                if v ~= chosen_joker and not SMODS.is_eternal(v, card) then deletable_jokers[#deletable_jokers + 1] = v end
+            end
+
+            local _first_dissolve = nil
+            G.E_MANAGER:add_event(Event({
+                trigger = 'before',
+                delay = 0.75,
+                func = function()
+                    for k, v in pairs(deletable_jokers) do
+                        if v ~= chosen_joker then
+                            check_for_unlock({ type = "unlock_killjester" })
+                            v:start_dissolve(nil, _first_dissolve)
+                            _first_dissolve = true
+                        end
+                    end
+                    return true
+                end
+            }))
+        end
     end
 }, true)
 
@@ -339,7 +340,7 @@ SMODS.Consumable:take_ownership('c_hex', {
                 if SMODS.spectral_downside() then 
                     local _first_dissolve = nil
                     for k, v in pairs(G.jokers.cards) do
-                        if v ~= eligible_card and (not v.ability.eternal) and SMODS.will_destroy_card() then
+                        if v ~= eligible_card and not SMODS.is_eternal(v, card) then
                             check_for_unlock({ type = "unlock_killjester" })
                             v:start_dissolve(nil, _first_dissolve)
                             _first_dissolve = true
@@ -456,4 +457,41 @@ SMODS.Consumable:take_ownership('c_immolate', {
             SMODS.calculate_context({ remove_playing_cards = true, removed = destroyed_cards })
         end
     end
+}, true)
+
+SMODS.Joker:take_ownership('j_perkeo', {
+	loc_vars = function(self, info_queue, card)
+		info_queue[#info_queue+1] = {key = 'e_negative_consumable', set = 'Edition', config = {extra = 1}}
+		return { vars = {card.ability.extra}}
+	end,
+
+	calculate = function(self, card, context)
+		if not context.ending_shop or #G.consumeables.cards < 1 then
+			if not context.repetition then
+				return nil, true
+			end
+
+			return
+		end
+
+		local valid_consumeables = {}
+		for _, v in ipairs(G.consumeables.cards) do
+			if v.ability.set ~= 'csau_Stand' then
+				valid_consumeables[#valid_consumeables+1] = v
+			end
+		end
+
+		if #valid_consumeables > 0 then
+			G.E_MANAGER:add_event(Event({
+				func = function()
+					local copied_card = copy_card(pseudorandom_element(valid_consumeables, pseudoseed('perkeo')), nil)
+					copied_card:set_edition({negative = true}, true)
+					copied_card:add_to_deck()
+					G.consumeables:emplace(copied_card)
+					return true
+				end}))
+			card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_duplicated_ex')})
+		end
+		return nil, true
+	end
 }, true)

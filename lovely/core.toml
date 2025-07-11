@@ -232,36 +232,6 @@ match_indent = true
 [[patches]]
 [patches.pattern]
 target = "functions/common_events.lua"
-pattern = "if card and card.juice_up then card:juice_up(0.6, 0.1) end"
-position = "at"
-payload = "if card and card.juice_up then card:juice_up(extra ~= nil and extra.juice_num1 or 0.6, extra ~= nil and extra.juice_num2 or 0.1) end"
-match_indent = true
-
-[[patches]]
-[patches.pattern]
-target = "functions/common_events.lua"
-pattern = "card:juice_up(0.6, 0.1)"
-position = "at"
-payload = "card:juice_up(extra ~= nil and extra.juice_num1 or 0.6, extra ~= nil and extra.juice_num2 or 0.1)"
-match_indent = true
-
-[[patches]]
-[patches.pattern]
-target = "functions/common_events.lua"
-pattern = '''G.ROOM.jiggle = G.ROOM.jiggle + 0.7
-end
-'''
-position = "after"
-payload = '''
-if card and extra and extra.update_sprites then
-    card:set_sprites(card.config.center)
-end
-'''
-match_indent = true
-
-[[patches]]
-[patches.pattern]
-target = "functions/common_events.lua"
 pattern = '''
 if specific_vars.nominal_chips then
     localize{type = 'other', key = 'card_chips', nodes = desc_nodes, vars = {specific_vars.nominal_chips}}
@@ -289,22 +259,6 @@ else
 end
 '''
 match_indent = true
-
-[[patches]]
-[patches.pattern]
-target = 'card.lua'
-pattern = '''function Card:set_base(card, initial)'''
-position = 'at'
-match_indent = true
-payload = '''function Card:set_base(card, initial, delay_sprites)'''
-
-[[patches]]
-[patches.pattern]
-target = 'card.lua'
-pattern = '''if next(card) then'''
-position = 'at'
-match_indent = true
-payload = '''if next(card) and not delay_sprites then'''
 
 # CardArea:emplace()
 [[patches]]
@@ -436,12 +390,35 @@ times = 1
 
 [[patches]]
 [patches.pattern]
-target = "functions/common_events.lua"
-pattern = "local extrafunc = nil"
+target = "game.lua"
+pattern = '''if _ch.restrictions.banned_cards then'''
 position = "after"
-payload = '''if extra and extra.func then
-    extrafunc = extra.func
-end
-'''
+payload = '''   if type(_ch.restrictions.banned_cards) == 'function' then
+        _ch.restrictions.banned_cards = _ch.restrictions.banned_cards()
+	end'''
+match_indent = true
+times = 1
+
+[[patches]]
+[patches.pattern]
+target = "game.lua"
+pattern = '''if _ch.restrictions.banned_tags then'''
+position = "after"
+payload = '''
+    if type(_ch.restrictions.banned_tags) == 'function' then
+        _ch.restrictions.banned_tags = _ch.restrictions.banned_tags()
+    end'''
+match_indent = true
+times = 1
+
+[[patches]]
+[patches.pattern]
+target = "game.lua"
+pattern = '''if _ch.restrictions.banned_other then'''
+position = "after"
+payload = '''   
+    if type(_ch.restrictions.banned_other) == 'function' then
+        _ch.restrictions.banned_other = _ch.restrictions.banned_other()
+    end'''
 match_indent = true
 times = 1

@@ -7,10 +7,8 @@ local consumInfo = {
     },
     cost = 4,
     rarity = 'csau_StandRarity',
-    alerted = true,
     hasSoul = true,
     part = 'vento',
-    in_progress = true,
     csau_dependencies = {
         'enableVHSs'
     }

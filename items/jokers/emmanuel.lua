@@ -14,12 +14,12 @@ local jokerInfo = {
 function jokerInfo.loc_vars(self, info_queue, card)
 	info_queue[#info_queue+1] = G.P_TAGS.tag_negative
 	info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.gappie } }
-	return { vars = {G.GAME.probabilities.normal, card.ability.extra} }
+	return { vars = {SMODS.get_probability_vars(card, 1, card.ability.extra, 'csau_blast')} }
 end
 
 function jokerInfo.calculate(self, card, context)
 	if context.end_of_round and not card.debuff and not context.individual and not context.repetition then
-		if pseudorandom('blast') < G.GAME.probabilities.normal / card.ability.extra then
+		if SMODS.pseudorandom_probability(card, 'csau_blast', 1, card.ability.extra) then
 			check_for_unlock({ type = "activate_eman" })
 			card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('k_plus_negative'), colour = HEX('39484e')})
 			G.E_MANAGER:add_event(Event({

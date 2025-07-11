@@ -17,7 +17,8 @@ local jokerInfo = {
 
 function jokerInfo.loc_vars(self, info_queue, card)
     info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.lyzerus } }
-    return { vars = { card.ability.extra.mult, G.GAME.probabilities.normal, card.ability.extra.prob } }
+    local num, dom = SMODS.get_probability_vars(card, 1, card.ability.extra.prob, 'csau_monkey')
+    return { vars = { card.ability.extra.mult, num, dom } }
 end
 
 function jokerInfo.check_for_unlock(self, args)
@@ -27,20 +28,22 @@ function jokerInfo.check_for_unlock(self, args)
 end
 
 function jokerInfo.calculate(self, card, context)
-    if context.individual and context.cardarea == G.play and not card.debuff then
+    if card.debuff then return end
+
+    if context.individual and context.cardarea == G.play then
         return {
             mult = card.ability.extra.mult,
-            card = card
+            card = context.blueprint_card or card
         }
     end
-    if context.destroying_card and not context.blueprint then
-        if pseudorandom('monkeymode') < G.GAME.probabilities.normal / card.ability.extra.prob then
-            G.E_MANAGER:add_event(Event({trigger = 'after', func = function()
-                play_sound('whoosh2', math.random()*0.2 + 0.9,0.5)
-                play_sound('crumple'..math.random(1, 5), math.random()*0.2 + 0.9,0.5)
-                return true end }))
-            return true
-        end
+
+    if context.blueprint then return end
+
+    if context.destroy_card and context.cardarea == G.play and SMODS.in_scoring(context.destroy_card, context.scoring_hand)
+    and SMODS.pseudorandom_probability(card, 'csau_monkey', 1, card.ability.extra.prob) then
+        return {
+            remove = true
+        }
     end
 end
 

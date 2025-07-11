@@ -24,13 +24,14 @@ function jokerInfo.loc_vars(self, info_queue, card)
 end
 
 function jokerInfo.calculate(self, card, context)
-	if context.individual and context.cardarea == G.play and not card.debuff then
-		if context.other_card.ability.effect ~= 'Base' and not context.other_card.debuff then
-			return {
-				mult = card.ability.extra.mult,
-				card = card
-			}
-		end
+	if card.debuff then return end
+
+	if context.individual and context.cardarea == G.play
+	and next(SMODS.get_enhancement(context.other_card)) then
+		return {
+			mult = card.ability.extra.mult,
+			card = card
+		}
 	end
 end
 

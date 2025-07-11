@@ -1,7 +1,12 @@
 local jokerInfo = {
     name = 'Plaguewalker',
     config = {
-        debuff = false,
+        extra = {
+            glass_mult = 3,
+            glass_break = 2,
+            old_glass_mult = 2,
+            old_glass_break = 4,
+        }
     },
     rarity = 2,
     cost = 6,
@@ -12,100 +17,55 @@ local jokerInfo = {
     origin = 'monkeywrench'
 }
 
-local plaguewalker_active = function(card)
-    card = card or nil
-    local plaguewalkers = SMODS.find_card("j_csau_plaguewalker")
-    for i, v in ipairs(plaguewalkers) do
-        if (card and v ~= card) or not card then
-            if not v.debuff then
-                return true
-            end
+local function apply_plague(card, x_mult, break_chance)
+    local plagues = SMODS.find_card('j_csau_plaguewalker')
+    local other_plague = false
+    for _, v in ipairs(plagues) do
+        if v ~= card and not v.debuff then
+            other_plague = true
+            break
         end
     end
-    return false
-end
 
-local gcxm_ref = Card.get_chip_x_mult
-function Card:get_chip_x_mult(context)
-    local ref = gcxm_ref(self, context)
-    if self.ability.name == "Glass Card" and next(SMODS.find_card("j_csau_plaguewalker")) then
-        return 3
-    else
-        return ref
+    if other_plague then return end
+
+    G.P_CENTERS.m_glass.config.Xmult = x_mult
+    G.P_CENTERS.m_glass.config.extra = break_chance
+
+    for _, v in pairs(G.I.CARD) do
+        if v.config and v.config.center and v.config.center.key == 'm_glass' then
+            v.ability.extra = break_chance
+            v.ability.x_mult = x_mult
+            v.ability.Xmult = x_mult
+        end
     end
 end
 
 function jokerInfo.loc_vars(self, info_queue, card)
     info_queue[#info_queue+1] = G.P_CENTERS.m_glass
     info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.zeurel } }
-    return { vars = { G.GAME.probabilities.normal } }
-end
-
-local function activate(bool)
-    if bool then
-        G.P_CENTERS.m_glass.config.extra = 2
-        G.P_CENTERS.m_glass.config.Xmult = 3
-        for _, area in ipairs(SMODS.get_card_areas('playing_cards')) do
-            for _, _card in ipairs(area.cards) do
-                if SMODS.has_enhancement(_card, 'm_glass') then
-                    _card.ability.extra = 2
-                    _card.ability.Xmult = 3
-                end
-            end
-        end
-    else
-        G.P_CENTERS.m_glass.config.extra = 4
-        G.P_CENTERS.m_glass.config.Xmult = 2
-        for _, area in ipairs(SMODS.get_card_areas('playing_cards')) do
-            for _, _card in ipairs(area.cards) do
-                if SMODS.has_enhancement(_card, 'm_glass') then
-                    _card.ability.extra = 4
-                    _card.ability.Xmult = 2
-                end
-            end
-        end
-    end
+    local num, dom = SMODS.get_probability_vars(card, 1, card.ability.extra.glass_break, 'glass')
+    return { vars = { card.ability.extra.glass_mult, num, dom } }
 end
 
 function jokerInfo.in_pool(self, args)
     for _, v in ipairs(G.playing_cards) do
-        if v.ability.effect == "Glass Card" then
+        if v.config.center.key == 'm_glass' then
             return true
         end
     end
 end
 
-function jokerInfo.load(self, card)
-    activate(true)
+function jokerInfo.add_to_deck(self, card, from_debuff)
+    apply_plague(card, card.ability.extra.glass_mult, card.ability.extra.glass_break)
 end
 
-function jokerInfo.add_to_deck(self, card)
-    activate(true)
+function jokerInfo.load(self, card, cardTable, other_card)
+    apply_plague(card, card.ability.extra.glass_mult, card.ability.extra.glass_break)
 end
 
-function jokerInfo.remove_from_deck(self, card)
-    local deactivate = true
-    local pw = SMODS.find_card("j_csau_plaguewalker")
-    for i, v in ipairs(pw) do
-        if v ~= card then
-            deactivate = false
-        end
-    end
-    if deactivate then
-        activate(false)
-    end
-end
-
-function jokerInfo.update(self, card)
-    if card.debuff and not card.ability.debuff then
-        card.ability.debuff = true
-        if not plaguewalker_active(card) then
-            activate(false)
-        end
-    elseif not card.debuff and card.ability.debuff then
-        card.ability.debuff = false
-        activate(true)
-    end
+function jokerInfo.remove_from_deck(self, card, from_debuff)
+    apply_plague(card, card.ability.extra.old_glass_mult, card.ability.extra.old_glass_break)
 end
 
 return jokerInfo

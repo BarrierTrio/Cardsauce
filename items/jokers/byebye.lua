@@ -35,13 +35,25 @@ function jokerInfo.check_for_unlock(self, args)
 end
 
 function jokerInfo.calculate(self, card, context)
+    if context.hand_drawn or context.other_drawn then
+        local faces = 0
+        for i, v in ipairs(G.hand.cards) do
+            if v:is_face() then
+                faces = faces + 1
+            end
+        end
+        card.ability.csau_extra_value = card.ability.extra.dollars_mod * faces
+        card:set_cost()
+    end
+
     if context.selling_self then
         local destroyed_cards = {}
-        for i, v in ipairs(G.hand.cards) do
+        for _, v in ipairs(G.hand.cards) do
             if v:is_face() then
                 destroyed_cards[#destroyed_cards+1] = v
             end
         end
+
         G.E_MANAGER:add_event(Event({
             trigger = 'after',
             delay = 0.1,
@@ -55,20 +67,8 @@ function jokerInfo.calculate(self, card, context)
                     end
                 end
                 return true
-            end }))
-    end
-end
-
-function jokerInfo.update(self, card)
-    if card.area == G.jokers and G.hand and #G.hand.cards > 0 then
-        local face_cards = {}
-        for i, v in ipairs(G.hand.cards) do
-            if v:is_face() then
-                face_cards[#face_cards+1] = v
-            end
-        end
-        card.ability.csau_extra_value = card.ability.extra.dollars_mod * #face_cards
-        card:set_cost()
+            end 
+        }))
     end
 end
 

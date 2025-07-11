@@ -1,5 +1,4 @@
 local consumInfo = {
-    key = 'c_csau_lands_bigmouth',
     name = 'Bigmouth Strikes Again',
     set = 'csau_Stand',
     config = {
@@ -11,10 +10,9 @@ local consumInfo = {
     },
     cost = 4,
     rarity = 'csau_StandRarity',
-    alerted = true,
     hasSoul = true,
     part = 'lands',
-    in_progress = true,
+    blueprint_compat = false,
 }
 
 function consumInfo.loc_vars(self, info_queue, card)
@@ -29,15 +27,25 @@ function consumInfo.loc_vars(self, info_queue, card)
 end
 
 function consumInfo.calculate(self, card, context)
-    local bad_context = context.repetition or context.blueprint or context.individual or context.retrigger_joker
-	if not context.before or #context.full_hand ~= card.ability.extra.hand_size or bad_context then return end
+	if not context.before or #context.full_hand ~= card.ability.extra.hand_size or context.blueprint or context.retrigger_joker then return end
 
     -- record flip cards and do initial flip
     if not next(context.poker_hands['Flush']) then return end
 
-    local target_key = context.poker_hands['Flush'][1][1].base.suit
+    local target_key = nil
+    for i, v in ipairs(context.poker_hands['Flush'][1]) do
+        if not SMODS.has_any_suit(v) then
+            target_key = v.base.suit
+            break
+        end
+    end
+
+    if not target_key then
+        target_key = pseudorandom_element(SMODS.Suits, pseudoseed('csau_bigmouth_randomsuit')).key
+    end
+
     local change_cards = {}
-    for k, v in pairs(context.full_hand) do
+    for i, v in ipairs(context.full_hand) do
         -- find any cards not of the target transform key to transform
         if v.base.suit ~= target_key then
             local change = v

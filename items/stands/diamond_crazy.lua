@@ -7,10 +7,9 @@ local consumInfo = {
     },
     cost = 4,
     rarity = 'csau_StandRarity',
-    alerted = true,
     hasSoul = true,
     part = 'diamond',
-    in_progress = true,
+    blueprint_compat = false,
 }
 
 function consumInfo.loc_vars(self, info_queue, card)
@@ -18,8 +17,7 @@ function consumInfo.loc_vars(self, info_queue, card)
 end
 
 function consumInfo.calculate(self, card, context)
-    local bad_context = context.repetition or context.blueprint or context.individual or context.retrigger_joker
-    if context.before and not card.debuff and not bad_context then
+    if context.before and not card.debuff and not context.blueprint and not context.retrigger_joker then
          local activated = false
          for i, v in ipairs(context.full_hand) do
              if v.debuff then
@@ -36,12 +34,13 @@ function consumInfo.calculate(self, card, context)
          if activated then
              return {
                  func = function()
-                     card:juice_up()
-                     G.FUNCS.csau_flare_stand_aura(card, 0.38)
+                    G.FUNCS.csau_flare_stand_aura(card, 0.50)
                  end,
-                 card = card,
-                 message = localize('k_cd_healed'),
-                 colour = G.C.STAND
+                 extra = {
+                    card = card,
+                    message = localize('k_cd_healed'),
+                    colour = G.C.STAND
+                 }
              }
          end
     end

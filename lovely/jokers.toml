@@ -5,27 +5,6 @@ priority = 9999999
 
 [[patches]]
 [patches.pattern]
-target = "functions/common_events.lua"
-pattern = "amount = amount or 1"
-position = "after"
-payload = '''
-    local eff = {}
-    SMODS.calculate_context({modify_level_increment = true, card = card, hand = hand, amount = amount}, eff)
-    local flags = SMODS.trigger_effects(eff)
-    for i, v in ipairs(eff) do
-        if v.jokers then
-            if v.jokers.mult_inc then
-                amount = amount * v.jokers.mult_inc
-            end
-        end
-    end
-    check_for_unlock({ type = "hand_level", hand = hand, level = G.GAME.hands[hand].level, level_after = G.GAME.hands[hand].level+amount })
-'''
-match_indent = true
-overwrite = false
-
-[[patches]]
-[patches.pattern]
 target = "functions/state_events.lua"
 pattern = '''
     for k, v in ipairs(G.play.cards) do
@@ -79,73 +58,6 @@ if _append == "jud" and v.key == 'j_csau_hell' then
     add = false
 end
 '''
-match_indent = true
-
-[[patches]]
-[patches.pattern]
-target = "card.lua"
-pattern = "if my_pos and G.jokers.cards[my_pos+1] and not self.getting_sliced and not G.jokers.cards[my_pos+1].ability.eternal and not G.jokers.cards[my_pos+1].getting_sliced then "
-position = "at"
-payload = "if my_pos and G.jokers.cards[my_pos+1] and not self.getting_sliced and not G.jokers.cards[my_pos+1].ability.eternal and not G.jokers.cards[my_pos+1].getting_sliced and SMODS.will_destroy_card() then "
-match_indent = true
-
-# Make Perkeo only copy consumables (and not Stands)
-# (Slightly modified code from Cryptid, this should conflict with Cryptid's lovely patch of this,
-# but it should maintain Cryptid compatibility, cause it does the same thing)
-[[patches]]
-[patches.pattern]
-target = "card.lua"
-pattern = '''if G.consumeables.cards[1] then'''
-position = "at"
-payload = '''local eligibleJokers = {}
-for i = 1, #G.consumeables.cards do
-    if G.consumeables.cards[i].ability.consumeable and G.consumeables.cards[i].ability.set ~= "csau_Stand" then
-        eligibleJokers[#eligibleJokers + 1] = G.consumeables.cards[i]
-    end
-end
-if #eligibleJokers > 0 then'''
-match_indent = true
-
-[[patches]]
-[patches.pattern]
-target = "card.lua"
-pattern = '''local card = copy_card(pseudorandom_element(G.consumeables.cards, pseudoseed('perkeo')), nil)'''
-position = "at"
-payload = '''local card = copy_card(pseudorandom_element(eligibleJokers, pseudoseed('perkeo')), nil)'''
-match_indent = true
-
-[[patches]]
-[patches.pattern]
-target = "card.lua"
-pattern = '''if self.ability.name == 'Ectoplasm' or self.ability.name == 'Hex' or pseudorandom('wheel_of_fortune') < G.GAME.probabilities.normal/self.ability.extra then'''
-position = "at"
-payload = '''if self.ability.name == 'Ectoplasm' or self.ability.name == 'Hex' or pseudorandom('wheel_of_fortune') < (G.FUNCS.nutbuster_active() and 3 or G.GAME.probabilities.normal)/self.ability.extra then'''
-match_indent = true
-
-# Cryptid compatibility version of the above patch:
-[[patches]]
-[patches.pattern]
-target = "card.lua"
-pattern = '''if self.ability.name == 'Ectoplasm' or self.ability.name == 'Hex' or pseudorandom('wheel_of_fortune') < cry_prob(self.ability.cry_prob, self.ability.extra, self.ability.cry_rigged)/self.ability.extra then'''
-position = "at"
-payload = '''if self.ability.name == 'Ectoplasm' or self.ability.name == 'Hex' or pseudorandom('wheel_of_fortune') < (G.FUNCS.nutbuster_active() and 3 or cry_prob(self.ability.cry_prob, self.ability.extra, self.ability.cry_rigged))/self.ability.extra then'''
-match_indent = true
-
-[[patches]]
-[patches.pattern]
-target = 'functions/common_events.lua'
-pattern = "elseif _c.name == \"The Wheel of Fortune\" then loc_vars = {G.GAME.probabilities.normal, cfg.extra};  info_queue[#info_queue+1] = G.P_CENTERS.e_foil; info_queue[#info_queue+1] = G.P_CENTERS.e_holo; info_queue[#info_queue+1] = G.P_CENTERS.e_polychrome; "
-position = 'at'
-payload = "elseif _c.name == \"The Wheel of Fortune\" then loc_vars = {G.FUNCS.nutbuster_active() and 3 or G.GAME.probabilities.normal, _c.config.extra};  info_queue[#info_queue+1] = G.P_CENTERS.e_foil; info_queue[#info_queue+1] = G.P_CENTERS.e_holo; info_queue[#info_queue+1] = G.P_CENTERS.e_polychrome;"
-match_indent = true
-
-# Cryptid compatibility version of the above patch:
-[[patches]]
-[patches.pattern]
-target = 'functions/common_events.lua'
-pattern = "elseif _c.name == \"The Wheel of Fortune\" then loc_vars = {cfg.cry_prob and cry_prob(cfg.cry_prob, cfg.extra, cfg.cry_rigged) or G.GAME.probabilities.normal, cfg.extra};  info_queue[#info_queue+1] = G.P_CENTERS.e_foil; info_queue[#info_queue+1] = G.P_CENTERS.e_holo; info_queue[#info_queue+1] = G.P_CENTERS.e_polychrome;"
-position = 'at'
-payload = "elseif _c.name == \"The Wheel of Fortune\" then loc_vars = {G.FUNCS.nutbuster_active() and 3 or cfg.cry_prob and cry_prob(cfg.cry_prob, cfg.extra, cfg.cry_rigged) or G.GAME.probabilities.normal, _c.config.extra};  info_queue[#info_queue+1] = G.P_CENTERS.e_foil; info_queue[#info_queue+1] = G.P_CENTERS.e_holo; info_queue[#info_queue+1] = G.P_CENTERS.e_polychrome;"
 match_indent = true
 
 [[patches]]

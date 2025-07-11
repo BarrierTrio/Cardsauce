@@ -7,16 +7,14 @@ local consumInfo = {
     },
     cost = 4,
     rarity = 'csau_StandRarity',
-    alerted = true,
     hasSoul = true,
     part = 'lion',
-    in_progress = true,
+    blueprint_compat = false,
 }
 
 function consumInfo.loc_vars(self, info_queue, card)
     info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.gote } }
-    return {vars = {(G.GAME and G.GAME.current_round and G.GAME.current_round.paper_rank) or 'Jack'}}
+    return {vars = {(G.GAME and G.GAME.current_round and G.GAME.current_round.csau_paper_rank) or 'Jack'}}
 end
-
 
 return consumInfo

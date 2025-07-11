@@ -4,7 +4,6 @@ local jokerInfo = {
         extra = {
             x_mult = 3,
         },
-        ace_tally = 0,
     },
     rarity = 2,
     cost = 7,
@@ -15,25 +14,29 @@ local jokerInfo = {
     streamer = "joel",
 }
 
+
+local function ace_tally()
+    local tally = 0
+    if not G.playing_cards then return tally end
+
+    for _, v in ipairs(G.playing_cards) do
+        if v:get_id() == 14 then tally = tally+1 end
+    end
+
+    return tally
+end
+
 function jokerInfo.loc_vars(self, info_queue, card)
     info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.greeky } }
-    return { vars = {card.ability.extra.x_mult, card.ability.ace_tally} }
+    return { vars = {card.ability.extra.x_mult, ace_tally()} }
 end
 
 function jokerInfo.calculate(self, card, context)
-    if card.ability.ace_tally == 0 and context.joker_main and context.cardarea == G.jokers then
+    if context.joker_main and context.cardarea == G.jokers and ace_tally() == 0 then
         return {
             message = localize{type='variable',key='a_xmult',vars={to_big(card.ability.extra.x_mult)}},
             Xmult_mod = card.ability.extra.x_mult,
         }
-    end
-end
-
-function jokerInfo.update(self, card, dt)
-    if not G.playing_cards then return end
-    card.ability.ace_tally = 0
-    for k, v in pairs(G.playing_cards) do
-        if v:get_id() == 14 then card.ability.ace_tally = card.ability.ace_tally+1 end
     end
 end
 

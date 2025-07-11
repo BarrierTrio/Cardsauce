@@ -14,6 +14,28 @@ local jokerInfo = {
 
 function jokerInfo.loc_vars(self, info_queue, card)
 	info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.gote } }
+
+	local compat = 'incompatible'
+    if G.jokers and #G.jokers.cards > 1 and card.rank < #G.jokers.cards and G.jokers.cards[#G.jokers.cards].ability.set == 'Joker' then
+        compat = G.jokers.cards[#G.jokers.cards].config.center.blueprint_compat and 'compatible' or 'incompatible'
+    end
+
+    card.ability.blueprint_compat = compat
+    card.ability.blueprint_compat_ui = card.ability.blueprint_compat_ui or ''
+    card.ability.blueprint_compat_check = nil
+
+    local main_end = (card.area and card.area == G.jokers) and {
+        {n=G.UIT.C, config={align = "bm", minh = 0.4}, nodes={
+            {n=G.UIT.C, config={ref_table = card, align = "m", colour = G.C.JOKER_GREY, r = 0.05, padding = 0.06, func = 'blueprint_compat'}, nodes={
+                {n=G.UIT.T, config={ref_table = card.ability, ref_value = 'blueprint_compat_ui',colour = G.C.UI.TEXT_LIGHT, scale = 0.32*0.8}},
+            }}
+        }}
+    } or nil
+
+    return {
+        vars = {},
+        main_end = main_end
+    }
 end
 
 function jokerInfo.check_for_unlock(self, args)
@@ -26,34 +48,6 @@ function jokerInfo.calculate(self, card, context)
 	local rightmost_joker = G.jokers.cards[#G.jokers.cards]
 	local ret = SMODS.blueprint_effect(card, rightmost_joker, context)
 	if ret then return ret end
-end
-
-function jokerInfo.generate_ui(self, info_queue, card, desc_nodes, specific_vars, full_UI_table)
-	if card.area and card.area == G.jokers or card.config.center.discovered then
-		-- If statement makes it so that this function doesnt activate in the "Joker Unlocked" UI and cause 'Not Discovered' to be stuck in the corner
-		full_UI_table.name = localize{type = 'name', key = self.key, set = self.set, name_nodes = {}, vars = specific_vars or {}}
-	end
-	localize{type = 'descriptions', key = self.key, set = self.set, nodes = desc_nodes, vars = self.loc_vars(self, info_queue, card)}
-	if card.area and card.area == G.jokers then
-		desc_nodes[#desc_nodes+1] = {
-			{n=G.UIT.C, config={align = "bm", minh = 0.4}, nodes={
-				{n=G.UIT.C, config={ref_table = self, align = "m", colour = card.ability.blueprint_compat == 'compatible' and mix_colours(G.C.GREEN, G.C.JOKER_GREY, 0.8) or mix_colours(G.C.RED, G.C.JOKER_GREY, 0.8), r = 0.05, padding = 0.06}, nodes={
-					{n=G.UIT.T, config={text = ' '..localize('k_'..card.ability.blueprint_compat)..' ',colour = G.C.UI.TEXT_LIGHT, scale = 0.32*0.8}},
-				}}
-			}}
-		}
-	end
-end
-
-function jokerInfo.update(self, card)
-	if G.STAGE == G.STAGES.RUN then
-		local other_joker = G.jokers.cards[#G.jokers.cards]
-		if other_joker and other_joker ~= card and other_joker.config.center.blueprint_compat then
-			card.ability.blueprint_compat = 'compatible'
-		else
-			card.ability.blueprint_compat = 'incompatible'
-		end
-	end
 end
 
 return jokerInfo

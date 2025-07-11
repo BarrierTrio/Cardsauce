@@ -38,7 +38,7 @@ function jokerInfo.calculate(self, card, context)
         local trigger = false
         for i = 1, #G.jokers.cards do
             if G.jokers.cards[i] ~= card and not (G.jokers.cards[i].getting_sliced or G.jokers.cards[i].ability.eternal) then
-                if valid_name(G.jokers.cards[i].ability.name) and SMODS.will_destroy_card() then
+                if valid_name(G.jokers.cards[i].ability.name) and not SMODS.is_eternal(G.jokers.cards[i], self) then
                     card.ability.extra.x_mult = to_big(card.ability.extra.x_mult) + to_big(card.ability.extra.x_mult_mod)
                     G.jokers.cards[i].getting_sliced = true
                     trigger = true
