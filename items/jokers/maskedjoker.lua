@@ -23,6 +23,7 @@ function jokerInfo.loc_vars(self, info_queue, card)
 end
 
 function jokerInfo.in_pool(self, args)
+	if not G.playing_cards then return true end
 	for _, v in ipairs(G.playing_cards) do
 		if v.config.center.key == self.config.extra.enhancement then
 			return true
