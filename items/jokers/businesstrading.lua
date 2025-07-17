@@ -5,9 +5,7 @@ local jokerInfo = {
             dollars = 6,
             destroy = 1,
             chance = 3,
-            destroyed = {},
         },
-        csau_business_activated = {}
     },
     rarity = 1,
     cost = 6,
@@ -36,8 +34,7 @@ function jokerInfo.calculate(self, card, context)
     if card.debuff then return end
 
     if context.before and context.cardarea == G.jokers and to_big(G.GAME.current_round.hands_played) == to_big(0) and all_faces(context.full_hand) then
-        card.ability.csau_business_activated = {}
-        if SMODS.pseudorandom_probability(card, 'csau_business_1', 1, card.ability.extra.chance) then
+        if not context.blueprint and not context.retrigger_joker and SMODS.pseudorandom_probability(card, 'csau_business_1', 1, card.ability.extra.chance) then
             local idx_tbl = {}
             for i=1, #context.full_hand do
                 idx_tbl[#idx_tbl+1] = i
@@ -48,11 +45,10 @@ function jokerInfo.calculate(self, card, context)
             end
 
             for _, v in pairs(idx_tbl) do
-                card.ability.csau_business_activated[context.full_hand[v]] = true
+                context.full_hand[v].csau_removed_by_business = true
             end
         end
 
-        
         return {
             dollars = card.ability.extra.dollars
         }
@@ -60,14 +56,10 @@ function jokerInfo.calculate(self, card, context)
 
     if context.blueprint then return end
 
-    if context.destroy_card and card.ability.csau_business_activated[context.destroy_card] then
+    if context.destroy_card and context.destroy_card.csau_removed_by_business then
         return {
             remove = true
         }
-    end
-
-    if context.end_of_round and not context.individual and not context.repetition then
-        card.ability.csau_business_activated = {}
     end
 end
 

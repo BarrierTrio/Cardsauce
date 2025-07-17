@@ -90,9 +90,9 @@ local function reduced_set_ability(card, center)
     card:set_cost()
 end
 
-local function get_all_in_one_joker(card)
-    local key, pos = pseudorandom_element(G.P_CENTER_POOLS.Joker, pseudoseed('csau_bootleg_center'))
-    return pos.." . "..G.localization.descriptions.Joker[key].name
+local function get_all_in_one_joker()
+    local rand_joker, pos = pseudorandom_element(G.P_CENTER_POOLS.Joker, pseudoseed('csau_bootleg_center'))
+    return pos.." . "..localize{type = 'name_text', key = rand_joker.key, set = rand_joker.set}
 end
 
 function jokerInfo.add_to_deck(self, card, from_debuff)
@@ -136,7 +136,7 @@ end
 
 function jokerInfo.calculate(self, card, context)
     if context.setting_blind and not card.getting_sliced and not card.debuff and not context.blueprint and not context.retrigger_joker then
-        local center = G.P_CENTERS['j_turtle_bean'] --pseudorandom_element(G.P_CENTER_POOLS.Joker, pseudoseed('csau_bootleg_center'))
+        local center = pseudorandom_element(G.P_CENTER_POOLS.Joker, pseudoseed('csau_bootleg_center'))
         reduced_set_ability(card, center)
         card.ability.bootlegged_key = center.key
         card.config.center.atlas = 'csau_bootleg'
@@ -239,6 +239,11 @@ function jokerInfo.generate_ui(self, info_queue, card, desc_nodes, specific_vars
     end
 
     info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.gote } }
+    if card.config.center.discovered then
+        -- If statement makes it so that this function doesnt activate in the "Joker Unlocked" UI and cause 'Not Discovered' to be stuck in the corner
+        full_UI_table.name = localize{type = 'name', key = self.key, set = self.set, name_nodes = {}, vars = specific_vars or {}}
+    end
+
     if csau_config['detailedDescs'] then
         localize{type = 'descriptions', key = self.key.."_detailed", set = self.set, nodes = desc_nodes, vars = self.loc_vars and self.loc_vars(self, info_queue, card).vars or {}}
     else
@@ -251,19 +256,19 @@ function jokerInfo.generate_ui(self, info_queue, card, desc_nodes, specific_vars
             {n=G.UIT.O, config={object = DynaText(
                     {string = {
                         {string = '0 . rand()', colour = G.C.JOKER_GREY},
-                        get_all_in_one_joker(card),
-                        get_all_in_one_joker(card),
-                        get_all_in_one_joker(card),
-                        get_all_in_one_joker(card),
-                        get_all_in_one_joker(card),
-                        get_all_in_one_joker(card),
-                        get_all_in_one_joker(card),
-                        get_all_in_one_joker(card),
-                        get_all_in_one_joker(card),
-                        get_all_in_one_joker(card),
-                        get_all_in_one_joker(card),
-                        get_all_in_one_joker(card),
-                        get_all_in_one_joker(card)
+                        get_all_in_one_joker(),
+                        get_all_in_one_joker(),
+                        get_all_in_one_joker(),
+                        get_all_in_one_joker(),
+                        get_all_in_one_joker(),
+                        get_all_in_one_joker(),
+                        get_all_in_one_joker(),
+                        get_all_in_one_joker(),
+                        get_all_in_one_joker(),
+                        get_all_in_one_joker(),
+                        get_all_in_one_joker(),
+                        get_all_in_one_joker(),
+                        get_all_in_one_joker()
                     },
                         colours = {G.C.UI.TEXT_DARK},
                         pop_in_rate = 9999999,
