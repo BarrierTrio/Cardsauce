@@ -9,7 +9,7 @@
 	"badge_colour": "32A852",
 	"badge_text_colour": "FFFFFF",
 	"display_name": "Cardsauce",
-	"version": "2.1.1",
+	"version": "2.1.2",
 	"dependencies": [
 		"Steamodded (>=1.0.0~BETA-0711a)"
 	],
