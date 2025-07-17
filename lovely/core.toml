@@ -157,41 +157,6 @@ match_indent = true
 
 [[patches]]
 [patches.pattern]
-target = "functions/button_callbacks.lua"
-pattern = '''
-G.SETTINGS.CUSTOM_DECK.Collabs[args.cycle_config.curr_suit] = G.COLLABS.options[args.cycle_config.curr_suit][args.to_key] or 'default'
-  for k, v in pairs(G.I.CARD) do
-    if v.config and v.config.card and v.children.front and v.ability.effect ~= 'Stone Card' then
-      v:set_sprites(nil, v.config.card)
-    end
-  end
-'''
-position = "after"
-payload = '''
-if csau_enabled['enableSkins'] then
-    local swap_node = G.OVERLAY_MENU:get_UIE_by_ID('collab_credit')
-    if swap_node then
-        for i=1, #swap_node.children do
-            swap_node.children[i]:remove()
-            swap_node.children[i] = nil
-        end
-        for k, v in pairs(G.COLLABS.options[args.cycle_config.curr_suit]) do
-            if G.COLLABS.options[args.cycle_config.curr_suit][args.to_key] == v then
-                current_skin = v
-                string = G.localization.misc.dictionary.vs_collab_credits[args.cycle_config.curr_suit][current_skin] or " "
-            end
-        end
-        local caption = {n=G.UIT.T, config={text = string, scale = 0.35, colour = G.C.WHITE, shadow = true}}
-        swap_node.UIBox:add_child(caption, swap_node)
-    end
-    G.FUNCS.ach_characters_check()
-    G.FUNCS.ach_vineshroom_check()
-end
-'''
-match_indent = true
-
-[[patches]]
-[patches.pattern]
 target = "engine/controller.lua"
 pattern = "if self.text_input_hook then"
 position = "before"

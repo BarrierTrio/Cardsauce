@@ -56,7 +56,7 @@ local function has_standard_deck()
 
     local deck_table = {}
     for k, v in pairs(G.playing_cards) do
-        if not references.ranks[v.base.value] or not references.suits[v.base.suit] then
+        if SMODS.has_no_rank(v) or not references.ranks[v.base.value] or SMODS.has_no_suit(v) or not references.suits[v.base.suit] then
             return false
         end
 

@@ -2547,7 +2547,7 @@ return {
 					"Gains {X:mult,C:white}X#1#{} Mult, {C:green}+#2#{} chance, and has a",
 					"{C:green}#3# in #4#{} chance to {C:red,E:1}self destruct{}",
 					"each time a {C:vhs}VHS Tape{} finishes",
-					"{C:inactive}(Currently {}{X:mult,C:white X#5#{}{C:inactive} Mult{}{C:inactive}){}",
+					"{C:inactive}(Currently {}{X:mult,C:white}X#5#{}{C:inactive} Mult{}{C:inactive}){}",
 				},
 				unlock = {
 					"Discover {E:1,C:attention}#1#{} {E:1,C:vhs}VHS Tapes",
@@ -2760,7 +2760,7 @@ return {
 				name = "Nukie",
 				text = {
 					"While {C:attention}playing{}, {C:attention}Wheel of Fortune{}",
-					"has a chance to give{C:dark_edition}Negative",
+					"has a chance to give {C:dark_edition}Negative{}",
 					"{C:vhs}Running Time{}: {C:attention}#1#{} Wheels"
 				},
 			},
@@ -2926,7 +2926,7 @@ return {
 				name = "Low Blow",
 				text = {
 					"While {C:attention}playing{}, retrigger the ",
-					"{C:attentionlowest ranked{} scoring card {C:attention}#1#{} times",
+					"{C:attention}lowest ranked{} scoring card {C:attention}#1#{} times",
 					"{C:vhs}Running Time{}: {C:attention}#2#{} Hands"
 				},
 			},

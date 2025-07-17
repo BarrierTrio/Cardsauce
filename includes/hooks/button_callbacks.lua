@@ -246,3 +246,14 @@ G.FUNCS.buy_from_shop = function(e)
     end
 end
 
+local ref_change_collab = G.FUNCS.change_collab
+G.FUNCS.change_collab = function(args)
+    local ret = ref_change_collab(args)
+    
+    if csau_enabled['enableSkins'] then
+        G.FUNCS.ach_characters_check()
+        G.FUNCS.ach_vineshroom_check()
+    end
+
+    return ret
+end
