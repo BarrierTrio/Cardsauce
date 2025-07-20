@@ -6,17 +6,16 @@ local sleeveInfo = {
 }
 
 sleeveInfo.loc_vars = function(self, info_queue)
-    if info_queue then
-        info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.keku } }
-    end
-    local key
+    if info_queue then info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.keku } } end
+
+    local key = self.key
+    self.config = { voucher = 'v_crystal_ball' }
+
     if self.get_current_deck_key() == "b_csau_wheel" then
-        key = self.key .. "_alt"
-        self.config = { voucher = "v_csau_scavenger" }
-    else
-        key = self.key
-        self.config = { voucher = 'v_crystal_ball' }
+        key = key .. "_alt"
+        self.config.voucher = "v_csau_scavenger"
     end
+
     local vars = { localize{type = 'name_text', key = self.config.voucher, set = 'Voucher'} }
     return { key = key, vars = vars }
 end
@@ -36,6 +35,10 @@ sleeveInfo.calculate = function(self, card, context)
                 end }))
         end
     end
+end
+
+sleeveInfo.apply = function(self, sleeve)
+    CardSleeves.Sleeve.apply(sleeve)
 end
 
 return sleeveInfo
