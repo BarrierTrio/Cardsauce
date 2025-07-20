@@ -42,7 +42,8 @@ function consumInfo.loc_vars(self, info_queue, card)
             card.ability.extra.max_initial_money,
             num, dom1, dom2,
             card.ability.extra.runtime-card.ability.extra.uses
-        }
+        },
+        key = self.key..'_alt_title'
     }
 end
 
@@ -93,14 +94,6 @@ function consumInfo.calc_dollar_bonus(self, card)
     if card.ability.extra.winnings then
         return card.ability.extra.winnings
     end
-end
-
-function consumInfo.generate_ui(self, info_queue, card, desc_nodes, specific_vars, full_UI_table)
-    if card.area == G.consumeables or card.config.center.discovered then
-        -- If statement makes it so that this function doesnt activate in the "Joker Unlocked" UI and cause 'Not Discovered' to be stuck in the corner
-        full_UI_table.name = localize{type = 'name', key = card.config.center.key..'_alt_title', set = self.set, name_nodes = {}, vars = specific_vars or {}}
-    end
-    localize{type = 'descriptions', key = card.config.center.key, set = self.set, nodes = desc_nodes, vars = self.loc_vars and self.loc_vars(self, info_queue, card).vars or {}}
 end
 
 function consumInfo.can_use(self, card)
