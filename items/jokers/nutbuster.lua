@@ -33,8 +33,8 @@ end
 function jokerInfo.calculate(self, card, context)
     if context.blueprint or card.debuff then return end
 
-    if context.fix_probability and context.trigger_obj.config and context.trigger_obj.config.center
-    and context.trigger_obj and context.trigger_obj.config.center.key == 'c_wheel_of_fortune' then
+    if context.fix_probability and context.trigger_obj and context.trigger_obj.config
+    and context.trigger_obj.config.center and context.trigger_obj.config.center.key == 'c_wheel_of_fortune' then
         return {
             numerator = card.ability.extra.numerator,
             denominator = card.ability.extra.denominator

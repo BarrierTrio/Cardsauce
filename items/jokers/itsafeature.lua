@@ -48,7 +48,7 @@ function jokerInfo.calculate(self, card, context)
         }
     end
 
-    if context.after and card.ability.csau_feature_activated and not context.blueprint then
+    if context.after and card.ability.csau_feature_activated and not context.blueprint and context.scoring_name == "Straight" then
         card.ability.extra.money = 0
         card.ability.csau_feature_activated = nil
         return {

@@ -3657,9 +3657,9 @@ return {
 				text = {
 					{
 						"{C:attention}Flushes{} may be made with {C:attention}4{} cards",
-						"All additional cards or {C:attention}Wild Cards{} will",
 					},
 					{
+						"All additional cards or {C:attention}Wild Cards{} will",
 						"{C:attention}transform{} into the {C:attention}Flush's suit{}",
 					}
 				},
