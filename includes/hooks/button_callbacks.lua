@@ -18,16 +18,17 @@ G.FUNCS.check_for_buy_space = function(card)
         
         return true
     end
-    
+ 
+    if card.ability.set == 'csau_Stand' and not G.GAME.modifiers.csau_unlimited_stands and G.FUNCS.csau_get_num_stands() >= G.GAME.modifiers.max_stands then
+        alert_no_space(card, G.consumeables)
+        return false
+    end
+
     local ret = ref_check_buy_space(card)
     if not ret then
         return ret
     end
 
-    if card.ability.set == 'csau_Stand' and not G.GAME.csau_unlimited_stands and G.FUNCS.csau_get_num_stands() >= G.GAME.modifiers.max_stands then
-        alert_no_space(card, G.consumeables)
-        return false
-    end
 
     return ret
 end
