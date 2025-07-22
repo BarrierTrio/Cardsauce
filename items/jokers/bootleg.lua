@@ -107,6 +107,7 @@ end
 function jokerInfo.remove_from_deck(self, card, from_debuff)
     if card.ability.bootlegged_key then
         card.config.center = G.P_CENTERS[card.ability.bootlegged_key]
+        card.added_to_deck = true
         local ret = card:remove_from_deck(from_debuff)
         card.config.center = G.P_CENTERS['j_csau_bootleg']
         return ret
@@ -136,7 +137,7 @@ end
 
 function jokerInfo.calculate(self, card, context)
     if context.setting_blind and not card.getting_sliced and not card.debuff and not context.blueprint and not context.retrigger_joker then
-        local center = pseudorandom_element(G.P_CENTER_POOLS.Joker, pseudoseed('csau_bootleg_center'))
+        local center = G.P_CENTERS['j_csau_kings']--pseudorandom_element(G.P_CENTER_POOLS.Joker, pseudoseed('csau_bootleg_center'))
         reduced_set_ability(card, center)
         card.ability.bootlegged_key = center.key
         card.config.center.atlas = 'csau_bootleg'
@@ -154,6 +155,7 @@ function jokerInfo.calculate(self, card, context)
             -- make sure values are reset
             card.config.center = G.P_CENTERS[card.ability.bootlegged_key]
             card:remove_from_deck()
+            card.added_to_deck = true
             card.config.center = G.P_CENTERS['j_csau_bootleg']
             card.ability.bootlegged_key = nil
 
@@ -165,7 +167,7 @@ function jokerInfo.calculate(self, card, context)
                 end 
             }))
         end
-        reduced_set_ability(card, G.P_CENTERS['j_csau_bootleg'])   
+        reduced_set_ability(card, G.P_CENTERS['j_csau_bootleg']) 
         return
     end
 
@@ -287,6 +289,35 @@ end
 
 function jokerInfo.draw(self, card, layer)
     if card.ability.bootlegged_key then
+        if card.ability.bootlegged_key == 'j_csau_kings' and G['csau_kings_remove_'..card.ID] then
+            local kings_area = G['csau_kings_remove_'..card.ID]
+            kings_area.children.area_uibox:draw()
+            local old_brute_overlay = G.BRUTE_OVERLAY
+            for i = #kings_area.cards, 1, -1 do
+                local kings_card = kings_area.cards[i]
+                if i == 1 or i%9 == 0 or i == #kings_area.cards or math.abs(kings_card.VT.x - kings_area.T.x) > 1 or math.abs(kings_card.VT.y - kings_area.T.y) > 1 then
+                    local overlay = G.C.WHITE
+                    if kings_card.rank > 3 then
+                        kings_card.back_overlay = kings_card.back_overlay or {}
+                        kings_card.back_overlay[1] = 0.5 + ((#kings_area.cards - kings_card.rank)%7)/50
+                        kings_card.back_overlay[2] = 0.5 + ((#kings_area.cards - kings_card.rank)%7)/50
+                        kings_card.back_overlay[3] = 0.5 + ((#kings_area.cards - kings_card.rank)%7)/50
+                        kings_card.back_overlay[4] = 1
+                        overlay = kings_card.back_overlay
+                    end
+
+                    G.BRUTE_OVERLAY = overlay
+                    kings_card.children.back.role.draw_major = kings_card.children.back
+                    G.SHADERS['csau_bootleg']:send('primary_color', {1.0, 0.0, 0.0}) -- default red
+                    G.SHADERS['csau_bootleg']:send('secondary_color', {1.0, 1.0, 0.0}) -- default yellow
+                    G.SHADERS['csau_bootleg']:send('tertiary_color', {0.0, 0.0, 1.0}) -- default blue
+                    G.SHADERS['csau_bootleg']:send('gamma', 1.5) -- default 1.5 (changes constrast)
+                    kings_card.children.back:draw_shader('csau_bootleg')
+                end
+            end
+            G.BRUTE_OVERLAY = old_brute_overlay
+        end
+
         G.SHADERS['csau_bootleg']:send('primary_color',   {1.0, 0.0, 0.0}) -- default red
         G.SHADERS['csau_bootleg']:send('secondary_color', {1.0, 1.0, 0.0}) -- default yellow
         G.SHADERS['csau_bootleg']:send('tertiary_color',  {0.0, 0.0, 1.0}) -- default blue
