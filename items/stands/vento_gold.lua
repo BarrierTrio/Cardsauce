@@ -38,13 +38,11 @@ end
 function consumInfo.calculate(self, card, context)
     if context.before and not card.debuff then
         local gold = {}
-        sendDebugMessage('gold experience iteration')
         for i, v in ipairs(context.scoring_hand) do
             if v.config.center.key ~= 'm_gold' and v:is_suit(G.GAME and G.GAME.wigsaw_suit or "Hearts")
             and SMODS.pseudorandom_probability(card, 'csau_goldexperience', 1, card.ability.extra.prob) then
                 gold[#gold+1] = v
                 v:set_ability(G.P_CENTERS.m_gold, nil, 'manual')
-                sendDebugMessage('setting '..i..' to gold')
             end
         end
 

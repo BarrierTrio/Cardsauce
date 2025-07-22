@@ -218,7 +218,7 @@ function jokerInfo.remove_from_deck(self, card, from_debuff)
         if G.shop and not G.shop.REMOVED then
             G.shop.alignment.offset.y = G.ROOM.T.y+11
         end
-        
+
         local remove_cards = {}
         local total_kings_cards = #kings_area.cards
         for i=1, total_kings_cards do
