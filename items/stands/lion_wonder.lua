@@ -64,7 +64,6 @@ function consumInfo.calculate(self, card, context)
         
     if context.destroy_card and not context.blueprint and not context.retrigger_joker then
         if SMODS.has_enhancement(context.destroy_card, 'm_lucky') and SMODS.in_scoring(context.destroy_card, context.scoring_hand) and not context.destroy_card.debuff then
-            sendDebugMessage('marking destruction')
             context.destroy_card.csau_removed_by_wonder = true
             return {
                 no_retrigger = true,
@@ -76,7 +75,6 @@ function consumInfo.calculate(self, card, context)
     if context.csau_card_destroyed and context.removed.csau_removed_by_wonder and not context.blueprint then
         card.ability.extra.xmult = card.ability.extra.xmult + card.ability.extra.xmult_mod
 
-        sendDebugMessage('upgrading wonder')
         local update_sprite = false
         if to_big(card.ability.extra.xmult) >= to_big(1.9) and card.ability.extra.form == 'lion_wonder' then
             card.ability.extra.form = 'lion_wonder_2'

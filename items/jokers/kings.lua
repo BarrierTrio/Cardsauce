@@ -207,7 +207,6 @@ function jokerInfo.remove_from_deck(self, card, from_debuff)
     if from_debuff or not G.playing_cards then return end
 
     if G['csau_kings_remove_'..card.ID] then
-        sendDebugMessage('removing kings area')
         local kings_area = G['csau_kings_remove_'..card.ID]
         if G.GAME.buttons then
             G.GAME.buttons:remove();
