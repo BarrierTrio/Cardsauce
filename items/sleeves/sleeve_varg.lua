@@ -46,7 +46,7 @@ end
 function sleeveInfo.calculate(self, sleeve, context)
     if context.mod_probability then
         return {
-            numerator = context.numerator * seleve.config.active_mod
+            numerator = context.numerator * sleeve.config.active_mod
         }
     end
 end
