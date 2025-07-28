@@ -1009,7 +1009,7 @@ function SMODS.food_expires()
 	local expires = true
 	for _, v in ipairs(bunjis) do
 		if not v.debuff then
-			expires = true
+			expires = false
 			break
 		end
 	end
