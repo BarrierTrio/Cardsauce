@@ -449,3 +449,33 @@ function G.UIDEF.challenge_description_tab(args)
 	end
 	return ref_cdt(args)
 end
+
+
+local ref_create_shop = create_card_for_shop
+function create_card_for_shop(area)
+	if area == G.shop_jokers and next(G.GAME.csau_saved_deathcards) and G.GAME.csau_rerolls_this_round == 0
+	and not (G.SETTINGS.tutorial_progress and G.SETTINGS.tutorial_progress.forced_shop
+	and G.SETTINGS.tutorial_progress.forced_shop[#G.SETTINGS.tutorial_progress.forced_shop]) then
+		-- hate doing this
+		local pop_deathcard = table.remove(G.GAME.csau_saved_deathcards, 1)
+		local card = Card(
+			area.T.x + area.T.w/2,
+			area.T.y,
+			G.CARD_W,
+			G.CARD_H,
+			nil,
+			G.P_CENTERS[pop_deathcard.key]
+		)
+
+		card.ability.id = pop_deathcard.id
+		card.ability.times_sold = pop_deathcard.times_sold
+		card.cost = card.cost + (card.ability.extra.money_mod * card.ability.times_sold)
+		card.ability.extra.mult = card.ability.extra.mult + (card.ability.extra.mult_mod * card.ability.times_sold)
+		card:set_edition(pop_deathcard.edition)
+		create_shop_card_ui(card)
+
+		return card
+	end
+
+	return ref_create_shop(area)
+end

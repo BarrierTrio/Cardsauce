@@ -30,26 +30,6 @@ overwrite = false
 
 [[patches]]
 [patches.pattern]
-target = "functions/UI_definitions.lua"
-pattern = '''
-        create_shop_card_ui(card)
-        return card
-'''
-position = "after"
-payload = '''
-    elseif G.GAME.spawnSellShopJokers and G.GAME.spawnSellShopJokers ~= 0 then
-        local card_ref = G.GAME.sellShopJokersSold[1]
-		local card = Card(area.T.x + area.T.w/2, area.T.y, G.CARD_W, G.CARD_H, G.P_CARDS.empty, G.P_CENTERS[card_ref.key])
-		create_shop_card_ui(card)
-		G.GAME.forcedeath = false
-		G.GAME.spawnSellShopJokers = G.GAME.spawnSellShopJokers - 1
-		return card
-'''
-match_indent = true
-overwrite = false
-
-[[patches]]
-[patches.pattern]
 target = "functions/common_events.lua"
 pattern = "if add and not G.GAME.banned_keys[v.key] then"
 position = "before"

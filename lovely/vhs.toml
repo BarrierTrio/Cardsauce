@@ -24,13 +24,14 @@ pattern = "edition = poll_edition('wheel_of_fortune', nil, true, true)"
 position = "at"
 payload = '''
 local nukie = G.FUNCS.find_activated_tape('c_csau_nukie')
-local no_neg = true
-if nukie then no_neg = false end
-edition = poll_edition('wheel_of_fortune', nil, no_neg, true)
+if nukie and SMODS.pseudorandom_probability(nukie, 'csau_nukie_negative', 1, nukie.ability.extra.chance) then
+    edition = {negative = true}
+else
+    edition = poll_edition('wheel_of_fortune', nil, true, true)
+end
 if edition == 'e_polychrome' and next(SMODS.find_card('j_csau_speen')) then
     check_for_unlock({ type = "high_speen" })
-end
-'''
+end'''
 match_indent = true
 times = 1
 

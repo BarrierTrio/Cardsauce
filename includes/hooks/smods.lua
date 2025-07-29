@@ -2,6 +2,7 @@ function SMODS.current_mod.reset_game_globals(run_start)
     if run_start then
         G.GAME.modifiers.max_stands = G.GAME.modifiers.max_stands or 1
 		G.GAME.morshu_cards = 0
+		G.GAME.csau_saved_deathcards = {}
 
 		if G.GAME.modifiers.csau_marathon then
 			-- set all consumable types besides VHS to 0 shop rate
@@ -14,6 +15,7 @@ function SMODS.current_mod.reset_game_globals(run_start)
 		end
     end
 
+	G.GAME.csau_rerolls_this_round = 0
 	G.GAME.csau_shop_dollars_spent = 0
     csau_reset_paper_rank()
 
