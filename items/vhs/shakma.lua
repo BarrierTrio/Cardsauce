@@ -27,87 +27,22 @@ function consumInfo.loc_vars(self, info_queue, card)
     return { vars = { card.ability.extra.runtime-card.ability.extra.uses } }
 end
 
-local blacklisted_seeds = {
-    '',
-}
-
-local function blacklisted_seed(seed)
-    if starts_with(seed, "soul_") then
-        return true
-    end
-    if starts_with(seed, "pack") then
-        return true
-    end
-    if table.contains(blacklisted_seeds, seed) then
-        return true
-    end
-    return false
-end
-
-local ref_psr = pseudorandom
-function pseudorandom(seed, min, max, no_shakma)
-    no_shakma = no_shakma or false
-    if not no_shakma then
-        local shakma = G.FUNCS.find_activated_tape('c_csau_shakma')
-        if shakma and not shakma.ability.destroyed and not G.GAME.disable_shakma then
-            if not min and not max and not blacklisted_seed(seed) then
-                send("SHAKMA SEED:")
-                send(seed)
-                shakma:juice_up()
-                shakma.ability.extra.uses = shakma.ability.extra.uses+1
-                if to_big(shakma.ability.extra.uses) >= to_big(shakma.ability.extra.runtime) then
-                    G.FUNCS.destroy_tape(shakma)
-                    shakma.ability.destroyed = true
-                end
-                return 0
+function consumInfo.calculate(self, card, context)
+    if card.ability.activated and not card.ability.destroyed and context.fix_probability and G.FUNCS.find_activated_tape('c_csau_shakma') == card then
+        if context.from_roll then
+            card.ability.extra.uses = math.min(card.ability.extra.runtime, card.ability.extra.uses + 1)
+            if to_big(card.ability.extra.uses) >= to_big(card.ability.extra.runtime) then
+                G.FUNCS.destroy_tape(card)
+                card.ability.destroyed = true
             end
         end
+
+        return {
+            message = context.from_roll and 'Guaranteed!' or nil,
+            numerator = context.denominator,
+            denominator = context.denominator,
+        }
     end
-    return ref_psr(seed, min, max)
-end
-
-local ccfs_ref = create_card_for_shop
-function create_card_for_shop(area)
-    G.GAME.disable_shakma = true
-    local ret =  ccfs_ref(area)
-    G.E_MANAGER:add_event(Event({
-        func = function()
-            G.GAME.disable_shakma = false
-            return true
-        end
-    }))
-    return ret
-end
-
-local ref_open = Card.open
-function Card:open()
-    G.GAME.disable_shakma = true
-    local ret =  ref_open(self)
-    G.E_MANAGER:add_event(Event({
-        func = function()
-            G.E_MANAGER:add_event(Event({
-                func = function()
-                    G.GAME.disable_shakma = false
-                    return true
-                end
-            }))
-            return true
-        end
-    }))
-    return ret
-end
-
-local reroll_shopref = G.FUNCS.reroll_shop
-function G.FUNCS.reroll_shop(e)
-    G.GAME.disable_shakma = true
-    local ret = reroll_shopref(e)
-    G.E_MANAGER:add_event(Event({
-        func = function()
-            G.GAME.disable_shakma = false
-            return true
-        end
-    }))
-    return ret
 end
 
 function consumInfo.can_use(self, card)

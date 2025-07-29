@@ -37,7 +37,7 @@ function consumInfo.can_use(self, card)
 end
 
 function consumInfo.calculate(self, card, context)
-    if not card.ability.destroyed and context.check_eternal and context.other_card.ability.set == 'Joker'
+    if card.ability.activated and not card.ability.destroyed and context.check_eternal and context.other_card.ability.set == 'Joker'
     and not context.trigger.from_sell and SMODS.find_card('c_csau_sew')[1] == card then
         if context.trigger.config then
             if context.trigger.config.center.key == 'j_madness' then

@@ -159,6 +159,7 @@ end
 -- this also incorporates koffing's ref to reroll so I don't have them in two places
 local reroll_shopref = G.FUNCS.reroll_shop
 function G.FUNCS.reroll_shop(e)
+    G.GAME.csau_rerolls_this_round = G.GAME.csau_rerolls_this_round + 1
     local ret = reroll_shopref(e)
     G.GAME.csau_shop_dollars_spent = G.GAME.csau_shop_dollars_spent + G.GAME.current_round.reroll_cost
     check_for_unlock({type = 'csau_spent_in_shop', dollars = G.GAME.csau_shop_dollars_spent})
@@ -208,6 +209,7 @@ local ref_uc = G.FUNCS.use_card
 G.FUNCS.use_card = function(e, mute, nosave)
     local card = e.config.ref_table
     if card.area == G.consumeables and (card.ability.activation or (card.config.center.activate and type(card.config.center.activate) == 'function')) then
+        sendDebugMessage('vhs code')
         if card.config.center.activate and type(card.config.center.activate) == 'function' then
             card.config.center.activate(card.config.center, card, not card.ability.activated)
         end

@@ -2400,19 +2400,14 @@ return {
 				},
 			},
 			j_csau_protogent = {
-				name = {
-					"Protegent",
-					"Antivirus",
-				},
+				name = "Protegent Antivirus",
 				text = {
 					{
-						"{C:green}#1# in #2#{} chance to",
-						"disable {C:attention}Boss Blinds{}",
+						"{C:green}#1# in #2#{} chance to disable {C:attention}Boss Blinds{}",
 						"{S:1.1,C:red,E:2}self destructs{}",
 					},
 					{
-						"{C:green}#1# in #3#{} chance to",
-						"prevent {C:red,E:1}death{}",
+						"{C:green}#1# in #3#{} chance to prevent {C:red,E:1}death{}",
 						"{S:1.1,C:red,E:2}self destructs{}",
 					}
 				},
@@ -2846,10 +2841,11 @@ return {
 				text = {
 					{
 						"While {C:attention}playing{}, {C:attention}Wheel of Fortune{}",
-						"has a chance to give {C:dark_edition}Negative{}",
+						"has a {C:green}#1# in #2#{} chance to give",
+						"{C:dark_edition}Negative{} when it {C:attention}succeeds{}"
 					},
 					{
-						"{C:vhs}Running Time{}: {C:attention}#1#{} Wheels"
+						"{C:vhs}Running Time{}: {C:attention}#3#{} Wheels"
 					}
 				},
 			},
