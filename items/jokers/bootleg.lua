@@ -137,7 +137,7 @@ end
 
 function jokerInfo.calculate(self, card, context)
     if context.setting_blind and not card.getting_sliced and not card.debuff and not context.blueprint and not context.retrigger_joker then
-        local center = G.P_CENTERS['j_csau_kings']--pseudorandom_element(G.P_CENTER_POOLS.Joker, pseudoseed('csau_bootleg_center'))
+        local center = pseudorandom_element(G.P_CENTER_POOLS.Joker, pseudoseed('csau_bootleg_center'))
         reduced_set_ability(card, center)
         card.ability.bootlegged_key = center.key
         card.config.center.atlas = 'csau_bootleg'
