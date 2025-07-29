@@ -3841,6 +3841,7 @@ return {
 				name = "Spirit Tag",
 				text = {
 					"Create a random {C:stand}Stand",
+					"if not at {C:attention}Stand limit{}",
 					"{C:inactive}(Must have room)",
 				},
 			},
