@@ -29,8 +29,8 @@ function consumInfo.loc_vars(self, info_queue, card)
         suit_plural = localize(G.GAME and G.GAME.wigsaw_suit, 'suits_plural')
         color = G.C.DARK_EDITION
     elseif card.ability.extra.ref_suit ~= 'none' then
-        suit_plural = card.ability.extra.ref_suit == 'wild' and 'any' or localize(card.ability.extra.ref_suit, 'suits_plural')
-        color = G.C.SUITS[card.ability.extra.ref_suit]
+        suit_plural = card.ability.extra.ref_suit == 'Wild' and 'a random suit' or localize(card.ability.extra.ref_suit, 'suits_plural')
+        color = card.ability.extra.ref_suit == 'Wild' and G.C.EDITION or G.C.SUITS[card.ability.extra.ref_suit]
     end
 
     return {
@@ -40,6 +40,7 @@ function consumInfo.loc_vars(self, info_queue, card)
             card.ability.extra.evolve_num - card.ability.extra.evolve_rounds,
             suit_plural,
             suit_plural == '' and "that card's suit" or '',
+            card.ability.extra.ref_suit == 'Wild' and 'Any suit cards' or suit_plural,
             suit_plural == '' and 'That suit' or '',
             suit_plural == '' and 's' or '',
             colours = { color }
@@ -72,7 +73,7 @@ function consumInfo.calculate(self, card, context)
         if to_big(G.GAME.current_round.hands_played) == to_big(0) and card.ability.extra.ref_suit == 'none' then
             if #context.full_hand == card.ability.extra.num_cards and not SMODS.has_no_suit(context.full_hand[1]) then
                 local ref_card = context.full_hand[1]
-                card.ability.extra.ref_suit = SMODS.has_any_suit(ref_card) and 'wild' or ref_card.base.suit
+                card.ability.extra.ref_suit = SMODS.has_any_suit(ref_card) and 'Wild' or ref_card.base.suit
                 return {
                     func = function()
                         G.FUNCS.csau_flare_stand_aura(card, 0.50)
@@ -83,8 +84,9 @@ function consumInfo.calculate(self, card, context)
                     }
                 }
             end
-        elseif card.ability.extra.ref_suit ~= "wild" then
-            local nm = get_first_non_matching(G.GAME and G.GAME.wigsaw_suit or card.ability.extra.ref_suit, context.scoring_hand)
+        elseif card.ability.extra.ref_suit and card.ability.extra.ref_suit ~= "none" then
+            local find_suit = (card.ability.extra.ref_suit == 'Wild') and pseudorandom_element(SMODS.Suits, pseudoseed('csau_echoes_wild')).key or card.ability.extra.ref_suit
+            local nm = get_first_non_matching(G.GAME and G.GAME.wigsaw_suit or find_suit, context.scoring_hand)
             if not nm then return end
             
             G.FUNCS.csau_flare_stand_aura(card, 0.50)
@@ -103,12 +105,16 @@ function consumInfo.calculate(self, card, context)
             }))
             G.E_MANAGER:add_event(Event({
                 trigger = 'before',
-                delay = 1,
+                delay = 0.45,
                 func = function()
-                    nm:change_suit(G.GAME and G.GAME.wigsaw_suit or card.ability.extra.ref_suit);
+                    if card.ability.extra.ref_suit == 'Wild' then
+                        nm:set_ability(G.P_CENTERS.m_wild)
+                    end
+                    
+                    nm:change_suit(G.GAME and G.GAME.wigsaw_suit or find_suit);
                     card:juice_up();
-                    return true 
-                end 
+                    return true
+                end
             }))
 
             local percent = 0.85 + (1-0.999)/(#context.scoring_hand-0.998)*0.3
@@ -120,7 +126,7 @@ function consumInfo.calculate(self, card, context)
                     play_sound('tarot2', percent, 0.6);
                     nm:juice_up(0.3, 0.3);
                     return true 
-                end 
+                end
             }))
             
             delay(0.5)

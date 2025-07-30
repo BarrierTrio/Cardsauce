@@ -89,7 +89,7 @@ function check_for_unlock(args)
                 G.E_MANAGER:add_event(Event({
                     func = function()
                         check_for_unlock({ type = "evolve_d4c" })
-                        G.FUNCS.csau_evolve_stand(card)
+                        G.FUNCS.csau_evolve_stand(v)
                         return true
                     end
                 }))

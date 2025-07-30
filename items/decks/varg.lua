@@ -32,7 +32,7 @@ end
 function deckInfo.calculate(self, back, context)
     if context.mod_probability then
         return {
-            numerator = context.numerator * 2
+            numerator = context.numerator * self.config.probability_mod
         }
     end
 end
