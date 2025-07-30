@@ -60,7 +60,7 @@ function consumInfo.calculate(self, card, context)
     if context.before and not context.blueprint and not context.retrigger_joker and to_big(G.GAME.current_round.hands_played) == to_big(0)
     and #context.full_hand == card.ability.extra.num_cards and not SMODS.has_no_suit(context.full_hand[1]) then
         local ref_card = context.full_hand[1]
-        card.ability.extra.ref_suit = SMODS.has_any_suit(ref_card) and "wild" or ref_card.base.suit
+        card.ability.extra.ref_suit = SMODS.has_any_suit(ref_card) and "Wild" or ref_card.base.suit
         return {
             no_retrigger = true,
             func = function()
@@ -73,8 +73,9 @@ function consumInfo.calculate(self, card, context)
         }
     end
 
-    if context.individual and context.cardarea == G.play and card.ability.extra.ref_suit ~= "none" 
-    and context.other_card:is_suit(G.GAME.wigsaw_suit or card.ability.extra.ref_suit) then
+    if context.individual and context.cardarea == G.play and ((card.ability.extra.ref_suit == 'Wild' and
+    SMODS.has_any_suit(context.other_card)) or (card.ability.extra.ref_suit ~= "none" 
+    and context.other_card:is_suit(G.GAME.wigsaw_suit or card.ability.extra.ref_suit))) then
         local flare_card = context.blueprint_card or card
         return {
             func = function()

@@ -18,7 +18,7 @@ end
 
 tagInfo.apply = function(self, tag, context)
     if context.type == self.config.type then
-        if G.consumeables.config.card_limit >= #G.consumeables.cards or (not G.GAME.modifiers.csau_unlimited_stands and G.FUNCS.csau_get_num_stands() >= G.GAME.modifiers.max_stands) then
+        if G.consumeables.config.card_limit <= #G.consumeables.cards or (not G.GAME.modifiers.csau_unlimited_stands and G.FUNCS.csau_get_num_stands() >= G.GAME.modifiers.max_stands) then
             tag:nope()
         else
             tag:yep('+', G.C.STAND,function()

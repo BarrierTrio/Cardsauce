@@ -3317,7 +3317,8 @@ return {
 						"each hand becomes {V:1}#4#{}{C:attention}#5#{}",
 					},
 					{
-						"{V:1}#4#{}{C:attention}#6#{} give#7# {C:mult}+#2#{} Mult when scored",
+						"{V:1}#6#{}{C:attention}#7#{} give#8# {C:mult}+#2#{} Mult",
+						"when scored",
 					},
 					{
 						"{C:stand}Evolves{} after {C:attention}#3#{} rounds",
