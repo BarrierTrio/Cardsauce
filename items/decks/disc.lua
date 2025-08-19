@@ -28,4 +28,8 @@ function deckInfo.apply(self, back)
     G.GAME.modifiers.csau_unlimited_stands = true
 end
 
+deckInfo.quip_filter = function(quip)
+    return (quip and quip.csau_streamer and quip.csau_streamer == 'joel')
+end
+
 return deckInfo

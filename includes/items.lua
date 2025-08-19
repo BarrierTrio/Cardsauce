@@ -363,6 +363,46 @@ for k, v in pairs(itemsToLoad) do
     end
 end
 
+for i=1, 9 do
+    SMODS.JimboQuip{
+        key = 'wq_vinny_'..tostring(i),
+        type = 'win',
+        csau_streamer = 'vinny',
+    }
+
+    SMODS.JimboQuip{
+        key = 'lq_vinny_'..tostring(i),
+        type = 'loss',
+        csau_streamer = 'vinny',
+    }
+    SMODS.JimboQuip{
+        key = 'lq_joel_'..tostring(i),
+        type = 'loss',
+        csau_streamer = 'joel',
+    }
+end
+
+for i=1, 10 do
+    SMODS.JimboQuip{
+        key = 'wq_joel_'..tostring(i),
+        type = 'win',
+        csau_streamer = 'joel',
+    }
+end
+
+SMODS.JimboQuip{
+    key = 'lq_1',
+    type = 'loss',
+}
+SMODS.JimboQuip{
+    key = 'lq_2',
+    type = 'loss',
+}
+SMODS.JimboQuip{
+    key = 'wq_1',
+    type = 'win',
+}
+
 SMODS.Atlas({ key = 'undiscovered', path = "undiscovered.png", px = 71, py = 95 })
 --------------------------- VHS Consumable Type
 if csau_enabled['enableVHSs'] then
