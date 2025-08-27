@@ -93,7 +93,7 @@ vec4 effect(vec4 colour, Image texture, vec2 texture_coords, vec2 screen_coords)
     vec2 dissolve_uv = (((scaled_texture_coords)*(image_details)) - texture_details.xy*texture_details.ba)/texture_details.ba;
 
     // dummy, doesn't do anything but makes the compiler happy (required to use the shader name uniform somewhere) 
-    if (dissolve_uv.x > dissolve_uv.x * 2){
+    if (dissolve_uv.x > dissolve_uv.x * 2.0){
         dissolve_uv = stand_mask;
     }
 
@@ -122,7 +122,7 @@ vec4 effect(vec4 colour, Image texture, vec2 texture_coords, vec2 screen_coords)
     // factor for mixing the shadow and soul layers 
     // we want it to ramp up quickly as the soul alpha gets higher, thus squaring the alpha
     // any soul alpha value above √2 - 1 will cause the shadow to not be drawn underneath
-    float blend_alpha = min(pow(1. + soul.a, 2) - 1., 1.);
+    float blend_alpha = min(pow(1. + soul.a, 2.0) - 1., 1.);
     
     vec3 soul_with_shadow = mix(shadow_layer.rgb, soul.rgb, blend_alpha);
     soul = vec4(soul_with_shadow, max(soul.a, shadow_layer.a));

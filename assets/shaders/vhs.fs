@@ -33,12 +33,12 @@ vec4 effect(vec4 colour, Image texture, vec2 texture_coords, vec2 screen_coords)
     vec2 dissolve_uv = (((texture_coords)*(image_details)) - texture_details.xy*texture_details.ba)/texture_details.ba;
 
     // dummy, doesn't do anything but makes the compiler happy (required to use the shader name uniform somewhere) 
-    if (dissolve_uv.x > dissolve_uv.x * 2){
+    if (dissolve_uv.x > dissolve_uv.x * 2.0){
         dissolve_uv = vhs;
     }
 
     vec2 front_coords = texture_coords; // COVER
-    front_coords.x *= 1 + (DISTANCE_FACTOR * lerp);
+    front_coords.x *= 1.0 + (DISTANCE_FACTOR * lerp);
     vec4 tex_front = Texel(texture, front_coords);
     if(front_coords.x < 0.0 || front_coords.x > 1.0) {
         tex_front = vec4(0.0);
@@ -46,7 +46,7 @@ vec4 effect(vec4 colour, Image texture, vec2 texture_coords, vec2 screen_coords)
 
     vec2 back_coords = texture_coords; // SPINE
     back_coords.x -= 1.0; // move to the left so that it scales in the opposite direction
-    back_coords.x *= 1 + (DISTANCE_FACTOR * lerp);
+    back_coords.x *= 1.0 + (DISTANCE_FACTOR * lerp);
     back_coords.x += 1.0; // move back
     vec4 tex_back = Texel(spine, back_coords);
     if(back_coords.x < 0.0 || back_coords.x > 1.0) {
