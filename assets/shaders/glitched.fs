@@ -63,7 +63,7 @@ vec4 shine_effect(vec4 tex, vec2 uv)
 float rand(vec2 co) 
 {
     // use external random seed for variation across instances
-    co += (seed / 2) + time; // also use start time 
+    co += (seed / 2.0) + time; // also use start time 
     return fract(sin(dot(co.xy ,vec2(12.9898,78.233))) * 43758.5453);
 }
 float rand(float co) 
