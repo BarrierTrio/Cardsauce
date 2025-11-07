@@ -1,6 +1,6 @@
 local consumInfo = {
     name = 'Stone Free',
-    set = 'csau_Stand',
+    set = 'Stand',
     config = {
         aura_colors = { '4db8cfDC', '4d89cfDC' },
         stand_mask = true,
@@ -9,16 +9,22 @@ local consumInfo = {
         }
     },
     cost = 4,
-    rarity = 'csau_StandRarity',
+    rarity = 'StandRarity',
     alerted = true,
     hasSoul = true,
-    part = 'stone',
-    blueprint_compat = true
+    origin = {
+        category = 'jojo',
+        sub_origins = {
+            'stone',
+        },
+        custom_color = 'stone'
+    },
+    blueprint_compat = true,
+    artist = 'chvsau'
 }
 
 function consumInfo.loc_vars(self, info_queue, card)
     info_queue[#info_queue+1] = G.P_CENTERS.m_stone
-    info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.chvsau } }
     return { vars = {card.ability.extra.chips}}
 end
 
@@ -26,11 +32,11 @@ function consumInfo.calculate(self, card, context)
     if context.before and not card.debuff then
         local stones = {}
         for _, v in ipairs(context.scoring_hand) do
-            if v.config.center.key == 'm_stone' or v.csau_stone_effect then
+            if v.config.center.key == 'm_stone' or v.jojobal_stone_effect then
                 stones[#stones+1] = v     
    
-                if not v.csau_stone_effect then
-                    v.csau_stone_effect = true
+                if not v.jojobal_stone_effect then
+                    v.jojobal_stone_effect = true
                 end
 
                 v.ability.perma_bonus = v.ability.perma_bonus or 0
@@ -59,7 +65,7 @@ function consumInfo.calculate(self, card, context)
                             delay = 0.25
                         })
                     end
-                    G.FUNCS.csau_flare_stand_aura(flare_card, 0.5)
+                    ArrowAPI.stands.flare_aura(flare_card, 0.5)
                 end,
                 extra = {
                     message = localize('k_stone_free'),

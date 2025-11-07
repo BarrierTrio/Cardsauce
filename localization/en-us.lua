@@ -1,32 +1,85 @@
+local suit_text = {
+	singular = {
+		"Converts {C:attention}#1#{}",
+        "selected card",
+        "to {V:1}#2#{}"
+	},
+	multi = {
+		"Converts up to",
+        "{C:attention}#1#{} selected cards",
+        "to {V:1}#2#{}"
+	}
+}
+
+local enhance_text = {
+	singular = {
+		"Enhances {C:attention}#1#{} selected",
+		"card into a {C:attention}#2#{}"
+	},
+	multi = {
+		"Enhances up to {C:attention}#1#{}",
+		"selected cards into",
+		"{C:attention}#2#s{}"
+	}
+}
+
+local seal_text = {
+	singular = {
+		"Add a {C:attention}#1#{} to",
+		"{C:attention}#2#{} selected card",
+		"in your hand"
+	},
+	multi = {
+		"Add {C:attention}#1#s{} to up",
+		"to {C:attention}#2#{} selected cards",
+		"in your hand"
+	}
+}
+
+
 return {
 	misc = {
 		poker_hands = {
-			["csau_Blackjack"] = "Blackjack",
-			["csau_Fibonacci"] = "Fibonacci",
-			["csau_FlushBlackjack"] = "Flush Blackjack",
-			["csau_FlushFibonacci"] = "Flush Fibonacci",
+			---------------------------
+			--------------------------- jojobal provides
+			---------------------------
+			jojobal_Fibonacci = 'Fibonacci',
+			jojobal_FlushFibonacci = 'Flush Fibonacci',
+
+			---------------------------
+			--------------------------- cardsauce
+			---------------------------
+			csau_Blackjack = "Blackjack",
+			csau_FlushBlackjack = "Flush Blackjack",
 		},
 		poker_hand_descriptions={
-			["csau_Blackjack"] = {
-				"Any amount of cards adding to a total of",
-				"exactly 21 (Aces count as either 11 or 1).",
-				"May not be played with unscored cards."
-			},
-			["csau_FlushBlackjack"] = {
-				"5 cards that share the same suit adding to a",
-				"total of exactly 21 (Aces count as either 11 or 1).",
-				"May not be played with unscored cards."
-			},
-			["csau_Fibonacci"] = {
-				"5 cards that make a Fibonacci sequence",
+			---------------------------
+			--------------------------- jojobal provides
+			---------------------------
+			jojobal_Fibonacci = {
+				"5 cards that makecd .. a Fibonacci sequence",
 				"(each card's rank is the sum of the",
 				"two ranks that precede it)"
 			},
-			["csau_FlushFibonacci"] = {
+			jojobal_FlushFibonacci = {
 				"5 cards making a Fibonacci sequence",
 				"(each card's rank is the sum of the",
 				"two ranks that precede it), with",
 				"all cards sharing the same suit",
+			},
+
+			---------------------------
+			--------------------------- cardsauce
+			---------------------------
+			csau_Blackjack = {
+				"Any amount of cards adding to a total of",
+				"exactly 21 (Aces count as either 11 or 1).",
+				"May not be played with unscored cards."
+			},
+			csau_FlushBlackjack = {
+				"5 cards that share the same suit adding to a",
+				"total of exactly 21 (Aces count as either 11 or 1).",
+				"May not be played with unscored cards."
 			},
 		},
 		quips = {
@@ -183,8 +236,6 @@ return {
 			lq_20 = {
 				"Habbo Hotel time!",
 			},
-
-
 			roche_voiceline = {
 				"A {C:planet}Planet{} card for",
 				"you, my friend!"
@@ -222,10 +273,6 @@ return {
 				"If you don't mind, would you",
 				"please acquire me from this",
 				"booster pack?"
-			},
-			chad_greeting3shop2 = {
-				"When I have been acquired, we",
-				"can proceed with a discussion!"
 			},
 			chad_greeting3randAquire1 = {
 				"It seems that by sheer luck,",
@@ -329,23 +376,64 @@ return {
 			},
 		},
 		labels = {
+			---------------------------
+			--------------------------- arrow provides
+			---------------------------
 			vhs = "VHS Tape",
-			csau_stand = "Stands",
+			stand = "Stands",
+
 			csau_corrupted = "Corrupted",
 		},
 		dictionary = {
+			---------------------------
+			--------------------------- arrow provides
+			---------------------------
+			b_stand_cards = "Stands",
+            b_evolved_stand_cards = "Evolved Stands",
+            b_vhs_cards = "VHS Tapes",
+            k_vhs = "VHS Tape",
+            k_stand = "Stand",
+            k_evolved_stand = "Evolved Stand",
+            k_stand_stickers = "Stand Stickers",
+
+            k_stand_evolved = 'Evolved!',
+            k_vhs_destroyed = "Fin!",
+
+            b_activate = "PLAY",
+            b_deactivate = "PAUSE",
+
+			---------------------------
+			--------------------------- jojobal provides
+			---------------------------
+			----- badge names for jojo parts
+			ba_phantom = 'Phantom Blood',
+			ba_battle = 'Battle Tendency',
+			ba_stardust = 'Stardust Crusaders',
+			ba_diamond = 'Diamond is Unbreakable',
+			ba_vento = 'Golden Wind',
+			ba_stone = 'Stone Ocean',
+			ba_steel = 'Steel Ball Run',
+			ba_lion = 'JoJolion',
+			ba_lands = 'The JOJOLands',
+			ba_feedback = 'Purple Haze Feedback',
+
+			-- stand related loc strings
+			k_echoes_recorded = 'Recorded!',
+			k_iamarock = "Rock!",
+			k_boing = "Boing!",
+			k_metal = "Metal!",
+			k_gold_exp = "Gold Experience!",
+			k_stone_free = "Stone Free!",
+			k_bsa = "Bigmouth Strikes Again!",
+			k_smooth_operators = "Dragged!",
+			k_soft_and_wet = "Stolen!",
+			k_bites_the_dust = "Bites the Dust!",
+			k_thehand = "Swipe!",
+
 			-- item string info
 			k_asteroid = "Asteroid",
 			k_galaxy = "Galaxy",
 			k_galaxy_q = "Galaxy?",
-			k_vhs = "VHS Tape",
-			k_vhs_destroyed = "Fin!",
-			k_csau_stand = "Stand",
-			b_csau_stand_cards = "Stands",
-			k_csau_evolved = "Evolved Stand",
-			b_csau_evolved_cards = "Evolved Stands",
-			b_vhs_cards = "VHS Tapes",
-			b_and_activate = "& PLAY",
 
 			-- credits
 			vs_credits1 = "Direction",
@@ -473,8 +561,6 @@ return {
 			k_analog_pack = "Analog Pack",
 			k_jumbo_analog_pack = "Jumbo Analog Pack",
 			k_mega_analog_pack = "Mega Analog Pack",
-			b_activate = "PLAY",
-			b_deactivate = "PAUSE",
 			k_negative_mult = "Negative Mult!",
 			k_allgone = "All Gone!",
 			k_mug_moment = "Mug Moment!",
@@ -523,32 +609,7 @@ return {
 			ba_uzumaki = "Uzumaki",
 			ba_monkeywrench = "Monkey Wrench",
 
-			-- badge names for jojo parts
-			ba_phantom = 'Phantom Blood',
-			ba_battle = 'Battle Tendency',
-			ba_stardust = 'Stardust Crusaders',
-			ba_diamond = 'Diamond is Unbreakable',
-			ba_vento = 'Golden Wind',
-			ba_stone = 'Stone Ocean',
-			ba_steel = 'Steel Ball Run',
-			ba_lion = 'JoJolion',
-			ba_lands = 'The JOJOLands',
-			ba_feedback = 'Purple Haze Feedback',
 
-			-- stand related loc strings
-			k_stand_evolved = 'Evolved!',
-			k_echoes_recorded = 'Recorded!',
-			k_iamarock = "Rock!",
-			k_boing = "Boing!",
-			k_metal = "Metal!",
-			k_gold_exp = "Gold Experience!",
-			k_stone_free = "Stone Free!",
-			k_bsa = "Bigmouth Strikes Again!",
-			k_smooth_operators = "Dragged!",
-			k_soft_and_wet = "Stolen!",
-			k_bites_the_dust = "Bites the Dust!",
-			k_thehand = "Swipe!",
-			k_stand_stickers = "Stand Stickers",
 		},
 		v_dictionary = {
 			a_plus_discard = "+#1# Discard",
@@ -568,10 +629,20 @@ return {
 			c_csau_marathon = "Movie Marathon",
 		},
 		v_text = {
+			-- arrow provides
+			banned_except = {"{C:attention}All Jokers{} and {C:stand}all Stands{} {C:attention}banned{} except:"},
+			blinds_except = {"{C:attention}All Blinds banned{} except:"},
+            ch_c_scaling = {"{C:attention}#1#X{} Blind scaling"},
+            ch_c_max_stands = {"You may have up to {C:attention}#1#{} {C:stand}Stands{}"},
+            ch_c_all_bosses = {"{C:attention}Small{} and {C:attention}Big Blinds{} are {C:attention}Boss Blinds{}"},
+			ch_c_all_showdown = {"{C:attention}Boss Blinds{} are {C:attention}Final Boss Blinds{}"},
+            ch_c_all_scores_hidden = {"{C:attention}Blind requirements{} are {C:dark_edition}hidden{}"},
+            ch_c_extra_blind_active = {"{B:1,C:white}#1#{} is {C:attention}always active{}"},
+
+			-- cardsauce
 			ch_c_csau_tucker = {"All Non-{C:clubs}Cardsauce{} Jokers are {C:attention}banned"},
 			ch_c_csau_tgyh_tenbob = {"All shop items cost {C:money}$10{}"},
 			ch_c_csau_nmbb = {"Only hands that contain a {C:attention}Blackjack{} are allowed"},
-			ch_c_max_stands = {"You may have up to {C:attention}#1# {C:stand}Stands"},
 			ch_c_csau_marathon = {"All Non-{C:vhs}Analog{} consumables are {C:attention}banned{}"},
 		},
 		achievement_names = {
@@ -692,7 +763,7 @@ return {
 			ach_csau_big_meat = "The Big Meat",
 			ach_csau_cardsauceplus = "Cardsauce+",
 			ach_csau_cardsauceplusplus = "Cardsauce++",
-			ach_csau_stand_master = "Stand Master",
+			ach_stand_master = "Stand Master",
 		},
 		achievement_descriptions = {
 			--- [[NEW ACHIEVEMENTS]]
@@ -812,7 +883,7 @@ return {
 			ach_csau_big_meat = "Unlock every Cardsauce Achievement",
 			ach_csau_cardsauceplus = "Win a run with all Cardsauce Decks on Gold Stake",
 			ach_csau_cardsauceplusplus = "Get Gold Stickers on all Cardsauce Jokers",
-			ach_csau_stand_master = "Get Gold Stickers on all Cardsauce Stands",
+			ach_stand_master = "Get Gold Stickers on all Cardsauce Stands",
 		}
 	},
 	descriptions = {
@@ -974,7 +1045,7 @@ return {
 					"learn what it does",
 				},
 			},
-			undiscovered_csau_stand={
+			undiscovered_stand={
 				name = "Not Discovered",
 				text = {
 					"Purchase this card in",
@@ -1034,7 +1105,7 @@ return {
 					"{C:attention}toggled{} on/off",
 				},
 			},
-			csau_stand_info = {
+			stand_info = {
 				name = "Stand Limit",
 				text = {
 					"You can only",
@@ -1042,7 +1113,7 @@ return {
 					"at a time",
 				},
 			},
-			csau_stand_info_unlimited = {
+			stand_info_unlimited = {
 				name = "Stand Limit",
 				text = {
 					"You can have",
@@ -1841,7 +1912,7 @@ return {
 					"{C:green}1 in 2{} chance to create {C:attention}1{} random",
 					"{C:attention}Joker Tag{}, {C:attention}1{} random {C:attention}Booster Pack Tag{},",
 					"or {C:attention}2{} completely random {C:attention}Tags{}",
-					
+
 					"{s:0.8,C:inactive}(Odds not affected by probability manipulation){}"
 				},
 			},
@@ -3257,7 +3328,7 @@ return {
 				},
 			},
 		},
-		csau_Stand = {
+		Stand = {
 			c_csau_stardust_star = {
 				name = "Star Platinum",
 				text = {
@@ -3322,7 +3393,7 @@ return {
 					},
 					{
 						"{C:stand}Evolves{} after {C:attention}#3#{} rounds",
-					}					
+					}
 				},
 			},
 			c_csau_diamond_echoes_3 = {
@@ -3486,7 +3557,7 @@ return {
 					{
 						"{C:stand}Evolves{} after using",
 					"{C:attention}#1#{} {C:tarot}The Moon{} cards",
-					}					
+					}
 				},
 			},
 			c_csau_stone_white_heaven = {
@@ -3549,7 +3620,7 @@ return {
 					{
 						"If played hand contains a",
 						"{C:attention}Fibonacci{}, gain {C:blue}+#2#{} Hand",
-					}			
+					}
 				},
 			},
 			c_csau_steel_civil = {
@@ -3593,7 +3664,7 @@ return {
 					},
 					{
 						"{C:stand}Evolves{} after playing a {C:attention}Secret Hand{}",
-					}				
+					}
 				},
 			},
 			c_csau_lion_soft_beyond = {
@@ -3630,7 +3701,7 @@ return {
 					"When a {C:attention}Lucky Card{} is scored,",
 					"{C:attention}destroy{} it and gain {X:mult,C:white}X#1#{} Mult",
 					"{C:inactive}(Currently{} {X:mult,C:white}X#2#{} {C:inactive}Mult){}",
-					
+
 				},
 			},
 			c_csau_lands_november = {

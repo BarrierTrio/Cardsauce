@@ -292,7 +292,7 @@ local itemsToLoad = {
         'varuna',
         'planet_whirlpool',
         'planet_lost',
-        
+
         -- Spectral
         'quixotic',
         'protojoker',
@@ -386,12 +386,12 @@ end
 
 --------------------------- Stands consumable type
 if csau_enabled['enableStands'] then
-    SMODS.ObjectType { default = 'c_csau_stardust_star', key = 'csau_StandPool', prefix_config = false }
+    SMODS.ObjectType { default = 'c_csau_stardust_star', key = 'StandPool', prefix_config = false }
     SMODS.ObjectType { default = 'c_csau_stardust_star', key = 'csau_EvolvedPool', prefix_config = false}
 
 
     SMODS.Rarity {
-        key = 'csau_StandRarity',
+        key = 'StandRarity',
         prefix_config = false,
         default_weight = 1,
         no_mod_badges = true,
@@ -408,9 +408,9 @@ if csau_enabled['enableStands'] then
 
     -- Stand Consumable
     SMODS.Atlas({ key = 'stickers', path = "stickers.png", px = 71, py = 95 })
-    SMODS.UndiscoveredSprite { key = "csau_Stand", atlas = "csau_undiscovered", pos = { x = 1, y = 0 }, overlay_pos = { x = 2, y = 0 }, prefix_config = false }
+    SMODS.UndiscoveredSprite { key = "Stand", atlas = "csau_undiscovered", pos = { x = 1, y = 0 }, overlay_pos = { x = 2, y = 0 }, prefix_config = false }
     SMODS.ConsumableType {
-        key = 'csau_Stand',
+        key = 'Stand',
         prefix_config = false,
         primary_colour = G.C.STAND,
         secondary_colour = G.C.STAND,
@@ -418,12 +418,12 @@ if csau_enabled['enableStands'] then
         shop_rate = 0,
         default = "c_csau_diamond_star",
         rarities = {
-            {key = 'csau_StandRarity'},
+            {key = 'StandRarity'},
             {key = 'csau_EvolvedRarity'},
         },
         inject_card = function(self, center)
             if center.set ~= self.key then SMODS.insert_pool(G.P_CENTER_POOLS[self.key], center) end
-            local pool_key = center.config.evolved and 'csau_EvolvedPool' or 'csau_StandPool'
+            local pool_key = center.config.evolved and 'csau_EvolvedPool' or 'StandPool'
             SMODS.insert_pool(G.P_CENTER_POOLS[pool_key], center)
             if center.rarity and self.rarity_pools[center.rarity] then
                 SMODS.insert_pool(self.rarity_pools[center.rarity], center)
@@ -431,7 +431,7 @@ if csau_enabled['enableStands'] then
         end,
         delete_card = function(self, center)
             if center.set ~= self.key then SMODS.remove_pool(G.P_CENTER_POOLS[self.key], center.key) end
-            local pool_key = center.config.evolved and 'csau_EvolvedPool' or 'csau_StandPool'
+            local pool_key = center.config.evolved and 'csau_EvolvedPool' or 'StandPool'
             SMODS.remove_pool(G.P_CENTER_POOLS[pool_key], center)
             if center.rarity and self.rarity_pools[center.rarity] then
                 SMODS.remove_pool(self.rarity_pools[center.rarity], center.key)

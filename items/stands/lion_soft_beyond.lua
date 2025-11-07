@@ -1,6 +1,6 @@
 local consumInfo = {
     name = 'Soft & Wet: Go Beyond',
-    set = 'csau_Stand',
+    set = 'Stand',
     config = {
         aura_colors = { 'ebfafeDC', 'b48df1DC' },
         stand_mask = true,
@@ -10,20 +10,26 @@ local consumInfo = {
         }
     },
     cost = 10,
-    rarity = 'csau_evolvedRarity',
+    rarity = 'EvolvedRarity',
     hasSoul = true,
-    part = 'lion',
+    origin = {
+        category = 'jojo',
+        sub_origins = {
+            'lion',
+        },
+        custom_color = 'lion'
+    },
     blueprint_compat = true,
+    artist = 'stup',
 }
 
 function consumInfo.loc_vars(self, info_queue, card)
     info_queue[#info_queue+1] = G.P_CENTERS.m_bonus
     info_queue[#info_queue+1] = G.P_CENTERS.m_mult
-    info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.stup } }
 end
 
 function consumInfo.in_pool(self, args)
-    return (not G.GAME.used_jokers['c_csau_lion_soft'])
+    return (not G.GAME.used_jokers['c_jojobal_lion_soft'])
 end
 
 function consumInfo.calculate(self, card, context)
@@ -70,7 +76,7 @@ function consumInfo.calculate(self, card, context)
                             delay = 0.25
                         })
                     end
-                    G.FUNCS.csau_flare_stand_aura(flare_card, 0.50)
+                    ArrowAPI.stands.flare_aura(flare_card, 0.50)
                 end,
                 extra = {
                     message = localize('k_soft_and_wet'),

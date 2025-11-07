@@ -1,3 +1,5 @@
+-- TODO: if possible, simplify this:
+
 local function is_credited(key, card, palette)
     if G.csau_collab_credits[key][card.config.card.value].specific then
         if palette.pos_style[card.config.card.value] and palette.pos_style[card.config.card.value].atlas then

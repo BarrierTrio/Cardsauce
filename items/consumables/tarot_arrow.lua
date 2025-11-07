@@ -12,10 +12,10 @@ local consumInfo = {
 
 function consumInfo.loc_vars(self, info_queue, card)
     if G.GAME and G.GAME.modifiers.csau_unlimited_stands then
-        info_queue[#info_queue+1] = {key = "csau_stand_info_unlimited", set = "Other"}
+        info_queue[#info_queue+1] = {key = "stand_info_unlimited", set = "Other"}
     else
         if card.area then
-            info_queue[#info_queue+1] = {key = "csau_stand_info", set = "Other", vars = { G.GAME and G.GAME.modifiers.max_stands or 1, (card.area.config.collection and localize('k_csau_stand')) or (G.GAME.modifiers.max_stands > 1 and localize('b_csau_stand_cards') or localize('k_csau_stand')) }}
+            info_queue[#info_queue+1] = {key = "stand_info", set = "Other", vars = { G.GAME and G.GAME.modifiers.max_stands or 1, (card.area.config.collection and localize('k_stand')) or ((G.GAME and G.GAME.modifiers.max_stands or 1) > 1 and localize('b_stand_cards') or localize('k_stand')) }}
         end
     end
     info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.gote } }
@@ -40,7 +40,7 @@ function consumInfo.can_use(self, card)
     if next(SMODS.find_card("c_csau_vento_gold")) then
         return true
     end
-    
+
     if G.consumeables.config.card_limit <= #G.consumeables.cards - (card.area == G.consumeables and 1 or 0) then
         return false
     end

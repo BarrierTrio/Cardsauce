@@ -1,6 +1,6 @@
 local consumInfo = {
     name = 'All Along The Watchtower',
-    set = 'csau_Stand',
+    set = 'Stand',
     config = {
         aura_colors = { 'd4483eDC', '374649DC' },
         stand_mask = true,
@@ -9,15 +9,21 @@ local consumInfo = {
         }
     },
     cost = 4,
-    rarity = 'csau_StandRarity',
+    rarity = 'StandRarity',
     alerted = true,
     hasSoul = true,
-    part = 'feedback',
-    blueprint_compat = true
+    origin = {
+        category = 'jojo',
+        sub_origins = {
+            'feedback',
+        },
+        custom_color = 'feedback'
+    },
+    blueprint_compat = true,
+    artist = 'gote',
 }
 
 function consumInfo.loc_vars(self, info_queue, card)
-    info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.gote } }
     return { vars = { card.ability.extra.x_mult } }
 end
 
@@ -73,7 +79,7 @@ function consumInfo.calculate(self, card, context)
         local flare_card = context.blueprint_card or card
         return {
             func = function()
-                G.FUNCS.csau_flare_stand_aura(flare_card, 0.50)
+                ArrowAPI.stands.flare_aura(flare_card, 0.50)
             end,
             extra = {
                 xmult = card.ability.extra.x_mult,

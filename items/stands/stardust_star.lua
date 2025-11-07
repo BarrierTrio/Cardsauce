@@ -1,6 +1,6 @@
 local consumInfo = {
     name = 'Star Platinum',
-    set = 'csau_Stand',
+    set = 'Stand',
     config = {
         stand_mask = true,
         aura_colors = { 'c640ffDC' , 'f96bffDC' },
@@ -9,14 +9,20 @@ local consumInfo = {
         }
     },
     cost = 4,
-    rarity = 'csau_StandRarity',
+    rarity = 'StandRarity',
     hasSoul = true,
-    part = 'stardust',
+    origin = {
+        category = 'jojo',
+        sub_origins = {
+            'stardust',
+        },
+        custom_color = 'stardust'
+    },
     blueprint_compat = true,
+    artist = 'gote',
 }
 
 function consumInfo.loc_vars(self, info_queue, card)
-    info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.gote } }
     return { vars = { card.ability.extra.hand_mod, localize(G.GAME and G.GAME.wigsaw_suit or 'Diamonds', 'suits_plural'), colours = {G.C.SUITS[G.GAME and G.GAME.wigsaw_suit or 'Diamonds']} } }
 end
 
@@ -35,7 +41,7 @@ function consumInfo.calculate(self, card, context)
             ease_hands_played(card.ability.extra.hand_mod)
             return {
                 func = function()
-                    G.FUNCS.csau_flare_stand_aura(flare_card, 0.50)
+                    ArrowAPI.stands.flare_aura(flare_card, 0.50)
                 end,
                 extra = {
                     card = flare_card,

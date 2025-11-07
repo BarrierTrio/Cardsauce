@@ -15,14 +15,11 @@ G.FUNCS.check_for_buy_space = function(card)
             alert_no_space(card, G.jokers)
             return false
         end
-        
+
         return true
     end
- 
-    if card.ability.set == 'csau_Stand' and not G.GAME.modifiers.csau_unlimited_stands and G.FUNCS.csau_get_num_stands() >= G.GAME.modifiers.max_stands then
-        alert_no_space(card, G.consumeables)
-        return false
-    end
+
+    -- TODO: stand space handling is done by arrow
 
     local ret = ref_check_buy_space(card)
     if not ret then
@@ -57,10 +54,10 @@ G.FUNCS.toggle_shop = function(e)
 						v:start_dissolve()
 						return true
 					end
-				})) 
+				}))
 			end
 		end
-		
+
         if removed > 0 then
             --play_sound('csau_sorry_link', 1, 0.38)
             delay(1.2)
@@ -101,12 +98,12 @@ G.FUNCS.save_to_morshu = function(e)
             c2.params.bypass_discovery_ui = true
             c2:set_sprites(c2.config.center)
         end
-        
+
         G.E_MANAGER:add_event(Event({
             trigger = 'after',
             delay = 0.1,
             func = function()
-                
+
             -- remove old stuff
             if c1.children.price then c1.children.price:remove() end
             c1.children.price = nil
@@ -115,7 +112,7 @@ G.FUNCS.save_to_morshu = function(e)
             if c1.children.buy_and_use_button then c1.children.buy_and_use_button:remove() end
             c1.children.buy_and_use_button = nil
             remove_nils(c1.children)
-            
+
             c1:start_dissolve()
 
             --play_sound('csau_mmmmmm', 1, 0.38)
@@ -136,33 +133,20 @@ G.FUNCS.save_to_morshu = function(e)
             create_shop_card_ui(c2, c2.ability.set, G.morshu_area)
             c2:start_materialize()
 
-            -- could add a context for this if you want           
+            -- could add a context for this if you want
             return true
             end
         }))
     end
 end
 
-local ref_buy_shop = G.FUNCS.buy_from_shop
-G.FUNCS.buy_from_shop = function(e)
-    local ret = ref_buy_shop(e)
-
-    if ret then
-        local card = e.config.ref_table
-        G.GAME.csau_shop_dollars_spent = G.GAME.csau_shop_dollars_spent + card.cost
-        check_for_unlock({type = 'csau_spent_in_shop', dollars = G.GAME.csau_shop_dollars_spent})
-    end
-    
-    return ret
-end
+-- TODO: move shop_dollars_spent and rerolls_this_round to arrow
 
 -- this also incorporates koffing's ref to reroll so I don't have them in two places
 local reroll_shopref = G.FUNCS.reroll_shop
 function G.FUNCS.reroll_shop(e)
-    G.GAME.csau_rerolls_this_round = G.GAME.csau_rerolls_this_round + 1
+    -- TODO: move shop_dollars_spent and rerolls_this_round to arrow
     local ret = reroll_shopref(e)
-    G.GAME.csau_shop_dollars_spent = G.GAME.csau_shop_dollars_spent + G.GAME.current_round.reroll_cost
-    check_for_unlock({type = 'csau_spent_in_shop', dollars = G.GAME.csau_shop_dollars_spent})
 
     for _, v in ipairs(SMODS.find_card('j_csau_koffing')) do
         if not v.ability.extra.rerolled then
@@ -183,7 +167,7 @@ function G.FUNCS.reroll_shop(e)
                             G.GAME.current_round.used_packs[i] = get_pack('shop_pack').key
                         end
 
-                        if G.GAME.current_round.used_packs[i] ~= 'USED' then 
+                        if G.GAME.current_round.used_packs[i] ~= 'USED' then
                             local card = Card(G.shop_booster.T.x + G.shop_booster.T.w/2,
                             G.shop_booster.T.y, G.CARD_W*1.27, G.CARD_H*1.27, G.P_CARDS.empty, G.P_CENTERS[G.GAME.current_round.used_packs[i]], {bypass_discovery_center = true, bypass_discovery_ui = true})
                             create_shop_card_ui(card, 'Booster', G.shop_booster)
@@ -205,54 +189,14 @@ function G.FUNCS.reroll_shop(e)
     return ret
 end
 
-local ref_uc = G.FUNCS.use_card
-G.FUNCS.use_card = function(e, mute, nosave)
-    local card = e.config.ref_table
-    if card.area == G.consumeables and (card.ability.activation or (card.config.center.activate and type(card.config.center.activate) == 'function')) then
-        sendDebugMessage('vhs code')
-        if card.config.center.activate and type(card.config.center.activate) == 'function' then
-            card.config.center.activate(card.config.center, card, not card.ability.activated)
-        end
-        if card.ability.activation then
-            G.FUNCS.tape_activate(card)
-            if G.CONTROLLER.HID.controller then
-                card.children.focused_ui = G.UIDEF.card_focus_ui(card)
-                G.CONTROLLER.locks.use = false
-            else
-                card:highlight(true)
-            end
-        end
-        return
-    end
-    return ref_uc(e, mute, nosave)
-end
+-- TODO: use behavior moved to arrow
 
-local ref_bfs = G.FUNCS.buy_from_shop
-G.FUNCS.buy_from_shop = function(e)
-    ref_bfs(e)
-    local c1 = e.config.ref_table
-    if c1 and c1:is(Card) then
-        G.E_MANAGER:add_event(Event({
-            trigger = 'after',
-            delay = 0.1,
-            func = function()
-                if c1.ability.consumeable then
-                    if c1.config.center.set == 'csau_Stand' then
-                        inc_career_stat('c_stands_bought', 1)
-                    elseif c1.config.center.set == 'VHS' then
-                        inc_career_stat('c_vhss_bought', 1)
-                    end
-                end
-                return true
-            end
-        }))
-    end
-end
+-- TODO: handle usage stats for VHS and Stands in arrow
 
 local ref_change_collab = G.FUNCS.change_collab
 G.FUNCS.change_collab = function(args)
     local ret = ref_change_collab(args)
-    
+
     if csau_enabled['enableSkins'] then
         G.FUNCS.ach_characters_check()
         G.FUNCS.ach_vineshroom_check()

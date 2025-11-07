@@ -408,36 +408,6 @@ function jokerInfo.calculate(self, card, context)
     end
 end
 
-local ed_ref = ease_dollars
-function ease_dollars(mod, instant)
-    ed_ref(mod, instant)
-    if to_big(mod) >= to_big(0) then
-        return
-    end
-    
-    local sprunks = SMODS.find_card("j_csau_sprunk")
-    if not next(sprunks) then
-        return
-    end
-
-    for _, v in ipairs(sprunks) do
-        if not v.debuff then
-            G.E_MANAGER:add_event(Event({
-                trigger = 'immediate',
-                blockable = false,
-                blocking = true,
-                func = function()
-                    v.ability.extra.mult = v.ability.extra.mult + (-mod * v.ability.extra.mult_mod)
-                    if SMODS.food_expires() then
-                        v.ability.extra.prob_extra = v.ability.extra.prob_extra + (-mod * v.ability.extra.prob_mod)
-                    end
-
-                    card_eval_status_text(v, 'extra', nil, nil, nil, {message = localize{type='variable',key='a_mult',vars={v.ability.extra.mult}}, colour = G.C.IMPORTANT})
-                    return true
-                end
-            }))
-        end
-    end
-end
+-- TODO: reimplement sprunk dollar ref using modern SMODS contexts
 
 return jokerInfo

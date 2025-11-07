@@ -9,7 +9,7 @@ target = "card.lua"
 pattern = '''if self.ability.set == 'Joker' and not self.sticker_run then'''
 position = "before"
 payload = '''
-if self.ability.set == 'csau_Stand' and not self.sticker_run then
+if self.ability.set == 'Stand' and not self.sticker_run then
     self.sticker_run = get_stand_win_sticker(self.config.center) or 'NONE'
 end'''
 match_indent = true
@@ -31,7 +31,7 @@ position = "at"
 payload = '''local rows, protos = {}, {'collection', 'challenges', 'joker_stickers', 'stand_stickers', 'deck_stake_wins'}
 _profile_progress = _profile_progress or G.PROFILES[G.SETTINGS.profile].progress
 if not _profile_progress.stand_stickers then
-    local of = 0; for _, v in pairs(G.P_CENTERS) do if v.set == 'csau_Stand' then of = of + 1 end end
+    local of = 0; for _, v in pairs(G.P_CENTERS) do if v.set == 'Stand' then of = of + 1 end end
     _profile_progress.stand_stickers = {tally = 0, of = of*#G.P_CENTER_POOLS.Stake }
 end'''
 match_indent = true
@@ -98,7 +98,7 @@ times = 2
 target = "functions/UI_definitions.lua"
 pattern = "card.ability.consumeable then --Add a use button"
 position = "at"
-payload = "card.ability.consumeable and card.ability.set ~= 'csau_Stand' then --Add a use button"
+payload = "card.ability.consumeable and card.ability.set ~= 'Stand' then --Add a use button"
 match_indent = true
 times = 1
 

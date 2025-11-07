@@ -1,11 +1,11 @@
 local consumInfo = {
     name = 'C-MOON',
-    set = 'csau_Stand',
+    set = 'Stand',
     config = {
         aura_colors = { '73b481DC', 'a3d88fDC' },
         stand_mask = true,
         evolved = true,
-        evolve_key = 'c_csau_stone_white_heaven',
+        evolve_key = 'c_jojobal_stone_white_heaven',
         extra = {
             repetitions = 1,
             evolve_moons = 0,
@@ -14,20 +14,26 @@ local consumInfo = {
         }
     },
     cost = 10,
-    rarity = 'csau_evolvedRarity',
+    rarity = 'EvolvedRarity',
     hasSoul = true,
-    part = 'stone',
-    blueprint_compat = true
+    origin = {
+        category = 'jojo',
+        sub_origins = {
+            'stone',
+        },
+        custom_color = 'stone'
+    },
+    blueprint_compat = true,
+    artist = {'wario', 'gote'}
 }
 
 function consumInfo.loc_vars(self, info_queue, card)
-    info_queue[#info_queue+1] = {key = "csau_artistcredit_2", set = "Other", vars = { G.csau_team.wario, G.csau_team.gote } }
     return { vars = {card.ability.extra.evolve_num - card.ability.extra.evolve_moons}}
 end
 
 function consumInfo.in_pool(self, args)
-    if G.GAME.used_jokers['c_csau_stone_white']
-    or G.GAME.used_jokers['c_csau_stone_white_heaven'] then
+    if G.GAME.used_jokers['c_jojobal_stone_white']
+    or G.GAME.used_jokers['c_jojobal_stone_white_heaven'] then
         return false
     end
     
@@ -40,12 +46,12 @@ function consumInfo.calculate(self, card, context)
     if context.using_consumeable and not context.blueprint and not context.retrigger_joker and context.consumeable.config.center.key == 'c_moon' then
         card.ability.extra.evolve_moons = card.ability.extra.evolve_moons + 1
         if card.ability.extra.evolve_moons >= card.ability.extra.evolve_num then
-            G.FUNCS.csau_evolve_stand(card)
+            ArrowAPI.stands.evolve_stand(card)
         else 
             return {
                 no_retrigger = true,
                 func = function()
-                    G.FUNCS.csau_flare_stand_aura(card, 0.5)
+                    ArrowAPI.stands.flare_aura(card, 0.5)
                 end,
                 extra = {
                     message = localize{type='variable',key='a_remaining',vars={card.ability.extra.evolve_num - card.ability.extra.evolve_moons}},
@@ -64,7 +70,7 @@ function consumInfo.calculate(self, card, context)
             local flare_card = context.blueprint_card or card
             return {
                 pre_func = function()
-                    G.FUNCS.csau_flare_stand_aura(flare_card, 0.5)
+                    ArrowAPI.stands.flare_aura(flare_card, 0.5)
                 end,
                 message = localize('k_again_ex'),
                 repetitions = card.ability.extra.repetitions * reps,

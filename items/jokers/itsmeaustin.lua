@@ -36,6 +36,7 @@ function jokerInfo.calculate(self, card, context)
     end
 end
 
+-- TODO: replace austin blind mystery with SMODS/arrow blind behavior
 SMODS.Atlas({ key = 'mystery', atlas_table = "ANIMATION_ATLAS", path = "blinds/mystery.png", px = 34, py = 34, frames = 21, })
 
 local c_ui_bc_ref = create_UIBox_blind_choice

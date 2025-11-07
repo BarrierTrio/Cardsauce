@@ -91,7 +91,7 @@ function jokerInfo.update(self, card, dt)
         end
     end
 end
-
+-- TODO: centralize thuis drawing
 local ds_ref = Sprite.draw_shader
 function Sprite:draw_shader(_shader, _shadow_height, _send, _no_tilt, other_obj, ms, mr, mx, my, custom_shader, tilt_shadow)
     if self.atlas.name == 'stickers' then

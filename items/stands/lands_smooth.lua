@@ -1,6 +1,6 @@
 local consumInfo = {
     name = 'Smooth Operators',
-    set = 'csau_Stand',
+    set = 'Stand',
     config = {
         aura_colors = { 'f2be53DC', 'f7e580DC' },
         extra = {
@@ -10,16 +10,18 @@ local consumInfo = {
         }
     },
     cost = 4,
-    rarity = 'csau_StandRarity',
+    rarity = 'StandRarity',
     hasSoul = true,
-    part = 'lands',
+    origin = {
+        category = 'jojo',
+        sub_origins = {
+            'lands',
+        },
+        custom_color = 'lands'
+    },
     blueprint_compat = false,
+    artist = 'gote',
 }
-
-function consumInfo.loc_vars(self, info_queue, card)
-    info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.gote } }
-    return
-end
 
 function consumInfo.calculate(self, card, context)
     if context.after and not context.blueprint and not context.retrigger_joker then
@@ -73,7 +75,7 @@ function consumInfo.calculate(self, card, context)
 
     return {
         func = function()
-            G.FUNCS.csau_flare_stand_aura(card, 0.50)
+            ArrowAPI.stands.flare_aura(card, 0.50)
 
             for _, v in ipairs(change_cards) do
                 G.E_MANAGER:add_event(Event({

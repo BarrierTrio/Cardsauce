@@ -1,6 +1,6 @@
 local consumInfo = {
     name = 'Metallica',
-    set = 'csau_Stand',
+    set = 'Stand',
     config = {
         stand_mask = true,
         aura_colors = { 'F97C87DA', 'CE3749DA' },
@@ -9,16 +9,22 @@ local consumInfo = {
         }
     },
     cost = 4,
-    rarity = 'csau_StandRarity',
+    rarity = 'StandRarity',
     hasSoul = true,
     blueprint_compat = false,
-    part = 'vento',
+    origin = {
+        category = 'jojo',
+        sub_origins = {
+            'vento',
+        },
+        custom_color = 'vento'
+    },
+    artist = 'gote',
 }
 
 function consumInfo.loc_vars(self, info_queue, card)
     info_queue[#info_queue+1] = G.P_CENTERS.m_steel
     info_queue[#info_queue+1] = G.P_CENTERS.m_glass
-    info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.gote } }
 end
 
 function consumInfo.calculate(self, card, context)
@@ -41,7 +47,7 @@ function consumInfo.calculate(self, card, context)
         if transformed > 0 then
             return {
                 func = function()
-                    G.FUNCS.csau_flare_stand_aura(card, 0.50)
+                    ArrowAPI.stands.flare_aura(card, 0.50)
                 end,
                 extra = {
                     message = localize('k_metal'),
@@ -59,7 +65,7 @@ function consumInfo.calculate(self, card, context)
 
     if context.individual and context.cardarea == G.play and context.other_card.config.center.key == 'm_steel'
     and context.other_card.base.value == 'Jack' then
-        G.FUNCS.csau_flare_stand_aura(card, 0.50)
+        ArrowAPI.stands.flare_aura(card, 0.50)
         delay(0.5)
     end
 end

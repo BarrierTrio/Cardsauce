@@ -1,4 +1,4 @@
-
+-- TODO: move all music selection to arrow
 if not csau_enabled['enableMusic'] then
     return
 end

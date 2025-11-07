@@ -1,3 +1,4 @@
+-- TODO replace achievment loading with arrow achievement loading
 -- enumerate all achievements in the achievements directory instead of loading it directly
 SMODS.Atlas({ key = 'csau_achievements', path = "csau_achievements.png", px = 66, py = 66})
 local achievementsToLoad = {}

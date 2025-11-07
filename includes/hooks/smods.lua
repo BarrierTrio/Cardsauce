@@ -1,6 +1,5 @@
 function SMODS.current_mod.reset_game_globals(run_start)
     if run_start then
-        G.GAME.modifiers.max_stands = G.GAME.modifiers.max_stands or 1
 		G.GAME.morshu_cards = 0
 		G.GAME.csau_saved_deathcards = {}
 
@@ -15,8 +14,6 @@ function SMODS.current_mod.reset_game_globals(run_start)
 		end
     end
 
-	G.GAME.csau_rerolls_this_round = 0
-	G.GAME.csau_shop_dollars_spent = 0
     csau_reset_paper_rank()
 
 	G.GAME.current_round.choicevoice = { suit = 'Clubs' }
@@ -62,35 +59,20 @@ function SMODS.current_mod.reset_game_globals(run_start)
 	G.GAME.current_round.duane_suit = randCard_3.base.suit
 end
 
-SMODS.PokerHandPart:take_ownership('_straight', {
-	func = function(hand) return get_straight(hand, next(SMODS.find_card('j_four_fingers')) and 4 or 5, not not next(SMODS.find_card('j_shortcut')), next(SMODS.find_card('j_csau_gnorts'))) end
-})
+-- TODO: reimplement gnorts with SMODS.wrap_around_straight()
 
-SMODS.PokerHandPart:take_ownership('_flush', {
-	func = function(hand)
-		local sub_count = (next(SMODS.find_card('j_four_fingers')) or next(SMODS.find_card('c_csau_lands_bigmouth'))) and 1 or 0
-		return get_flush(hand, sub_count)
-	end,
-})
 
-local ref_ccuib = SMODS.card_collection_UIBox
-SMODS.card_collection_UIBox = function(_pool, rows, args)
-	if _pool == G.P_CENTER_POOLS.csau_Stand then
-		args.modify_card = function(card, center, i, j)
-			card.sticker = get_stand_win_sticker(center)
-		end
-	end
-	return ref_ccuib(_pool, rows, args)
-end
+-- TODO: check if removed card collection uibox function still works with arrow reimplementation
 
 -- total override of this function for bootleg purposes
+-- TODO: see if this can be simplified
 function SMODS.find_card(key, count_debuffed)
     local results = {}
     if not G.jokers or not G.jokers.cards then return {} end
     for _, area in ipairs(SMODS.get_card_areas('jokers')) do
         if area.cards then
             for _, v in pairs(area.cards) do
-                if v and type(v) == 'table' and (v.config.center.key == key or (v.config.center.key == 'j_csau_bootleg' and v.ability.bootlegged_key == key)) 
+                if v and type(v) == 'table' and (v.config.center.key == key or (v.config.center.key == 'j_csau_bootleg' and v.ability.bootlegged_key == key))
 				and (count_debuffed or not v.debuff) then
                     table.insert(results, v)
                 end

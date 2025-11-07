@@ -1,3 +1,4 @@
+-- TODO: move all color customization to arrow
 if not csau_enabled['enableColors'] then
 	return
 end

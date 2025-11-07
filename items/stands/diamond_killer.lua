@@ -1,9 +1,9 @@
 local consumInfo = {
     name = 'Killer Queen',
-    set = 'csau_Stand',
+    set = 'Stand',
     config = {
         stand_mask = true,
-        evolve_key = 'c_csau_diamond_killer_btd',
+        evolve_key = 'c_jojobal_diamond_killer_btd',
         aura_colors = { 'de7cf9DC', 'e059e9DC' },
         extra = {
             evolve_cards = 0,
@@ -13,19 +13,25 @@ local consumInfo = {
         }
     },
     cost = 4,
-    rarity = 'csau_StandRarity',
+    rarity = 'StandRarity',
     hasSoul = true,
-    part = 'diamond',
-    blueprint_compat = true
+    origin = {
+        category = 'jojo',
+        sub_origins = {
+            'diamond',
+        },
+        custom_color = 'diamond'
+    },
+    blueprint_compat = true,
+    artist = 'guff',
 }
 
 function consumInfo.loc_vars(self, info_queue, card)
-    info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.guff } }
     return { vars = { card.ability.extra.hand_mod, card.ability.extra.hands, card.ability.extra.evolve_num, card.ability.extra.evolve_cards } }
 end
 
 function consumInfo.in_pool(self, args)
-    return (not G.GAME.used_jokers['c_csau_diamond_killer_btd'])
+    return (not G.GAME.used_jokers['c_jojobal_diamond_killer_btd'])
 end
 
 function consumInfo.calculate(self, card, context)  
@@ -39,11 +45,11 @@ function consumInfo.calculate(self, card, context)
         card.ability.extra.evolve_cards = card.ability.extra.evolve_cards + hands
         if to_big(card.ability.extra.evolve_cards) >= to_big(card.ability.extra.evolve_num) then
             check_for_unlock({ type = "evolve_btd" })
-            G.FUNCS.csau_evolve_stand(card)
+            ArrowAPI.stands.evolve_stand(card)
             return
         end
         
-        G.FUNCS.csau_flare_stand_aura(card, 0.50)
+        ArrowAPI.stands.flare_aura(card, 0.50)
         G.E_MANAGER:add_event(Event({func = function()
             play_sound('generic1')
             card:juice_up()
@@ -56,7 +62,7 @@ function consumInfo.calculate(self, card, context)
         local flare_card = context.blueprint_card or card
         return {
             func = function()
-                G.FUNCS.csau_flare_stand_aura(flare_card, 0.50)
+                ArrowAPI.stands.flare_aura(flare_card, 0.50)
                 ease_hands_played(card.ability.extra.hands)
             end,
             extra = {

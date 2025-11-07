@@ -1,10 +1,10 @@
 local consumInfo = {
     name = 'Epitaph',
-    set = 'csau_Stand',
+    set = 'Stand',
     config = {
         aura_colors = { 'fd5481DC', 'ee3c69DC' },
         aura_hover = true,
-        evolve_key = 'c_csau_vento_epitaph_king',
+        evolve_key = 'c_jojobal_vento_epitaph_king',
         extra = {
             evolve_skips = 0,
             evolve_num = 3,
@@ -12,18 +12,23 @@ local consumInfo = {
         }
     },
     cost = 4,
-    rarity = 'csau_StandRarity',
+    rarity = 'StandRarity',
     hasSoul = true,
-    part = 'vento',
-    blueprint_compat = false
+    origin = {
+        category = 'jojo',
+        sub_origins = {
+            'vento',
+        },
+        custom_color = 'vento'
+    },
+    blueprint_compat = false,
+    artist = 'gote',
 }
 
 function consumInfo.loc_vars(self, info_queue, card)
-    info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.gote } }
-
     local main_end = nil
     if G.deck and not card.area.config.collection then
-        main_end = G.FUNCS.csau_preview_cardarea(card.ability.extra.preview)
+        main_end = G.UIDEF.preview_cardarea(card.ability.extra.preview)
     end
 
     return {
@@ -33,7 +38,7 @@ function consumInfo.loc_vars(self, info_queue, card)
 end
 
 function consumInfo.in_pool(self, args)
-    return (not G.GAME.used_jokers['c_csau_vento_epitaph_king'])
+    return (not G.GAME.used_jokers['c_jojobal_vento_epitaph_king'])
 end
 
 function consumInfo.calculate(self, card, context)
@@ -41,7 +46,7 @@ function consumInfo.calculate(self, card, context)
         card.ability.extra.evolve_skips = card.ability.extra.evolve_skips + 1
         if card.ability.extra.evolve_skips >= card.ability.extra.evolve_num then
             check_for_unlock({ type = "evolve_kingcrimson" })
-            G.FUNCS.csau_evolve_stand(card)
+            ArrowAPI.stands.evolve_stand(card)
         else
             return {
                 no_retrigger = true,

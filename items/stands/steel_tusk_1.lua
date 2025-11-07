@@ -1,9 +1,9 @@
 local consumInfo = {
     name = 'Tusk ACT1',
-    set = 'csau_Stand',
+    set = 'Stand',
     config = {
         aura_colors = { 'ff7dbcDC', 'e675c2DC' },
-        evolve_key = 'c_csau_steel_tusk_2',
+        evolve_key = 'c_jojobal_steel_tusk_2',
         extra = {
             chips = 13,
             evolve_scores = 0,
@@ -16,21 +16,33 @@ local consumInfo = {
         }
     },
     cost = 4,
-    rarity = 'csau_StandRarity',
+    rarity = 'StandRarity',
     hasSoul = true,
-    part = 'steel',
-    blueprint_compat = true
+    origin = {
+        category = 'jojo',
+        sub_origins = {
+            'steel',
+        },
+        custom_color = 'steel'
+    },
+    blueprint_compat = true,
+    origin = {
+        category = 'jojo',
+        sub_origins = {
+            'steel',
+        },
+        custom_color = 'steel'
+    },
 }
 
 function consumInfo.loc_vars(self, info_queue, card)
-    info_queue[#info_queue+1] = {key = "csau_artistcredit_2", set = "Other", vars = { G.csau_team.wario, G.csau_team.cauthen } }
     return {vars = {card.ability.extra.chips, card.ability.extra.evolve_num - card.ability.extra.evolve_scores}}
 end
 
 function consumInfo.in_pool(self, args)
-    if G.GAME.used_jokers['c_csau_steel_tusk_2']
-    or G.GAME.used_jokers['c_csau_steel_tusk_3']
-    or G.GAME.used_jokers['c_csau_steel_tusk_4'] then
+    if G.GAME.used_jokers['c_jojobal_steel_tusk_2']
+    or G.GAME.used_jokers['c_jojobal_steel_tusk_3']
+    or G.GAME.used_jokers['c_jojobal_steel_tusk_4'] then
         return false
     end
     
@@ -48,7 +60,7 @@ function consumInfo.calculate(self, card, context)
         local flare_card = context.blueprint_card or card
         return {
             func = function()
-                G.FUNCS.csau_flare_stand_aura(flare_card, 0.50)
+                ArrowAPI.stands.flare_aura(flare_card, 0.50)
             end,
             extra = {
                 chips = card.ability.extra.chips,
@@ -62,7 +74,7 @@ function consumInfo.calculate(self, card, context)
             card.ability.extra.evolved = true
             G.E_MANAGER:add_event(Event({
                 func = (function()
-                    G.FUNCS.csau_evolve_stand(card)
+                    ArrowAPI.stands.evolve_stand(card)
                     return true
                 end)
             }))

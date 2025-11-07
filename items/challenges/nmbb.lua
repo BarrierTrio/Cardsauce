@@ -20,6 +20,7 @@ local chalInfo = {
     end
 }
 
+-- TODO: can probably improve this
 local triggered = false
 local debuff_hand_ref = Blind.debuff_hand
 

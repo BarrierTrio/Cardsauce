@@ -1,29 +1,35 @@
 local consumInfo = {
     name = 'Soft & Wet',
-    set = 'csau_Stand',
+    set = 'Stand',
     config = {
         aura_colors = { 'cc90f6DC', '734caeDC' },
         stand_mask = true,
-        evolve_key = 'c_csau_lion_soft_beyond',
+        evolve_key = 'c_jojobal_lion_soft_beyond',
         extra = {
             perma_mod = 0.5,
         }
     },
     cost = 4,
-    rarity = 'csau_StandRarity',
+    rarity = 'StandRarity',
     hasSoul = true,
-    part = 'lion',
+    origin = {
+        category = 'jojo',
+        sub_origins = {
+            'lion',
+        },
+        custom_color = 'lion'
+    },
     blueprint_compat = true,
+    artist = 'stup',
 }
 
 function consumInfo.loc_vars(self, info_queue, card)
     info_queue[#info_queue+1] = G.P_CENTERS.m_bonus
     info_queue[#info_queue+1] = G.P_CENTERS.m_mult
-    info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.stup } }
 end
 
 function consumInfo.in_pool(self, args)
-    return (not G.GAME.used_jokers['c_csau_lion_soft_beyond'])
+    return (not G.GAME.used_jokers['c_jojobal_lion_soft_beyond'])
 end
 
 function consumInfo.calculate(self, card, context)
@@ -70,7 +76,7 @@ function consumInfo.calculate(self, card, context)
                             delay = 0.25
                         })
                     end
-                    G.FUNCS.csau_flare_stand_aura(flare_card, 0.50)
+                    ArrowAPI.stands.flare_aura(flare_card, 0.50)
                 end,
                 extra = {
                     message = localize('k_soft_and_wet'),
@@ -88,9 +94,9 @@ function consumInfo.calculate(self, card, context)
                     v.jjba_soft_effect = nil
                 end
 
-                if not SMODS.PokerHands[context.scoring_name].visible then
+                if SMODS.PokerHands[context.scoring_name].visible == false then
                     check_for_unlock({ type = "evolve_soft" })
-                    G.FUNCS.csau_evolve_stand(card)
+                    ArrowAPI.stands.evolve_stand(card)
                 end
                 return true
             end

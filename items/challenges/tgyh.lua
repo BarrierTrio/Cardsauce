@@ -9,6 +9,7 @@ local chalInfo = {
     end
 }
 
+-- TODO: centralize this
 local sc_ref = Card.set_cost
 function Card:set_cost()
     sc_ref(self)

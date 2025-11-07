@@ -17,7 +17,7 @@ function blindInfo.defeat(self)
 end
 
 local function american_hornet()
-    if not G.GAME.blind.disabled and G.GAME.blind.name == 'The Wasp' then 
+    if not G.GAME.blind.disabled and G.GAME.blind.name == 'The Wasp' then
         return true
     elseif G.GAME.fnwk_extra_blinds then
         for _, v in ipairs(G.GAME.fnwk_extra_blinds) do
@@ -30,7 +30,7 @@ local function american_hornet()
     return false
 end
 
-
+-- TODO: can probably improve this
 local ref_eval = eval_card
 function eval_card(card, context)
     local ret = {}

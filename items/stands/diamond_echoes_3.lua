@@ -1,6 +1,6 @@
 local consumInfo = {
     name = 'Echoes ACT3',
-    set = 'csau_Stand',
+    set = 'Stand',
     config = {
         evolved = true,
         stand_mask = true,
@@ -11,21 +11,27 @@ local consumInfo = {
         }
     },
     cost = 10,
-    rarity = 'csau_evolvedRarity',
+    rarity = 'EvolvedRarity',
     hasSoul = true,
-    part = 'diamond',
+    origin = {
+        category = 'jojo',
+        sub_origins = {
+            'diamond',
+        },
+        custom_color = 'diamond'
+    },
     blueprint_compat = true,
+    artist = 'chvsau'
 }
 
 function consumInfo.loc_vars(self, info_queue, card)
     info_queue[#info_queue+1] = G.P_CENTERS.m_stone
-    info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.chvsau } }
     return {vars = {card.ability.extra.mult, card.ability.extra.xmult}}
 end
 
 function consumInfo.in_pool(self, args)
-    if G.GAME.used_jokers['c_csau_diamond_echoes_1']
-    or G.GAME.used_jokers['c_csau_diamond_echoes_2'] then
+    if G.GAME.used_jokers['c_jojobal_diamond_echoes_1']
+    or G.GAME.used_jokers['c_jojobal_diamond_echoes_2'] then
         return false
     end
     
@@ -47,7 +53,7 @@ function consumInfo.calculate(self, card, context)
 
         return {
             func = function()
-                G.FUNCS.csau_flare_stand_aura(flare_card, 0.50)
+                ArrowAPI.stands.flare_aura(flare_card, 0.50)
             end,
             extra = {
                 mult = mult,
@@ -60,16 +66,8 @@ end
 
 local ref_is = Card.is_suit
 function Card:is_suit(suit, bypass_debuff, flush_calc)
-    local echoes = SMODS.find_card("c_csau_diamond_echoes_3")
-    local valid = false
-    for _, v in ipairs(echoes) do
-        if not v.debuff then
-            valid = true
-            break;
-        end
-    end
-    
-    return (valid and SMODS.has_enhancement(self, 'm_stone')) or ref_is(self, suit, bypass_debuff, flush_calc)
+    local echoes = SMODS.find_card("c_jojobal_diamond_echoes_3")
+    return (next(echoes) and SMODS.has_enhancement(self, 'm_stone')) or ref_is(self, suit, bypass_debuff, flush_calc)
 end
 
 

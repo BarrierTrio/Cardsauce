@@ -1,6 +1,6 @@
 local consumInfo = {
     name = 'Bigmouth Strikes Again',
-    set = 'csau_Stand',
+    set = 'Stand',
     config = {
         aura_colors = { 'f3e2b5DC', 'd2caa4DC' },
         extra = {
@@ -9,19 +9,25 @@ local consumInfo = {
         }
     },
     cost = 4,
-    rarity = 'csau_StandRarity',
+    rarity = 'StandRarity',
     hasSoul = true,
-    part = 'lands',
+    origin = {
+        category = 'jojo',
+        sub_origins = {
+            'lands',
+        },
+        custom_color = 'lands'
+    },
     blueprint_compat = false,
+    artist = 'gote',
 }
 
 function consumInfo.loc_vars(self, info_queue, card)
-    info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.gote } }
     return { 
         vars = {
             card.ability.extra.hand_size,
             card.ability.extra.suit_count,
-            csau_format_display_number(card.ability.extra.hand_size, 'order')
+            ArrowAPI.string.format_number(card.ability.extra.hand_size, 'order')
         }
     }
 end
@@ -41,7 +47,7 @@ function consumInfo.calculate(self, card, context)
     end
 
     if not target_key then
-        target_key = pseudorandom_element(SMODS.Suits, pseudoseed('csau_bigmouth_randomsuit')).key
+        target_key = pseudorandom_element(SMODS.Suits, pseudoseed('jojobal_bigmouth_randomsuit')).key
     end
 
     local change_cards = {}
@@ -69,7 +75,7 @@ function consumInfo.calculate(self, card, context)
 
     if #change_cards < 1 then return end
 
-    G.FUNCS.csau_flare_stand_aura(card, 0.5)
+    ArrowAPI.stands.flare_aura(card, 0.5)
     card_eval_status_text(card, 'extra', nil, nil, nil, {
         message = localize(target_key, 'suits_plural'),
         colour = G.C.SUITS[target_key]

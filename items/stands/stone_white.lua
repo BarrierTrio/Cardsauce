@@ -1,10 +1,10 @@
 local consumInfo = {
     name = 'Whitesnake',
-    set = 'csau_Stand',
+    set = 'Stand',
     config = {
         aura_colors = { '8b6cc9DC', '6c4ca0DC' },
         stand_mask = true,
-        evolve_key = 'c_csau_stone_white_moon',
+        evolve_key = 'c_jojobal_stone_white_moon',
         extra = {
             evolve_scores = 0,
             evolve_num = 36,
@@ -12,20 +12,26 @@ local consumInfo = {
         }
     },
     cost = 4,
-    rarity = 'csau_StandRarity',
+    rarity = 'StandRarity',
     hasSoul = true,
-    part = 'stone',
-    blueprint_compat = true
+    origin = {
+        category = 'jojo',
+        sub_origins = {
+            'stone',
+        },
+        custom_color = 'stone'
+    },
+    blueprint_compat = true,
+    artist = 'wario',
 }
 
 function consumInfo.loc_vars(self, info_queue, card)
-    info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.wario } }
     return { vars = {card.ability.extra.evolve_num - card.ability.extra.evolve_scores, SMODS.Ranks[card.ability.extra.evolve_val].key}}
 end
 
 function consumInfo.in_pool(self, args)
-    if G.GAME.used_jokers['c_csau_stone_white_moon']
-    or G.GAME.used_jokers['c_csau_stone_white_heaven'] then
+    if G.GAME.used_jokers['c_jojobal_stone_white_moon']
+    or G.GAME.used_jokers['c_jojobal_stone_white_heaven'] then
         return false
     end
     
@@ -42,7 +48,7 @@ function consumInfo.calculate(self, card, context)
             local flare_card = context.blueprint_card or card
             return {
                 pre_func = function()
-                    G.FUNCS.csau_flare_stand_aura(flare_card, 0.50)
+                    ArrowAPI.stands.flare_aura(flare_card, 0.50)
                 end,
                 message = localize('k_again_ex'),
                 repetitions = 1,
@@ -54,7 +60,7 @@ function consumInfo.calculate(self, card, context)
     if context.after and not card.debuff and not context.blueprint and not context.retrigger_joker and not card.ability.extra.evolved then
         if to_big(card.ability.extra.evolve_scores) >= to_big(card.ability.extra.evolve_num) then
             card.ability.extra.evolved = true
-            G.FUNCS.csau_evolve_stand(card)
+            ArrowAPI.stands.evolve_stand(card)
         else
             return {
                 no_retrigger = true,

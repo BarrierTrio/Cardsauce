@@ -20,6 +20,8 @@ function jokerInfo.loc_vars(self, info_queue, card)
     return { vars = { card.ability.extra.x_mult_mod, card.ability.extra.x_mult } }
 end
 
+-- TODO: reimplement bulk using contexts
+
 function jokerInfo.calculate(self, card, context)
     if context.joker_main and to_big(card.ability.extra.x_mult) > to_big(1) then
         return {

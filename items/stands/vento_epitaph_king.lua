@@ -1,24 +1,27 @@
 local consumInfo = {
     name = 'King Crimson',
-    set = 'csau_Stand',
+    set = 'Stand',
     config = {
         evolved = true,
         stand_mask = true,
         aura_colors = { 'e53663DC', 'a71d40DC' },
     },
     cost = 10,
-    rarity = 'csau_evolvedRarity',
+    rarity = 'EvolvedRarity',
     hasSoul = true,
-    part = 'vento',
+    origin = {
+        category = 'jojo',
+        sub_origins = {
+            'vento',
+        },
+        custom_color = 'vento'
+    },
     blueprint_compat = true,
+    artist = 'gote',
 }
 
-function consumInfo.loc_vars(self, info_queue, card)
-    info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.gote } }
-end
-
 function consumInfo.in_pool(self, args)
-    return (not G.GAME.used_jokers['c_csau_vento_epitaph'])
+    return (not G.GAME.used_jokers['c_jojobal_vento_epitaph'])
 end
 
 function consumInfo.calculate(self, card, context)
@@ -26,7 +29,7 @@ function consumInfo.calculate(self, card, context)
         local flare_card = context.blueprint_card or card
         return {
             func = function()
-                G.FUNCS.csau_flare_stand_aura(flare_card, 0.50)
+                ArrowAPI.stands.flare_aura(flare_card, 0.50)
                 G.E_MANAGER:add_event(Event({
                     func = function()
                         if G.GAME.round_resets.blind_tags[G.GAME.blind_on_deck] == 'tag_orbital' then

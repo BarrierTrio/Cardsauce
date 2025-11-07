@@ -45,15 +45,15 @@ function jokerInfo.loc_vars(self, info_queue, card)
 end
 
 function jokerInfo.calculate(self, card, context)
-	if card.debuff or not context.reroll_shop or #G.consumeables.cards + G.GAME.consumeable_buffer >= G.consumeables.config.card_limit then 
-		return 
+	if card.debuff or not context.reroll_shop or #G.consumeables.cards + G.GAME.consumeable_buffer >= G.consumeables.config.card_limit then
+		return
 	end
 
 	G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
 	G.E_MANAGER:add_event(Event({
 		func = (function()
 			G.E_MANAGER:add_event(Event({
-				func = function() 
+				func = function()
 					local new_card = create_card('Tarot', G.consumeables, nil, nil, nil, nil, 'c_wheel_of_fortune', 'car')
 					new_card:add_to_deck()
 					G.consumeables:emplace(new_card)
@@ -66,6 +66,7 @@ function jokerInfo.calculate(self, card, context)
 	))
 end
 
+-- TODO: can probably improve this
 local loveUpdateReference = love.update
 function love.update(dt)
 	if mod.speenTimer and G.SETTINGS.GAMESPEED then
@@ -75,12 +76,12 @@ function love.update(dt)
 end
 
 function jokerInfo.draw(self,card,layer)
-	--Withouth love.graphics.push, .pop, and .reset, it will attempt to use values from the rest of 
+	--Withouth love.graphics.push, .pop, and .reset, it will attempt to use values from the rest of
 	--the rendering code. We need a clean slate for rendering to canvases.
 	if card.area.config.collection and not self.discovered then
 		return
 	end
-	
+
 	love.graphics.push('all')
 		love.graphics.reset()
 		if not card.children.center.video then
@@ -88,7 +89,7 @@ function jokerInfo.draw(self,card,layer)
 			--We need to check for this, and re-initialize it.
 			setupCanvas(card)
 		end
-		
+
 		card.children.center.video:renderTo(function()
 			--Same as before, but this time we pass in the timer.
 			love.graphics.draw(mod.speenBase)
@@ -98,4 +99,3 @@ function jokerInfo.draw(self,card,layer)
 end
 
 return jokerInfo
-	

@@ -19,7 +19,7 @@ end
 function voucherInfo.redeem(self, card, area, copier)
     G.E_MANAGER:add_event(Event({
         func = (function()
-            G.GAME.csau_stand_rate = G.GAME.csau_stand_rate + card.ability.extra.rate
+            G.GAME.stand_rate = G.GAME.stand_rate + card.ability.extra.rate
             return true
         end)
     }))

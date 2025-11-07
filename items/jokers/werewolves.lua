@@ -27,36 +27,13 @@ function jokerInfo.set_ability(self, card, initial, delay_sprites)
 	card.ability.extra.hand = pseudorandom_element(_poker_hands, pseudoseed((card.area and card.area.config.type == 'title') and 'false_werewolves' or 'werewolves'))
 end
 
-local triggered = false
-local debuff_hand_ref = Blind.debuff_hand
-
-function Blind:debuff_hand(cards, hand, handname, check)
-	if next(SMODS.find_card('j_csau_werewolves')) then
-		local werewolves = SMODS.find_card('j_csau_werewolves')
-		if handname == werewolves[1].ability.extra.hand then
-			triggered = true
-			return true
-		end
-		triggered = false
-	else
-		triggered = false
-	end
-	return debuff_hand_ref(self, cards, hand, handname, check)
-end
-
-local get_loc_debuff_textref = Blind.get_loc_debuff_text
-function Blind:get_loc_debuff_text()
-	if triggered then
-		return localize("k_werewolves")
-	end
-	return get_loc_debuff_textref(self)
-end
+-- TODO: reimplement werewolves debuff hand with modern SMODS contexts
 
 function jokerInfo.calculate(self, card, context)
 	if context.joker_main and context.cardarea == G.jokers then
 		return {
 			message = localize{type='variable',key='a_xmult',vars={to_big(card.ability.extra.x_mult)}},
-			Xmult_mod = card.ability.extra.x_mult, 
+			Xmult_mod = card.ability.extra.x_mult,
 		}
 	end
 	if context.end_of_round and G.GAME.blind.boss and not context.other_card then
@@ -71,4 +48,3 @@ end
 
 
 return jokerInfo
-	

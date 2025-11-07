@@ -31,6 +31,7 @@ function jokerInfo.loc_vars(self, info_queue, card)
     info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.lyzerus } }
 end
 
+-- TODO: can easily add this as an arrow API function
 local function refresh_costs()
     G.E_MANAGER:add_event(Event({func = function()
         for k, v in pairs(G.I.CARD) do
@@ -49,4 +50,3 @@ function jokerInfo.remove_from_deck(self, card)
 end
 
 return jokerInfo
-	

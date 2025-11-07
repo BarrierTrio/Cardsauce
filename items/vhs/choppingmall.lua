@@ -1,15 +1,4 @@
-local ref_game_update_hand = Game.update_selecting_hand
-function Game:update_selecting_hand(dt)
-    local state_complete = G.STATE_COMPLETE
-
-    local ret = ref_game_update_hand(self, dt)
-
-    if not state_complete and G.STATE_COMPLETE and #G.hand.cards >= 1 and #G.deck.cards >= 1 then
-        SMODS.calculate_context({csau_resetting_hand = true})
-    end
-
-    return ret
-end
+-- TODO: replace chopping mall updated hand ref
 
 local consumInfo = {
     name = 'Chopping Mall',
@@ -37,7 +26,7 @@ local consumInfo = {
 function consumInfo.loc_vars(self, info_queue, card)
     info_queue[#info_queue+1] = {key = "vhs_activation", set = "Other"}
     info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.wario } }
-    return { 
+    return {
         vars = {
             card.ability.extra.runtime-card.ability.extra.uses,
             (card.ability.extra.runtime-card.ability.extra.uses) > 1 and 's' or ''
@@ -57,7 +46,7 @@ function consumInfo.calculate(self, card, context)
                     G.FUNCS.destroy_tape(card)
                     card.ability.destroyed = true
                     return true
-                end 
+                end
             }))
         end
         return
@@ -74,7 +63,7 @@ function consumInfo.calculate(self, card, context)
         func = function()
             card:juice_up()
             return true
-        end 
+        end
     }))
 
     return {

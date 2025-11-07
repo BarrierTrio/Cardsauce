@@ -1,20 +1,26 @@
 local consumInfo = {
     name = 'I Am a Rock',
-    set = 'csau_Stand',
+    set = 'Stand',
     config = {
         aura_colors = { '7ec7ffDC', 'ffbb49DC' },
         stand_mask = true,
     },
     cost = 4,
-    rarity = 'csau_StandRarity',
+    rarity = 'StandRarity',
     hasSoul = true,
-    part = 'lion',
+    origin = {
+        category = 'jojo',
+        sub_origins = {
+            'lion',
+        },
+        custom_color = 'lion'
+    },
     blueprint_compat = true,
+    artist = 'gote',
 }
 
 function consumInfo.loc_vars(self, info_queue, card)
     info_queue[#info_queue+1] = G.P_CENTERS.m_stone
-    info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.gote } }
 end
 
 function consumInfo.calculate(self, card, context)
@@ -23,7 +29,7 @@ function consumInfo.calculate(self, card, context)
     if context.playing_card_added then
         local cards = {}
         for i, v in ipairs(context.cards) do
-            if not v.csau_rock_effect then
+            if not v.jojobal_rock_effect then
                 local new_stone = SMODS.create_card({
 					set = 'Enhanced',
 					enhancement = 'm_stone',
@@ -39,7 +45,7 @@ function consumInfo.calculate(self, card, context)
                 new_stone.states.visible = false
                 new_stone:add_to_deck()
                 new_stone:hard_set_T(G.ROOM.T.x + G.ROOM.T.w/2 - new_stone.T.w/2, G.ROOM.T.y + G.ROOM.T.h/2 - new_stone.T.h/2, new_stone.T.w, new_stone.T.h)
-                new_stone.csau_rock_effect = true
+                new_stone.jojobal_rock_effect = true
 
                 cards[#cards+1] = new_stone
             end

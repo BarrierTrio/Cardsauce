@@ -1,21 +1,20 @@
 SMODS.PokerHandPart {
-    key = 'csau_fibonacci',
+    key = 'jojobal_fibonacci',
     prefix_config = false,
     func = function(hand) 
-        return csau_get_fibonacci(hand)
+        return jojobal_get_fibonacci(hand)
     end,
 }
 
 SMODS.PokerHand {
-    key = 'csau_Fibonacci',
+    key = 'jojobal_Fibonacci',
     prefix_config = false,
     evaluate = function(parts, hand)
-        if not (next(SMODS.find_card('j_fnwk_plancks_jokestar'))
-        or next(SMODS.find_card("c_csau_steel_tusk_4")))
-        or not next(parts.csau_fibonacci) then
-            return {} 
+        if not next(parts.jojobal_fibonacci) then
+            return {}
         end
-        return { hand }
+
+        return { SMODS.is_poker_hand_visible('jojobal_Fibonacci') and hand or nil }
     end,
     example = {
         {'D_8', true},
@@ -32,15 +31,15 @@ SMODS.PokerHand {
 }
 
 SMODS.PokerHand {
-    key = 'csau_FlushFibonacci',
+    key = 'jojobal_FlushFibonacci',
     prefix_config = false,
     evaluate = function(parts, hand)
-        if not (next(SMODS.find_card('j_fnwk_plancks_jokestar'))
-        or next(SMODS.find_card("c_csau_steel_tusk_4")))
-        or not next(parts.csau_fibonacci) or not next(parts._flush) then
-            return {} 
+        if not next(parts.jojobal_fibonacci) or not next(parts._flush) then
+            return {}
         end
-        return { SMODS.merge_lists(parts.csau_fibonacci, parts._flush) }
+
+        return { SMODS.is_poker_hand_visible('jojobal_Fibonacci')
+        and SMODS.merge_lists(parts.jojobal_fibonacci, parts._flush) or nil }
     end,
     example = {
         {'H_8', true},
@@ -58,7 +57,7 @@ SMODS.PokerHand {
 
 local consumInfo = {
     name = 'Tusk ACT4',
-    set = 'csau_Stand',
+    set = 'Stand',
     config = {
         aura_colors = { 'ff7dbcDC', '55a3ffDC' },
         stand_mask = true,
@@ -76,22 +75,27 @@ local consumInfo = {
         }
     },
     cost = 10,
-    rarity = 'csau_evolvedRarity',
+    rarity = 'EvolvedRarity',
     alerted = true,
     hasSoul = true,
-    part = 'steel',
-    blueprint_compat = true
+    origin = {
+        category = 'jojo',
+        sub_origins = {
+            'steel',
+        },
+        custom_color = 'steel'
+    },
+    blueprint_compat = true,
 }
 
 function consumInfo.loc_vars(self, info_queue, card)
-    info_queue[#info_queue+1] = {key = "csau_artistcredit_2", set = "Other", vars = { G.csau_team.wario, G.csau_team.cauthen } }
     return {vars = {card.ability.extra.chips, card.ability.extra.hand_mod}}
 end
 
 function consumInfo.in_pool(self, args)
-    if G.GAME.used_jokers['c_csau_steel_tusk_1']
-    or G.GAME.used_jokers['c_csau_steel_tusk_2']
-    or G.GAME.used_jokers['c_csau_steel_tusk_3'] then
+    if G.GAME.used_jokers['c_jojobal_steel_tusk_1']
+    or G.GAME.used_jokers['c_jojobal_steel_tusk_2']
+    or G.GAME.used_jokers['c_jojobal_steel_tusk_3'] then
         return false
     end
     
@@ -99,20 +103,20 @@ function consumInfo.in_pool(self, args)
 end
 
 function consumInfo.add_to_deck(self, card)
-    G.GAME.hands['csau_Fibonacci'].visible = true
-    if G.GAME.hands.csau_FlushFibonacci.played > 0 then
-        G.GAME.hands['csau_FlushFibonacci'].visible = true
+    G.GAME.hands['jojobal_Fibonacci'].visible = true
+    if G.GAME.hands.jojobal_FlushFibonacci.played > 0 then
+        G.GAME.hands['jojobal_FlushFibonacci'].visible = true
     end
 end
 
 function consumInfo.remove_from_deck(self, card, from_debuff)
     -- compatability with fanworks mod, this other card also enables fibonacci hands
-    if next(SMODS.find_card('j_fnwk_plancks_jokestar')) or next(SMODS.find_card("c_csau_steel_tusk_4")) then
+    if next(SMODS.find_card('j_fnwk_plancks_jokestar')) or next(SMODS.find_card("c_jojobal_steel_tusk_4")) then
         return
     end
 
-    G.GAME.hands['csau_Fibonacci'].visible = false
-    G.GAME.hands['csau_FlushFibonacci'].visible = false
+    G.GAME.hands['jojobal_Fibonacci'].visible = false
+    G.GAME.hands['jojobal_FlushFibonacci'].visible = false
 end
 
 function consumInfo.calculate(self, card, context)
@@ -122,7 +126,7 @@ function consumInfo.calculate(self, card, context)
         local flare_card = context.blueprint_card or card
         return {
             func = function()
-                G.FUNCS.csau_flare_stand_aura(flare_card, 0.50)
+                ArrowAPI.stands.flare_aura(flare_card, 0.50)
             end,
             extra = {
                 chips = card.ability.extra.chips,
@@ -131,11 +135,11 @@ function consumInfo.calculate(self, card, context)
         }
     end
 
-    if context.before and next(context.poker_hands['csau_Fibonacci']) then
+    if context.before and next(context.poker_hands['jojobal_Fibonacci']) then
         local flare_card = context.blueprint_card or card
         return {
             func = function()
-                G.FUNCS.csau_flare_stand_aura(flare_card, 0.50)
+                ArrowAPI.stands.flare_aura(flare_card, 0.50)
                 ease_hands_played(card.ability.extra.hand_mod)
             end,
             extra = {

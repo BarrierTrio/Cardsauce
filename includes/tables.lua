@@ -133,7 +133,7 @@ else
 end
 
 
-
+-- TODO: update to use Arrow automated crediting
 --- Table containing all names of people who contributed to the mod, used in crediting
 G.csau_team = {
 	['gote'] = "BarrierTrio/Gote",

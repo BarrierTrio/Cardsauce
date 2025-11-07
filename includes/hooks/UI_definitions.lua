@@ -47,7 +47,7 @@ function G.UIDEF.use_and_sell_buttons(card)
 		end
 	end
 
-	if card.ability.set == "csau_Stand" then
+	if card.ability.set == "Stand" then
 		local sell = {n=G.UIT.C, config={align = "cr"}, nodes={
 			{n=G.UIT.C, config={ref_table = card, align = "cr",padding = 0.1, r=0.08, minw = 1.25, hover = true, shadow = true, colour = G.C.UI.BACKGROUND_INACTIVE, one_press = true, button = 'sell_card', func = 'can_sell_card'}, nodes={
 				{n=G.UIT.B, config = {w=0.1,h=0.6}},
@@ -176,9 +176,9 @@ function G.UIDEF.morshu_save(existing_morshu_area)
 		G.hand.T.x+0,
 		G.hand.T.y+G.ROOM.T.y + 9,
 		1.25*G.CARD_W,
-		0.85*G.CARD_H, 
+		0.85*G.CARD_H,
 		{card_limit = G.GAME.morshu_cards or 0, type = 'shop', highlight_limit = 1})
-	
+
 	local t = {n=G.UIT.ROOT, config = {align = 'cl', colour = G.C.CLEAR}, nodes={
 		UIBox_dyn_container({{
 			n=G.UIT.C, config={align = "cm", padding = 0.05, emboss = 0.05, r = 0.1, colour = G.C.BLACK}, nodes={

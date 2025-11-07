@@ -1,6 +1,6 @@
 local function force_fool_card()
     if G.consumeables then
-        return next(SMODS.find_card('c_csau_steel_civil')) and 'c_hanged_man' or nil
+        return next(SMODS.find_card('c_jojobal_steel_civil')) and 'c_hanged_man' or nil
     end
 
     return nil
@@ -106,7 +106,7 @@ SMODS.Consumable:take_ownership('c_emperor', {
 
 local consumInfo = {
     name = 'Civil War',
-    set = 'csau_Stand',
+    set = 'Stand',
     config = {
         aura_colors = { 'c09f5fDC', '6c161fDC' },
         stand_mask = true,
@@ -115,15 +115,21 @@ local consumInfo = {
         }
     },
     cost = 4,
-    rarity = 'csau_StandRarity',
+    rarity = 'StandRarity',
     hasSoul = true,
-    part = 'steel',
-    blueprint_compat = false
+    origin = {
+        category = 'jojo',
+        sub_origins = {
+            'steel',
+        },
+        custom_color = 'steel'
+    },
+    blueprint_compat = false,
+    artist = 'gote',
 }
 
 function consumInfo.loc_vars(self, info_queue, card)
     info_queue[#info_queue+1] = G.P_CENTERS.c_hanged_man
-    info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.gote } }
     return { vars = {localize{type = 'name_text', key = card.ability.extra.tarot, set = 'Tarot'}}}
 end
 
@@ -132,7 +138,7 @@ function consumInfo.calculate(self, card, context)
     if card.debuff and not context.blueprint and not context.retrigger_joker then return end
     
     if context.using_consumeable and context.consumeable.config.center.key == 'c_hanged_man' then
-        G.FUNCS.csau_flare_stand_aura(card, 0.50)
+        ArrowAPI.stands.flare_aura(card, 0.50)
     end
 end
 

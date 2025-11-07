@@ -63,7 +63,7 @@ end
 
 function jokerInfo.loc_vars(self, info_queue, card)
     info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.gote } }
-    return { 
+    return {
         vars = {
             card.ability.extra.Diamonds.mult_mod,
             card.ability.extra.Diamonds.mult,
@@ -90,7 +90,7 @@ function jokerInfo.calculate(self, card, context)
 
             if first then
                 local form = change_form(card, first.config.center.key == 'm_wild' and 'Wild' or first.base.suit)
-                                
+
                 -- resetting collection sprites
                 G.E_MANAGER:add_event(Event({ func = function()
                     card:juice_up(0.7, 0.7)
@@ -116,7 +116,7 @@ function jokerInfo.calculate(self, card, context)
                 end
             end
         end
-        
+
         if card.ability.extra.form == "Diamonds" and not context.blueprint then
             card.ability.extra.Diamonds.mult = card.ability.extra.Diamonds.mult + card.ability.extra.Diamonds.mult_mod * #context.scoring_hand
             return {
@@ -168,7 +168,7 @@ function jokerInfo.calculate(self, card, context)
         }
     end
 
-    
+
     if context.after and card.ability.extra.form == "Clubs" then
         G.E_MANAGER:add_event(Event({
             func = function()
@@ -203,19 +203,6 @@ function jokerInfo.calculate(self, card, context)
     end
 end
 
-local ref_as = SMODS.always_scores
-SMODS.always_scores = function(card)
-    local stses = SMODS.find_card('j_csau_sts')
-    local diamonds = nil
-    for _, v in ipairs(stses) do
-        if not v.debuff and v.ability.extra.form == 'Diamonds' then
-            diamonds = true
-            break
-        end
-    end
-
-    if diamonds then return true end
-    return ref_as(card)
-end
+-- TODO: reimplement sts always_scores ref with modern SMODS add_to_hand contexts
 
 return jokerInfo
