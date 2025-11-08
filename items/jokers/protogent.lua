@@ -13,10 +13,10 @@ local jokerInfo = {
     perishable_compat = true,
     has_shiny = true,
     streamer = "joel",
+    artist = 'HunnyByte'
 }
 
 function jokerInfo.loc_vars(self, info_queue, card)
-    info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.rerun } }
     local num, dom1 = SMODS.get_probability_vars(card, 1, card.ability.extra.boss_prob, 'csau_proto_boss')
     local _, dom2 = SMODS.get_probability_vars(card, 1, card.ability.extra.save_prob, 'csau_proto_save')
     return { vars = { num, dom1, dom2 } }
@@ -62,7 +62,7 @@ function jokerInfo.calculate(self, card, context)
                 return true
             end
         }))
-        
+
         check_for_unlock({ type = "activate_proto" })
         return {
             saved = 'ph_saved_proto',

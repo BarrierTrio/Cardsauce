@@ -15,6 +15,8 @@ local consumInfo = {
         custom_color = 'diamond'
     },
     blueprint_compat = false,
+    artist = 'MightyKingWario',
+    programmer = 'Kekulism'
 }
 
 local function is_removed(card, removed)

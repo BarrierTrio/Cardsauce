@@ -21,7 +21,7 @@ local consumInfo = {
         custom_color = 'lion'
     },
     blueprint_compat = true,
-    artist = {'winter', 'stup'}
+    artist = {'Vivian Giacobbi', 'Stupisms'}
 }
 
 function consumInfo.loc_vars(self, info_queue, card)
@@ -46,7 +46,7 @@ function consumInfo.set_ability(self, card, initial, delay_sprites)
         if card.ability.extra.wonder_form > 1 then
             card.config.center.atlas = "jojobal_lion_wonder_"..card.ability.extra.wonder_form
         end
-        
+
         card:set_sprites(card.config.center)
         card.config.center.atlas = 'jojobal_lion_wonder'
 
@@ -75,7 +75,7 @@ function consumInfo.calculate(self, card, context)
             }
         }
     end
-        
+
     if context.destroy_card and not context.blueprint and not context.retrigger_joker then
         if SMODS.has_enhancement(context.destroy_card, 'm_lucky') and SMODS.in_scoring(context.destroy_card, context.scoring_hand) and not context.destroy_card.debuff then
             card.ability.extra.x_mult = card.ability.extra.x_mult + card.ability.extra.x_mult_mod
@@ -123,7 +123,7 @@ function consumInfo.calculate(self, card, context)
                                 G.PROFILES[G.SETTINGS.profile].progress.highest_wonder = card.ability.extra.wonder_form
                                 G:save_settings()
                             end
-                            
+
                             context.removed:juice_up()
                             return true
                         end

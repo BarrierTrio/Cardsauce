@@ -29,6 +29,8 @@ local consumInfo = {
         custom_color = 'steel'
     },
     blueprint_compat = true,
+    artist = {'MightyKingWario', 'Vivian Giacobbi'},
+    programmer = 'Kekulism'
 }
 
 function consumInfo.loc_vars(self, info_queue, card)
@@ -41,7 +43,7 @@ function consumInfo.in_pool(self, args)
     or G.GAME.used_jokers['c_jojobal_steel_tusk_4'] then
         return false
     end
-    
+
     return true
 end
 

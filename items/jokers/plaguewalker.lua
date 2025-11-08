@@ -14,7 +14,8 @@ local jokerInfo = {
     eternal_compat = true,
     perishable_compat = true,
     streamer = "joel",
-    origin = 'monkeywrench'
+    origin = 'monkeywrench',
+    artist = 'Zeurel'
 }
 
 local function apply_plague(card, x_mult, break_chance)
@@ -43,14 +44,13 @@ end
 
 function jokerInfo.loc_vars(self, info_queue, card)
     info_queue[#info_queue+1] = G.P_CENTERS.m_glass
-    info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.zeurel } }
     local num, dom = SMODS.get_probability_vars(card, 1, card.ability.extra.glass_break, 'glass')
     return { vars = { card.ability.extra.glass_mult, num, dom } }
 end
 
 function jokerInfo.in_pool(self, args)
     if not G.playing_cards then return true end
-    
+
     for _, v in ipairs(G.playing_cards) do
         if v.config.center.key == 'm_glass' then
             return true

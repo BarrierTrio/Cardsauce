@@ -11,10 +11,10 @@ local jokerInfo = {
     eternal_compat = true,
     perishable_compat = true,
     streamer = "joel",
+    artist = 'SagaciousCejai'
 }
 
 function jokerInfo.loc_vars(self, info_queue, card)
-    info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.cejai } }
     local faces = 0
     if G.playing_cards then
         for k, v in pairs(G.playing_cards) do

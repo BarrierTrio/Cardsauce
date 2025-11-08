@@ -12,6 +12,7 @@ local jokerInfo = {
 	perishable_compat = false,
 	unlock_condition = {type = 'win_deck', deck = 'b_green'},
 	streamer = "other",
+	artist = 'BarrierTrio/Gote'
 }
 
 function jokerInfo.check_for_unlock(self, args)
@@ -21,7 +22,6 @@ function jokerInfo.check_for_unlock(self, args)
 end
 
 function jokerInfo.loc_vars(self, info_queue, card)
-	info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.gote } }
 	return { vars = { card.ability.extra.mult } }
 end
 
@@ -48,7 +48,7 @@ function jokerInfo.calculate(self, card, context)
 			card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize{ type = 'variable', key = 'a_mult', vars = {to_big(card.ability.extra.mult_gain)} }, colour = G.C.MULT})
 		end
 	end
-	
+
 	if context.joker_main and context.cardarea == G.jokers then
 		if to_big(card.ability.extra.mult) ~= to_big(0) then
 			return {
@@ -62,4 +62,3 @@ end
 
 
 return jokerInfo
-	

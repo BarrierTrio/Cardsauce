@@ -9,13 +9,9 @@ local consumInfo = {
     streamer = 'vinny',
     csau_dependencies = {
         'enableVinnyContent',
-    }
+    },
+    artist = 'Lyman (JankJonklers)',
 }
-
-function consumInfo.loc_vars(self, info_queue, card)
-    info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.lyman } }
-    return {}
-end
 
 function consumInfo.use(self, card, area, copier)
     check_for_unlock({ type = "activate_protojoker" })

@@ -11,6 +11,7 @@ local jokerInfo = {
     eternal_compat = true,
     perishable_compat = false,
     streamer = "joel",
+    artist = 'MightyKingWario'
 }
 
 local function get_mult(card)
@@ -23,8 +24,7 @@ local function get_mult(card)
 end
 
 function jokerInfo.loc_vars(self, info_queue, card)
-    info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.wario } }
-    return { 
+    return {
         vars = { card.ability.extra.mult_mod, get_mult(card) },
         key = self.key..(csau_config['detailedDescs'] and '_detailed' or '')
     }

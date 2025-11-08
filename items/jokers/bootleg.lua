@@ -1,5 +1,3 @@
-local mod = SMODS.current_mod
-
 SMODS.Shader {
     key = 'bootleg',
     path = 'bootleg.fs',
@@ -15,6 +13,7 @@ local jokerInfo = {
     eternal_compat = true,
     perishable_compat = true,
     streamer = "joel",
+    artist = 'BarrierTrio/Gote'
 }
 
 local function reduced_set_ability(card, center)
@@ -149,8 +148,8 @@ function jokerInfo.calculate(self, card, context)
         card.config.center = G.P_CENTERS['j_csau_bootleg']
     end
 
-    
-    if context.end_of_round and context.main_eval and not context.blueprint and not context.retrigger_joker then  
+
+    if context.end_of_round and context.main_eval and not context.blueprint and not context.retrigger_joker then
         if card.ability.bootlegged_key then
             -- make sure values are reset
             card.config.center = G.P_CENTERS[card.ability.bootlegged_key]
@@ -164,10 +163,10 @@ function jokerInfo.calculate(self, card, context)
                     card:juice_up()
                     play_sound('generic1')
                     return true
-                end 
+                end
             }))
         end
-        reduced_set_ability(card, G.P_CENTERS['j_csau_bootleg']) 
+        reduced_set_ability(card, G.P_CENTERS['j_csau_bootleg'])
         return
     end
 
@@ -240,7 +239,6 @@ function jokerInfo.generate_ui(self, info_queue, card, desc_nodes, specific_vars
         return
     end
 
-    info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.gote } }
     if card.config.center.discovered then
         -- If statement makes it so that this function doesnt activate in the "Joker Unlocked" UI and cause 'Not Discovered' to be stuck in the corner
         full_UI_table.name = localize{type = 'name', key = self.key, set = self.set, name_nodes = {}, vars = specific_vars or {}}
@@ -327,4 +325,3 @@ function jokerInfo.draw(self, card, layer)
 end
 
 return jokerInfo
-	

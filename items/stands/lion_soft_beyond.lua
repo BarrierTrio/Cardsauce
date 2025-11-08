@@ -20,7 +20,8 @@ local consumInfo = {
         custom_color = 'lion'
     },
     blueprint_compat = true,
-    artist = 'stup',
+    artist = 'Stupisms',
+    programmer = 'Kekulism'
 }
 
 function consumInfo.loc_vars(self, info_queue, card)
@@ -50,7 +51,7 @@ function consumInfo.calculate(self, card, context)
                     v.ability.perma_mult = v.ability.perma_mult or 0
                     v.ability.perma_mult = v.ability.perma_mult + (G.P_CENTERS[v.jjba_soft_effect].config.mult*card.ability.extra.perma_mod)
                 end
-                
+
                 if v.config.center.key == 'm_bonus' or v.config.center.key == 'm_mult' then
                     v:set_ability(G.P_CENTERS.c_base, nil, 'manual')
                 end

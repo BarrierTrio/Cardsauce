@@ -12,6 +12,7 @@ local jokerInfo = {
     perishable_compat = true,
     has_shiny = true,
     streamer = "joel",
+    artist = 'greek_shmeek'
 }
 
 
@@ -27,7 +28,6 @@ local function ace_tally()
 end
 
 function jokerInfo.loc_vars(self, info_queue, card)
-    info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.greeky } }
     return { vars = {card.ability.extra.x_mult, ace_tally()} }
 end
 

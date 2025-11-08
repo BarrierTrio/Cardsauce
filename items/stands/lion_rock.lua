@@ -16,7 +16,7 @@ local consumInfo = {
         custom_color = 'lion'
     },
     blueprint_compat = true,
-    artist = 'gote',
+    artist = 'BarrierTrio/Gote',
 }
 
 function consumInfo.loc_vars(self, info_queue, card)
@@ -51,7 +51,7 @@ function consumInfo.calculate(self, card, context)
             end
         end
 
-        if #cards > 0 then  
+        if #cards > 0 then
             playing_card_joker_effects(cards)
 
             return {

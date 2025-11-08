@@ -9,10 +9,10 @@ local jokerInfo = {
 	eternal_compat = true,
 	perishable_compat = true,
 	streamer = "vinny",
+	artist = 'BarrierTrio/Gote'
 }
 
 function jokerInfo.loc_vars(self, info_queue, card)
-	info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.gote } }
 	return { vars = {}, key = self.key..(csau_config['detailedDescs'] and '_detailed' or '') }
 end
 

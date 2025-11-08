@@ -12,7 +12,6 @@ local consumInfo = {
 function consumInfo.loc_vars(self, info_queue, card)
     info_queue[#info_queue+1] = G.P_CENTERS.e_holo
     info_queue[#info_queue+1] = {key = 'eternal', set = 'Other'}
-    info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.cauthen } }
 end
 
 function consumInfo.use(self, card, area, copier)

@@ -142,53 +142,6 @@ end
 
 -- TODO: move shop_dollars_spent and rerolls_this_round to arrow
 
--- this also incorporates koffing's ref to reroll so I don't have them in two places
-local reroll_shopref = G.FUNCS.reroll_shop
-function G.FUNCS.reroll_shop(e)
-    -- TODO: move shop_dollars_spent and rerolls_this_round to arrow
-    local ret = reroll_shopref(e)
-
-    for _, v in ipairs(SMODS.find_card('j_csau_koffing')) do
-        if not v.ability.extra.rerolled then
-            G.E_MANAGER:add_event(Event({
-                trigger = 'immediate',
-                func = function()
-                    if #G.shop_booster.cards > 0 then
-                        for i = #G.shop_booster.cards, 1, -1 do
-                            local c = G.shop_booster:remove_card(G.shop_booster.cards[i])
-                            c:remove()
-                            c = nil
-                        end
-                    end
-
-                    G.GAME.current_round.used_packs = G.GAME.current_round.used_packs or {}
-                    for i = #G.GAME.current_round.used_packs+1, #G.GAME.current_round.used_packs+2 do
-                        if not G.GAME.current_round.used_packs[i] then
-                            G.GAME.current_round.used_packs[i] = get_pack('shop_pack').key
-                        end
-
-                        if G.GAME.current_round.used_packs[i] ~= 'USED' then
-                            local card = Card(G.shop_booster.T.x + G.shop_booster.T.w/2,
-                            G.shop_booster.T.y, G.CARD_W*1.27, G.CARD_H*1.27, G.P_CARDS.empty, G.P_CENTERS[G.GAME.current_round.used_packs[i]], {bypass_discovery_center = true, bypass_discovery_ui = true})
-                            create_shop_card_ui(card, 'Booster', G.shop_booster)
-                            card.ability.booster_pos = i
-                            card:start_materialize()
-                            G.shop_booster:emplace(card)
-                        end
-                    end
-
-                    v:juice_up()
-                return true
-                end
-            }))
-            G.E_MANAGER:add_event(Event({ func = function() save_run(); return true end}))
-            v.ability.extra.rerolled = true
-            break
-        end
-    end
-    return ret
-end
-
 -- TODO: use behavior moved to arrow
 
 -- TODO: handle usage stats for VHS and Stands in arrow
@@ -198,8 +151,18 @@ G.FUNCS.change_collab = function(args)
     local ret = ref_change_collab(args)
 
     if csau_enabled['enableSkins'] then
-        G.FUNCS.ach_characters_check()
-        G.FUNCS.ach_vineshroom_check()
+        if G.SETTINGS.CUSTOM_DECK.Collabs.Spades == "collab_CYP" and
+            G.SETTINGS.CUSTOM_DECK.Collabs.Hearts == "collab_TBoI" and
+            G.SETTINGS.CUSTOM_DECK.Collabs.Diamonds == "collab_SV" and
+            G.SETTINGS.CUSTOM_DECK.Collabs.Clubs == "collab_STS" then
+            check_for_unlock({ type = "skin_characters" })
+        end
+
+        if ArrowAPI.string.ends_with(G.SETTINGS.CUSTOM_DECK.Collabs.Clubs, 'vineshroom')
+        or G.SETTINGS.CUSTOM_DECK.Collabs.Clubs == "collab_PC"
+        or G.SETTINGS.CUSTOM_DECK.Collabs.Clubs == "collab_WF" then
+            check_for_unlock({ type = "skin_vineshroom" })
+        end
     end
 
     return ret

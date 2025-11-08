@@ -1,15 +1,4 @@
-local draw_from_deck_to_handref = G.FUNCS.draw_from_deck_to_hand
-function G.FUNCS.draw_from_deck_to_hand(self, e)
-	draw_from_deck_to_handref(self, e)
-	if G.GAME.csau_dj_drawextra then
-		draw_card(G.deck, G.hand, 100, 'up', true)
-		G.GAME.csau_dj_drawextra = false
-	end
-	if G.GAME.csau_sj_drawextra then
-		draw_card(G.deck, G.hand, 100, 'up', true)
-		G.GAME.csau_sj_drawextra = false
-	end
-end
+-- TODO: reimplement dj card draw using new card drawing contexts
 
 local ric_ref = reset_idol_card
 function reset_idol_card()

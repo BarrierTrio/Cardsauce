@@ -24,7 +24,8 @@ local consumInfo = {
         custom_color = 'diamond'
     },
     blueprint_compat = true,
-    artist = {'chvsau', 'dolos'}
+    artist = {'chvsau', 'Dolos'},
+    programmer = 'Kekulism'
 }
 
 function consumInfo.loc_vars(self, info_queue, card)
@@ -37,7 +38,7 @@ function consumInfo.loc_vars(self, info_queue, card)
         suit = card.ability.extra.ref_suit == 'wild' and 'any' or localize(card.ability.extra.ref_suit, 'suits_singular')
         color = G.C.SUITS[card.ability.extra.ref_suit]
     end
-    
+
     return {
         vars = {
             card.ability.extra.num_cards,
@@ -55,7 +56,7 @@ function consumInfo.in_pool(self, args)
     or G.GAME.used_jokers['c_jojobal_diamond_echoes_3'] then
         return false
     end
-    
+
     return true
 end
 
@@ -79,7 +80,7 @@ function consumInfo.calculate(self, card, context)
     end
 
     if context.individual and context.cardarea == G.play and ((card.ability.extra.ref_suit == 'Wild' and
-    SMODS.has_any_suit(context.other_card)) or (card.ability.extra.ref_suit ~= "none" 
+    SMODS.has_any_suit(context.other_card)) or (card.ability.extra.ref_suit ~= "none"
     and context.other_card:is_suit(G.GAME.wigsaw_suit or card.ability.extra.ref_suit))) then
         local flare_card = context.blueprint_card or card
         return {

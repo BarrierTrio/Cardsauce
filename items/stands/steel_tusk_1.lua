@@ -33,6 +33,7 @@ local consumInfo = {
         },
         custom_color = 'steel'
     },
+    
 }
 
 function consumInfo.loc_vars(self, info_queue, card)

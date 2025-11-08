@@ -13,9 +13,7 @@ local jokerInfo = {
     has_shiny = true,
     streamer = "otherjoel",
     part = 'phantom',
-    csau_dependencies = {
-        'enableStands',
-    }
+    artist = 'BarrierTrio/Gote'
 }
 
 
@@ -28,7 +26,6 @@ local function get_mult(card)
 end
 
 function jokerInfo.loc_vars(self, info_queue, card)
-    info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.gote } }
     return { vars = { card.ability.extra.mult_mod } }
 end
 

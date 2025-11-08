@@ -24,18 +24,18 @@ local consumInfo = {
         activated = false,
         destroy = false,
     },
-    origin = 'rlm'
+    origin = 'rlm',
+    artist = 'chvsau'
 }
 
 
 function consumInfo.loc_vars(self, info_queue, card)
     info_queue[#info_queue+1] = {key = "vhs_activation", set = "Other"}
-    info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.chvsau } }
 
     local num, dom1 = SMODS.get_probability_vars(card, 1, card.ability.extra.prob_double, 'csau_topslots_double')
     local _, dom2 = SMODS.get_probability_vars(card, 1, card.ability.extra.prob_triple, 'csau_topslots_triple')
-    
-    return { 
+
+    return {
         vars = {
             card.ability.extra.conv_money,
             card.ability.extra.conv_score,
@@ -62,7 +62,7 @@ function consumInfo.calculate(self, card, context)
             money = money * card.ability.extra.double
             doubled = true
         end
-        
+
         if SMODS.pseudorandom_probability(card, 'csau_topslots_triple', 1, card.ability.extra.prob_triple) then
             money = money * card.ability.extra.triple
             tripled = true

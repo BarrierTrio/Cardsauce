@@ -8,10 +8,10 @@ local jokerInfo = {
 	perishable_compat = true,
 	streamer = "vinny",
 	origin = "redvox",
+	artist = 'BarrierTrio/Gote'
 }
 
 function jokerInfo.loc_vars(self, info_queue, card)
-	info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.gote } }
 	return { vars = { } }
 end
 
@@ -20,7 +20,7 @@ function jokerInfo.calculate(self, card, context)
 		if context.scoring_name == "Flush" then
 			local flush_type = 'Spades'
 			for k, v in ipairs(context.scoring_hand) do
-				if v.ability.name ~= 'Wild Card' then 
+				if v.ability.name ~= 'Wild Card' then
 					flush_type = v.base.suit
 				end
 			end
@@ -33,13 +33,13 @@ function jokerInfo.calculate(self, card, context)
 				G.E_MANAGER:add_event(Event({
 					func = (function()
 						G.E_MANAGER:add_event(Event({
-							func = function() 
+							func = function()
 								local _card = create_card('Tarot',G.consumeables, nil, nil, nil, nil, flush_tarot, 'car')
 								_card:add_to_deck()
 								G.consumeables:emplace(_card)
 								G.GAME.consumeable_buffer = 0
 								return true
-							end}))   
+							end}))
 							card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = "+1 "..localize{type = 'name_text', key = flush_tarot, set = 'Tarot'}, colour = G.C.PURPLE})
 						return true
 					end)}
@@ -52,4 +52,3 @@ end
 
 
 return jokerInfo
-	

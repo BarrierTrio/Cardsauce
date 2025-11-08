@@ -20,7 +20,8 @@ local consumInfo = {
         custom_color = 'vento'
     },
     blueprint_compat = true,
-    artist = 'wario',
+    artist = 'BarrierTrio/Gote',
+    programmer = 'Kekulism'
 }
 
 function consumInfo.loc_vars(self, info_queue, card)
@@ -33,7 +34,7 @@ function consumInfo.loc_vars(self, info_queue, card)
             colours = {
                 G.C.SUITS[G.GAME and G.GAME.wigsaw_suit or "Hearts"]
             }
-        } 
+        }
     }
 end
 
@@ -66,7 +67,7 @@ function consumInfo.calculate(self, card, context)
                             return true
                         end
                     }))
-                    
+
                 end,
                 extra = {
                     message = localize('k_gold_exp'),

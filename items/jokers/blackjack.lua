@@ -72,6 +72,7 @@ local jokerInfo = {
     eternal_compat = true,
     perishable_compat = true,
     streamer = "joel",
+    artist = 'BarrierTrio/Gote'
 }
 
 function jokerInfo.check_for_unlock(self, args)
@@ -87,11 +88,6 @@ function jokerInfo.check_for_unlock(self, args)
             return true
         end
     end
-end
-
-function jokerInfo.loc_vars(self, info_queue, card)
-    info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.gote } }
-    return { vars = { } }
 end
 
 function jokerInfo.add_to_deck(self, card)

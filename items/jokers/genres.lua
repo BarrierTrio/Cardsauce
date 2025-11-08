@@ -19,11 +19,11 @@ local jokerInfo = {
         'rlm',
         'rlm_botw',
         color = 'rlm'
-    }
+    },
+    artist = 'yunkie101'
 }
 
 function jokerInfo.loc_vars(self, info_queue, card)
-    info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.yunkie } }
     return { vars = { card.ability.extra.h_mod, G.FUNCS.get_vhs_count()*card.ability.extra.h_mod } }
 end
 

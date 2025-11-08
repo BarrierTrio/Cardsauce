@@ -8,10 +8,10 @@ local jokerInfo = {
 	perishable_compat = true,
 	hasSoul = true,
 	streamer = "vinny",
+	artist = 'SagaciousCejai'
 }
 
 function jokerInfo.loc_vars(self, info_queue, card)
-	info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.cejai } }
 	return { vars = {card.ability.extra} }
 end
 
@@ -42,4 +42,3 @@ G.FUNCS.can_discard = function(e)
 end
 
 return jokerInfo
-	

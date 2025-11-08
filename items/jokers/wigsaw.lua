@@ -10,6 +10,7 @@ local jokerInfo = {
     perishable_compat = true,
     hasSoul = true,
     streamer = "joel",
+    artist = 'BarrierTrio/Gote'
 }
 
 local function get_highest_suit(suits)
@@ -32,10 +33,6 @@ local function get_highest_suit(suits)
     else
         return highest_suit
     end
-end
-
-function jokerInfo.loc_vars(self, info_queue, card)
-    info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.gote } }
 end
 
 function jokerInfo.add_to_deck(self, card)

@@ -20,14 +20,14 @@ local consumInfo = {
         'rlm',
         'rlm_botw',
         color = 'rlm'
-    }
+    },
+    artist = 'Gongalicious'
 }
 
 
 function consumInfo.loc_vars(self, info_queue, card)
     info_queue[#info_queue+1] = {key = "vhs_activation", set = "Other"}
-    info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.gong } }
-    return { 
+    return {
         vars = {
             card.ability.extra.dollars,
             card.ability.extra.runtime-card.ability.extra.uses

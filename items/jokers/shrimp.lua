@@ -10,11 +10,8 @@ local jokerInfo = {
 	perishable_compat = true,
 	hasSoul = true,
 	streamer = "vinny",
+	artist = 'BarrierTrio/Gote'
 }
-
-function jokerInfo.loc_vars(self, info_queue, card)
-	info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.gote } }
-end
 
 function jokerInfo.check_for_unlock(self, args)
 	if args.type == "meat_beaten" then
@@ -26,7 +23,7 @@ function jokerInfo.calculate(self, card, context)
 	if context.repetition and not self.debuff then
 		if context.end_of_round and context.cardarea == G.hand then
 			if (next(context.card_effects[1]) or #context.card_effects > 1) then
-				if context.other_card.seal == 'Blue' then 
+				if context.other_card.seal == 'Blue' then
 					return {
 						message = localize('k_again_ex'),
 						repetitions = 1,
@@ -36,7 +33,7 @@ function jokerInfo.calculate(self, card, context)
 			end
 		end
 		if context.cardarea == G.play then
-			if context.other_card.seal == 'Red' then 
+			if context.other_card.seal == 'Red' then
 				return {
 					message = localize('k_again_ex'),
 					repetitions = 1,
@@ -87,4 +84,3 @@ function jokerInfo.calculate(self, card, context)
 end
 
 return jokerInfo
-	

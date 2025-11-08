@@ -4,11 +4,11 @@ local consumInfo = {
     cost = 4,
     alerted = true,
     streamer = 'vinny',
+    artist = 'BarrierTrio/Gote'
 }
 
 function consumInfo.loc_vars(self, info_queue, card)
     info_queue[#info_queue + 1] = G.P_TAGS.tag_ethereal
-    info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.gote } }
     return {}
 end
 

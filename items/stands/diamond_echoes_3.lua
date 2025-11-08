@@ -21,7 +21,8 @@ local consumInfo = {
         custom_color = 'diamond'
     },
     blueprint_compat = true,
-    artist = 'chvsau'
+    artist = 'chvsau',
+    programmer = 'Kekulism'
 }
 
 function consumInfo.loc_vars(self, info_queue, card)
@@ -34,7 +35,7 @@ function consumInfo.in_pool(self, args)
     or G.GAME.used_jokers['c_jojobal_diamond_echoes_2'] then
         return false
     end
-    
+
     return true
 end
 

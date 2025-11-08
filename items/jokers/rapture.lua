@@ -14,10 +14,10 @@ local jokerInfo = {
     perishable_compat = false,
     unlock_condition = {type = 'win_no_hand', extra = 'High Card'},
     streamer = "vinny",
+    artist = 'Burdrehnar'
 }
 
 function jokerInfo.loc_vars(self, info_queue, card)
-    info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.burd } }
     return { vars = { card.ability.extra.mult_mod, card.ability.extra.mult }}
 end
 

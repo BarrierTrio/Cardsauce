@@ -14,13 +14,10 @@ local jokerInfo = {
     perishable_compat = true,
     streamer = "joel",
     part = 'stardust',
-    csau_dependencies = {
-        'enableStands',
-    }
+    artist = 'BarrierTrio/Gote'
 }
 
 function jokerInfo.loc_vars(self, info_queue, card)
-    info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.gote } }
     local stands_obtained = 0
     for k, v in pairs(G.GAME.consumeable_usage) do if v.set == 'Stand' then stands_obtained = stands_obtained + 1 end end
     return { vars = {card.ability.extra.x_mult_mod, 1 + (card.ability.extra.x_mult_mod*stands_obtained)} }

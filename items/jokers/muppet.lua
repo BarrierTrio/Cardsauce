@@ -14,6 +14,7 @@ local jokerInfo = {
     eternal_compat = true,
     perishable_compat = false,
     streamer = "other",
+    artist = 'Jazz_Jen'
 }
 
 function jokerInfo.check_for_unlock(self, args)
@@ -23,7 +24,6 @@ function jokerInfo.check_for_unlock(self, args)
 end
 
 function jokerInfo.loc_vars(self, info_queue, card)
-    info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.jen } }
     return { vars = { card.ability.extra.x_mult, card.ability.extra.x_mult_mod } }
 end
 

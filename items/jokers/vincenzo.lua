@@ -11,11 +11,11 @@ local jokerInfo = {
 	hasSoul = true,
 	streamer = "vinny",
 	origin = "redvox",
+	artist = 'BarrierTrio/Gote'
 }
 
 function jokerInfo.loc_vars(self, info_queue, card)
 	info_queue[#info_queue+1] = G.P_CENTERS.e_negative
-	info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.gote } }
 end
 
 function jokerInfo.add_to_deck(self, card)
@@ -30,7 +30,7 @@ function jokerInfo.calculate(self, card, context)
 	if context.end_of_round and G.GAME.blind.boss and (not context.individual) and (not context.repetition) then
 		G.GAME.joker_buffer = G.GAME.joker_buffer + 1
 		G.E_MANAGER:add_event(Event({
-		func = function() 
+		func = function()
 			local card = create_card('Joker', G.jokers, nil, 0, nil, nil, 'j_misprint', 'rif')
 			card:set_edition({negative = true}, true, true)
 			card:add_to_deck()
@@ -38,7 +38,7 @@ function jokerInfo.calculate(self, card, context)
 			card:start_materialize()
 			G.GAME.joker_buffer = 0
 		return true
-		end}))   
+		end}))
 		card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_vincenzo'), colour = G.C.BLUE})
 	end
 end
@@ -46,4 +46,3 @@ end
 
 
 return jokerInfo
-	

@@ -14,7 +14,8 @@ local consumInfo = {
             chance = 10
         }
     },
-    origin = 'rlm'
+    origin = 'rlm',
+    artist = 'MightyKingWario'
 }
 
 
@@ -22,7 +23,6 @@ function consumInfo.loc_vars(self, info_queue, card)
     local num, _ =  SMODS.get_probability_vars(card, 1, 1, 'wheel_of_fortune')
 	info_queue[#info_queue+1] = {key = "wheel2", set = "Other", vars = {num}}
     info_queue[#info_queue+1] = {key = "vhs_activation", set = "Other"}
-    info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.wario } }
     local num2, dom = SMODS.get_probability_vars(self, 1, card.ability.extra.chance, 'csau_nukie_negative')
     return { vars = { num2, dom, card.ability.extra.runtime-card.ability.extra.uses } }
 end

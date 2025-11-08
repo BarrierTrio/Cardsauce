@@ -6,7 +6,8 @@ local consumInfo = {
     part = 'stone',
     csau_dependencies = {
         'enableStands',
-    }
+    },
+    artist = 'SagaciousCejai'
 }
 
 function consumInfo.loc_vars(self, info_queue, card)
@@ -15,8 +16,6 @@ function consumInfo.loc_vars(self, info_queue, card)
     else
         info_queue[#info_queue+1] = {key = "stand_info", set = "Other", vars = { (G.GAME and G.GAME.modifiers.max_stands or 1), (card.area.config.collection and localize('k_stand')) or ((G.GAME and G.GAME.modifiers.max_stands or 1) > 1 and localize('b_stand_cards') or localize('k_stand')) }}
     end
-
-    info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.cejai } }
 end
 
 function consumInfo.use(self, card, area, copier)

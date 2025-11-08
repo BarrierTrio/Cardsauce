@@ -19,7 +19,8 @@ local consumInfo = {
         },
         custom_color = 'vento'
     },
-    artist = 'gote',
+    artist = 'BarrierTrio/Gote',
+    programmer = 'Kekulism'
 }
 
 function consumInfo.loc_vars(self, info_queue, card)

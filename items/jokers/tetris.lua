@@ -75,6 +75,7 @@ local jokerInfo = {
     eternal_compat = true,
     perishable_compat = false,
     streamer = "joel",
+    artist = {'Kekulism', 'GuffNFluff'}
 }
 
 mod.tetrisCardBase = love.graphics.newImage(mod_path..'assets/1x/jokers/tetris.png')
@@ -89,7 +90,6 @@ local setupCanvas = function(self)
 end
 
 jokerInfo.loc_vars = function (self, info_queue, card)
-    info_queue[#info_queue+1] = {key = "csau_artistcredit_2", set = "Other", vars = { G.csau_team.keku, G.csau_team.guff } }
     return { vars = { card.ability.extra.mult } }
 end
 

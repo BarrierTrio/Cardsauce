@@ -1,19 +1,16 @@
 local deckInfo = {
     name = 'CBT Deck',
-    config = {},
     unlocked = false,
     discovered = false,
     config = { hands = -1, discards = -1 },
     unlock_condition = {type = 'win_stake', stake = 8},
     csau_dependencies = {
         'enableJoelContent',
-    }
+    },
+    artist = 'BarrierTrio/Gote'
 }
 
 deckInfo.loc_vars = function(self, info_queue, card)
-    if info_queue then
-        info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.gote } }
-    end
     return {vars = { self.config.hands, self.config.discards } }
 end
 

@@ -12,11 +12,11 @@ local jokerInfo = {
 	perishable_compat = true,
 	has_shiny = true,
 	streamer = "vinny",
+	artist = 'BarrierTrio/Gote'
 }
 
 
 function jokerInfo.loc_vars(self, info_queue, card)
-	info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.gote } }
 	return { vars = {SMODS.get_probability_vars(card, 1, card.ability.extra.chance, 'csau_pivyot')} }
 end
 
@@ -34,4 +34,3 @@ function jokerInfo.calculate(self, card, context)
 end
 
 return jokerInfo
-	

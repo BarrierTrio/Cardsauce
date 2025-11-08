@@ -19,7 +19,7 @@ local consumInfo = {
         custom_color = 'stardust'
     },
     blueprint_compat = false,
-    artist = 'gote',
+    artist = 'BarrierTrio/Gote',
 }
 
 function consumInfo.loc_vars(self, info_queue, card)
@@ -28,7 +28,7 @@ function consumInfo.loc_vars(self, info_queue, card)
         main_end = G.UIDEF.preview_cardarea(card.ability.extra.preview)
     end
 
-    return { 
+    return {
         vars = {card.ability.extra.preview},
         main_end = main_end
     }

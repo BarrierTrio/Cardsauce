@@ -20,7 +20,8 @@ local consumInfo = {
         custom_color = 'feedback'
     },
     blueprint_compat = true,
-    artist = 'gote',
+    artist = 'BarrierTrio/Gote',
+    programmer = 'Kekulism',
 }
 
 function consumInfo.loc_vars(self, info_queue, card)
@@ -28,7 +29,7 @@ function consumInfo.loc_vars(self, info_queue, card)
 end
 
 local references = {
-    ranks = { 
+    ranks = {
         ['2'] = true,
         ['3'] = true,
         ['4'] = true,
@@ -43,7 +44,7 @@ local references = {
         ['King'] = true,
         ['Ace'] = true
     },
-    suits = { 
+    suits = {
         ['Hearts'] = true,
         ['Spades'] = true,
         ['Diamonds'] = true,
@@ -67,7 +68,7 @@ local function has_standard_deck()
         end
 
         if deck_table[v.config.card_key] then return false end
-        
+
         deck_table[v.config.card_key] = true
     end
 

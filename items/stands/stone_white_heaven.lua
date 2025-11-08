@@ -21,7 +21,8 @@ local consumInfo = {
         custom_color = 'stone'
     },
     blueprint_compat = true,
-    artist = 'wario',
+    artist = 'MightyKingWario',
+    programmer = 'Kekulism'
 }
 
 function consumInfo.in_pool(self, args)
@@ -29,7 +30,7 @@ function consumInfo.in_pool(self, args)
     or G.GAME.used_jokers['c_jojobal_stone_white'] then
         return false
     end
-    
+
     return true
 end
 

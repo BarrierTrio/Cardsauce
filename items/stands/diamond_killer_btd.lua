@@ -17,8 +17,8 @@ local consumInfo = {
         custom_color = 'diamond'
     },
     blueprint_compat = false,
-    artist = 'guff',
-    coder = 'eremel'
+    artist = 'GuffNFluff',
+    programmer = 'Eremel',
 }
 
 function consumInfo.in_pool(self, args)

@@ -20,7 +20,7 @@ local consumInfo = {
         custom_color = 'lands'
     },
     blueprint_compat = true,
-    artist = 'gote',
+    artist = 'BarrierTrio/Gote',
 }
 
 function consumInfo.loc_vars(self, info_queue, card)

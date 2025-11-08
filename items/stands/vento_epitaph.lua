@@ -22,7 +22,8 @@ local consumInfo = {
         custom_color = 'vento'
     },
     blueprint_compat = false,
-    artist = 'gote',
+    artist = 'BarrierTrio/Gote',
+    programmer = 'Kekulism'
 }
 
 function consumInfo.loc_vars(self, info_queue, card)

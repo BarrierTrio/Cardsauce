@@ -9,6 +9,7 @@ local jokerInfo = {
 	eternal_compat = true,
 	perishable_compat = true,
 	streamer = "other",
+	artist = 'BarrierTrio/Gote'
 }
 
 local cavestorytext = SMODS.Sound({
@@ -55,10 +56,6 @@ local function hand_level_reset(card, delayMod)
 	}))
 end
 
-function jokerInfo.loc_vars(self, info_queue, card)
-	info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.gote } }
-end
-
 function jokerInfo.add_to_deck(self, card, context)
 	hand_level_reset(card, G.SETTINGS.GAMESPEED)
 	return
@@ -95,4 +92,4 @@ function jokerInfo.calculate(self, card, context)
 end
 
 return jokerInfo
-	
+

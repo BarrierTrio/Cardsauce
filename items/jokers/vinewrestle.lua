@@ -7,11 +7,8 @@ local jokerInfo = {
     eternal_compat = true,
     perishable_compat = true,
     streamer = "joel",
+    artist = 'SagaciousCejai'
 }
-
-function jokerInfo.loc_vars(self, info_queue, card)
-    info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.cejai } }
-end
 
 function jokerInfo.calculate(self, card, context)
     local bad_context = context.repetition or context.individual or context.blueprint
@@ -32,4 +29,3 @@ function jokerInfo.calculate(self, card, context)
 end
 
 return jokerInfo
-	

@@ -1,7 +1,7 @@
 SMODS.PokerHandPart {
     key = 'jojobal_fibonacci',
     prefix_config = false,
-    func = function(hand) 
+    func = function(hand)
         return jojobal_get_fibonacci(hand)
     end,
 }
@@ -86,6 +86,8 @@ local consumInfo = {
         custom_color = 'steel'
     },
     blueprint_compat = true,
+    artist = {'MightyKingWario', 'Vivian Giacobbi'},
+    programmer = 'Kekulism'
 }
 
 function consumInfo.loc_vars(self, info_queue, card)
@@ -98,7 +100,7 @@ function consumInfo.in_pool(self, args)
     or G.GAME.used_jokers['c_jojobal_steel_tusk_3'] then
         return false
     end
-    
+
     return true
 end
 

@@ -12,6 +12,7 @@ local jokerInfo = {
     eternal_compat = true,
     perishable_compat = true,
     streamer = "joel",
+    artist = {'BardVergil', 'Kekulism'}
 }
 
 local function activate(bool, card)
@@ -35,7 +36,6 @@ local function activate(bool, card)
 end
 
 function jokerInfo.loc_vars(self, info_queue, card)
-    info_queue[#info_queue+1] = {key = "csau_artistcredit_2", set = "Other", vars = { G.csau_team.bard, G.csau_team.keku } }
     return { vars = { card.ability.extra.discount } }
 end
 

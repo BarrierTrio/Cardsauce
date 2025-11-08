@@ -8,11 +8,11 @@ local jokerInfo = {
 	perishable_compat = true,
 	hasSoul = true,
 	streamer = "vinny",
+	artist = 'BarrierTrio/Gote'
 }
 
 function jokerInfo.loc_vars(self, info_queue)
 	info_queue[#info_queue+1] = G.P_CENTERS.c_judgement
-	info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.gote } }
 end
 
 function jokerInfo.calculate(self, card, context)
@@ -21,13 +21,13 @@ function jokerInfo.calculate(self, card, context)
 		G.E_MANAGER:add_event(Event({
 			func = (function()
 				G.E_MANAGER:add_event(Event({
-					func = function() 
+					func = function()
 						local _card = create_card('Tarot',G.consumeables, nil, nil, nil, nil, 'c_judgement', 'car')
 						_card:add_to_deck()
 						G.consumeables:emplace(_card)
 						G.GAME.consumeable_buffer = 0
 						return true
-					end}))   
+					end}))
 					card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_plus_judge'), colour = G.C.PURPLE})
 				return true
 			end)}

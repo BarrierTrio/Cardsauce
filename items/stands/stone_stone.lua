@@ -20,7 +20,8 @@ local consumInfo = {
         custom_color = 'stone'
     },
     blueprint_compat = true,
-    artist = 'chvsau'
+    artist = 'chvsau',
+    programmer = 'Kekulism'
 }
 
 function consumInfo.loc_vars(self, info_queue, card)
@@ -33,8 +34,8 @@ function consumInfo.calculate(self, card, context)
         local stones = {}
         for _, v in ipairs(context.scoring_hand) do
             if v.config.center.key == 'm_stone' or v.jojobal_stone_effect then
-                stones[#stones+1] = v     
-   
+                stones[#stones+1] = v
+
                 if not v.jojobal_stone_effect then
                     v.jojobal_stone_effect = true
                 end
@@ -45,7 +46,7 @@ function consumInfo.calculate(self, card, context)
                 if v.config.center.key == 'm_stone' then
                     v:set_ability(G.P_CENTERS.c_base, nil, 'manual')
                 end
-            end         
+            end
         end
 
         if #stones > 0 then

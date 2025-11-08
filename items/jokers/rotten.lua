@@ -8,11 +8,8 @@ local jokerInfo = {
     eternal_compat = true,
     perishable_compat = true,
     streamer = "othervinny",
+    artist = 'Akai (Balatrostuck)'
 }
-
-function jokerInfo.loc_vars(self, info_queue, card)
-    info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.akai } }
-end
 
 function jokerInfo.calculate(self, card, context)
     if context.setting_blind and not card.getting_sliced and not card.debuff then

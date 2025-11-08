@@ -13,10 +13,11 @@ local jokerInfo = {
     eternal_compat = true,
     perishable_compat = true,
     streamer = "joel",
+    artist = 'Winter Grimwell',
 }
 
 local function create_kings_area(card, max_cards)
-    local card_num = math.min(#G.deck.cards, max_cards) 
+    local card_num = math.min(#G.deck.cards, max_cards)
     G['csau_kings_remove_'..card.ID] = CardArea(card.T.x, card.T.y, G.CARD_W, G.CARD_H, {
         card_limit = card_num,
         type = 'kings_deck',
@@ -35,7 +36,7 @@ local function create_kings_area(card, max_cards)
     }
 
     local new_uibox = UIBox{
-        definition = 
+        definition =
             {n=G.UIT.ROOT, config = {align = 'cm', colour = G.C.CLEAR}, nodes={
                 {n=G.UIT.R, config={minw = G['csau_kings_remove_'..card.ID].T.w, minh = G['csau_kings_remove_'..card.ID].T.h, align = "cm", padding = 0.1, mid = true, r = 0.1, ref_table = G['csau_kings_remove_'..card.ID]}},
                 {n=G.UIT.R, config={align = 'cr', padding = 0.03, no_fill = true}, nodes={
@@ -56,10 +57,6 @@ function jokerInfo.check_for_unlock(self, args)
     if args.type == "unlock_kings" then
         return true
     end
-end
-
-function jokerInfo.loc_vars(self, info_queue, card)
-    info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.winterg } }
 end
 
 function jokerInfo.load(self, card, card_table, other_card)
@@ -228,7 +225,7 @@ function jokerInfo.remove_from_deck(self, card, from_debuff)
             drawn_card.csau_2kings_rank = #kings_area.cards + 1
             drawn_card.csau_2kings_total = total_kings_cards
         end
-        
+
         G.E_MANAGER:add_event(Event({
             trigger = 'immediate',
             func = function()

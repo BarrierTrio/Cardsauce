@@ -12,12 +12,8 @@ local jokerInfo = {
         ["Meme"] = true
     },
     streamer = "joel",
+    artist = 'Joey'
 }
-
-function jokerInfo.loc_vars(self, info_queue, card)
-    info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.joey } }
-    return { vars = { } }
-end
 
 function jokerInfo.calculate(self, card, context)
     if context.cardarea == G.jokers and context.before and not card.debuff and not context.individual and not context.repetition then

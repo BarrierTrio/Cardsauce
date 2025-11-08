@@ -7,10 +7,10 @@ local voucherInfo = {
             rounds = 1
         }
     },
+    artist = 'MightyKingWario'
 }
 
 function voucherInfo.loc_vars(self, info_queue, card)
-    info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.wario } }
     return { vars = {card.ability.extra.num_cards, card.ability.extra.num_cards ~= 1 and 's' or ''}}
 end
 
@@ -40,7 +40,7 @@ function voucherInfo.redeem(self, card, area, copier)
             end
         end
     end
-        
+
     G.morshu_save.alignment.offset.py = -5.3
     G.morshu_save.alignment.offset.y = G.ROOM.T.y + 29
 end

@@ -12,10 +12,10 @@ local jokerInfo = {
 	eternal_compat = true,
 	perishable_compat = false,
 	streamer = "vinny",
+	artist = 'BarrierTrio/Gote'
 }
 
 function jokerInfo.loc_vars(self, info_queue, card)
-	info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.gote } }
 	return { vars = {card.ability.extra.chips, card.ability.extra.chip_mod, localize(G.GAME and G.GAME.wigsaw_suit or "Clubs", 'suits_singular'), colours = {G.C.SUITS[G.GAME and G.GAME.wigsaw_suit or "Clubs"]}} }
 end
 
@@ -34,7 +34,7 @@ function jokerInfo.calculate(self, card, context)
 	if context.joker_main and context.cardarea == G.jokers and to_big(card.ability.extra.chips) > to_big(0) then
 		return {
 			message = localize{type='variable',key='a_chips',vars={to_big(card.ability.extra.chips)}},
-			chip_mod = card.ability.extra.chips, 
+			chip_mod = card.ability.extra.chips,
 			colour = G.C.CHIPS
 		}
 	end
@@ -43,4 +43,3 @@ end
 
 
 return jokerInfo
-	

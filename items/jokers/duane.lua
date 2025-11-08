@@ -16,11 +16,11 @@ local jokerInfo = {
             x = 39,
         },
         speed = 0.075
-    }
+    },
+    artist = 'elebant'
 }
 
 function jokerInfo.loc_vars(self, info_queue, card)
-    info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.ele } }
     return { vars = { localize(G.GAME and G.GAME.wigsaw_suit or G.GAME.current_round.duane_suit, 'suits_singular'), colours = {G.C.SUITS[G.GAME and G.GAME.wigsaw_suit or G.GAME.current_round.duane_suit]}} }
 end
 
@@ -85,4 +85,3 @@ function jokerInfo.update(self, card)
 end
 
 return jokerInfo
-	

@@ -12,7 +12,7 @@ SMODS.Consumable:take_ownership('c_fool', {
 
         local force_card = force_fool_card()
         if force_card then fool_c = G.P_CENTERS[force_card] end
-        
+
         -- imported cardsauce logic
         local last_tarot_planet = localize('k_none')
         if fool_c and fool_c.key == 'c_arrow_tarot_arrow' then
@@ -67,13 +67,13 @@ SMODS.Consumable:take_ownership('c_emperor', {
     loc_vars = function (self, info_queue, card)
         local tarot_count = self.config.tarots
         local found_card = force_fool_card()
-        if found_card then 
+        if found_card then
             tarot_count = tarot_count - 1
             info_queue[#info_queue+1] = G.P_CENTERS[found_card]
         end
         tarot_count = math.max(0, tarot_count)
-        
-        return { 
+
+        return {
             vars = { tarot_count },
             key = self.key..(found_card and '_civil' or '')
         }
@@ -96,7 +96,7 @@ SMODS.Consumable:take_ownership('c_emperor', {
                         G.consumeables:emplace(new_tarot)
                         card:juice_up(0.3, 0.5)
                     end
-                    return true    
+                    return true
                 end
             }))
         end
@@ -125,7 +125,7 @@ local consumInfo = {
         custom_color = 'steel'
     },
     blueprint_compat = false,
-    artist = 'gote',
+    artist = 'BarrierTrio/Gote',
 }
 
 function consumInfo.loc_vars(self, info_queue, card)
@@ -136,7 +136,7 @@ end
 
 function consumInfo.calculate(self, card, context)
     if card.debuff and not context.blueprint and not context.retrigger_joker then return end
-    
+
     if context.using_consumeable and context.consumeable.config.center.key == 'c_hanged_man' then
         ArrowAPI.stands.flare_aura(card, 0.50)
     end

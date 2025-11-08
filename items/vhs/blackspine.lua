@@ -13,12 +13,12 @@ local consumInfo = {
         'rlm',
         'rlm_bs',
         color = 'rlm'
-    }
+    },
+    artist = 'BarrierTrio/Gote'
 }
 
 function consumInfo.loc_vars(self, info_queue, card)
     info_queue[#info_queue+1] = {key = "vhs_activation", set = "Other"}
-    info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.gote } }
 end
 
 function consumInfo.activate(self, card, on)

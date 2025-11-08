@@ -3,12 +3,9 @@ local tagInfo = {
     config = {type = 'new_blind_choice'},
     csau_dependencies = {
         'enableVHSs',
-    }
+    },
+    artist = 'BarrierTrio/Gote'
 }
-
-function tagInfo.loc_vars(self, info_queue, card)
-    info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.gote } }
-end
 
 function tagInfo.apply(self, tag, context)
     if context.type == self.config.type then

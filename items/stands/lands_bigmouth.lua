@@ -19,11 +19,12 @@ local consumInfo = {
         custom_color = 'lands'
     },
     blueprint_compat = false,
-    artist = 'gote',
+    artist = 'BarrierTrio/Gote',
+    programmer = 'Kekulism'
 }
 
 function consumInfo.loc_vars(self, info_queue, card)
-    return { 
+    return {
         vars = {
             card.ability.extra.hand_size,
             card.ability.extra.suit_count,
@@ -67,8 +68,8 @@ function consumInfo.calculate(self, card, context)
                     change:flip()
                     play_sound('card1')
                     change:juice_up(0.3, 0.3)
-                    return true 
-                end 
+                    return true
+                end
             }))
         end
     end
@@ -87,22 +88,22 @@ function consumInfo.calculate(self, card, context)
             delay = 0.1,
             func = function()
                 change_cards[i]:set_sprites(nil, G.P_CARDS[change_cards[i].config.card_key])
-                return true 
+                return true
             end
         }))
     end
-    
+
     -- do flip back over
     for i=1, #change_cards do
         G.E_MANAGER:add_event(Event({
             trigger = 'after',
             delay = 0.25,
-            func = function() 
+            func = function()
                 change_cards[i]:flip()
                 play_sound('tarot2', 1, 0.6)
                 change_cards[i]:juice_up(0.3, 0.3)
-                return true 
-            end 
+                return true
+            end
         }))
     end
 end

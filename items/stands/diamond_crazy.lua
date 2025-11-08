@@ -16,7 +16,8 @@ local consumInfo = {
         custom_color = 'diamond'
     },
     blueprint_compat = false,
-    artist = 'cejai',
+    artist = 'SagaciousCejai',
+    programmer = 'Kekulism'
 }
 
 function consumInfo.calculate(self, card, context)

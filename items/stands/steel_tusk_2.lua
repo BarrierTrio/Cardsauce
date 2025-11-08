@@ -29,6 +29,8 @@ local consumInfo = {
         custom_color = 'steel'
     },
     blueprint_compat = true,
+    artist = {'MightyKingWario', 'Vivian Giacobbi'},
+    programmer = 'Kekulism'
 }
 
 function consumInfo.loc_vars(self, info_queue, card)

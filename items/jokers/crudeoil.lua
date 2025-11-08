@@ -14,10 +14,10 @@ local jokerInfo = {
     has_shiny = true,
     pools = { ["Food"] = true },
     streamer = "vinny",
+    artist = 'Lyzerus'
 }
 
 function jokerInfo.loc_vars(self, info_queue, card)
-    info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.lyzerus } }
     return { vars = { card.ability.extra.dollars, card.ability.extra.dollars_mod } }
 end
 

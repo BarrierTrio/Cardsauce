@@ -11,10 +11,10 @@ local jokerInfo = {
 	eternal_compat = true,
 	perishable_compat = true,
 	streamer = "vinny",
+	artist = 'FenixSeraph'
 }
 
 function jokerInfo.loc_vars(self, info_queue, card)
-	info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.fenix } }
 	return { vars = {SMODS.get_probability_vars(card, 1, card.ability.extra.chance, 'csau_miracle')} }
 end
 
@@ -36,7 +36,7 @@ function jokerInfo.calculate(self, card, context)
 					if item.config.center.key ~= 'c_base' then
 						table.insert(pair_enhancements, item.config.center.key)
 					end
-					
+
 					if item.seal then
 						table.insert(pair_seals, item.seal)
 					end
@@ -105,4 +105,3 @@ function jokerInfo.calculate(self, card, context)
 end
 
 return jokerInfo
-	

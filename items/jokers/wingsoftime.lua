@@ -9,6 +9,7 @@ local jokerInfo = {
 	perishable_compat = true,
 	hasSoul = true,
 	streamer = "vinny",
+	artist = 'GuffNFluff'
 }
 
 function jokerInfo.check_for_unlock(self, args)
@@ -21,11 +22,6 @@ function jokerInfo.in_pool(self, args)
 	if not G.GAME.pool_flags.wingsoftimeused then
 		return true
 	end
-end
-
-function jokerInfo.loc_vars(self, info_queue, card)
-	info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.guff } }
-	return { vars = { } }
 end
 
 function jokerInfo.calculate(self, card, context)

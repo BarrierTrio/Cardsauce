@@ -23,7 +23,8 @@ local jokerInfo = {
             x = 6,
             y = 2,
         },
-    }
+    },
+    artist = 'Crisppyboat'
 }
 
 local function getSignum(num)
@@ -46,7 +47,6 @@ function jokerInfo.set_sprites(self, card, _front)
 end
 
 function jokerInfo.loc_vars(self, info_queue, card)
-    info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.crispy } }
     return { vars = {card.ability.extra.mult_mod, card.ability.extra.dollars, getSignum(card.ability.extra.mult)..card.ability.extra.mult} }
 end
 

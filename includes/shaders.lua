@@ -31,8 +31,6 @@ SMODS.DrawStep:take_ownership('floating_sprite', {
 	end,
 })
 
--- TODO: all stand shader stuff moved to arrow
-
 local old_seal_fs = SMODS.DrawSteps.seal.func
 SMODS.DrawStep:take_ownership('seal', {
     func = function(self, layer)
@@ -53,19 +51,21 @@ SMODS.DrawStep:take_ownership('seal', {
 --------------------------- Stand Draw Steps
 ---------------------------
 
--- TODO: implement this if and only if not also implemented bu jojobal
-local old_draw_step_db = SMODS.DrawSteps.debuff.func
-SMODS.DrawStep:take_ownership('debuff', {
-	func = function(self, layer)
-		old_draw_step_db(self,layer)
-		if self.cured_debuff then
-			self.children.center:draw_shader('debuff', nil, self.ARGS.send_to_shader)
-			if self.children.front and self.ability.effect ~= 'Stone Card' and not self.config.center.replace_base_card then
-				self.children.front:draw_shader('debuff', nil, self.ARGS.send_to_shader)
-			end
-		end
-	end,
-})
+if not next(SMODS.find_mod('jojobal')) then
+   local ref_debuff_func = SMODS.DrawSteps.debuff.func
+    SMODS.DrawStep:take_ownership('debuff', {
+        func = function(self, layer)
+            ref_debuff_func(self,layer)
+            if self.cured_debuff then
+                self.children.center:draw_shader('debuff', nil, self.ARGS.send_to_shader)
+                if self.children.front and self.ability.effect ~= 'Stone Card' and not self.config.center.replace_base_card then
+                    self.children.front:draw_shader('debuff', nil, self.ARGS.send_to_shader)
+                end
+            end
+        end,
+    })
+end
+
 
 
 

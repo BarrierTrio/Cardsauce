@@ -9,11 +9,11 @@ local jokerInfo = {
 	eternal_compat = true,
 	perishable_compat = true,
 	streamer = "vinny",
+	artist = 'Gappie',
 }
 
 function jokerInfo.loc_vars(self, info_queue, card)
 	info_queue[#info_queue+1] = G.P_TAGS.tag_negative
-	info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.gappie } }
 	return { vars = {SMODS.get_probability_vars(card, 1, card.ability.extra, 'csau_blast')} }
 end
 
@@ -40,4 +40,3 @@ end
 
 
 return jokerInfo
-	

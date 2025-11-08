@@ -15,12 +15,12 @@ local jokerInfo = {
     hasSoul = true,
     no_soul_shadow = true,
     streamer = "joel",
+    artist = {'BarrierTrio/Gote', 'elebant'}
 }
 
 function jokerInfo.loc_vars(self, info_queue, card)
 	info_queue[#info_queue+1] = G.P_TAGS.tag_negative
-    info_queue[#info_queue+1] = {key = "csau_artistcredit_2", set = "Other", vars = { G.csau_team.gote, G.csau_team.ele } }
-    
+
     local main_end = nil
     if card.ability.card_key then
         local name_text = localize{type = 'name_text', key = card.ability.card_key, set = 'Joker'}
@@ -43,8 +43,8 @@ function jokerInfo.loc_vars(self, info_queue, card)
             }}
         }
     end
-    
-    return { 
+
+    return {
         vars = { card.ability.extra },
         main_end = main_end
     }
@@ -75,7 +75,7 @@ function jokerInfo.calculate(self, card, context)
     if context.blueprint or card.debuff then
         return
     end
-    
+
     if not card.ability.card_key then
         if context.card_added and not context.card.ability.eternal then
             card.ability.card_key = context.card.config.center.key

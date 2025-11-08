@@ -20,7 +20,7 @@ local consumInfo = {
         custom_color = 'lands'
     },
     blueprint_compat = false,
-    artist = 'gote',
+    artist = 'BarrierTrio/Gote',
 }
 
 function consumInfo.calculate(self, card, context)
@@ -55,14 +55,14 @@ function consumInfo.calculate(self, card, context)
                     local search_adjacent = unscored:get_id()+v
                     if search_adjacent < 2 then search_adjacent = 15 - search_adjacent end
                     if search_adjacent > 14 then search_adjacent = search_adjacent % 14 end
-                    
-                    if scoring_ranks[search_adjacent] then 
+
+                    if scoring_ranks[search_adjacent] then
                         in_range = v
                         break
                     end
                 end
 
-                if in_range then 
+                if in_range then
                     SMODS.modify_rank(unscored, in_range, true)
                     card.ability.extra.valid_this_score[unscored] = in_range
                     change_cards[#change_cards+1] = {card = unscored, card_key = unscored.config.card_key}
@@ -71,7 +71,7 @@ function consumInfo.calculate(self, card, context)
         end
     end
 
-    if #change_cards < 1 then return end 
+    if #change_cards < 1 then return end
 
     return {
         func = function()
@@ -85,8 +85,8 @@ function consumInfo.calculate(self, card, context)
                         v.card:flip()
                         play_sound('card1')
                         v.card:juice_up(0.3, 0.3)
-                        return true 
-                    end 
+                        return true
+                    end
                 }))
             end
 
@@ -96,22 +96,22 @@ function consumInfo.calculate(self, card, context)
                     delay = 0.1,
                     func = function()
                         v.card:set_sprites(nil, G.P_CARDS[v.card_key])
-                        return true 
+                        return true
                     end
                 }))
             end
-            
+
             -- do flip back over
             for _, v in ipairs(change_cards) do
                 G.E_MANAGER:add_event(Event({
                     trigger = 'after',
                     delay = 0.25,
-                    func = function() 
+                    func = function()
                         v.card:flip()
                         play_sound('tarot2', 1, 0.6)
                         v.card:juice_up(0.3, 0.3)
-                        return true 
-                    end 
+                        return true
+                    end
                 }))
             end
         end,

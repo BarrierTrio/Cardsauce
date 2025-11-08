@@ -23,7 +23,8 @@ local consumInfo = {
         custom_color = 'diamond'
     },
     blueprint_compat = true,
-    artist = 'guff',
+    artist = 'GuffNFluff',
+    programmer = 'Kekulism'
 }
 
 function consumInfo.loc_vars(self, info_queue, card)
@@ -34,7 +35,7 @@ function consumInfo.in_pool(self, args)
     return (not G.GAME.used_jokers['c_jojobal_diamond_killer_btd'])
 end
 
-function consumInfo.calculate(self, card, context)  
+function consumInfo.calculate(self, card, context)
     if not context.blueprint and context.remove_playing_cards then
         local hands = 0
         for i, _ in ipairs(context.removed) do
@@ -48,7 +49,7 @@ function consumInfo.calculate(self, card, context)
             ArrowAPI.stands.evolve_stand(card)
             return
         end
-        
+
         ArrowAPI.stands.flare_aura(card, 0.50)
         G.E_MANAGER:add_event(Event({func = function()
             play_sound('generic1')

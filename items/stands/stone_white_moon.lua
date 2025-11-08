@@ -24,7 +24,8 @@ local consumInfo = {
         custom_color = 'stone'
     },
     blueprint_compat = true,
-    artist = {'wario', 'gote'}
+    artist = {'MightyKingWario', 'BarrierTrio/Gote'},
+    programmer = 'Kekulism'
 }
 
 function consumInfo.loc_vars(self, info_queue, card)
@@ -36,7 +37,7 @@ function consumInfo.in_pool(self, args)
     or G.GAME.used_jokers['c_jojobal_stone_white_heaven'] then
         return false
     end
-    
+
     return true
 end
 
@@ -47,7 +48,7 @@ function consumInfo.calculate(self, card, context)
         card.ability.extra.evolve_moons = card.ability.extra.evolve_moons + 1
         if card.ability.extra.evolve_moons >= card.ability.extra.evolve_num then
             ArrowAPI.stands.evolve_stand(card)
-        else 
+        else
             return {
                 no_retrigger = true,
                 func = function()
@@ -65,7 +66,7 @@ function consumInfo.calculate(self, card, context)
     if context.cardarea == G.play and context.repetition then
         local reps = next(context.poker_hands["Straight"]) and 1 or 0
         if context.other_card:get_id() == 6 then reps = reps + 1 end
-        
+
         if reps > 0 then
             local flare_card = context.blueprint_card or card
             return {

@@ -1,7 +1,7 @@
 local consumInfo = {
     name = 'Echoes ACT2',
     set = 'Stand',
-    config = {   
+    config = {
         evolve_key = 'c_jojobal_diamond_echoes_3',
         evolved = true,
         aura_colors = { 'adebbbDC' , '3bcc7bDC' },
@@ -24,7 +24,8 @@ local consumInfo = {
         custom_color = 'diamond'
     },
     blueprint_compat = true,
-    artist = {'chvsau', 'dolos'}
+    artist = {'chvsau', 'Dolos'},
+    programmer = 'Kekulism'
 }
 
 function consumInfo.loc_vars(self, info_queue, card)
@@ -58,7 +59,7 @@ function consumInfo.in_pool(self, args)
     or G.GAME.used_jokers['c_jojobal_diamond_echoes_3'] then
         return false
     end
-    
+
     return true
 end
 
@@ -93,7 +94,7 @@ function consumInfo.calculate(self, card, context)
             local find_suit = (card.ability.extra.ref_suit == 'Wild') and pseudorandom_element(SMODS.Suits, pseudoseed('jojobal_echoes_wild')).key or card.ability.extra.ref_suit
             local nm = get_first_non_matching(G.GAME and G.GAME.wigsaw_suit or find_suit, context.scoring_hand)
             if not nm then return end
-            
+
             ArrowAPI.stands.flare_aura(card, 0.50)
             card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('k_boing'), colour = G.C.STAND})
 
@@ -115,7 +116,7 @@ function consumInfo.calculate(self, card, context)
                     if card.ability.extra.ref_suit == 'Wild' then
                         nm:set_ability(G.P_CENTERS.m_wild)
                     end
-                    
+
                     nm:change_suit(G.GAME and G.GAME.wigsaw_suit or find_suit);
                     card:juice_up();
                     return true
@@ -130,15 +131,15 @@ function consumInfo.calculate(self, card, context)
                     nm:flip();
                     play_sound('tarot2', percent, 0.6);
                     nm:juice_up(0.3, 0.3);
-                    return true 
+                    return true
                 end
             }))
-            
+
             delay(0.5)
         end
     end
 
-    if context.individual and context.cardarea == G.play and card.ability.extra.ref_suit ~= "none" 
+    if context.individual and context.cardarea == G.play and card.ability.extra.ref_suit ~= "none"
     and context.other_card:is_suit(G.GAME.wigsaw_suit or card.ability.extra.ref_suit) then
         local flare_card = context.blueprint_card or card
         return {

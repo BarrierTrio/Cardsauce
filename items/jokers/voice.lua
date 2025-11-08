@@ -11,16 +11,16 @@ local jokerInfo = {
     eternal_compat = true,
     perishable_compat = true,
     streamer = "other",
+    artist = 'Akai (Balatrostuck)'
 }
 
 function jokerInfo.loc_vars(self, info_queue, card)
-    info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.akai } }
     return { vars = { localize(G.GAME.current_round.choicevoice.rank, 'ranks'), localize(G.GAME.current_round.choicevoice.suit, 'suits_plural'), colours = {G.C.SUITS[G.GAME.current_round.choicevoice.suit]} }}
 end
 
 function jokerInfo.calculate(self, card, context)
     if context.cardarea == G.play and context.repetition and not context.repetition_only and not card.debuff then
-        
+
         for k, v in ipairs(context.full_hand) do
             if v:is_suit(G.GAME.current_round.choicevoice.suit) and v:get_id() == G.GAME.current_round.choicevoice.id then
                 check_for_unlock({ type = "activate_voice" })
@@ -31,7 +31,7 @@ function jokerInfo.calculate(self, card, context)
                 }
             end
         end
-        
+
     end
 end
 

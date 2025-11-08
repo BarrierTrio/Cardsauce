@@ -17,7 +17,8 @@ local consumInfo = {
         custom_color = 'vento'
     },
     blueprint_compat = true,
-    artist = 'gote',
+    artist = 'BarrierTrio/Gote',
+    programmer = 'Kekulism'
 }
 
 function consumInfo.in_pool(self, args)
@@ -37,7 +38,7 @@ function consumInfo.calculate(self, card, context)
                         end
                         add_tag(Tag(G.GAME.round_resets.blind_tags[G.GAME.blind_on_deck]))
                         G.orbital_hand = nil
-                        
+
                         flare_card:juice_up()
 
                         play_sound('generic1', 0.9 + math.random()*0.1, 0.8)

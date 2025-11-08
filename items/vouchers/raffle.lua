@@ -11,12 +11,9 @@ local voucherInfo = {
         'rlm',
         'rlm_botw',
         color = 'rlm'
-    }
+    },
+    artist = 'Joey'
 }
-
-function voucherInfo.loc_vars(self, info_queue, card)
-    info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.joey } }
-end
 
 function voucherInfo.locked_loc_vars(self, info_queue, card)
     return { vars = { self.unlock_condition.extra, G.PROFILES[G.SETTINGS.profile].career_stats.c_vhss_bought or 0} }

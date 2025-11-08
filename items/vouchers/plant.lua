@@ -12,12 +12,9 @@ local voucherInfo = {
     unlock_condition = {type = 'c_stands_bought', extra = 25},
     csau_dependencies = {
         'enableStands',
-    }
+    },
+    artist = 'BarrierTrio/Gote'
 }
-
-function voucherInfo.loc_vars(self, info_queue, card)
-    info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.gote } }
-end
 
 function voucherInfo.locked_loc_vars(self, info_queue, card)
     return { vars = { self.unlock_condition.extra, G.PROFILES[G.SETTINGS.profile].career_stats.c_stands_bought or 0} }

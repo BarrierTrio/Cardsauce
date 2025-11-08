@@ -8,6 +8,7 @@ local jokerInfo = {
 	perishable_compat = true,
 	has_shiny = true,
 	streamer = "vinny",
+	artist = 'BarrierTrio/Gote'
 }
 
 local function detect2or5(scoring_hand)
@@ -20,8 +21,7 @@ local function detect2or5(scoring_hand)
 end
 
 function jokerInfo.loc_vars(self, info_queue, card)
-	info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.gote } }
-	return { vars = {}, key = self.key..(csau_config['detailedDescs'] and '_detailed' or '') }
+	return { key = self.key..(csau_config['detailedDescs'] and '_detailed' or '') }
 end
 
 function jokerInfo.calculate(self, card, context)

@@ -11,12 +11,9 @@ local consumInfo = {
     part = 'vento',
     csau_dependencies = {
         'enableVHSs'
-    }
+    },
+    artist = 'Dolos'
 }
-
-function consumInfo.loc_vars(self, info_queue, card)
-    info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.dolos } }
-end
 
 function consumInfo.add_to_deck(self, card)
     for _, v in ipairs(G.I.CARD) do

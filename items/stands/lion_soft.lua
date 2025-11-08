@@ -20,7 +20,7 @@ local consumInfo = {
         custom_color = 'lion'
     },
     blueprint_compat = true,
-    artist = 'stup',
+    artist = 'Stupisms',
 }
 
 function consumInfo.loc_vars(self, info_queue, card)

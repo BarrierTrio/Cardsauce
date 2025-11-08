@@ -14,12 +14,12 @@ local jokerInfo = {
 	perishable_compat = true,
 	streamer = "vinny",
 	origin = 'redvox',
+	artist = 'BarrierTrio/Gote'
 }
 
 SMODS.Atlas({ key = 'sosad', path ="jokers/sosad.png", px = 71, py = 95 })
 
 function jokerInfo.loc_vars(self, info_queue, card)
-	info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.gote } }
 	return { vars = {card.ability.extra.plus, card.ability.extra.minus}, key = 'j_csau_so'..card.ability.extra.side}
 end
 
@@ -79,4 +79,3 @@ function jokerInfo.calculate(self, card, context)
 end
 
 return jokerInfo
-	

@@ -17,7 +17,7 @@ local consumInfo = {
         custom_color = 'steel'
     },
     blueprint_compat = false,
-    artist = 'gote',
+    artist = 'BarrierTrio/Gote',
 }
 
 function consumInfo.loc_vars(self, info_queue, card)

@@ -13,10 +13,10 @@ local jokerInfo = {
 	perishable_compat = false,
 	has_shiny = true,
 	streamer = "vinny",
+	artist = 'SagaciousCejai'
 }
 
 function jokerInfo.loc_vars(self, info_queue, card)
-	info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.cejai } }
 	local num, dom = SMODS.get_probability_vars(card, 1, card.ability.extra.prob, 'csau_depressed')
 	return { vars = {num, dom, card.ability.extra.mult_mod } }
 end
@@ -30,7 +30,7 @@ function jokerInfo.calculate(self, card, context)
 			card_eval_status_text(v, 'extra', nil, nil, nil, {
 				message = localize('k_upgrade_ex'),
 				colour = G.C.MULT,
-				func = function() 
+				func = function()
 					card:juice_up()
 				end
 			})
@@ -39,4 +39,3 @@ function jokerInfo.calculate(self, card, context)
 end
 
 return jokerInfo
-	

@@ -9,12 +9,8 @@ local jokerInfo = {
     perishable_compat = false,
     has_shiny = true,
     streamer = "vinny",
+    artist = 'Swizik'
 }
-
-function jokerInfo.loc_vars(self, info_queue, card)
-    info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.swizik } }
-    return { vars = { } }
-end
 
 function jokerInfo.locked_loc_vars(self, info_queue, card)
     return { vars = { colours = {get_stake_col(4)} }}

@@ -13,10 +13,10 @@ local jokerInfo = {
     eternal_compat = true,
     perishable_compat = false,
     streamer = "joel",
+    artist = 'SagaciousCejai'
 }
 
 function jokerInfo.loc_vars(self, info_queue, card)
-    info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.cejai } }
     local num, dom = SMODS.get_probability_vars(card, 1, card.ability.extra.prob, 'csau_agga')
     return { vars = {num, dom, card.ability.extra.x_mult_mod, card.ability.extra.x_mult } }
 end

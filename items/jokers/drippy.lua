@@ -7,12 +7,8 @@ local jokerInfo = {
     eternal_compat = true,
     perishable_compat = true,
     streamer = "other",
+    artist = 'Alli'
 }
-
-function jokerInfo.loc_vars(self, info_queue, card)
-    info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.alli } }
-    return { vars = { } }
-end
 
 function jokerInfo.calculate(self, card, context)
     if context.cardarea == G.jokers and context.before and not card.debuff and G.GAME.current_round.hands_played == 0 and not context.debuffed then

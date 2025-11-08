@@ -11,12 +11,9 @@ local jokerInfo = {
     csau_dependencies = {
         'enableStands',
         'enableJoelContent'
-    }
+    },
+    artist = 'BarrierTrio/Gote'
 }
-
-function jokerInfo.loc_vars(self, info_queue, card)
-    info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.gote } }
-end
 
 function jokerInfo.calculate(self, card, context)
     if context.cardarea == G.jokers and context.before and not card.debuff and to_big(G.GAME.current_round.hands_left) == to_big(0) then

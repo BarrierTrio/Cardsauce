@@ -10,11 +10,10 @@ local jokerInfo = {
 	has_shiny = true,
 	unlock_condition = {type = 'win_deck', deck = 'b_green'},
 	streamer = "other",
+	artist = 'BarrierTrio/Gote'
 }
 
 function jokerInfo.loc_vars(self, info_queue, card)
-	info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.gote } }
-
 	local compat = 'incompatible'
     if G.jokers and #G.jokers.cards > 1 and card.rank < #G.jokers.cards and G.jokers.cards[#G.jokers.cards].ability.set == 'Joker' then
         compat = G.jokers.cards[#G.jokers.cards].config.center.blueprint_compat and 'compatible' or 'incompatible'
@@ -51,4 +50,3 @@ function jokerInfo.calculate(self, card, context)
 end
 
 return jokerInfo
-	

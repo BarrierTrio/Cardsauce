@@ -5,7 +5,7 @@ local jokerInfo = {
             prob_1 = 4,
             prob_2 = 4
         }
-        
+
     },
     rarity = 2,
     cost = 5,
@@ -13,11 +13,10 @@ local jokerInfo = {
     eternal_compat = true,
     perishable_compat = true,
     streamer = "vinny",
+    artist = "FenixSeraph"
 }
 
 function jokerInfo.loc_vars(self, info_queue, card)
-    info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.fenix } }
-
     local num, dom1 = SMODS.get_probability_vars(card, 1, card.ability.extra.prob_1, 'csau_bjbros1')
     local _, dom2 = SMODS.get_probability_vars(card, 1, card.ability.extra.prob_2, 'csau_bjbros2')
     return { vars = {num, dom1, dom2 } }

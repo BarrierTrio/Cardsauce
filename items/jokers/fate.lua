@@ -7,14 +7,8 @@ local jokerInfo = {
     eternal_compat = true,
     perishable_compat = true,
     streamer = "vinny",
+    artist = 'FenixSeraph'
 }
-
-function jokerInfo.loc_vars(self, info_queue, card)
-    info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.fenix } }
-    return { vars = { } }
-end
-
-
 
 function jokerInfo.calculate(self, card, context)
     if context.end_of_round and not card.debuff and not context.individual and not context.repetition then

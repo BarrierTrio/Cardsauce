@@ -21,13 +21,13 @@ local consumInfo = {
         'rlm',
         'rlm_botw',
         color = 'rlm'
-    }
+    },
+    artist = 'Gongalicious'
 }
 
 
 function consumInfo.loc_vars(self, info_queue, card)
     info_queue[#info_queue+1] = {key = "vhs_activation", set = "Other"}
-    info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.gong } }
     local num, dom = SMODS.get_probability_vars(card, card.ability.extra.chance, card.ability.extra.rate, 'csau_alienpi')
     return { vars = { card.ability.extra.x_mult, card.ability.extra.chance_mod, num, dom, card.ability.extra.runtime - card.ability.extra.uses } }
 end

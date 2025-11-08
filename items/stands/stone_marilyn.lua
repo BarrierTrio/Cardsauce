@@ -20,7 +20,8 @@ local consumInfo = {
         custom_color = 'stone'
     },
     blueprint_compat = false,
-    artist = 'gote',
+    artist = 'BarrierTrio/Gote',
+    programmer = 'Kekulism'
 }
 
 function consumInfo.loc_vars(self, info_queue, card)
@@ -120,7 +121,7 @@ function consumInfo.calculate(self, card, context)
                     v:start_dissolve({G.C.GOLD})
                 end
             end
-            
+
             ease_dollars(collect.ease)
             return {
                 no_retrigger = true,

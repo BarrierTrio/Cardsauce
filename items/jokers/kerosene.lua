@@ -14,10 +14,10 @@ local jokerInfo = {
     perishable_compat = false,
     streamer = "vinny",
     origin = "redvox",
+    artist = 'WhimsyCherry'
 }
 
 function jokerInfo.loc_vars(self, info_queue, card)
-    info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.cherry } }
     return { vars = {card.ability.extra.chips, card.ability.extra.chip_mod} }
 end
 
