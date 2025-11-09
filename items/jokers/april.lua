@@ -26,7 +26,6 @@ end
 function jokerInfo.loc_vars(self, info_queue, card)
     return {
         vars = { card.ability.extra.mult_mod, get_mult(card) },
-        key = self.key..(csau_config['detailedDescs'] and '_detailed' or '')
     }
 end
 

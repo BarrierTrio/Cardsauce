@@ -14,10 +14,6 @@ local jokerInfo = {
 	streamer = "other",
 }
 
-function jokerInfo.loc_vars(self, info_queue, card)
-	return { vars = {}, key = self.key..(csau_config['detailedDescs'] and '_detailed' or '') }
-end
-
 function jokerInfo.in_pool(self, args)
 	if to_big(G.GAME.round_resets.ante) < to_big(9) then
 		return true
@@ -206,4 +202,3 @@ function jokerInfo.update(self, card)
 end
 
 return jokerInfo
-	

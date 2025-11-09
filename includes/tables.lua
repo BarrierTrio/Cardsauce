@@ -204,46 +204,6 @@ G.color_presets = {
 	}
 }
 
--- colors used for dynamic badges, used to be in localization file which is a bad place to put hex codes -keku
-G.csau_badge_colours = {
-	co_vinny = "32A852",
-	te_vinny = "FFFFFF",
-	co_joel = "3b4635",
-	te_joel = "b0cf56",
-	co_mike = "8867a5",
-	te_mike = "FFFF00",
-	co_redvox = "841f20",
-	te_redvox = "cac5b7",
-	co_rlm = "FFFFFF",
-	te_rlm = "b1212a",
-	co_uzumaki = "374244",
-	te_uzumaki = "bfc7d5",
-	co_monkeywrench = "194528",
-	te_monkeywrench = "edffee",
-
-	-- badge colors for jojo parts
-	co_phantom = '245482',
-	te_phantom = 'eee4a6',
-	co_battle = 'DD5668',
-	te_battle = '338FC4',
-	co_stardust = '425F7C',
-	te_stardust = 'EFCB70',
-	co_diamond = 'BEE5E5',
-	te_diamond = 'C479BE',
-	co_vento = 'EDCE49',
-	te_vento = 'D168BC',
-	co_feedback = '7e2786',
-	te_feedback = 'fe9818',
-	co_stone = '0076b2',
-	te_stone = '97c348',
-	co_steel = 'A38168',
-	te_steel = 'A9CF3C',
-	co_lion = 'dcf5fc',
-	te_lion = '7832c4',
-	co_lands = '394E90',
-	te_lands = '409CE8',
-}
-
 G.csau_animated_centers = {}
 
 G.color_presets_nums = {}

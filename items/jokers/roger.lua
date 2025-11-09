@@ -1,5 +1,3 @@
-local mod = SMODS.current_mod
-
 local jokerInfo = {
 	name = 'Mr. Roger',
 	config = {
@@ -17,12 +15,11 @@ local jokerInfo = {
 }
 
 function jokerInfo.loc_vars(self, info_queue, card)
-	if not csau_config['detailedDescs'] then
+	if not ArrowAPI.current_config['enabled_DetailedDescs'] then
 		info_queue[#info_queue+1] = {key = "rogernote", set = "Other", vars = {next(SMODS.find_card("j_four_fingers")) and 4 or 5}}
 	end
 	return {
 		vars = {card.ability.extra.x_mult, next(SMODS.find_card("j_four_fingers")) and 0.4 or 0.5},
-		key = self.key..(csau_config['detailedDescs'] and '_detailed' or '')
 	}
 end
 

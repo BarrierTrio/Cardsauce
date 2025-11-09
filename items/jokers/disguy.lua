@@ -20,10 +20,6 @@ local function detect2or5(scoring_hand)
 	return false
 end
 
-function jokerInfo.loc_vars(self, info_queue, card)
-	return { key = self.key..(csau_config['detailedDescs'] and '_detailed' or '') }
-end
-
 function jokerInfo.calculate(self, card, context)
 	if context.cardarea == G.jokers and context.before and not card.debuff and not context.blueprint then
 		if detect2or5(context.scoring_hand) then

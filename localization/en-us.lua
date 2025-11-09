@@ -436,23 +436,14 @@ return {
 			k_galaxy_q = "Galaxy?",
 
 			-- credits
-			vs_credits1 = "Direction",
-			vs_credits2 = "Artists",
-			vs_credits2_2 = "Playing Cards",
-			vs_credits3 = "Coding",
-			vs_credits4 = "Voice Acting",
-			vs_credits5 = "Support",
-			vs_credits6 = "Special Thanks",
-			vs_credits7 = "Music",
-			vs_credits8 = "Shaders",
-			vs_credits9 = "Logo",
+			csau_credits_voice = "Voice Acting",
+			csau_credits_music = "Music",
+			csau_credits_logo = "Logo",
 
 			-- config options
 			vs_options_sub = "(Restart required to apply)",
 			vs_options_muteWega = "Mute WAAUGGHGHHHHGHH",
 			vs_options_muteWega_desc = "Check this box to mute WAAUGGHGHHHHGHH's screams",
-			vs_options_detailedDescs = "Detailed Descriptions",
-			vs_options_detailedDescs_desc = "Replaces the jokey descriptions on certain cards with standard ones",
 			vs_options_enableVinnyContent = "Vinny-centric Content",
 			vs_options_enableJoelContent = "Joel-centric Content",
 			vs_options_enableJokers = "Jokers",

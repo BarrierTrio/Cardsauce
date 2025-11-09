@@ -1,5 +1,3 @@
-local mod = SMODS.current_mod
-
 local jokerInfo = {
     name = "Stolen Christmas",
     config = {
@@ -18,7 +16,7 @@ local jokerInfo = {
 }
 
 local function get_fingers(card)
-    if mod.config['detailedDescs'] then
+    if ArrowAPI.current_config['enabled_DetailedDescs'] then
         return math.ceil(card.ability.extra.fingers / (next(SMODS.find_card("j_four_fingers")) and 4 or 5))
     else
         return card.ability.extra.fingers
@@ -26,12 +24,11 @@ local function get_fingers(card)
 end
 
 function jokerInfo.loc_vars(self, info_queue, card)
-    if not csau_config['detailedDescs'] then
+    if not ArrowAPI.current_config['enabled_DetailedDescs'] then
         info_queue[#info_queue+1] = {key = "rogernote", set = "Other", vars = {next(SMODS.find_card("j_four_fingers")) and 4 or 5}}
     end
     return {
         vars = { get_fingers(card) },
-        key = self.key..(csau_config['detailedDescs'] and '_detailed' or '')
     }
 end
 

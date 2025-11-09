@@ -150,7 +150,7 @@ local ref_change_collab = G.FUNCS.change_collab
 G.FUNCS.change_collab = function(args)
     local ret = ref_change_collab(args)
 
-    if csau_enabled['enableSkins'] then
+    if Cardsauce.current_config['enable_Skins'] then
         if G.SETTINGS.CUSTOM_DECK.Collabs.Spades == "collab_CYP" and
             G.SETTINGS.CUSTOM_DECK.Collabs.Hearts == "collab_TBoI" and
             G.SETTINGS.CUSTOM_DECK.Collabs.Diamonds == "collab_SV" and

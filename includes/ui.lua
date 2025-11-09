@@ -11,8 +11,8 @@ SMODS.Atlas({
 -- but it was only used here, so I combined them ~Winter
 function G.FUNCS.csau_restart()
 	local settingsMatch = true
-	for k, v in pairs(csau_enabled) do
-		if v ~= csau_config[k] then
+	for k, v in pairs(Cardsauce.current_config) do
+		if v ~= Cardsauce.config then
 			settingsMatch = false
 		end
 	end
@@ -35,10 +35,10 @@ end
 ---------------------------
 
 -- TODO: figure out how to do multiple title replacements with atlas declarations
-if csau_enabled['enableLogo'] then
+if Cardsauce.current_config['enable_Logo'] then
 	-- Title Screen Logo Texture
 	local logo = "Logo.png"
-	if G.chadnova and csau_enabled['enableEasterEggs'] then
+	if G.chadnova and Cardsauce.current_config['enable_EasterEggs'] then
 		logo = "Logo-C.png"
 	end
 	SMODS.Atlas {
@@ -129,11 +129,6 @@ SMODS.current_mod.extra_tabs = function()
 	}
 } end
 
-local ortalab = false
-if SMODS.current_mod.DT.ortalab_dlc then
-	ortalab = true
-end
-
 SMODS.current_mod.config_tab = function()
 	local ordered_config = {
 		'enableVinnyContent',
@@ -157,7 +152,7 @@ SMODS.current_mod.config_tab = function()
 		'enableTarotSkins',
 		'enableEasterEggs',
 	}
-	if ortalab then
+	if Cardsauce.ortalab_dlc then
 		ordered_config[#ordered_config+1] = 'forceDisableOrtalab'
 		ordered_config[#ordered_config+1] = 'forceEnableOrtalab'
 	end
@@ -169,9 +164,9 @@ SMODS.current_mod.config_tab = function()
 	for i, k in ipairs(ordered_config) do
 		if right_count < left_count then
 			local main_node = create_toggle({
-				label = localize("vs_options_"..ordered_config[i]) ~= 'ERROR' and localize("vs_options_"..ordered_config[i]) or ordered_config[i],
+				label = localize("csau_options_"..ordered_config[i]) ~= 'ERROR' and localize("csau_options_"..ordered_config[i]) or ordered_config[i],
 				w = 1,
-				ref_table = csau_config,
+				ref_table = Cardsauce.config,
 				ref_value = ordered_config[i],
 				callback = G.FUNCS.csau_restart
 			})
@@ -181,9 +176,9 @@ SMODS.current_mod.config_tab = function()
 			right_count = right_count + 1
 		else
 			local main_node = create_toggle({
-				label = (localize("vs_options_"..ordered_config[i]) ~= 'ERROR' and localize("vs_options_"..ordered_config[i])) or ordered_config[i],
+				label = (localize("csau_options_"..ordered_config[i]) ~= 'ERROR' and localize("csau_options_"..ordered_config[i])) or ordered_config[i],
 				w = 1,
-				ref_table = csau_config,
+				ref_table = Cardsauce.config,
 				ref_value = ordered_config[i],
 				callback = G.FUNCS.csau_restart
 			})

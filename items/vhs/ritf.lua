@@ -27,7 +27,6 @@ function consumInfo.loc_vars(self, info_queue, card)
     info_queue[#info_queue+1] = {key = "vhs_activation", set = "Other"}
     return {
         vars = { card.ability.extra.runtime-card.ability.extra.uses },
-        key = self.key..(csau_config['detailedDescs'] and '_detailed' or '')
     }
 end
 

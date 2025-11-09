@@ -29,7 +29,7 @@ pattern = '''G.SPLASH_BACK:define_draw_steps({{
 }}})'''
 position = "at"
 payload = '''
-if csau_enabled['enableColors'] then
+if Cardsauce.current_config['enable_Colors'] then
     G.SPLASH_BACK:define_draw_steps({{
         shader = 'splash',
         send = {
@@ -145,7 +145,7 @@ pattern = '''
 '''
 position = "after"
 payload = '''
-  if csau_enabled['enableColors'] then
+  if Cardsauce.current_config['enable_Colors'] then
       tabs[#tabs+1] = {
           label = localize('b_set_colors'),
           tab_definition_function = G.UIDEF.settings_tab,
@@ -161,7 +161,7 @@ target = "engine/controller.lua"
 pattern = "if self.text_input_hook then"
 position = "before"
 payload = '''
-    if csau_enabled['enableEasterEggs'] then
+    if Cardsauce.current_config['enable_EasterEggs'] then
         if key == mgt[mgt_num] then
             if key == "o" then
                 G.debug_background_toggle = not G.debug_background_toggle

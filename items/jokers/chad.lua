@@ -12,10 +12,6 @@ local jokerInfo = {
 	artist = 'BarrierTrio/Gote'
 }
 
-function jokerInfo.loc_vars(self, info_queue, card)
-	return { vars = {}, key = self.key..(csau_config['detailedDescs'] and '_detailed' or '') }
-end
-
 function jokerInfo.calculate(self, card, context)
 	if context.other_joker and not card.debuff and not context.blueprint then
 		if (context.other_joker.config.center.name == ('No No No No No No No No No No No') or context.other_joker.ability.name == 'Hanging Chad' or context.other_joker.ability.name == 'Showman') and card ~= context.other_joker then

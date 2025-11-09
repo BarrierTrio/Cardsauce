@@ -1,5 +1,5 @@
 -- TODO: move all music selection to arrow
-if not csau_enabled['enableMusic'] then
+if not Cardsauce.current_config['enable_Music'] then
     return
 end
 
