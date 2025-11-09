@@ -445,7 +445,7 @@ if csau_enabled['enableStands'] then
     }
 end
 
-if SMODS.current_mod.DT.ortalab_dlc then
+if Cardsauce.ortalab_dlc then
     local init, error = SMODS.load_file("includes/ortalab_dlc.lua")
     if error then sendErrorMessage("[Cardsauce] Failed to load ortalab_dlc with error "..error) else
         local data = init()

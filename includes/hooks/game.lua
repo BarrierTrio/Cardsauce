@@ -6,7 +6,7 @@ function Game:update_shop(dt)
 		local morshu_exists = not not G.morshu_save
 
 		-- this is the result of stupid UI layerin bullshit
-		if G.morshu_save and G.morshu_save.config.instance_type then 
+		if G.morshu_save and G.morshu_save.config.instance_type then
 			for k, v in pairs(G.I[G.morshu_save.config.instance_type]) do
 				if v == G.morshu_save then
 					table.remove(G.I[G.morshu_save.config.instance_type], k)
@@ -33,7 +33,7 @@ function Game:update_shop(dt)
 					func = function()
 						if math.abs(G.morshu_save.T.y - G.morshu_save.VT.y) < 3 then
 							if not morshu_exists then
-								if G.load_morshu_area then 
+								if G.load_morshu_area then
 									G.morshu_area:load(G.load_morshu_area)
 									for k, v in ipairs(G.morshu_area.cards) do
 										create_shop_card_ui(v)
@@ -57,3 +57,37 @@ function Game:update_shop(dt)
 end
 
 -- TODO: update *all* cardsauce animated centers using new SMODS behavior for wide support of AnimatedSprite
+local ref_update = Game.update
+function Game:update(dt)
+	local ret = ref_update(self, dt)
+	if G.P_CENTERS then
+		for k, v in pairs(G.csau_animated_centers) do
+			if G.P_CENTERS[k] then
+				local speed = v.speed or 0.1
+				v.dt = v.dt + dt
+				if v.dt > speed then
+					v.dt = 0
+					local obj = G.P_CENTERS[k]
+					if v.tiles.x and v.tiles.y then
+						local last_tile = { x = ((v.tiles.last_tile and v.tiles.last_tile.x or v.tiles.x)-1), y = ((v.tiles.last_tile and v.tiles.last_tile.y or v.tiles.y)-1) }
+						local width = v.tiles.x-1
+						local height = v.tiles.y-1
+						if (obj.pos.x == last_tile.x and obj.pos.y == last_tile.y) then
+							obj.pos.x = 0
+							obj.pos.y = 0
+						elseif (obj.pos.x < width) then obj.pos.x = obj.pos.x + 1
+						elseif (obj.pos.y < height) then
+							obj.pos.x = 0
+							obj.pos.y = obj.pos.y + 1
+						end
+					elseif v.tiles.x and not v.tiles.y then
+						local width = v.tiles.x-1
+						if (obj.pos.x < width) then obj.pos.x = obj.pos.x + 1
+						else obj.pos.x = 0 end
+					end
+				end
+			end
+		end
+	end
+	return ret
+end

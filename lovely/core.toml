@@ -229,7 +229,7 @@ match_indent = true
 [[patches]]
 [patches.pattern]
 target = "cardarea.lua"
-pattern = '''if location == 'front' or self.config.type == 'deck' then 
+pattern = '''if location == 'front' or self.config.type == 'deck' then
     table.insert(self.cards, 1, card)
 else
     self.cards[#self.cards+1] = card
@@ -238,7 +238,7 @@ position = "at"
 payload = '''
 if index then
     table.insert(self.cards, index, card)
-elseif location == 'front' or self.config.type == 'deck' then 
+elseif location == 'front' or self.config.type == 'deck' then
     table.insert(self.cards, 1, card)
 else
     self.cards[#self.cards+1] = card
@@ -381,7 +381,7 @@ times = 1
 target = "game.lua"
 pattern = '''if _ch.restrictions.banned_other then'''
 position = "after"
-payload = '''   
+payload = '''
     if type(_ch.restrictions.banned_other) == 'function' then
         _ch.restrictions.banned_other = _ch.restrictions.banned_other()
     end'''
