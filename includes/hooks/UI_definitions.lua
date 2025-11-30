@@ -76,17 +76,10 @@ function G.UIDEF.use_and_sell_buttons(card)
 end
 
 -- this local table was only used here, so I moved it here ~Winter
-local music_nums = { cardsauce = 1, balatro = 2}
 setting_tabRef = G.UIDEF.settings_tab
 function G.UIDEF.settings_tab(tab)
 	local setting_tab = setting_tabRef(tab)
-	if tab == 'Audio' and Cardsauce.current_config['enable_Music'] then
-		local musicSelector = {n=G.UIT.R, config = {align = 'cm', r = 0}, nodes= {
-			create_option_cycle({ w = 6, scale = 0.8, label = localize('b_music_selector'), options = localize('ml_music_selector_opt'), opt_callback = 'change_music', current_option = ((music_nums)[G.SETTINGS.music_selection] or 1) })
-		}}
-		setting_tab.nodes[#setting_tab.nodes + 1] = musicSelector
-	end
-	if tab == 'Colors' and Cardsauce.current_config['enable_Colors'] then
+	if tab == 'Colors' and Cardsauce.config['enable_Colors'] then
 		local color = {}
 		local key
 		for _, v in ipairs(G.color_presets) do

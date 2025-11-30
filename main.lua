@@ -5,10 +5,36 @@ Cardsauce.optional_features = {
 	retrigger_joker = true,
 	quantum_enhancements = true,
 }
-Cardsauce.current_config = copy_table(Cardsauce.config)
+
+--- chadnova easter egg
+math.randomseed(os.time())
+if math.random() < 0.001 then
+	ArrowAPI.misc.update_config(Cardsauce, 'enable_Chadnova', true)
+end
+
 Cardsauce.usable_path = Cardsauce.path:match("Mods/[^/]+")
 Cardsauce.default_ds = 'joel'
 Cardsauce.ortalab_dlc = false
+
+Cardsauce.calculate = function(self, context)
+	if context.splash_card and Cardsauce.chadnova then
+		return {
+			splash_center = 'j_csau_chad'
+		}
+	end
+
+	if context.title_card then
+		local title_center = Cardsauce.chadnova and 'j_csau_chad' or nil
+		local title_front = not Cardsauce.chadnova and Cardsauce.config['enable_Logo'] and 'C_A' or nil
+
+		if title_center or title_front then
+			return {
+				title_center = title_center,
+				title_front = title_front
+			}
+		end
+	end
+end
 
 
 ArrowAPI.misc.add_colors({
@@ -62,98 +88,120 @@ ArrowAPI.ui.add_badge_colors(Cardsauce, {
 	te_lands = HEX('409CE8'),
 })
 
-ArrowAPI.credits.use_credits(Cardsauce, {
-    matrix = {col = 20, row = 7},
+
+ArrowAPI.config_tools.use_credits(Cardsauce, {
+    matrix = {col = 18.5, row = 7},
     {
         key = 'direction',
         title_colour = G.C.GOLD,
         pos_start = {col = 0, row = 0},
-        pos_end = {col = 5.5, row = 3},
+        pos_end = {col = 4.5, row = 2.25},
         contributors = {
-            ["BarrierTrio/Gote"] = true,
-			["Kekulism"] = true,
-            ["Vivian Giacobbi"] = true,
+            {name = "BarrierTrio/Gote"},
+			{name = "Kekulism"},
+            {name = "Vivian Giacobbi"},
         }
     },
 	{
 		key = 'music',
         title_colour = G.C.RED,
-        pos_start = {col = 0, row = 3},
-        pos_end = {col = 5.5, row = 5},
+        pos_start = {col = 0, row = 2.25},
+        pos_end = {col = 4.5, row = 4.5},
 		contributors = {
-			['Baseclefff'] = true,
-			['bassclefff.bandcamp.com'] = {name_color = G.C.UI.TEXT_INACTIVE, scale_mod = 0.8}
+			{name = 'bassclefff', name_scale = 1.1},
+			{name = '(bassclefff.bandcamp.com)', name_colour = G.C.JOKER_GREY, name_scale = 0.8}
 		}
 	},
 	{
 		key = 'voice',
         title_colour = G.C.BLUE,
-        pos_start = {col = 0, row = 5},
-        pos_end = {col = 5.5, row = 7},
+        pos_start = {col = 0, row = 4.5},
+        pos_end = {col = 4.5, row = 7},
 		contributors = {
-			['Austin L. Matthews'] = {
-				name_func = function()
+			{
+				name = function()
 					return G.SETTINGS.roche and 'Austin L. Matthews' or '?????'
-				end
+				end,
+				name_scale = 1.1
 			},
-			['(AmtraxVA)'] = {
-				name_func = function()
+			{
+				name = function()
 					return G.SETTINGS.roche and '(AmtraxVA)' or '?????'
 				end,
 				name_color = G.C.UI.TEXT_INACTIVE,
-				scale_mod = 0.8
+				name_scale = 0.8
 			}
 		}
 	},
     {
         key = 'artist',
         title_colour = G.C.ETERNAL,
-        pos_start = {col = 5.5, row = 0},
-        pos_end = {col = 13, row = 7}
+        pos_start = {col = 4.5, row = 0},
+        pos_end = {col = 11.5, row = 7}
     },
-    {
+	{
         key = 'logo',
         title_colour = G.C.PURPLE,
-        pos_start = {col = 13, row = 0},
-        pos_end = {col = 16.5, row = 2.5},
+        pos_start = {col = 11.5, row = 0},
+        pos_end = {col = 15, row = 2.5},
 		contributors = {
-			['AlizarinRed'] = true,
-			['(alizarin.red)'] = {name_color = G.C.UI.TEXT_INACTIVE, scale_mod = 0.8}
+			{name = 'AlizarinRed', name_scale = 1.1},
+			{name = '(alizarin.red)', name_colour = G.C.JOKER_GREY, name_scale = 0.8}
 		}
     },
-    {
-        key = 'shader',
+	{
+        key = 'graphics',
         title_colour = G.C.DARK_EDITION,
-        pos_start = {col = 13, row = 2.5},
-        pos_end = {col = 16.5, row = 5},
+        pos_start = {col = 11.5, row = 2.5},
+        pos_end = {col = 15, row = 5},
         contributors = {
-			["Sir. Gameboy"] = true,
-            ["Vivian Giacobbi"] = true,
+			{name = "Sir. Gameboy"},
+            {name = "Vivian Giacobbi"},
         }
     },
 	{
         key = 'programmer',
         title_colour = G.C.ORANGE,
-        pos_start = {col = 16.5, row = 0},
-        pos_end = {col = 20, row = 5},
+        pos_start = {col = 15, row = 0},
+        pos_end = {col = 18.5, row = 5},
         contributors = {
-			["BarrierTrio/Gote"] = true,
-            ["Nether"] = true,
-			["Numbuh214"] = true,
-			["Aurelius7309"] = true,
+			{name = "BarrierTrio/Gote"},
+            {name = "Nether"},
+			{name = "Numbuh214"},
+			{name = "Aurelius7309"}
         }
     },
     {
         key = 'special',
         title_colour = G.C.GREEN,
-        pos_start = {col = 13, row = 5},
-        pos_end = {col = 20, row = 7},
+        pos_start = {col = 11.5, row = 5},
+        pos_end = {col = 18.5, row = 7},
         contributors = {
-            ["Hirohiko Araki"] = true,
-            ["LuckyLand Communications"] = true,
-            ["Nico Abrams (LuaNES)"] = true,
+            {name = "Vinny"},
+			{name = "Joel"},
+			{name = "Mike"},
+			{name = "tortoise"},
+			{name = "Protokyuuu"},
+			{name = "ShrineFox"},
+			{name = "ReconBox"},
+			{name = "cryobolic"},
+			{name = "SinCityAssassin"},
+			{name = "Aurelius7309"},
+			{name = "Victin"},
+			{name = "TheVoyger1234"},
         }
     },
+})
+
+ArrowAPI.config_tools.use_config(Cardsauce, {
+	{key = 'enable_VinnyContent', order = 1, before_auto = true, default_value = true},
+	{key = 'enable_JoelContent', order = 2, before_auto = true, default_value = true},
+	{key = 'enable_Logo', order = 1, default_value = true},
+	{key = 'enable_Colors', order = 2, default_value = true},
+	{key = 'enable_EasterEggs', order = 3, default_value = true},
+	{key = 'muteWega', default_value = false, exclude_from_ui = true},
+	{key = 'forceDisableOrtalab', default_value = false, exclude_from_ui = true},
+	{key = 'forceEnableOrtalab', default_value = false, exclude_from_ui = true},
 })
 
 local includes = {
@@ -179,7 +227,6 @@ local includes = {
 	--- jokers are required for some following files so include them first
 
 	'skins',
-	'colors',
 	'items',
 	'achievements',
 }

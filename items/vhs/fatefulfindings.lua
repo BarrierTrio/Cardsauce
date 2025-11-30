@@ -13,6 +13,7 @@ local consumInfo = {
             uses = 0,
         },
     },
+    origin = 'rlm',
     artist = 'Burdrehnar'
 }
 

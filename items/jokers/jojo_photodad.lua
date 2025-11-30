@@ -7,22 +7,24 @@ local jokerInfo = {
     eternal_compat = true,
     perishable_compat = true,
     hasSoul = true,
-    streamer = "joel",
-    csau_dependencies = {
-        'enableStands',
-        'enableJoelContent'
-    },
-    artist = 'BarrierTrio/Gote'
+    origin = 'jojo',
+    artist = 'BarrierTrio/Gote',
+    programmer = 'Kekulism'
 }
 
 function jokerInfo.calculate(self, card, context)
-    if context.cardarea == G.jokers and context.before and not card.debuff and to_big(G.GAME.current_round.hands_left) == to_big(0) then
+    if card.debuff then return end
+
+    if context.cardarea == G.jokers and context.before and to_big(G.GAME.current_round.hands_left) == to_big(0) then
         G.E_MANAGER:add_event(Event({func = function()
             if to_big(G.consumeables.config.card_limit) > to_big(#G.consumeables.cards) then
                 play_sound('timpani')
-                local _card = create_card('Tarot', G.consumeables, nil, nil, nil, nil, 'c_csau_tarot_arrow', 'photodad')
-                _card:add_to_deck()
-                G.consumeables:emplace(_card)
+                SMODS.add_card({
+                    set = 'Tarot',
+                    area = G.consumeables,
+                    key = 'c_arrow_tarot_arrow',
+                    key_append = 'jojobal_photodad',
+                })
                 card:juice_up(0.3, 0.5)
             end
             return true

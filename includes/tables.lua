@@ -104,7 +104,7 @@ local function inject(self)
 	for k, v in pairs(G.foodjokers) do
 		if G.P_CENTERS[k] or SMODS.Centers[k] then
 			local center = G.P_CENTERS[k] or SMODS.Centers[k]
-			if not table.contains(self, center) then
+			if not ArrowAPI.table.contains(self, center) then
 				self:inject_card(center)
 			end
 		end
@@ -131,9 +131,6 @@ else
 		end
 	})
 end
-
-
--- TODO: update to use Arrow automated crediting
 
 -- A table of preset color settings when Colors are enabled in mod configs
 G.color_presets = {

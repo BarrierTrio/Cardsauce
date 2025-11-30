@@ -5,7 +5,7 @@ local trophyInfo = {
             local csauJokers = 0
             local csauDiscovered = 0
             for k, v in pairs(SMODS.Centers) do
-                if starts_with(k, 'j_csau_') then
+                if ArrowAPI.string.starts_with(k, 'j_csau_') then
                     csauJokers = csauJokers + 1
                     if v.discovered == true then
                         csauDiscovered = csauDiscovered + 1

@@ -15,9 +15,11 @@ local consumInfo = {
         destroyed = false,
     },
     origin = {
-        'rlm',
-        'rlm_wotw',
-        color = 'rlm'
+        category = 'rlm',
+        sub_origins = {
+            'rlm_wotw',
+        },
+        custom_color = 'rlm'
     }
 }
 

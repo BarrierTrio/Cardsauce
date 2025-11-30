@@ -1,5 +1,3 @@
--- TODO: move joker talk to arrow, I have an updated version used in fanworks
-
 function Card:gunshot_func()
     if G.OVERLAY_MENU and G.OVERLAY_MENU:get_UIE_by_ID('jimbo_spot') then
         play_sound("csau_gunshot", 1, 1)
@@ -42,20 +40,9 @@ end
 
 
 ---------------------------
---------------------------- For tracking shop purchases for Morshu
----------------------------
-
--- TODO: move shop_dollars_spent context to arrow for general use
-
-
-
-
-
----------------------------
 --------------------------- For loading overlays and auras
 ---------------------------
 
--- TODO: idk what this is used for
 local ref_card_ju = Card.juice_up
 function Card:juice_up(scale, rot_amount)
     if self.seal_delay then self.seal_delay = false end
@@ -63,12 +50,11 @@ function Card:juice_up(scale, rot_amount)
 end
 
 
--- TODO: implement this if and only if it's not already impleemnted by jojobal
 local ref_cgid = Card.get_id
 function Card:get_id(skip_pmk)
     skip_pmk = skip_pmk or false
     if not skip_pmk and (self.area == G.hand or self.area == G.play) and self:is_face() and next(SMODS.find_card("c_csau_lion_paper")) then
-        return SMODS.Ranks[G.GAME.current_round.paper_rank or 'Jack'].id
+        return SMODS.Ranks[G.GAME.current_round.jojobal_paper_rank or 'Jack'].id
     end
     return ref_cgid(self)
 end
@@ -124,3 +110,25 @@ SMODS.Consumable:take_ownership('sigil', {
         delay(0.5)
     end,
 })
+
+
+-- TODO: centralize this
+local ref_set_cost = Card.set_cost
+function Card:set_cost()
+    if G.GAME and G.GAME.modifiers and G.GAME.modifiers.csau_tgyh_tenbob then
+        self.base_cost = 10
+        self.extra_cost = 0
+    end
+
+    local ret = ref_set_cost(self)
+
+    if (self.ability.set == 'VHS' or (self.ability.set == 'Booster' and self.ability.name:find('Analog'))) then
+        if #SMODS.find_card('j_csau_weretrulyfrauds') > 0 then
+            self.cost = 0
+        end
+    end
+
+    self.sell_cost = self.sell_cost + (self.ability.csau_extra_value or 0)
+
+    return ret
+end

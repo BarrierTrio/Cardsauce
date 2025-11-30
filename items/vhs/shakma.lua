@@ -14,9 +14,11 @@ local consumInfo = {
         },
     },
     origin = {
-        'rlm',
-        'rlm_botw',
-        color = 'rlm'
+        category = 'rlm',
+        sub_origins = {
+            'rlm_botw',
+        },
+        custom_color = 'rlm'
     },
     artist = 'Joey'
 }
@@ -28,7 +30,7 @@ function consumInfo.loc_vars(self, info_queue, card)
 end
 
 function consumInfo.calculate(self, card, context)
-    if card.ability.activated and not card.ability.destroyed and context.fix_probability and G.FUNCS.find_activated_tape('c_csau_shakma') == card then
+    if card.ability.activated and not card.ability.destroyed and context.fix_probability and ArrowAPI.vhs.find_activated_tape('c_csau_shakma') == card then
         if context.from_roll then
             card.ability.extra.uses = math.min(card.ability.extra.runtime, card.ability.extra.uses + 1)
             if to_big(card.ability.extra.uses) >= to_big(card.ability.extra.runtime) then

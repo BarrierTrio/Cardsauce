@@ -1,9 +1,9 @@
 local trophyInfo = {
     rarity = 3,
+    config = {key = 'j_csau_quarterdumb'},
     hidden_text = true,
-    unlock_key = 'j_csau_quarterdumb',
     unlock_condition = function(self, args)
-        return G.FUNCS.discovery_check({ mode = 'key', key = self.unlock_key })
+        return (G.P_CENTERS[self.config.unlock_key] or {}).discovered
     end,
 }
 

@@ -14,7 +14,7 @@ function SMODS.current_mod.reset_game_globals(run_start)
 		end
     end
 
-    csau_reset_paper_rank()
+    jojobal_reset_paper_rank()
 
 	G.GAME.current_round.choicevoice = { suit = 'Clubs' }
 	local _poker_hands = {}
@@ -59,10 +59,12 @@ function SMODS.current_mod.reset_game_globals(run_start)
 	G.GAME.current_round.duane_suit = randCard_3.base.suit
 end
 
--- TODO: reimplement gnorts with SMODS.wrap_around_straight()
+local ref_wrap_straight = SMODS.wrap_around_straight
+function SMODS.wrap_around_straight()
+	local ret = ref_wrap_straight()
+	return ret or next(SMODS.find_card('j_csau_gnorts'))
+end
 
-
--- TODO: check if removed card collection uibox function still works with arrow reimplementation
 
 -- total override of this function for bootleg purposes
 -- TODO: see if this can be simplified

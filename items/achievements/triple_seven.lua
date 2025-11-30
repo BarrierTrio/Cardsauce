@@ -7,7 +7,7 @@ local trophyInfo = {
                 'j_csau_chad',
                 'j_csau_meteor',
             }
-            return G.FUNCS.have_multiple_jokers(jokers)
+            return ArrowAPI.game.have_multiple_jokers(jokers)
         end
     end,
 }

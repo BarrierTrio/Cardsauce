@@ -13,7 +13,7 @@ local jokerInfo = {
 function jokerInfo.calculate(self, card, context)
     local bad_context = context.repetition or context.individual or context.blueprint
     if context.end_of_round and G.GAME.blind.boss and not card.debuff and not bad_context then
-        local key, color = G.FUNCS.csau_get_tag('joker', 'ITSSOMOAJOE')
+        local key, color = ArrowAPI.game.get_tag_by_type('joker', 'ITSSOMOAJOE')
         card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('k_plus_one')..G.localization.descriptions["Tag"][key].name, colour = color})
         G.E_MANAGER:add_event(Event({
             trigger = 'before',

@@ -19,15 +19,7 @@ G.FUNCS.check_for_buy_space = function(card)
         return true
     end
 
-    -- TODO: stand space handling is done by arrow
-
-    local ret = ref_check_buy_space(card)
-    if not ret then
-        return ret
-    end
-
-
-    return ret
+    return ref_check_buy_space(card)
 end
 
 
@@ -140,17 +132,18 @@ G.FUNCS.save_to_morshu = function(e)
     end
 end
 
--- TODO: move shop_dollars_spent and rerolls_this_round to arrow
-
--- TODO: use behavior moved to arrow
-
--- TODO: handle usage stats for VHS and Stands in arrow
+local ref_buy_shop = G.FUNCS.buy_from_shop
+G.FUNCS.buy_from_shop = function(e)
+    local ret = ref_buy_shop(e)
+    check_for_unlock({type = 'csau_spent_in_shop', dollars = G.GAME.shop_dollars_spent})
+    return ret
+end
 
 local ref_change_collab = G.FUNCS.change_collab
 G.FUNCS.change_collab = function(args)
     local ret = ref_change_collab(args)
 
-    if Cardsauce.current_config['enable_Skins'] then
+    if Cardsauce.config['enable_Skins'] then
         if G.SETTINGS.CUSTOM_DECK.Collabs.Spades == "collab_CYP" and
             G.SETTINGS.CUSTOM_DECK.Collabs.Hearts == "collab_TBoI" and
             G.SETTINGS.CUSTOM_DECK.Collabs.Diamonds == "collab_SV" and

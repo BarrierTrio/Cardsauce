@@ -22,7 +22,7 @@ sleeveInfo.loc_vars = function(self, info_queue)
 end
 
 sleeveInfo.calculate = function(self, back, context)
-    if context.context == 'eval' and G.GAME.last_blind and G.GAME.last_blind.boss and G.FUNCS.cbt_can_delevel() then
+    if context.context == 'eval' and G.GAME.last_blind and G.GAME.last_blind.boss and ArrowAPI.game.get_lowest_hand_level() > 1 then
         if self.get_current_deck_key() ~= "b_csau_cbt" then
             update_hand_text({sound = 'button', volume = 0.7, pitch = 0.8, delay = 0.3}, {handname=localize('k_all_hands'),chips = '...', mult = '...', level=''})
             G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.2, func = function()

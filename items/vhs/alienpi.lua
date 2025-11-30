@@ -18,9 +18,11 @@ local consumInfo = {
         },
     },
     origin = {
-        'rlm',
-        'rlm_botw',
-        color = 'rlm'
+        category = 'rlm',
+        sub_origins = {
+            'rlm_botw',
+        },
+        custom_color = 'rlm'
     },
     artist = 'Gongalicious'
 }

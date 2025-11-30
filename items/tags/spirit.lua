@@ -22,7 +22,7 @@ tagInfo.apply = function(self, tag, context)
             tag:nope()
         else
             tag:yep('+', G.C.STAND,function()
-                G.FUNCS.csau_new_stand(false)
+                ArrowAPI.stands.new_stand(false)
                 return true
             end)
         end

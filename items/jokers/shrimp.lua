@@ -1,3 +1,4 @@
+-- TODO use soul_pos function to replicate hologram
 local jokerInfo = {
 	name = 'Shrimp Joker',
 	texture = 'shrimp-',

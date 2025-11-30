@@ -38,7 +38,7 @@ function jokerInfo.loc_vars(self, info_queue, card)
 end
 
 function jokerInfo.check_for_unlock(self, args)
-	if (args.type == "win_deck" and get_deck_win_stake(self.unlock_condition.deck)) or G.FUNCS.discovery_check({ mode = 'key', key = 'b_green' }) then
+	if (args.type == "win_deck" and get_deck_win_stake(self.unlock_condition.deck)) or (G.P_CENTERS['b_green'] or {}).unlocked then
 		return true
 	end
 end

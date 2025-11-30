@@ -5,7 +5,7 @@ local trophyInfo = {
             local csauDecks = 0
             local csauDiscovered = 0
             for k, v in pairs(SMODS.Centers) do
-                if starts_with(k, 'b_csau_') then
+                if ArrowAPI.string.starts_with(k, 'b_csau_') then
                     csauDecks = csauDecks + 1
                     if v.discovered == true then
                         csauDiscovered = csauDiscovered + 1
@@ -16,7 +16,7 @@ local trophyInfo = {
                 local decks = 0
                 local count = 0
                 for k, v in pairs(G.P_CENTERS) do
-                    if starts_with(k, 'b_csau_') and v.set == 'Back' and not v.omit then
+                    if ArrowAPI.string.starts_with(k, 'b_csau_') and v.set == 'Back' and not v.omit then
                         decks = decks + 1
                         count = count + get_deck_win_stake(v.key)
                     end

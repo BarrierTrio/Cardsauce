@@ -6,7 +6,7 @@ local trophyInfo = {
                 'j_csau_greyjoker',
                 'j_csau_vomitblast',
             }
-            return G.FUNCS.have_multiple_jokers(jokers)
+            return ArrowAPI.game.have_multiple_jokers(jokers)
         end
     end,
 }

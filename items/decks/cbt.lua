@@ -15,7 +15,7 @@ deckInfo.loc_vars = function(self, info_queue, card)
 end
 
 deckInfo.calculate = function(self, back, context)
-    if context.context == 'eval' and G.GAME.last_blind and G.GAME.last_blind.boss and G.FUNCS.cbt_can_delevel() then
+    if context.context == 'eval' and G.GAME.last_blind and G.GAME.last_blind.boss and ArrowAPI.game.get_lowest_hand_level() > 1 then
         update_hand_text({sound = 'button', volume = 0.7, pitch = 0.8, delay = 0.3}, {handname=localize('k_all_hands'),chips = '...', mult = '...', level=''})
         G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.2, func = function()
             play_sound('tarot1')

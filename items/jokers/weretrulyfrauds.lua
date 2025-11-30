@@ -1,13 +1,3 @@
-local csc = Card.set_cost
-function Card.set_cost(self)
-    csc(self)
-    if (self.ability.set == 'VHS' or (self.ability.set == 'Booster' and self.ability.name:find('Analog'))) then
-        if #SMODS.find_card('j_csau_weretrulyfrauds') > 0 then
-            self.cost = 0
-        end
-    end
-end
-
 local jokerInfo = {
     name = "WE'RE TRULY FRAUDS!",
     config = {},

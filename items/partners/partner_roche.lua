@@ -7,6 +7,9 @@ local partnerInfo = {
             related_card = "j_csau_roche",
         }
     },
+    dependencies = {
+        mods = {'partner'}
+    },
     artist = 'BarrierTrio/Gote'
 }
 
@@ -18,7 +21,7 @@ end
 partnerInfo.check_for_unlock = function(self, args)
     for _, v in pairs(G.P_CENTER_POOLS["Joker"]) do
         if v.key == self.config.extra.related_card then
-            if get_joker_win_sticker(v, true) >= 8 then
+            if ArrowAPI.stands.get_win_sticker(v, true) >= 8 then
                 return true
             end
             break

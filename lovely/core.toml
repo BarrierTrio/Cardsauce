@@ -6,17 +6,6 @@ priority = 9999999
 [[patches]]
 [patches.pattern]
 target = "game.lua"
-pattern = "local replace_card = Card(self.title_top.T.x, self.title_top.T.y, 1.2*G.CARD_W*SC_scale, 1.2*G.CARD_H*SC_scale, G.P_CARDS.S_A, G.P_CENTERS.c_base)"
-position = "at"
-payload = '''
-local replace_card = G.FUNCS.title_screen_card(self, SC_scale)
-'''
-match_indent = true
-overwrite = false
-
-[[patches]]
-[patches.pattern]
-target = "game.lua"
 pattern = '''G.SPLASH_BACK:define_draw_steps({{
     shader = 'splash',
     send = {
@@ -29,7 +18,7 @@ pattern = '''G.SPLASH_BACK:define_draw_steps({{
 }}})'''
 position = "at"
 payload = '''
-if Cardsauce.current_config['enable_Colors'] then
+if Cardsauce.config['enable_Colors'] then
     G.SPLASH_BACK:define_draw_steps({{
         shader = 'splash',
         send = {
@@ -70,28 +59,6 @@ match_indent = true
 
 [[patches]]
 [patches.pattern]
-target = "game.lua"
-pattern = "SC = Card(G.ROOM.T.w/2 - SC_scale*G.CARD_W/2, 10. + G.ROOM.T.h/2 - SC_scale*G.CARD_H/2, SC_scale*G.CARD_W, SC_scale*G.CARD_H, G.P_CARDS.empty, G.P_CENTERS['j_joker'])"
-position = "at"
-payload = "SC = G.FUNCS.center_splash_screen_card(SC_scale)"
-match_indent = true
-
-[[patches]]
-[patches.pattern]
-target = "game.lua"
-pattern = '''
-                local card = Card(  card_pos.x + G.ROOM.T.w/2 - G.CARD_W*card_size/2,
-                                    card_pos.y + G.ROOM.T.h/2 - G.CARD_H*card_size/2,
-                                    card_size*G.CARD_W, card_size*G.CARD_H, pseudorandom_element(G.P_CARDS), G.P_CENTERS.c_base)
-'''
-position = "at"
-payload = '''
-local card = G.FUNCS.splash_screen_card(card_pos, card_size)
-'''
-match_indent = true
-
-[[patches]]
-[patches.pattern]
 target = "functions/UI_definitions.lua"
 pattern = "G.FUNCS.DT_add_money = function() if G.STAGE == G.STAGES.RUN then ease_dollars(10) end end"
 position = "at"
@@ -120,7 +87,7 @@ if G.GAME.starting_params.csau_jokers_rate or G.GAME.starting_params.csau_all_ra
             _pool[#_pool + 1] = v.key
             _pool_size = _pool_size + 1
         end
-    elseif G.GAME.starting_params.csau_all_rate and containsString(v.key, '_csau_') then
+    elseif G.GAME.starting_params.csau_all_rate and ArrowAPI.string.contains(v.key, '_csau_') then
         for i=1, csau_all_rate do
             _pool[#_pool + 1] = v.key
             _pool_size = _pool_size + 1
@@ -128,7 +95,7 @@ if G.GAME.starting_params.csau_jokers_rate or G.GAME.starting_params.csau_all_ra
     end
 end
 if next(SMODS.find_card('j_csau_frich')) then
-    if table.contains(G.P_CENTER_POOLS.Food, v) then
+    if ArrowAPI.table.contains(G.P_CENTER_POOLS.Food, v) then
         _pool[#_pool + 1] = v.key
         _pool_size = _pool_size + 1
     end
@@ -145,7 +112,7 @@ pattern = '''
 '''
 position = "after"
 payload = '''
-  if Cardsauce.current_config['enable_Colors'] then
+  if Cardsauce.config['enable_Colors'] then
       tabs[#tabs+1] = {
           label = localize('b_set_colors'),
           tab_definition_function = G.UIDEF.settings_tab,
@@ -161,7 +128,7 @@ target = "engine/controller.lua"
 pattern = "if self.text_input_hook then"
 position = "before"
 payload = '''
-    if Cardsauce.current_config['enable_EasterEggs'] then
+    if Cardsauce.config['enable_EasterEggs'] then
         if key == mgt[mgt_num] then
             if key == "o" then
                 G.debug_background_toggle = not G.debug_background_toggle

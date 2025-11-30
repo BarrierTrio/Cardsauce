@@ -1,7 +1,7 @@
 ---------------------------
 --------------------------- Card Skin Loading
 ---------------------------
-if Cardsauce.current_config['enable_CardSkins'] then
+if Cardsauce.config['enable_CardSkins'] then
     SMODS.Atlas{
         key = 'alt_color_jokers',
         path = "colorjokers.png",
@@ -110,7 +110,7 @@ end
 --------------------------- Deckskin Loading
 ---------------------------
 
-if not Cardsauce.current_config['enable_DeckSkins'] then return end
+if not Cardsauce.config['enable_DeckSkins'] then return end
 
 -- helper tables for loading
 local full_ranks = {"Ace", "King", "Queen", "Jack", "10", "9", "8", "7", "6", "5", "4", "3", "2"}

@@ -1,6 +1,6 @@
-local has_jojobal = next(SMODS.find_mod('jojobal'))
 ArrowAPI.loading.batch_load({
     Joker = {
+        order = 1,
         items = {
         --- [[[VINNY]]]
         -- [[Common]]
@@ -161,11 +161,11 @@ ArrowAPI.loading.batch_load({
         'weretrulyfrauds',
         'junka',
         --- [[JOJO'S BIZARRE ADVENTURE]]
-        not has_jojobal and 'gravity' or nil,
-        not has_jojobal and 'jokerdrive' or nil,
-        not has_jojobal and 'photodad' or nil,
-        not has_jojobal and 'no2joker' or nil,
-        not has_jojobal and 'sotw' or nil, -- Page 8 End
+        'jojo_gravity',
+        'jojo_jokerdrive',
+        'jojo_photodad',
+        'jojo_no2',
+        'jojo_sotw', -- Page 8 End
 
         -- challenge dummy items
         'banned_cards',
@@ -174,12 +174,14 @@ ArrowAPI.loading.batch_load({
     },
 
     Partner = {
+        order = 2,
         items = {
             'partner_roche',
         }
     },
 
     VHS = {
+        order = 3,
         items = {
             'blackspine',
             'remlezar',
@@ -223,7 +225,8 @@ ArrowAPI.loading.batch_load({
         }
     },
 
-    Stand = not has_jojobal and {
+    Stand = {
+        order = 4,
         items = {
             -- stardust crusaders
             'stardust_star',
@@ -276,18 +279,30 @@ ArrowAPI.loading.batch_load({
             'lands_smooth',
             'lands_bigmouth',
         }
-    } or nil,
+    },
 
-    Tag = {
+
+    Consumable = {
+        order = 5,
         items = {
-            'corrupted',
-            'plinkett',
-            not has_jojobal and 'spirit' or nil,
-            'banned_tags'
+            -- Planet
+            'lutetia',
+            'varuna',
+            'planet_whirlpool',
+            'planet_lost',
+
+            -- Spectral
+            'quixotic',
+            'protojoker',
+            'spec_stone',
+
+            -- Tarot
+            'banned_consumables',
         }
     },
 
     Voucher = {
+        order = 6,
         items = {
             'scavenger',
             'raffle',
@@ -299,62 +314,36 @@ ArrowAPI.loading.batch_load({
         }
     },
 
-    Consumable = {
-        items = {
-            -- Planet
-            'lutetia',
-            'varuna',
-            'planet_whirlpool',
-            'planet_lost',
-
-            -- Spectral
-            'quixotic',
-            'protojoker',
-             not has_jojobal and 'spec_stone' or nil,
-
-            -- Tarot
-            'banned_consumables',
-        }
-    },
-
-    Deck = {
-        items = {
-            'vine',
-            'varg',
-            'cbt',
-            'wheel',
-            'disc'
-        }
-    },
-
-    Sleeve = {
-        items = {
-            'sleeve_vine',
-            'sleeve_varg',
-            'sleeve_cbt',
-            'sleeve_wheel',
-            'sleeve_disc'
-        }
-    },
 
     Booster = {
+        order = 7,
         items = {
             'banned_boosters'
         }
     },
 
-    Challenge = {
-        load_priority = -1,
+
+    Tag = {
+        order = 8,
         items = {
-            'tucker',
-            'tgyh',
-            'nmbb',
-            'kriskross',
-            'marathon'
+            'corrupted',
+            'plinkett',
+            'spirit',
+            'banned_tags'
         }
     },
 
+
+    Edition = {
+        order = 9,
+        items = {
+            'corrupted'
+        }
+    },
+
+
     Blind = {
+        order = 10,
         items = {
             'hog',
             'tray',
@@ -369,11 +358,47 @@ ArrowAPI.loading.batch_load({
         }
     },
 
-    Edition = {
+    Deck = {
+        order = 11,
         items = {
-            'corrupted'
+            'vine',
+            'varg',
+            'cbt',
+            'wheel',
+            'disc'
+        }
+    },
+
+    Sleeve = {
+        order = 12,
+        items = {
+            'sleeve_vine',
+            'sleeve_varg',
+            'sleeve_cbt',
+            'sleeve_wheel',
+            'sleeve_disc'
+        }
+    },
+
+
+    Challenge = {
+        order = 13,
+        items = {
+            'tucker',
+            'tgyh',
+            'nmbb',
+            'kriskross',
+            'marathon'
+        }
+    },
+
+    SoundPack = {
+        order = 14,
+        items = {
+            'cardsauce',
         }
     }
+
 })
 
 if Cardsauce.ortalab_dlc then

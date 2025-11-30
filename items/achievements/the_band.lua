@@ -10,7 +10,7 @@ local trophyInfo = {
                 'j_csau_vincenzo',
                 'j_csau_quarterdumb'
             }
-            return G.FUNCS.have_multiple_jokers(jokers, 4)
+            return ArrowAPI.game.have_multiple_jokers(jokers, 4)
         end
     end,
 }

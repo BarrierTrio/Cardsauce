@@ -1,5 +1,3 @@
--- TODO: reimplement dj card draw using new card drawing contexts
-
 local ric_ref = reset_idol_card
 function reset_idol_card()
 	if G.GAME and G.GAME.wigsaw_suit then

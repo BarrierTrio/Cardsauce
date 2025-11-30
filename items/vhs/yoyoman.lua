@@ -14,9 +14,11 @@ local consumInfo = {
         destroyed = false,
     },
     origin = {
-        'vinny',
-        'vinny_wotw',
-        color = 'vinny'
+        category = 'vinny',
+        sub_origins = {
+            'vinny_wotw',
+        },
+        custom_color = 'vinny'
     },
     artist = 'MightyKingWario'
 }

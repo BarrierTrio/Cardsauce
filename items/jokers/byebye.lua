@@ -1,9 +1,3 @@
-local csc = Card.set_cost
-function Card.set_cost(self)
-    csc(self)
-    self.sell_cost = self.sell_cost + (self.ability.csau_extra_value or 0)
-end
-
 local jokerInfo = {
     name = 'Bye-Bye, Norway',
     config = {

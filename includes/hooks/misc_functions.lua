@@ -1,22 +1,12 @@
--- TODO: use Arrow color APIs to add mug color
-
--- TODO: maintain this function if it already doesn't exist via jojobal
 --- Resets the rank used by the Paper Moon King stand card
-function csau_reset_paper_rank()
-    G.GAME.current_round.paper_rank = 'Jack'
+function jojobal_reset_paper_rank()
+    G.GAME.current_round.jojobal_paper_rank = 'Jack'
 	local valid_ranks = {}
     for _, rank in pairs(SMODS.Ranks) do
         if rank.face then valid_ranks[#valid_ranks+1] = rank.key end
     end
-	G.GAME.current_round.paper_rank = pseudorandom_element(valid_ranks, pseudoseed('papermoon'..G.GAME.round_resets.ante))
+	G.GAME.current_round.jojobal_paper_rank = pseudorandom_element(valid_ranks, pseudoseed('papermoon'..G.GAME.round_resets.ante))
 end
-
--- TODO: move fibonacci calculation to arrow
-
--- TODO: replace stand win sticker stuff with its behavior in arrow
-
--- TODO: replace stand profile progress with upcoming SMODS doing this automatically
--- probably not a lot of work to be done, but w/e
 
 local ref_alert_space = alert_no_space
 alert_no_space = function(card, area)

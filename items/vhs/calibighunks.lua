@@ -14,9 +14,11 @@ local consumInfo = {
         },
     },
     origin = {
-        'rlm',
-        'rlm_j',
-        color = 'rlm'
+        category = 'rlm',
+        sub_origins = {
+            'rlm_j',
+        },
+        custom_color = 'rlm'
     },
     artist = 'FenixSeraph'
 }
@@ -29,7 +31,7 @@ function consumInfo.loc_vars(self, info_queue, card)
 end
 
 function consumInfo.calculate(self, card, context)
-    if card.ability.activated and context.before and not card.debuff and not context.blueprint and G.FUNCS.hand_contains_rank(context.scoring_hand, {13}) then
+    if card.ability.activated and context.before and not card.debuff and not context.blueprint and ArrowAPI.game.hand_contains_ranks(context.scoring_hand, {13}) then
         for i, v in ipairs(context.scoring_hand) do
             if v:get_id() == 13 and v.ability.effect == "Base" and not v.debuff and not card.ability.destroyed then
                 v:set_ability(G.P_CENTERS.m_mult, nil, true)

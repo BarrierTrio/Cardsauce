@@ -10,7 +10,7 @@ local trophyInfo = {
                 'j_csau_powers',
                 'j_csau_beginners',
             }
-            return (G.FUNCS.have_multiple_jokers(jokers1) or G.FUNCS.have_multiple_jokers(jokers2))
+            return (ArrowAPI.game.have_multiple_jokers(jokers1) or ArrowAPI.game.have_multiple_jokers(jokers2))
         end
     end,
 }

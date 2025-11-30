@@ -14,9 +14,11 @@ local consumInfo = {
         destroyed = false,
     },
     origin = {
-        'rlm',
-        'rlm_bs',
-        color = 'rlm'
+        category = 'rlm',
+        sub_origins = {
+            'rlm_bs',
+        },
+        custom_color = 'rlm'
     },
     artist = 'chvsau'
 }

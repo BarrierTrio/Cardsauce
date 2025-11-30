@@ -23,6 +23,15 @@ end
 -- TODO: reimplement bulk using contexts
 
 function jokerInfo.calculate(self, card, context)
+    if context.change_rank and context.rank_increase then
+        SMODS.scale_card(self, {
+            ref_table = self.ability.extra,
+            ref_value = "x_mult",
+            scalar_value = "x_mult_mod",
+            message_colour = G.C.RED
+        })
+    end
+
     if context.joker_main and to_big(card.ability.extra.x_mult) > to_big(1) then
         return {
             xmult = card.ability.extra.x_mult

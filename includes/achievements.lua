@@ -25,7 +25,7 @@ G.FUNCS.reset_trophies = function(e)
 	else
 		G.FUNCS.wipe_on()
 		for k, v in pairs(SMODS.Achievements) do
-			if starts_with(k, 'ach_csau_') then
+			if ArrowAPI.string.starts_with(k, 'ach_csau_') then
 				G.SETTINGS.ACHIEVEMENTS_EARNED[k] = nil
 				G.ACHIEVEMENTS[k].earned = nil
 			end

@@ -1,5 +1,3 @@
--- TODO: move color change behavior to arrow
-
 local ref_update_shop = Game.update_shop
 function Game:update_shop(dt)
 	if not G.STATE_COMPLETE and (next(SMODS.find_card('v_csau_lampoil')) or next(SMODS.find_card('v_csau_ropebombs'))) then

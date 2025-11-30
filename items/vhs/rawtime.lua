@@ -15,9 +15,11 @@ local consumInfo = {
         destroyed = false,
     },
     origin = {
-        'vinny',
-        'vinny_pa',
-        color = 'vinny'
+        category = 'vinny',
+        sub_origins = {
+            'vinny_pa',
+        },
+        custom_color = 'vinny'
     },
     artist = 'Joey'
 }

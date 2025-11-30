@@ -10,9 +10,11 @@ local consumInfo = {
         }
     },
     origin = {
-        'rlm',
-        'rlm_bs',
-        color = 'rlm'
+        category = 'rlm',
+        sub_origins = {
+            'rlm_bs',
+        },
+        custom_color = 'rlm'
     },
     artist = 'BarrierTrio/Gote'
 }
@@ -30,7 +32,7 @@ function consumInfo.activate(self, card, on)
         key = pseudorandom_element(get_current_pool('VHS', nil, nil, 'blackspine'), pseudoseed('blackspine_resample'..it))
     end
     G.GAME.banned_keys[card.config.center.key] = nil
-    G.FUNCS.csau_transform_card(card, key)
+    ArrowAPI.game.transform_card(card, key)
 end
 
 function consumInfo.can_use(self, card)

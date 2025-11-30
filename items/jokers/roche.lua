@@ -40,21 +40,23 @@ function jokerInfo.calculate(self, card, context)
 			if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
 				local card_type = 'Planet'
 				G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
-				card:vic_say_stuff(2, nil, true, roche)
+
+
+				--- say_quip() function is found in `includes > hooks > card.lua`
+				card:say_quip(2, nil, true, 'csau_roche')
 				G.E_MANAGER:add_event(Event({
 					trigger = 'before',
 					delay = 0.0,
 					blockable = false,
 					blocking = false,
 					func = function()
-						local speech_key = 'roche_voiceline'
-						card:vic_add_speech_bubble(speech_key, 'bm', nil, {text_alignment = "cm"})
+						card:add_quip('roche_voiceline', 'bm', nil, {text_alignment = "cm"})
 						G.E_MANAGER:add_event(Event({
 							trigger = 'after',
-							delay = 8,
+							delay = 7,
 							blocking = false,
 							func = function()
-								card:vic_remove_speech_bubble()
+								card:remove_quip()
 								return true
 							end
 						}))

@@ -6,26 +6,6 @@ SMODS.Atlas({
 	py = 32
 })
 
--- TODO: add automated config tab creation and settings updating
--- this inner check for config was originally a local function
--- but it was only used here, so I combined them ~Winter
-function G.FUNCS.csau_restart()
-	local settingsMatch = true
-	for k, v in pairs(Cardsauce.current_config) do
-		if v ~= Cardsauce.config then
-			settingsMatch = false
-		end
-	end
-
-	if settingsMatch then
-		send("SETTINGS MATCH :)")
-		SMODS.full_restart = 0
-	else
-		send("SETTINGS DONT MATCH!")
-		SMODS.full_restart = 1
-	end
-end
-
 
 
 
@@ -35,10 +15,10 @@ end
 ---------------------------
 
 -- TODO: figure out how to do multiple title replacements with atlas declarations
-if Cardsauce.current_config['enable_Logo'] then
+if Cardsauce.config['enable_Logo'] then
 	-- Title Screen Logo Texture
 	local logo = "Logo.png"
-	if G.chadnova and Cardsauce.current_config['enable_EasterEggs'] then
+	if Cardsauce.chadnova and Cardsauce.config['enable_EasterEggs'] then
 		logo = "Logo-C.png"
 	end
 	SMODS.Atlas {
@@ -50,9 +30,6 @@ if Cardsauce.current_config['enable_Logo'] then
 	}
 end
 
--- TODO: move title screen card replacement to arrow API functions
-
-
 
 
 
@@ -63,7 +40,7 @@ end
 -- this function was originally stored in a local function first
 -- couldn't figure why, so I directly assigned it instead ~Winter
 local text_scale = 0.9
-SMODS.current_mod.extra_tabs = function()
+ArrowAPI.extra_tabs = function()
     return {
 	{
 		label = localize("b_options"),
@@ -84,16 +61,6 @@ SMODS.current_mod.extra_tabs = function()
 					}},
 					{n=G.UIT.R, config={align = "cm", padding = 0}, nodes={
 						{n=G.UIT.T, config={text = localize("vs_options_muteWega_desc"), scale = text_scale*0.35, colour = G.C.JOKER_GREY, shadow = true}}
-					}},
-				}}
-			end
-			if localize("vs_options_detailedDescs") then
-				csau_opts.nodes[#csau_opts.nodes+1] = {n=G.UIT.R, config={align = "cm", padding = 0.05}, nodes={
-					{n=G.UIT.R, config={align = "cm", padding = 0}, nodes={
-						create_toggle({n=G.UIT.T, label = localize("vs_options_detailedDescs"), ref_table = csau_config, ref_value = 'detailedDescs' })
-					}},
-					{n=G.UIT.R, config={align = "cm", padding = 0}, nodes={
-						{n=G.UIT.T, config={text = localize("vs_options_detailedDescs_desc"), scale = text_scale*0.35, colour = G.C.JOKER_GREY, shadow = true}}
 					}},
 				}}
 			end
@@ -131,26 +98,26 @@ SMODS.current_mod.extra_tabs = function()
 
 SMODS.current_mod.config_tab = function()
 	local ordered_config = {
-		'enableVinnyContent',
-		'enableJoelContent',
-		'enableVHSs',
-		'enableStands',
-		'enableJokers',
-		'enableConsumables',
-		'enableVouchers',
-		'enableBoosters',
-		'enableEditions',
-		'enableTags',
-		'enableBlinds',
-		'enableDecks',
-		'enableSkins',
-		'enableChallenges',
-		'enableMusic',
-		'enableAchievements',
-		'enableLogo',
-		'enableColors',
-		'enableTarotSkins',
-		'enableEasterEggs',
+		'enable_VinnyContent',
+		'enable_JoelContent',
+		'enable_VHSs',
+		'enable_Stands',
+		'enable_Jokers',
+		'enable_Consumables',
+		'enable_Vouchers',
+		'enable_Boosters',
+		'enable_Editions',
+		'enable_Tags',
+		'enable_Blinds',
+		'enable_Decks',
+		'enable_DeckSkins',
+		'enable_Challenges',
+		'enable_Music',
+		'enable_Achievements',
+		'enable_Logo',
+		'enable_Colors',
+		'enable_CardSkins',
+		'enable_EasterEggs',
 	}
 	if Cardsauce.ortalab_dlc then
 		ordered_config[#ordered_config+1] = 'forceDisableOrtalab'
@@ -206,5 +173,3 @@ SMODS.current_mod.config_tab = function()
 		}
 	}
 end
-
--- TODO: use new arrow credits system

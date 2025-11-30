@@ -1,10 +1,10 @@
 local jokerInfo = {
 	name = 'Disturbed Joker',
-	config = {},
+	config = {extra = {num_cards = 1, draw_this_discard = false}},
 	rarity = 1,
 	cost = 4,
 	unlocked = false,
-	blueprint_compat = false,
+	blueprint_compat = true,
 	eternal_compat = true,
 	perishable_compat = true,
 	has_shiny = true,
@@ -19,8 +19,18 @@ function jokerInfo.check_for_unlock(self, args)
 end
 
 function jokerInfo.calculate(self, card, context)
-	if context.pre_discard and not card.getting_sliced and not context.blueprint then
-		G.GAME.csau_dj_drawextra = true
+	if context.pre_discard then
+		card.ability.extra.draw_this_discard = true
+	end
+
+	if context.hand_drawn then
+		card.ability.extra.draw_this_discard = false
+	end
+
+	if context.drawing_cards then
+		return {
+			amount = context.amount + card.ability.extra.num_cards
+		}
 	end
 end
 

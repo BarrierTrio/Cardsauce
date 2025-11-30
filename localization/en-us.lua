@@ -441,33 +441,33 @@ return {
 			csau_credits_logo = "Logo",
 
 			-- config options
-			vs_options_sub = "(Restart required to apply)",
-			vs_options_muteWega = "Mute WAAUGGHGHHHHGHH",
-			vs_options_muteWega_desc = "Check this box to mute WAAUGGHGHHHHGHH's screams",
-			vs_options_enableVinnyContent = "Vinny-centric Content",
-			vs_options_enableJoelContent = "Joel-centric Content",
-			vs_options_enableJokers = "Jokers",
-			vs_options_enableConsumables = "Consumable Cards",
-			vs_options_enableDecks = "Decks",
-			vs_options_enableBlinds = "Boss Blinds",
-			vs_options_enableSkins = "Custom Playing Cards",
-			vs_options_enableChallenges = "Challenges",
-			vs_options_enableMusic = "Cardsauce Music",
-			vs_options_enableAchievements = "Cardsauce Achievements",
-			vs_options_enableLogo = "Main Menu Logo",
-			vs_options_enableColors = "Custom Colors",
-			vs_options_enableTarotSkins = "Tarot Card Reskins",
-			vs_options_enableEasterEggs = "Easter Eggs",
-			vs_options_enableVHSs = "VHS/RedLetterMedia Content",
-			vs_options_enableStands = "Stands/Jojo Content",
-			vs_options_enableTags = "Tags",
-			vs_options_enableBoosters = "Booster Packs",
-			vs_options_enableVouchers = "Vouchers",
-			vs_options_enableEditions = "Editions",
-			vs_options_resetAchievements_r = "Reset Achievements",
-			vs_options_resetAchievements_desc = "Click this button to reset all Cardsauce achievements",
-			vs_options_chadNova_r = "Undo Chadnova",
-			vs_options_chadNova_desc = "Click this button to undo the consequences of your actions",
+			csau_options_sub = "(Restart required to apply)",
+			csau_options_muteWega = "Mute WAAUGGHGHHHHGHH",
+			csau_options_muteWega_desc = "Check this box to mute WAAUGGHGHHHHGHH's screams",
+			csau_options_enable_VinnyContent = "Vinny-centric Content",
+			csau_options_enable_JoelContent = "Joel-centric Content",
+			csau_options_enable_Jokers = "Jokers",
+			csau_options_enable_Consumables = "Consumable Cards",
+			csau_options_enable_Decks = "Decks",
+			csau_options_enable_Blinds = "Boss Blinds",
+			csau_options_enable_Skins = "Custom Playing Cards",
+			csau_options_enable_Challenges = "Challenges",
+			csau_options_enable_Music = "Cardsauce Music",
+			csau_options_enable_Achievements = "Cardsauce Achievements",
+			csau_options_enable_Logo = "Main Menu Logo",
+			csau_options_enable_Colors = "Custom Colors",
+			csau_options_enable_TarotSkins = "Tarot Card Reskins",
+			csau_options_enable_EasterEggs = "Easter Eggs",
+			csau_options_enable_VHSs = "VHS/RedLetterMedia Content",
+			csau_options_enable_Stands = "Stands/Jojo Content",
+			csau_options_enableTags = "Tags",
+			csau_options_enable_Boosters = "Booster Packs",
+			csau_options_enable_Vouchers = "Vouchers",
+			csau_options_enable_Editions = "Editions",
+			csau_options_reset_Achievements_r = "Reset Achievements",
+			csau_options_reset_Achievements_desc = "Click this button to reset all Cardsauce achievements",
+			csau_options_chadNova_r = "Undo Chadnova",
+			csau_options_chadNova_desc = "Click this button to undo the consequences of your actions",
 			b_set_colors = "Colors",
 			b_color_selector = "Background Colors",
 			b_color_selector_outer = "Main Menu Outer Swirl",
@@ -492,11 +492,6 @@ return {
 				"Jabroni",
 				"Uzumaki",
 				"Custom (ex: FFFFFF)"
-			},
-			b_music_selector = "Soundtrack",
-			ml_music_selector_opt={
-				"Cardsauce OST by Bassclefff",
-				"Balatro OST by LouisF"
 			},
 			b_color_selector_desc = "(Click colors to update swirl)",
 
@@ -878,6 +873,15 @@ return {
 		}
 	},
 	descriptions = {
+		SoundPack = {
+			sp_csau_cardsauce = {
+				name = "Cardsauce OST",
+				text = {
+					"By {C:attention,E:1,s:1.1}bassclefff{}",
+					"{C:inactive,s:0.9}(bassclefff.bandcamp.com){}"
+				}
+			}
+		},
 		Blind = {
 			bl_mystery={
 				name="???",
@@ -2222,7 +2226,7 @@ return {
 					"{C:inactive}(Currently {C:attention}#2#{C:inactive})",
 				},
 			},
-			j_csau_sotw = {
+			j_csau_jojo_sotw = {
 				name = "Stand of the Week",
 				text = {
 					"Gains {X:mult,C:white}X#1#{} Mult for every",
@@ -2367,7 +2371,7 @@ return {
 					"Have a {E:1,C:attention}Gros Michel{} go {E:1,C:attention}extinct",
 				},
 			},
-			j_csau_no2joker = {
+			j_csau_jojo_no2 = {
 				name = "No. 2 Joker",
 				text = {
 					"All {C:stand}Stands{} retrigger",
@@ -2534,7 +2538,7 @@ return {
 					"{E:1,s:1.3,C:dark_edition}I'm invading this mod!{}",
 				},
 			},
-			j_csau_jokerdrive = {
+			j_csau_jojo_jokerdrive = {
 				name = "Jokerdrive",
 				text = {
 					"{C:mult}+#1#{} Mult if you",
@@ -2656,7 +2660,7 @@ return {
 					"{C:inactive}(#2#)",
 				},
 			},
-			j_csau_gravity = {
+			j_csau_jojo_gravity = {
 				name = "Gravity",
 				text = {
 					"This Joker gains {C:mult}+#1#{} Mult every",
@@ -2666,7 +2670,7 @@ return {
 					"{C:inactive}(Currently {}{C:mult}+#2#{}{C:inactive} Mult{}{C:inactive}){}",
 				},
 			},
-			j_csau_photodad = {
+			j_csau_jojo_photodad = {
 				name = "Photodad",
 				text = {
 					"When {C:attention}final hand{} of round",

@@ -3,5 +3,3 @@ table.insert(restrict.banned_tags, {id = 'tag_csau_corrupted'})
 SMODS.Challenge:take_ownership('jokerless_1', {
     restrictions = restrict
 }, true)
-
--- TODO: not much here, but make sure Arrow perkeo change still works

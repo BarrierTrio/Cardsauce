@@ -1,36 +1,3 @@
-SMODS.DrawStep:take_ownership('floating_sprite', {
-	func = function(self, layer)
-        -- TODO: possibly simplify this?
-        if self.config.center.soul_pos and self.ability.set ~= 'Stand' and (self.config.center.discovered or self.bypass_discovery_center) then
-            local scale_mod = 0.07 + 0.02*math.sin(1.8*G.TIMERS.REAL) + 0.00*math.sin((G.TIMERS.REAL - math.floor(G.TIMERS.REAL))*math.pi*14)*(1 - (G.TIMERS.REAL - math.floor(G.TIMERS.REAL)))^3
-            local rotate_mod = 0.05*math.sin(1.219*G.TIMERS.REAL) + 0.00*math.sin((G.TIMERS.REAL)*math.pi*5)*(1 - (G.TIMERS.REAL - math.floor(G.TIMERS.REAL)))^2
-
-            if type(self.config.center.soul_pos.draw) == 'function' then
-                self.config.center.soul_pos.draw(self, scale_mod, rotate_mod)
-            elseif self.ability.name == 'Hologram' or self.config.center.key == "j_csau_shrimp" then
-                self.hover_tilt = self.hover_tilt*1.5
-                self.children.floating_sprite:draw_shader('hologram', nil, self.ARGS.send_to_shader, nil, self.children.center, 2*scale_mod, 2*rotate_mod)
-                self.hover_tilt = self.hover_tilt/1.5
-            else
-                if not self.config.center.no_soul_shadow then
-                    self.children.floating_sprite:draw_shader('dissolve',0, nil, nil, self.children.center,scale_mod, rotate_mod,nil, 0.1 + 0.03*math.sin(1.8*G.TIMERS.REAL),nil, 0.6)
-                end
-                self.children.floating_sprite:draw_shader('dissolve', nil, nil, nil, self.children.center, scale_mod, rotate_mod)
-            end
-
-            if self.edition then
-                for k, v in pairs(G.P_CENTER_POOLS.Edition) do
-                    if v.apply_to_float then
-                        if self.edition[v.key:sub(3)] then
-                            self.children.floating_sprite:draw_shader(v.shader, nil, nil, nil, self.children.center, scale_mod, rotate_mod)
-                        end
-                    end
-                end
-            end
-        end
-	end,
-})
-
 local old_seal_fs = SMODS.DrawSteps.seal.func
 SMODS.DrawStep:take_ownership('seal', {
     func = function(self, layer)
@@ -65,6 +32,107 @@ if not next(SMODS.find_mod('jojobal')) then
         end,
     })
 end
+
+
+---------------------------
+--------------------------- VHS shader effects
+---------------------------
+
+SMODS.Shader({ key = 'vhs', path = 'vhs.fs' })
+
+local slide_mod = 12
+local slide_out_delay = 0.05
+local width_factor = 0.1
+
+local old_center_ds = SMODS.DrawSteps.center.func
+SMODS.DrawStep:take_ownership('center', {
+    func = function(self, layer)
+        if self.ability.set ~= 'VHS' then
+            return old_center_ds(self, layer)
+        end
+    end
+})
+
+SMODS.DrawStep {
+    key = 'vhs_slide',
+    order = -1,
+    func = function(self, layer)
+        if self.ability.set ~= 'VHS' or (self.area and self.area.config.collection and not self.config.center.discovered) then
+            --If the card is not yet discovered
+            if not self.config.center.discovered and self.ability.set == 'VHS' then
+
+                local shared_sprite = G.shared_undiscovered_tarot
+                local scale_mod = -0.05 + 0.05*math.sin(1.8*G.TIMERS.REAL)
+                local rotate_mod = 0.03*math.sin(1.219*G.TIMERS.REAL)
+
+                self.children.center:draw_shader('dissolve', self.shadow_height)
+	            self.children.center:draw_shader('dissolve')
+                shared_sprite.role.draw_major = self
+                if (self.config.center.undiscovered and not self.config.center.undiscovered.no_overlay) or not( SMODS.UndiscoveredSprites[self.ability.set] and SMODS.UndiscoveredSprites[self.ability.set].no_overlay) then
+                    shared_sprite:draw_shader('dissolve', nil, nil, nil, self.children.center, scale_mod, rotate_mod)
+                else
+                    if SMODS.UndiscoveredSprites[self.ability.set] and SMODS.UndiscoveredSprites[self.ability.set].overlay_sprite then
+                        SMODS.UndiscoveredSprites[self.ability.set].overlay_sprite:draw_shader('dissolve', nil, nil, nil, self.children.center, scale_mod, rotate_mod)
+                    end
+                end
+            end
+
+            return
+        end
+
+        if not self.ability.slide_move or not self.ability.slide_out_delay then
+            self.ability.slide_move = 0
+            self.ability.slide_out_delay = 0
+        end
+
+        if self.ability.activated and self.ability.slide_move < 1 then
+            if self.ability.slide_out_delay < slide_out_delay then
+                self.ability.slide_out_delay = self.ability.slide_out_delay + (slide_mod * G.real_dt)
+            else
+                self.ability.slide_move = self.ability.slide_move + (slide_mod * G.real_dt)
+                if self.ability.slide_move > 1 then
+                    self.ability.slide_move = 1
+                end
+            end
+        elseif not self.ability.activated and self.ability.slide_move > 0 then
+            self.ability.slide_out_delay = 0
+            self.ability.slide_move = self.ability.slide_move - (slide_mod * G.real_dt)
+
+            if self.ability.slide_move < 0 then
+                self.ability.slide_move = 0
+                self.children.center.VT.w = self.T.w
+            end
+
+        end
+
+        if self.ability.slide_move <= 0 then
+            self.shadow_height = self.states.drag.is and 0.35 or 0.1
+            self.children.center:draw_shader('dissolve', self.shadow_height)
+	        self.children.center:draw_shader('dissolve')
+            return
+        end
+
+        -- adjusting the width to match the shader change
+        if not self.children.center.pinch.x then
+            self.children.center.VT.x = self.T.x - width_factor * self.ability.slide_move * 2
+            self.children.center.VT.w = (self.T.w * width_factor * self.ability.slide_move) + self.T.w
+        end
+
+        -- default tilt behavior
+        G.SHADERS['csau_vhs']:send('spine', G.ASSET_ATLAS['csau_blackspine'].image)
+        G.SHADERS['csau_vhs']:send('lerp', self.ability.slide_move)
+
+        self.shadow_height = self.states.drag.is and 0.35 or 0.1
+        self.children.center:draw_shader('csau_vhs', self.shadow_height)
+	    self.children.center:draw_shader('csau_vhs', nil)
+
+        local center = self.config.center
+        if center.draw and type(center.draw) == 'function' then
+            center:draw(self, layer)
+        end
+    end,
+    conditions = { vortex = false, facing = 'front' },
+}
 
 
 

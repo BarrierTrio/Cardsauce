@@ -15,9 +15,11 @@ local consumInfo = {
         },
     },
     origin = {
-        'rlm',
-        'rlm_j',
-        color = 'rlm'
+        category = 'rlm',
+        sub_origins = {
+            'rlm_j',
+        },
+        custom_color = 'rlm'
     },
     artist = 'yumz'
 }

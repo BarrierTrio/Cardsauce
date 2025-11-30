@@ -27,7 +27,7 @@ function jokerInfo.loc_vars(self, info_queue, card)
 end
 
 local function valid_name(name)
-    if containsString(name, "Joker") or containsString(name, "Jester") then
+    if ArrowAPI.string.contains(name, "Joker") or ArrowAPI.string.contains(name, "Jester") then
         return true
     end
     return false

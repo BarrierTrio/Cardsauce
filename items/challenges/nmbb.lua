@@ -16,7 +16,7 @@ local chalInfo = {
         }
     },
     unlocked = function(self)
-        return G.FUNCS.discovery_check({ mode = 'key', key = 'j_csau_blackjack' })
+        return (G.P_CENTERS['j_csau_blackjack'] or {}).discovered
     end
 }
 

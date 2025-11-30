@@ -14,7 +14,7 @@ local default_card_bans = {
     [12] = {id = 'v_telescope', ids = {'v_telescope', 'v_astronomer'}},
     [13] = {id = 'v_tarot_merchant', ids = {'v_tarot_merchant', 'v_tarot_tycoon'}},
     [14] = {id = 'v_planet_merchant', ids = {'v_planet_merchant', 'v_planet_tycoon'}},
-    
+
     [15] = {id = 'p_celestial_normal_1', ids = {
         'p_celestial_normal_1','p_celestial_normal_2','p_celestial_jumbo_1','p_celestial_jumbo_2',
     }},
@@ -43,13 +43,13 @@ local function smods_pool_search(pool_key, string_exclude)
     for _, key in ipairs(pool_keys) do
         if SMODS[key..'s'] then
             for k, v in pairs(SMODS[key]) do
-                if not string_exclude or (not containsString(k, string_exclude)) then
+                if not string_exclude or (not ArrowAPI.string.contains(k, string_exclude)) then
                     found_keys[#found_keys+1] = k
                 end
             end
         else
             for k, v in pairs(SMODS.Centers) do
-                if v.set == key and (not string_exclude or (not containsString(k, string_exclude))) then
+                if v.set == key and (not string_exclude or (not ArrowAPI.string.contains(k, string_exclude))) then
                     found_keys[#found_keys+1] = k
                 end
             end

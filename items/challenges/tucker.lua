@@ -8,8 +8,8 @@ local chalInfo = {
         banned_cards = function()
             local banned = {}
             for k, v in pairs(G.P_CENTERS) do
-                if starts_with(k, "j_") then
-                    if not starts_with(k, "j_csau_") then
+                if ArrowAPI.string.starts_with(k, "j_") then
+                    if not ArrowAPI.string.starts_with(k, "j_csau_") then
                         banned[#banned+1] = k
                     end
                 end

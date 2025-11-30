@@ -25,7 +25,7 @@ function consumInfo.loc_vars(self, info_queue, card)
 end
 
 function consumInfo.calculate(self, card, context)
-    if card.ability.activated and context.before and not card.debuff and not context.blueprint and G.FUNCS.hand_contains_rank(context.scoring_hand, {12}) then
+    if card.ability.activated and context.before and not card.debuff and not context.blueprint and ArrowAPI.game.hand_contains_ranks(context.scoring_hand, {12}) then
         for i, v in ipairs(context.scoring_hand) do
             if v:get_id() == 12 and v.ability.effect == "Base" and not v.debuff and not card.ability.destroyed then
                 v:set_ability(G.P_CENTERS.m_bonus, nil, true)

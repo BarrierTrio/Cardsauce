@@ -4,7 +4,7 @@ local jokerInfo = {
 	rarity = 1,
 	cost = 4,
 	unlocked = false,
-	unlock_condition = {type = 'discover_sohappy'},
+	unlock_condition = {key = 'j_csau_sohappy'},
 	blueprint_compat = false,
 	eternal_compat = true,
 	perishable_compat = true,
@@ -14,7 +14,7 @@ local jokerInfo = {
 }
 
 function jokerInfo.check_for_unlock(self, args)
-	return G.FUNCS.discovery_check({ mode = 'key', key = 'j_csau_sohappy' })
+	return (G.P_CENTERS[self.unlock_condition.unlock_key] or {}).discovered
 end
 
 function jokerInfo.calculate(self, card, context)

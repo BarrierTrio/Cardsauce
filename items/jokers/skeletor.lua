@@ -34,7 +34,7 @@ function jokerInfo.update(self, card, dt)
     if not G.jokers then return end
     local food = 0
     for k, v in pairs(G.jokers.cards) do
-        if table.contains(G.P_CENTER_POOLS.Food, v.config.center) then
+        if ArrowAPI.table.contains(G.P_CENTER_POOLS.Food, v.config.center) then
             food = food + 1
         end
     end

@@ -20,8 +20,8 @@ function jokerInfo.calculate(self, card, context)
     if card.debuff or to_big(#G.consumeables.cards) >= to_big(G.consumeables.config.card_limit) then return end
 
     if context.cardarea == G.jokers and context.before and next(context.poker_hands['Flush'])
-    and G.FUNCS.csau_all_suit(context.poker_hands['Flush'][1], G.GAME and G.GAME.wigsaw_suit or "Spades")then
-        if G.FUNCS.find_activated_tape('c_csau_rawtime') then check_for_unlock({ type = "wheres_po" }) end
+    and ArrowAPI.game.all_same_suit(context.poker_hands['Flush'][1], G.GAME and G.GAME.wigsaw_suit or "Spades")then
+        if ArrowAPI.vhs.find_activated_tape('c_csau_rawtime') then check_for_unlock({ type = "wheres_po" }) end
 
         G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
         G.E_MANAGER:add_event(Event({func = function()

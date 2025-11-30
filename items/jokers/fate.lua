@@ -17,7 +17,7 @@ function jokerInfo.calculate(self, card, context)
             check_for_unlock({ type = "activate_watto" })
         end
         if roll == 1 then
-            local key, color = G.FUNCS.csau_get_tag('joker', 'IMAWATTOOO')
+            local key, color = ArrowAPI.game.get_tag_by_type('joker', 'IMAWATTOOO')
             card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('k_plus_one')..G.localization.descriptions["Tag"][key].name, colour = color})
             G.E_MANAGER:add_event(Event({
                 trigger = 'before',
@@ -30,7 +30,7 @@ function jokerInfo.calculate(self, card, context)
                 end)
             }))
         elseif roll == 2 then
-            local key, color = G.FUNCS.csau_get_tag('booster', 'ANNIEAREYOUOKAY')
+            local key, color = ArrowAPI.game.get_tag_by_type('booster', 'ANNIEAREYOUOKAY')
             card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('k_plus_one')..G.localization.descriptions["Tag"][key].name, colour = color})
             G.E_MANAGER:add_event(Event({
                 trigger = 'before',
@@ -43,7 +43,7 @@ function jokerInfo.calculate(self, card, context)
                 end)
             }))
         elseif roll == 3 then
-            local key, color = G.FUNCS.csau_get_tag('any', 'ISITALRIGHTTOBEMYSELFAGAIN')
+            local key, color = ArrowAPI.game.get_tag_by_type('any', 'ISITALRIGHTTOBEMYSELFAGAIN')
             card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('k_plus_two')..G.localization.descriptions["Tag"][key].name, colour = color})
             for i=1, 2 do
                 G.E_MANAGER:add_event(Event({

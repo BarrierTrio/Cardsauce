@@ -5,7 +5,7 @@ local trophyInfo = {
             local csauJokers = 0
             local csauDiscovered = 0
             for k, v in pairs(SMODS.Centers) do
-                if starts_with(k, 'j_csau_') then
+                if ArrowAPI.string.starts_with(k, 'j_csau_') then
                     csauJokers = csauJokers + 1
                     if v.discovered == true then
                         csauDiscovered = csauDiscovered + 1
@@ -16,7 +16,7 @@ local trophyInfo = {
                 local jokers = 0
                 local count = 0
                 for k, v in pairs(G.P_CENTERS) do
-                    if starts_with(k, 'j_csau_') and v.set == 'Joker' and not v.omit and not v.no_collection then
+                    if ArrowAPI.string.starts_with(k, 'j_csau_') and v.set == 'Joker' and not v.omit and not v.no_collection then
                         jokers = jokers + 1
                         count = count + get_joker_win_sticker(v, true)
                     end
