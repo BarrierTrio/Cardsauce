@@ -1,5 +1,7 @@
 local jokerInfo = {
     name = 'Toe of Satan',
+    atlas = 'jokers',
+	pos = {x = 7, y = 9},
     config = {
         extra = {
             discards = 3,

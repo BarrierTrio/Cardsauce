@@ -1,5 +1,7 @@
 local jokerInfo = {
     name = "Passport",
+    atlas = 'jokers',
+	pos = {x = 7, y = 13},
     config = {
         extra = {
             x_mult_mod = 0.25,

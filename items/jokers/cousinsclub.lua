@@ -29,9 +29,9 @@ function jokerInfo.loc_vars(self, info_queue, card)
 		vars = {
 			card.ability.extra.chips,
 			card.ability.extra.chip_mod,
-			localize(card.abiltiy.extra.suit, 'suits_singular'),
+			localize(card.ability.extra.suit, 'suits_singular'),
 			colours = {
-				G.C.SUITS[card.abiltiy.extra.suit]
+				G.C.SUITS[card.ability.extra.suit]
 			}
 		}
 	}
@@ -40,7 +40,7 @@ end
 function jokerInfo.calculate(self, card, context)
 	if context.debuff then return end
 
-	if context.individual and context.cardarea == G.play and not context.blueprint and context.other_card:is_suit(card.abiltiy.extra.suit) then
+	if context.individual and context.cardarea == G.play and not context.blueprint and context.other_card:is_suit(card.ability.extra.suit) then
 		local has_flush = next(context.poker_hands['Flush'])
 		SMODS.scale_card(card, {
             ref_table = card.ability.extra,

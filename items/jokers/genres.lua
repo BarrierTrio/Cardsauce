@@ -1,5 +1,7 @@
 local jokerInfo = {
     name = "Battle of the Genres",
+    atlas = 'jokers',
+	pos = {x = 5, y = 14},
     config = {
         extra = {
             h_mod = 1,
@@ -26,11 +28,11 @@ local jokerInfo = {
 }
 
 function jokerInfo.loc_vars(self, info_queue, card)
-    return { vars = { card.ability.extra.h_mod, G.FUNCS.get_vhs_count()*card.ability.extra.h_mod } }
+    return { vars = { card.ability.extra.h_mod, ArrowAPI.vhs.get_vhs_count()*card.ability.extra.h_mod } }
 end
 
 function jokerInfo.add_to_deck(self, card)
-    local count = G.FUNCS.get_vhs_count()
+    local count = ArrowAPI.vhs.get_vhs_count()
     if count > 0 then
         G.hand:change_size(card.ability.extra.h_mod * count)
         card.ability.added_h_size = card.ability.added_h_size + card.ability.extra.h_mod * count

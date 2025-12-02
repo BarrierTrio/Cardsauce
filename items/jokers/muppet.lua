@@ -1,5 +1,7 @@
 local jokerInfo = {
     name = "Movin' Right Along",
+    atlas = 'jokers',
+	pos = {x = 1, y = 8},
     config = {
         dollars_before = nil,
         extra = {

@@ -15,12 +15,12 @@ local jokerInfo = {
 	blueprint_compat = true,
 	eternal_compat = true,
 	perishable_compat = true,
-	hasSoul = true,
 	dependencies = {
         config = {
             ['VinnyContent'] = true
         }
     },
+	artist = 'BarrierTrio/Gote',
 	origin = "redvox",
 }
 
@@ -29,7 +29,7 @@ function jokerInfo.loc_vars(self, info_queue, card)
 end
 
 function jokerInfo.generate_ui(self, info_queue, card, desc_nodes, specific_vars, full_UI_table)
-	G.FUNCS.generate_legendary_desc(self, info_queue, card, desc_nodes, specific_vars, full_UI_table)
+	ArrowAPI.ui.generate_legendary_desc(self, info_queue, card, desc_nodes, specific_vars, full_UI_table)
 end
 
 function jokerInfo.calculate(self, card, context)

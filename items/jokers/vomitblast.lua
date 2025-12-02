@@ -1,5 +1,7 @@
 local jokerInfo = {
     name = "VOMIT BLAST",
+    atlas = 'jokers',
+	pos = {x = 0, y = 15},
     config = {
         extra = {
             mult = 0,

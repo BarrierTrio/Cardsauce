@@ -1,5 +1,7 @@
 local jokerInfo = {
     name = "Bulkin' The Mouscles",
+    atlas = 'jokers',
+	pos = {x = 2, y = 11},
     config = {
         extra = {
             x_mult = 1,

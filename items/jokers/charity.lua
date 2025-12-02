@@ -1,5 +1,7 @@
 local jokerInfo = {
 	name = 'Charity Stream',
+	atlas = 'jokers',
+	pos = {x = 2, y = 8},
 	config = {extra = {
 		mult = 0,
 		mult_gain = 0

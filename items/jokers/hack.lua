@@ -1,5 +1,7 @@
 local jokerInfo = {
     name = "Hack Fraud",
+    atlas = 'jokers',
+	pos = {x = 3, y = 14},
     config = {
         extra = {
             chip_mod = 15,

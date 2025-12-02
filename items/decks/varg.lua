@@ -12,13 +12,11 @@ local deckInfo = {
         config = {
             ['JoelContent'] = true,
         }
-    }
+    },
+    artist = 'Kekulism',
 }
 
 function deckInfo.loc_vars(self, info_queue, card)
-    if info_queue then
-        info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.keku } }
-    end
     return {vars = { self.config.hand_size } }
 end
 

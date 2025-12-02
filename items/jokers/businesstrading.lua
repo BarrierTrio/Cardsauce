@@ -20,10 +20,10 @@ local jokerInfo = {
             ['VinnyContent'] = true
         }
     },
+    artist = 'Kekulism',
 }
 
 function jokerInfo.loc_vars(self, info_queue, card)
-    info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.keku } }
     local num, dom = SMODS.get_probability_vars(card, 1, card.ability.extra.chance, 'csau_business_1')
     return { vars = {card.ability.extra.dollars, num, dom, card.ability.extra.destroy} }
 end

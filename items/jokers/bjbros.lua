@@ -1,5 +1,7 @@
 local jokerInfo = {
     name = 'Blowzo Brothers',
+    atlas = 'jokers',
+	pos = {x = 2, y = 9},
     config = {
         extra = {
             prob_1 = 4,

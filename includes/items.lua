@@ -1,3 +1,5 @@
+SMODS.Atlas({key = 'jokers', path = 'jokers/jokers.png', px = 71, py = 95})
+
 ArrowAPI.loading.batch_load({
     Joker = {
         order = 1,

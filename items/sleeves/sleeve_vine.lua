@@ -3,13 +3,10 @@ local sleeveInfo = {
     config = { csau_jokers_rate = 3, csau_all_rate = 3, },
     unlocked = false,
     unlock_condition = { deck = "b_csau_vine", stake = "stake_green" },
+    artist = 'Kekulism',
 }
 
 sleeveInfo.loc_vars = function(self, info_queue)
-    if info_queue then
-        info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.keku } }
-    end
-
     local key = self.key
     local rate = self.config.csau_jokers_rate
     self.config.voucher = "v_overstock_norm"

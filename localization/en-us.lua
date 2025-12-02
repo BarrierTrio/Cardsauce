@@ -468,32 +468,9 @@ return {
 			csau_options_reset_Achievements_desc = "Click this button to reset all Cardsauce achievements",
 			csau_options_chadNova_r = "Undo Chadnova",
 			csau_options_chadNova_desc = "Click this button to undo the consequences of your actions",
-			b_set_colors = "Colors",
-			b_color_selector = "Background Colors",
-			b_color_selector_outer = "Main Menu Outer Swirl",
-			b_color_selector_inner = "Main Menu Inner Swirl",
-			b_color_selector_game = "Small/Big Blind Color",
-			b_color_selector_game_2 = "Endless Mode Color",
-			b_color_selector_hex = "Enter HEX Code",
-			b_color_selector_paste_hex = {"Paste"},
-			b_color_selector_hex_set = {"Apply Colors"},
 			b_save_morshu_1 = 'Come Back',
 			b_save_morshu_2 = 'MMMMMMM',
 			b_save_morshu_3 = 'Richer',
-			ml_color_selector_opt={
-				"Default (Cardsauce)",
-				"Default (Balatro)",
-				"Darkshroom",
-				"Vineshroom",
-				"Fullsauce",
-				"Extrasauce",
-				"Twitch Clips",
-				"Fren",
-				"Jabroni",
-				"Uzumaki",
-				"Custom (ex: FFFFFF)"
-			},
-			b_color_selector_desc = "(Click colors to update swirl)",
 
 			-- save strings
 			ph_armageddon = "Annihilated by Odio",
@@ -577,6 +554,7 @@ return {
 			k_survived = 'Survived!',
 
 			-- badge titles
+			ba_cardsauce = "Cardsauce",
 			ba_vinny = "Vinesauce",
 			ba_vinny_wotw = "Wheel of the Weird",
 			ba_vinny_pa = "Public Access",

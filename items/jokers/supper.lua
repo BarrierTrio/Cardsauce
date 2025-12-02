@@ -2,6 +2,8 @@ local mod = SMODS.current_mod
 
 local jokerInfo = {
 	name = 'WAAUGGHGHHHHGHH',
+	atlas = 'jokers',
+	pos = {x = 3, y = 8},
 	config = {
 		extra = {
 			x_mult = 1.5
@@ -16,6 +18,7 @@ local jokerInfo = {
 	perishable_compat = true,
 	has_shiny = true,
 	origin = 'cardsauce',
+	artist = 'Kekulism',
 }
 
 function jokerInfo.check_for_unlock(self, args)
@@ -25,7 +28,6 @@ function jokerInfo.check_for_unlock(self, args)
 end
 
 function jokerInfo.loc_vars(self, info_queue, card)
-	info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.keku } }
 	return { vars = {card.ability.extra.x_mult} }
 end
 

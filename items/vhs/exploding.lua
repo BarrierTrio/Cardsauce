@@ -42,7 +42,7 @@ function consumInfo.calculate(self, card, context)
         ease_discard(mod)
         card.ability.extra.uses = card.ability.extra.uses+1
         if to_big(card.ability.extra.uses) >= to_big(card.ability.extra.runtime) then
-            G.FUNCS.destroy_tape(card)
+            ArrowAPi.vhs.destroy_tape(card)
             card.ability.destroyed = true
         end
         return {

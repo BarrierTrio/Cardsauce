@@ -1,5 +1,7 @@
 local jokerInfo = {
     name = "April Fools' Joker",
+    atlas = 'jokers',
+	pos = {x = 8, y = 12},
     config = {
         extra = {
             mult_mod = 4
@@ -20,7 +22,8 @@ local jokerInfo = {
 }
 
 local function get_fools()
-    if not G.GAME.consumeable_usage and not G.GAME.consumeable_usage['c_fool'] then return 0 end
+    if not G.GAME.consumeable_usage or not G.GAME.consumeable_usage['c_fool'] then return 0 end
+
     return G.GAME.consumeable_usage['c_fool'].count
 end
 

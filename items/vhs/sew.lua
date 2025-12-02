@@ -73,7 +73,7 @@ function consumInfo.calculate(self, card, context)
 
 		card.ability.extra.uses = card.ability.extra.uses+1
 		if card.ability.extra.uses >= card.ability.extra.runtime then
-			G.FUNCS.destroy_tape(card)
+			ArrowAPi.vhs.destroy_tape(card)
 			card.ability.destroyed = true
 		else
 			card_eval_status_text(card, 'extra', nil, nil, nil, {

@@ -1,5 +1,7 @@
 local jokerInfo = {
     name = 'Barbeque Shoes',
+    atlas = 'jokers',
+	pos = {x = 5, y = 11},
     config = {
         extra = {
             suit = 'Hearts',

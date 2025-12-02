@@ -1,5 +1,7 @@
 local jokerInfo = {
     name = 'Plaguewalker',
+    atlas = 'jokers',
+	pos = {x = 0, y = 12},
     config = {
         extra = {
             glass_mult = 3,

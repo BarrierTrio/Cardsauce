@@ -1,5 +1,7 @@
 local jokerInfo = {
     name = 'Kill Jester',
+    atlas = 'jokers',
+	pos = {x = 9, y = 8},
     config = {
         extra = {
             x_mult = 1,

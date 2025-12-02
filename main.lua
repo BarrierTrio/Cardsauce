@@ -9,7 +9,7 @@ Cardsauce.optional_features = {
 --- chadnova easter egg
 math.randomseed(os.time())
 if math.random() < 0.001 then
-	ArrowAPI.misc.update_config(Cardsauce, 'enable_Chadnova', true)
+	ArrowAPI.config_tools.update_config(Cardsauce, 'enable_Chadnova', true)
 end
 
 Cardsauce.usable_path = Cardsauce.path:match("Mods/[^/]+")
@@ -40,7 +40,6 @@ end
 ArrowAPI.misc.add_colors({
 	['CARDSAUCE'] = copy_table(Cardsauce.badge_colour),
 	['MUG'] = HEX('db9a4d'),
-    ['STREETLIGHT'] = HEX('139194'),
     ['CSAU_ACH_RARE_1'] = HEX('6FDCB0'),
     ['CSAU_ACH_RARE_2'] = HEX('FFA551'),
     ['CSAU_ACH_RARE_3'] = HEX('FFD654'),
@@ -48,6 +47,8 @@ ArrowAPI.misc.add_colors({
 })
 
 ArrowAPI.ui.add_badge_colors(Cardsauce, {
+	co_cardsauce = copy_table(Cardsauce.badge_colour),
+	te_cardsauce = HEX("FFFFFF"),
 	co_vinny = HEX("32A852"),
 	te_vinny = HEX("FFFFFF"),
 	co_joel = HEX("3B4635"),

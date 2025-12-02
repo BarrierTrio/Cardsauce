@@ -9,7 +9,6 @@ local jokerInfo = {
 	blueprint_compat = false,
 	eternal_compat = true,
 	perishable_compat = true,
-	hasSoul = true,
 	origin = 'vinny',
 	dependencies = {
         config = {

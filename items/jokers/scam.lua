@@ -1,5 +1,7 @@
 local jokerInfo = {
     name = 'BITCONNEEEEEEEEEEEEEEEEE',
+    atlas = 'jokers',
+	pos = {x = 7, y = 12},
     config = {
         extra = 5,
         scam_hands = {

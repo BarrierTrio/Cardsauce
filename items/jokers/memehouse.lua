@@ -1,5 +1,7 @@
 local jokerInfo = {
     name = "Meme House",
+    atlas = 'jokers',
+	pos = {x = 4, y = 11},
     config = {
         activated = false
     },

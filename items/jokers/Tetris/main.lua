@@ -1,59 +1,75 @@
 notbalatro = true
 
 require("src.misc_functions")
-local game = require("src.game")
+local tetris = require("src.game")
 
-game.canvasWidth = 59
-game.canvasHeight = 65
-game.scale = 8
-game.blockSize = math.floor(math.min(game.canvasWidth / 10, game.canvasHeight / 20))
-game.gridOffsetX = 15
-game.gridOffsetY = 1
+tetris.canvasWidth = 59
+tetris.canvasHeight = 65
+tetris.scale = 8
+tetris.blockSize = math.floor(math.min(tetris.canvasWidth / 10, tetris.canvasHeight / 20))
+tetris.gridOffsetX = 15
+tetris.gridOffsetY = 1
+tetris.isActive = false
+tetris.showFullView = false
+tetris.linesCleared = 0
+tetris.targetFrameTime = 1 / 60
 tetrisSeed = tetrisSeed or love.math.random(1, 10000)
 love.math.setRandomSeed(tetrisSeed)
 
 function love.load()
-    love.graphics.setBackgroundColor(game.colors.background)
+    love.graphics.setBackgroundColor(tetris.colors.background)
     love.graphics.setDefaultFilter("nearest", "nearest")
-    love.window.setMode(game.canvasWidth * game.scale, game.canvasHeight * game.scale, {resizable = false, vsync = true})
-    game.canvas = love.graphics.newCanvas(game.canvasWidth, game.canvasHeight)
-    game.load()
+    love.window.setMode(tetris.canvasWidth * tetris.scale, tetris.canvasHeight * tetris.scale, {resizable = false, vsync = true})
+    tetris.canvas = love.graphics.newCanvas(tetris.canvasWidth, tetris.canvasHeight)
+    tetris.load()
 end
 
-game.targetFrameTime = 1 / 60
+function love.draw()
+    love.graphics.setCanvas(tetris.canvas)
+    love.graphics.clear()
+    tetris.draw(nil, 2)
+    love.graphics.setCanvas()
+
+    love.graphics.setColor(1, 1, 1)
+    love.graphics.draw(tetris.canvas, 0, 0, 0, tetris.scale, tetris.scale)
+end
+
+function love.conf(t)
+    t.window.width = tetris.canvasWidth * tetris.scale
+    t.window.height = tetris.canvasHeight * tetris.scale
+    t.console = true
+end
 
 function love.update(dt)
     local startTime = love.timer.getTime()
 
-    game.update(dt)
+    tetris.update(dt)
 
     local frameTime = love.timer.getTime() - startTime
 
-    if frameTime < game.targetFrameTime then
-        love.timer.sleep(game.targetFrameTime - frameTime)
+    if frameTime < tetris.targetFrameTime then
+        love.timer.sleep(tetris.targetFrameTime - frameTime)
     end
 end
 
-function love.draw()
-    love.graphics.setCanvas(game.canvas)
-    love.graphics.clear()
-    game.draw(nil, 2)
-    love.graphics.setCanvas()
-
-    love.graphics.setColor(1, 1, 1)
-    love.graphics.draw(game.canvas, 0, 0, 0, game.scale, game.scale)
-end
-
 function love.keypressed(key)
-    game.keypressed(key)
+    if tetris.isActive then
+        tetris.keypressed(key)
+    end
 end
 
 function love.keyreleased(key)
-    game.keyreleased(key)
+    if tetris.isActive then
+        tetris.keyreleased(key)
+    end
 end
 
-function love.conf(t)
-    t.window.width = game.canvasWidth * game.scale
-    t.window.height = game.canvasHeight * game.scale
-    t.console = true
+local ref_controller_press_update = Controller.button_press_update
+function Controller:button_press_update(button, dt)
+    if tetris.isActive then
+        tetris.controller_press_update(self, button, dt)
+    end
+    ref_controller_press_update(self, button, dt)
 end
+
+return tetris

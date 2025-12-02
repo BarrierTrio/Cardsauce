@@ -1,5 +1,7 @@
 local jokerInfo = {
     name = "Meteor",
+    atlas = 'jokers',
+	pos = {x = 5, y = 10},
     config = {
         extra = {
             key = '7',

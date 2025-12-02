@@ -1,5 +1,7 @@
 local jokerInfo = {
     name = 'Black Spine Junka',
+    atlas = 'jokers',
+	pos = {x = 7, y = 14},
     config = {
         unlock = 10,
         extra = {

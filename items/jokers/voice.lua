@@ -1,5 +1,7 @@
 local jokerInfo = {
     name = "Choicest Voice",
+    atlas = 'jokers',
+	pos = {x = 5, y = 8},
     config = {
         extra = {
             repetitions = 1

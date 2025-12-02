@@ -61,7 +61,7 @@ function consumInfo.calculate(self, card, context)
             dollars = card.ability.extra.dollars,
             func = function()
                 if to_big(card.ability.extra.uses) >= to_big(card.ability.extra.runtime) then
-                    G.FUNCS.destroy_tape(card)
+                    ArrowAPi.vhs.destroy_tape(card)
                     card.ability.destroyed = true
                 end
             end

@@ -1,5 +1,7 @@
 local jokerInfo = {
     name = 'Protegent Antivirus',
+    atlas = 'jokers',
+	pos = {x = 6, y = 11},
     config = {
         extra = {
             boss_prob = 4,

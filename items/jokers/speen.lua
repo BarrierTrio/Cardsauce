@@ -52,7 +52,7 @@ function jokerInfo.calculate(self, card, context)
 end
 
 function jokerInfo.update(self, card, dt)
-	card.ability.speen_timer = card.ability.speen_timer + G.real_dt
+	card.ability.speen_timer = (card.ability.speen_timer + (G.real_dt / 4)) % (math.pi * 4)
 end
 
 function jokerInfo.draw(self,card,layer)
@@ -62,11 +62,20 @@ function jokerInfo.draw(self,card,layer)
 		return
 	end
 
-	love.graphics.push('all')
-	local r = math.sin(card.ability.speen_timer/2) * 60
-	local sx = math.sin(card.ability.speen_timer*4)
-	love.graphics.draw(G.ASSET_ATLAS['csau_jokers'].image, shared_speen, 0, 0, r, self.VT.w/(self.T.w) * sx, self.VT.h/(self.T.h))
+	prep_draw(card.children.center, 0.75, math.sin(card.ability.speen_timer) * 60)
+	love.graphics.scale(1/(card.children.center.scale.x/card.children.center.VT.w), 1/(card.children.center.scale.y/card.children.center.VT.h))
+    love.graphics.setColor(G.C.WHITE)
+
+	love.graphics.draw(
+	G.ASSET_ATLAS['csau_jokers'].image,
+	shared_speen,
+	0, 0,
+	0,
+	card.children.center.VT.w/(card.children.center.T.w) + math.sin(card.ability.speen_timer*4) * 0.3,
+	card.children.center.VT.h/(card.children.center.T.h))
 	love.graphics.pop()
+	add_to_drawhash(card.children.center)
+    card.children.center:draw_boundingrect()
 end
 
 return jokerInfo

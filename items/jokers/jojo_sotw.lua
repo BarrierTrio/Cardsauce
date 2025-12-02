@@ -1,5 +1,7 @@
 local jokerInfo = {
     name = "Stand of the Week",
+    atlas = 'jokers',
+	pos = {x = 9, y = 15},
     config = {
         extra = {
             x_mult_mod = 0.25

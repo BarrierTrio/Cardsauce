@@ -1,6 +1,9 @@
 
 local jokerInfo = {
     name = "UFO COMODIN",
+    atlas = 'jokers',
+	pos = {x = 1, y = 14},
+    soul_pos = {x = 2, y = 14},
     config = {
         extra = 3,
         ufo_rounds = 0,
@@ -12,7 +15,6 @@ local jokerInfo = {
     blueprint_compat = false,
     eternal_compat = false,
     perishable_compat = false,
-    hasSoul = true,
     no_soul_shadow = true,
     origin = 'joel',
     dependencies = {

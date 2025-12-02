@@ -1,5 +1,7 @@
 local jokerInfo = {
     name = "That Fucking Koffing Again",
+    atlas = 'jokers',
+	pos = {x = 1, y = 9},
     config = {extra = {rerolled = false}},
     rarity = 1,
     cost = 5,

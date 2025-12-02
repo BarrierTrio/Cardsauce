@@ -1,5 +1,7 @@
 local jokerInfo = {
     name = 'Murder the Monolith',
+    atlas = 'jokers',
+	pos = {x = 9, y = 9},
     rarity = 3,
     cost = 8,
     config = {
@@ -33,12 +35,12 @@ local jokerInfo = {
 }
 
 local forms = {
-        ["Base"] = { pos = {x=0,y=0}, color = G.C.PURPLE },
-        ["Hearts"] = { pos = {x=1,y=0}, color = G.C.SUITS.Hearts },
-        ["Clubs"] = { pos = {x=2,y=0}, color = G.C.SUITS.Clubs },
-        ["Diamonds"] = { pos = {x=3,y=0}, color = G.C.SUITS.Diamonds },
-        ["Spades"] = { pos = {x=4,y=0}, color = G.C.SUITS.Spades },
-        ["Wild"] = { pos = {x=5,y=0, color = G.C.GOLD },
+        ["Base"] = { pos = {x=9,y=9}, color = G.C.PURPLE },
+        ["Hearts"] = { pos = {x=0,y=10}, color = G.C.SUITS.Hearts },
+        ["Clubs"] = { pos = {x=1,y=10}, color = G.C.SUITS.Clubs },
+        ["Diamonds"] = { pos = {x=2,y=10}, color = G.C.SUITS.Diamonds },
+        ["Spades"] = { pos = {x=3,y=10}, color = G.C.SUITS.Spades },
+        ["Wild"] = { pos = {x=4,y=10, color = G.C.GOLD },
     }
 }
 

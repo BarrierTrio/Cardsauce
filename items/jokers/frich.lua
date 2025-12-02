@@ -1,5 +1,7 @@
 local jokerInfo = {
     name = "Gourmand of Faramore",
+    atlas = 'jokers',
+	pos = {x = 7, y = 10},
     config = {},
     rarity = 2,
     cost = 5,

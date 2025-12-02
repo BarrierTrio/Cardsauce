@@ -28,7 +28,7 @@ end
 function jokerInfo.calculate(self, card, context)
 	if card.debuff then return end
 
-	if context.cardarea == G.jokers and context.before and next(context.poker_hands['Pair']) then
+	if context.before and next(context.poker_hands['Pair']) then
 		local new_cards = {}
 		for _, pair in ipairs(context.poker_hands['Pair']) do
 			if SMODS.pseudorandom_probability(card, 'csau_miracle', 1, card.ability.extra.chance) then

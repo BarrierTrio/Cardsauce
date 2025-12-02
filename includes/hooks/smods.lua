@@ -102,7 +102,7 @@ function SMODS.change_base(card, suit, rank, manual_sprites)
     return ref_change_base(card, suit, rank, manual_sprites)
 end
 
-SMODS.center.generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, full_UI_table)
+SMODS.Center.generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, full_UI_table)
 	if not card then
 		card = self:create_fake_card()
 	end

@@ -1,5 +1,7 @@
 local jokerInfo = {
     name = 'Lidl',
+    atlas = 'jokers',
+	pos = {x = 4, y = 9},
     config = {
         extra = {
             discount = 50,

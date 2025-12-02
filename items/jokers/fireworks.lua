@@ -1,5 +1,7 @@
 local jokerInfo = {
     name = "Stolen Christmas",
+    atlas = 'jokers',
+	pos = {x = 6, y = 12},
     config = {
         extra = {
             fingers = 10,

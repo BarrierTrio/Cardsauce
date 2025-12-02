@@ -19,7 +19,7 @@ function consumInfo.add_to_deck(self, card)
     for _, v in ipairs(G.I.CARD) do
         if v.ability and v.ability.set == "VHS" and (v.ability.extra and v.ability.extra.runtime) then
             v.ability.extra.runtime = v.ability.extra.runtime * 2
-            G.FUNCS.csau_flare_stand_aura(card, 0.38)
+            ArrowAPI.stand.flare_stand_aura(card, 0.38)
         end
     end
 end

@@ -1,5 +1,7 @@
 local jokerInfo = {
     name = 'THE FLUSHER™',
+    atlas = 'jokers',
+	pos = {x = 1, y = 11},
     config = {
         extra = {
             prob = 5,

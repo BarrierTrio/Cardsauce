@@ -1,5 +1,7 @@
 local jokerInfo = {
     name = "Blue Shell Incident",
+    atlas = 'jokers',
+	pos = {x = 1, y = 12},
     config = {
         extra = {
             x_mult = 3,

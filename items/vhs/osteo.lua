@@ -20,13 +20,13 @@ local consumInfo = {
             'rlm_wotw',
         },
         custom_color = 'rlm'
-    }
+    },
+    artist = 'Kekulism',
 }
 
 
 function consumInfo.loc_vars(self, info_queue, card)
     info_queue[#info_queue+1] = {key = "vhs_activation", set = "Other"}
-    info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.keku } }
     return { vars = { card.ability.extra.runtime-card.ability.extra.uses } }
 end
 
@@ -35,7 +35,7 @@ function consumInfo.calculate(self, card, context)
         ease_hands_played(1)
         card.ability.extra.uses = card.ability.extra.uses+1
         if to_big(card.ability.extra.uses) >= to_big(card.ability.extra.runtime) then
-            G.FUNCS.destroy_tape(card)
+            ArrowAPi.vhs.destroy_tape(card)
             card.ability.destroyed = true
         end
         return {

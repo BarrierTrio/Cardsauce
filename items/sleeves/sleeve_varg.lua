@@ -1,6 +1,6 @@
 local sleeveInfo = {
     name = 'Varg Sleeve',
-    config = { 
+    config = {
         probability_mult = 2,
         probability_mult_alt = 1.5,
         csau_jokers_rate = 2,
@@ -9,12 +9,10 @@ local sleeveInfo = {
     },
     unlocked = false,
     unlock_condition = { deck = "b_csau_varg", stake = "stake_green" },
+    artist = 'Kekulism',
 }
 
 function sleeveInfo.loc_vars(self, info_queue)
-    if info_queue then
-        info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.keku } }
-    end
 
     local key, vars
     if self.get_current_deck_key() == "b_csau_varg" then

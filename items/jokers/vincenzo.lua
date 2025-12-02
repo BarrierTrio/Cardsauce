@@ -24,7 +24,7 @@ function jokerInfo.add_to_deck(self, card)
 end
 
 function jokerInfo.generate_ui(self, info_queue, card, desc_nodes, specific_vars, full_UI_table)
-	G.FUNCS.generate_legendary_desc(self, info_queue, card, desc_nodes, specific_vars, full_UI_table)
+	ArrowAPI.ui.generate_legendary_desc(self, info_queue, card, desc_nodes, specific_vars, full_UI_table)
 end
 
 function jokerInfo.calculate(self, card, context)

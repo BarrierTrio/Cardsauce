@@ -1,5 +1,7 @@
 local jokerInfo = {
 	name = 'Pepperoni Secret',
+	atlas = 'jokers',
+	pos = {x = 4, y = 8},
 	config = {
 		ach_hands = {}
 	},

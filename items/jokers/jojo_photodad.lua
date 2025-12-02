@@ -1,12 +1,14 @@
 local jokerInfo = {
     name = 'Photodad',
+    atlas = 'jokers',
+	pos = {x = 6, y = 15},
+    soul_pos = {x = 7, y = 15},
     config = {},
     rarity = 2,
     cost = 4,
     blueprint_compat = true,
     eternal_compat = true,
     perishable_compat = true,
-    hasSoul = true,
     origin = 'jojo',
     dependencies = {
         config = {

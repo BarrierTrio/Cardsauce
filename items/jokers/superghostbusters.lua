@@ -1,5 +1,7 @@
 local jokerInfo = {
     name = "Super Jokebusters",
+    atlas = 'jokers',
+	pos = {x = 5, y = 9},
     config = {
         extra = 5,
         mult = 0,

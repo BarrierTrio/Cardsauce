@@ -1,5 +1,7 @@
 local jokerInfo = {
     name = "AGGA",
+    atlas = 'jokers',
+	pos = {x = 9, y = 11},
     config = {
         extra = {
             x_mult = 1,

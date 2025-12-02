@@ -64,6 +64,8 @@ SMODS.PokerHand {
 
 local jokerInfo = {
     name = "Blackjack",
+    atlas = 'jokers',
+	pos = {x = 1, y = 13},
     config = {},
     rarity = 2,
     cost = 6,

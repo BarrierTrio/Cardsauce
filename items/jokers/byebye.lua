@@ -1,5 +1,7 @@
 local jokerInfo = {
     name = 'Bye-Bye, Norway',
+    atlas = 'jokers',
+	pos = {x = 2, y = 13},
     config = {
         extra = {
             dollars_mod = 4

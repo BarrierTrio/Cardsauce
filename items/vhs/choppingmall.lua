@@ -45,7 +45,7 @@ function consumInfo.calculate(self, card, context)
             G.E_MANAGER:add_event(Event({
                 blocking = false,
                 func = function()
-                    G.FUNCS.destroy_tape(card)
+                    ArrowAPi.vhs.destroy_tape(card)
                     card.ability.destroyed = true
                     return true
                 end

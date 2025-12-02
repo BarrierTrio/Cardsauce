@@ -1,5 +1,7 @@
 local jokerInfo = {
     name = 'Mug',
+    atlas = 'jokers',
+	pos = {x = 2, y = 12},
     config = {
         extra = {
             form = 'mug',
@@ -16,7 +18,6 @@ local jokerInfo = {
     perishable_compat = false,
     pixel_size = { w = 71, h = 73 },
     pools = { ["Food"] = true },
-    hasSoul = true,
     origin = 'joel',
     dependencies = {
         config = {
@@ -29,15 +30,14 @@ local jokerInfo = {
 local forms = {
     ["mug"] = {
         name = 'mug',
-        pos = { x = 1, y = 0 },
+        pos = { x = 2, y = 12 },
         pixel_size = { w = 71, h = 73 },
-        soul_pos = { x = 2, y = 0},
     },
     ["moment"] = {
         name = 'moment',
-        pos = { x = 1, y = 1},
+        pos = { x = 4, y = 12},
         pixel_size = { w = 71, h = 95},
-        soul_pos = { x = 2, y = 1},
+        soul_pos = { x = 5, y = 12},
     },
 }
 

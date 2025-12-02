@@ -1,5 +1,7 @@
 local jokerInfo = {
     name = 'Vinewrestle',
+    atlas = 'jokers',
+	pos = {x = 8, y = 13},
     config = {},
     rarity = 2,
     cost = 6,

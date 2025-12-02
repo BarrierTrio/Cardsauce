@@ -5,6 +5,8 @@ SMODS.Shader {
 
 local jokerInfo = {
     name = 'Bootleg Joker',
+    atlas = 'jokers',
+	pos = {x = 9, y = 10},
     config = {},
     bootlegged_center = nil,
     rarity = 1,
@@ -127,7 +129,7 @@ end
 
 function jokerInfo.set_sprites(self, card, initial, delay_sprites)
     card.config.center.atlas = 'csau_bootleg'
-    card.config.center.pos = { x = 0, y = 0 }
+    card.config.center.pos = { x = 9, y = 10 }
 end
 
 function jokerInfo.calc_dollar_bonus(self, card)

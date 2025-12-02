@@ -1,5 +1,8 @@
 local jokerInfo = {
     name = 'Wigsaw',
+    atlas = 'jokers',
+	pos = {x = 4, y = 13},
+    soul_pos = {x = 5, y = 13},
     config = {},
     rarity = 4,
     cost = 20,
@@ -8,7 +11,6 @@ local jokerInfo = {
     blueprint_compat = true,
     eternal_compat = true,
     perishable_compat = true,
-    hasSoul = true,
     origin = 'joel',
     dependencies = {
         config = {
