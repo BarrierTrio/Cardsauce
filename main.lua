@@ -197,7 +197,6 @@ ArrowAPI.config_tools.use_config(Cardsauce, {
 	{key = 'enable_VinnyContent', order = 1, before_auto = true, default_value = true},
 	{key = 'enable_JoelContent', order = 2, before_auto = true, default_value = true},
 	{key = 'enable_Logo', order = 1, default_value = true},
-	{key = 'enable_Colors', order = 2, default_value = true},
 	{key = 'enable_EasterEggs', order = 3, default_value = true},
 	{key = 'muteWega', default_value = false, exclude_from_ui = true},
 	{key = 'forceDisableOrtalab', default_value = false, exclude_from_ui = true},

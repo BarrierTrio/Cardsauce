@@ -1,5 +1,7 @@
 local jokerInfo = {
 	name = 'That\'s Werewolves',
+	atlas = 'jokers',
+	pos = {x = 0, y = 6},
 	config = {
 		extra = {
 			x_mult = 3,

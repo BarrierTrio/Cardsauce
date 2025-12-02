@@ -1,5 +1,7 @@
 local jokerInfo = {
 	name = 'Very Expensive Joker',
+	atlas = 'jokers',
+	pos = {x = 9, y = 1},
 	config = {
 		extra = {
 			x_mult = nil,

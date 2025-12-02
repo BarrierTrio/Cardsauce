@@ -1,5 +1,8 @@
 local jokerInfo = {
 	name = "Don't Mind If I Do",
+	atlas = 'jokers',
+	pos = {x = 9, y = 3},
+	soul_pos = {x = 0, y = 4},
 	config = {},
 	rarity = 2,
 	cost = 4,

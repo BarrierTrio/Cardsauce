@@ -1,5 +1,8 @@
 local jokerInfo = {
 	name = 'This Is Crack',
+	atlas = 'jokers',
+	pos = {x = 7, y = 4},
+	soul_pos = {x = 8, y = 4},
 	config = {
 		extra = {
 			x_mult = 1,
@@ -15,7 +18,6 @@ local jokerInfo = {
 	pools = {
 		["Meme"] = true
 	},
-	hasSoul = true,
 	streamer = "vinny",
 	artist = 'BarrierTrio/Gote'
 }

@@ -1,5 +1,9 @@
 local jokerInfo = {
     name = "Bonzi Buddy",
+    animation = {
+        frames = 12,
+        fps = 10,
+    },
     config = {
         extra = {
             mult = 0,
@@ -18,12 +22,6 @@ local jokerInfo = {
     },
     width = 87,
     streamer = "joel",
-    animated = {
-        tiles = {
-            x = 6,
-            y = 2,
-        },
-    },
     artist = 'Crisppyboat'
 }
 

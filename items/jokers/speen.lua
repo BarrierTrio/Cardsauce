@@ -1,31 +1,11 @@
-local mod = SMODS.current_mod
-local mod_path = SMODS.current_mod.path:match("Mods/[^/]+")..'/'
 
-mod.speenTimer = 0
-
-mod.speenBase = love.graphics.newImage(mod_path..'assets/1x/jokers/speenBase.png')
-mod.speenFace = love.graphics.newImage(mod_path..'assets/1x/jokers/speenFace.png')
-
-local drawFace = function()
-	local r = math.sin(mod.speenTimer/2) * 60
-	local sx = math.sin(mod.speenTimer*4)
-	love.graphics.draw(mod.speenFace,71/2,95/2,r,sx,1,71/2,95/2)
-end
-
-local setupCanvas = function(self)
-	self.children.center.video = love.graphics.newCanvas(71,95)
-	self.children.center.video:renderTo(function()
-		love.graphics.clear(1,1,1,0)
-		love.graphics.setColor(1,1,1,1)
-		--Draw the base, then the face
-		love.graphics.draw(mod.speenBase)
-		drawFace()
-	end)
-end
+local shared_speen = love.graphics.newQuad(355, 95, 71, 95, 710, 1520)
 
 local jokerInfo = {
 	name = 'SPEEEEEEN',
-	config = {},
+	atlas = 'jokers',
+	pos = {x = 4, y = 1},
+	config = {speen_timer = 0},
 	rarity = 1,
 	cost = 6,
 	blueprint_compat = true,
@@ -66,13 +46,8 @@ function jokerInfo.calculate(self, card, context)
 	))
 end
 
--- TODO: can probably improve this
-local loveUpdateReference = love.update
-function love.update(dt)
-	if mod.speenTimer and G.SETTINGS.GAMESPEED then
-		mod.speenTimer = (mod.speenTimer + (dt * (G.SETTINGS.GAMESPEED / 4))) % (math.pi * 4)
-	end
-	loveUpdateReference(dt)
+function jokerInfo.update(self, card, dt)
+	card.ability.speen_timer = card.ability.speen_timer + G.real_dt
 end
 
 function jokerInfo.draw(self,card,layer)
@@ -83,18 +58,9 @@ function jokerInfo.draw(self,card,layer)
 	end
 
 	love.graphics.push('all')
-		love.graphics.reset()
-		if not card.children.center.video then
-			--Sometimes, such as when a game is saved and loaded, the canvas gets de-initialized.
-			--We need to check for this, and re-initialize it.
-			setupCanvas(card)
-		end
-
-		card.children.center.video:renderTo(function()
-			--Same as before, but this time we pass in the timer.
-			love.graphics.draw(mod.speenBase)
-			drawFace(mod.speenTimer)
-		end)
+	local r = math.sin(card.ability.speen_timer/2) * 60
+	local sx = math.sin(card.ability.speen_timer*4)
+	love.graphics.draw(G.ASSET_ATLAS['csau_jokers'].image, shared_speen, 0, 0, r, self.VT.w/(self.T.w) * sx, self.VT.h/(self.T.h))
 	love.graphics.pop()
 end
 

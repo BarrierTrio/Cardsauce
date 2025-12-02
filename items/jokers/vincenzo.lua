@@ -1,5 +1,8 @@
 local jokerInfo = {
 	name = 'Vincenzo',
+	atlas = 'jokers',
+	pos = {x = 5, y = 5},
+	soul_pos = {x = 6, y = 5},
 	config = {},
 	rarity = 4,
 	cost = 20,
@@ -8,7 +11,6 @@ local jokerInfo = {
 	blueprint_compat = true,
 	eternal_compat = true,
 	perishable_compat = true,
-	hasSoul = true,
 	streamer = "vinny",
 	origin = "redvox",
 	artist = 'BarrierTrio/Gote'

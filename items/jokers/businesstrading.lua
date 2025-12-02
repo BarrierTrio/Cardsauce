@@ -1,5 +1,7 @@
 local jokerInfo = {
     name = 'Business Trading Card',
+    atlas = 'jokers',
+	pos = {x = 6, y = 0},
     config = {
         extra = {
             dollars = 6,

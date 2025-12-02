@@ -1,12 +1,14 @@
 local jokerInfo = {
 	name = 'Grey Joker',
+	atlas = 'jokers',
+	pos = {x = 0, y = 1},
+	soul_pos = {x = 0, y = 2},
 	config = {extra = 3},
 	rarity = 2,
 	cost = 6,
 	blueprint_compat = true,
 	eternal_compat = true,
 	perishable_compat = true,
-	hasSoul = true,
 	streamer = "vinny",
 	artist = 'SagaciousCejai'
 }

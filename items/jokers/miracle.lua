@@ -1,5 +1,7 @@
 local jokerInfo = {
 	name = 'Miracle of Life',
+	atlas = 'jokers',
+	pos = {x = 4, y = 4},
 	config = {
 		extra = {
 			chance = 2

@@ -1,5 +1,8 @@
 local jokerInfo = {
 	name = 'Quarterdumb',
+	atlas = 'jokers',
+	pos = {x = 8, y = 5},
+	soul_pos = {x = 9, y = 5},
 	config = {
 		extra = {
 			hand_mod = 1

@@ -6,6 +6,7 @@ local consumInfo = {
         aura_colors = { 'fff679DC' , 'f9d652DC' },
         evolve_key = 'c_jojobal_vento_gold_requiem',
         extra = {
+            suit = 'Hearts',
             prob = 4,
         }
     },
@@ -30,9 +31,9 @@ function consumInfo.loc_vars(self, info_queue, card)
     return {
         vars = {
             num, dom,
-            localize(G.GAME and G.GAME.wigsaw_suit or "Hearts", 'suits_plural'),
+            localize(card.ability.extra.suit, 'suits_plural'),
             colours = {
-                G.C.SUITS[G.GAME and G.GAME.wigsaw_suit or "Hearts"]
+                G.C.SUITS[card.ability.extra.suit]
             }
         }
     }
@@ -46,7 +47,7 @@ function consumInfo.calculate(self, card, context)
     if context.before and not card.debuff then
         local gold = {}
         for i, v in ipairs(context.scoring_hand) do
-            if v.config.center.key ~= 'm_gold' and v:is_suit(G.GAME and G.GAME.wigsaw_suit or "Hearts")
+            if v.config.center.key ~= 'm_gold' and v:is_suit(card.ability.extra.suit)
             and SMODS.pseudorandom_probability(card, 'jojobal_goldexperience', 1, card.ability.extra.prob) then
                 gold[#gold+1] = v
                 v:set_ability(G.P_CENTERS.m_gold, nil, 'manual')

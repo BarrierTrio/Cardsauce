@@ -1,5 +1,7 @@
 local jokerInfo = {
 	name = 'Garbage Hand',
+	atlas = 'jokers',
+	pos = {x = 4, y = 3},
 	config = {
 		extra = {
 			mult = 4

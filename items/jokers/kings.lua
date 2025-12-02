@@ -1,5 +1,7 @@
 local jokerInfo = {
     name = '2 Kings 2:23-24',
+    atlas = 'jokers',
+	pos = {x = 3, y = 5},
     config = {
         extra = {
             king_cards = {},

@@ -1,6 +1,13 @@
 local jokerInfo = {
 	name = 'Disturbed Joker',
-	config = {extra = {num_cards = 1, draw_this_discard = false}},
+	atlas = 'jokers',
+	pos = {x = 2, y = 7},
+	config = {
+		extra = {
+			num_cards = 1,
+			draw_this_discard = false
+		}
+	},
 	rarity = 1,
 	cost = 4,
 	unlocked = false,

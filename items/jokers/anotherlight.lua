@@ -1,5 +1,7 @@
 local jokerInfo = {
 	name = 'Another Light',
+	atlas = 'jokers',
+	pos = {x = 5, y = 2},
 	config = {},
 	rarity = 2,
 	cost = 7,

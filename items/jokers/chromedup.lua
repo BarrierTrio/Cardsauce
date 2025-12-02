@@ -1,5 +1,7 @@
 local jokerInfo = {
     name = 'Chromed Up',
+    atlas = 'jokers',
+	pos = {x = 5, y = 4},
     config = {
         extra = {
             x_mult = 1.77

@@ -1,6 +1,13 @@
 local jokerInfo = {
 	name = 'Speed Joker',
-	config = {},
+	atlas = 'jokers',
+	pos = {x = 1, y = 7},
+	config = {
+		extra = {
+			num_cards = 1,
+			draw_this_hand = false
+		}
+	},
 	rarity = 1,
 	cost = 4,
 	unlocked = false,
@@ -18,8 +25,18 @@ function jokerInfo.check_for_unlock(self, args)
 end
 
 function jokerInfo.calculate(self, card, context)
-	if context.cardarea == G.jokers and context.before and not card.debuff and not context.blueprint then
-		G.GAME.csau_sj_drawextra = true
+	if context.before then
+		card.ability.extra.draw_this_hand = true
+	end
+
+	if context.hand_drawn then
+		card.ability.extra.draw_this_hand = false
+	end
+
+	if context.drawing_cards then
+		return {
+			amount = context.amount + card.ability.extra.num_cards
+		}
 	end
 end
 

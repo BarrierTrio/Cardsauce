@@ -1,5 +1,7 @@
 local jokerInfo = {
 	name = 'DIS JOAKERRR',
+	atlas = 'jokers',
+	pos = {x = 4, y = 0},
 	config = {extra = {messageIndex = 0}},
 	rarity = 1,
 	cost = 6,

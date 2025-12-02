@@ -87,7 +87,6 @@ SMODS.Consumable:take_ownership('sigil', {
         local used_tarot = copier or card
         juice_flip(used_tarot)
         local _suit = pseudorandom_element(SMODS.Suits, pseudoseed('sigil'))
-        _suit = (G.GAME and G.GAME.wigsaw_suit and SMODS.Suits[G.GAME.wigsaw_suit]) or _suit
         for i = 1, #G.hand.cards do
             G.E_MANAGER:add_event(Event({
                 func = function()
@@ -111,8 +110,6 @@ SMODS.Consumable:take_ownership('sigil', {
     end,
 })
 
-
--- TODO: centralize this
 local ref_set_cost = Card.set_cost
 function Card:set_cost()
     if G.GAME and G.GAME.modifiers and G.GAME.modifiers.csau_tgyh_tenbob then
@@ -131,4 +128,24 @@ function Card:set_cost()
     self.sell_cost = self.sell_cost + (self.ability.csau_extra_value or 0)
 
     return ret
+end
+
+
+
+
+
+---------------------------
+--------------------------- Wigsaw hooks
+---------------------------
+
+local ref_card_suit = Card.is_suit
+function Card:is_suit(suit, bypass_debuff, flush_calc)
+    suit = G.GAME.wigsaw_suit or suit
+    return ref_card_suit(self, suit, bypass_debuff, flush_calc)
+end
+
+local ref_card_change = Card.change_suit
+function Card:change_suit(new_suit)
+    new_suit = G.GAME.wigsaw_suit or new_suit
+    return ref_card_change(self, new_suit)
 end

@@ -1,5 +1,7 @@
 local jokerInfo = {
 	name = 'Fantabulous Joker',
+	atlas = 'jokers',
+	pos = {x = 3, y = 7},
 	config = {
 		money_mod = 3,
 		sell_val = 40

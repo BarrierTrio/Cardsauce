@@ -31,12 +31,9 @@ local consumInfo = {
 function consumInfo.loc_vars(self, info_queue, card)
     local suit = ''
     local color = nil
-    if G.GAME and G.GAME.wigsaw_suit then
-        suit = localize(G.GAME and G.GAME.wigsaw_suit, 'suits_singular')
-        color = G.C.DARK_EDITION
-    elseif card.ability.extra.ref_suit ~= 'none' then
+    if card.ability.extra.ref_suit ~= 'none' then
         suit = card.ability.extra.ref_suit == 'wild' and 'any' or localize(card.ability.extra.ref_suit, 'suits_singular')
-        color = G.C.SUITS[card.ability.extra.ref_suit]
+        color = card.ability.extra.ref_suit == 'wild' and G.C.EDITION or G.C.SUITS[card.ability.extra.ref_suit]
     end
 
     return {
@@ -81,7 +78,7 @@ function consumInfo.calculate(self, card, context)
 
     if context.individual and context.cardarea == G.play and ((card.ability.extra.ref_suit == 'Wild' and
     SMODS.has_any_suit(context.other_card)) or (card.ability.extra.ref_suit ~= "none"
-    and context.other_card:is_suit(G.GAME.wigsaw_suit or card.ability.extra.ref_suit))) then
+    and context.other_card:is_suit(card.ability.extra.ref_suit))) then
         local flare_card = context.blueprint_card or card
         return {
             func = function()

@@ -1,5 +1,7 @@
 local jokerInfo = {
     name = "Beginner's Luck",
+    atlas = 'jokers',
+	pos = {x = 6, y = 7},
     config = {
         extra = {
             prob_mod = 3,
@@ -29,10 +31,8 @@ end
 
 function jokerInfo.update(self, card)
     if to_big(G.GAME.round_resets.ante) > to_big(card.ability.extra.ante) then
-        card.ability.extra.disabled = true
         card.debuff = true
-    elseif to_big(G.GAME.round_resets.ante) <= to_big(card.ability.extra.ante) and card.ability.extra.disabled then
-        card.ability.extra.disabled = nil
+    else
         card.debuff = false
     end
 end

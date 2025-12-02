@@ -1,5 +1,9 @@
 local jokerInfo = {
     name = 'Granny Cream',
+    animation = {
+        frames = 36,
+        fps = 10,
+    },
     config = {
         extra = {
             chip_goal = 150,
@@ -13,12 +17,6 @@ local jokerInfo = {
     perishable_compat = true,
     pools = { ["Food"] = true },
     streamer = "other",
-    animated = {
-        tiles = {
-            x = 9,
-            y = 4,
-        },
-    },
     artist = 'Crisppyboat'
 }
 

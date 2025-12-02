@@ -1,5 +1,6 @@
 local jokerInfo = {
 	name = 'The NEW Joker!',
+	atlas = 'joker',
 	config = {
 		extra = {
 			mult = 4

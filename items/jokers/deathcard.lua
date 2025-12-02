@@ -1,5 +1,7 @@
 local jokerInfo = {
 	name = 'Deathcard',
+	atlas = 'jokers',
+	pos = {x = 6, y = 3},
 	config = {
 		id = nil,
 		times_sold = nil,

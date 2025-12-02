@@ -1,5 +1,7 @@
 local jokerInfo = {
 	name = 'Fisheye',
+	atlas = 'jokers',
+	pos = {x = 2, y = 3},
 	config = {
 		extra = {
 			chips = 15

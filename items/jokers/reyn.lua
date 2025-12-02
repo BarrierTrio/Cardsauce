@@ -1,12 +1,14 @@
 local jokerInfo = {
 	name = 'Bunch Of Jokers',
+	atlas = 'jokers',
+	pos = {x = 9, y = 2},
+	soul_pos = {x = 0, y = 3},
 	config = {},
 	rarity = 1,
 	cost = 6,
 	blueprint_compat = true,
 	eternal_compat = true,
 	perishable_compat = true,
-	hasSoul = true,
 	streamer = "vinny",
 	artist = 'BarrierTrio/Gote'
 }

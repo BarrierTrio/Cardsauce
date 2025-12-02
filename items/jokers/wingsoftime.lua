@@ -1,5 +1,8 @@
 local jokerInfo = {
 	name = 'Wings of Time',
+	atlas = 'jokers',
+	pos = {x = 1, y = 5},
+	soul_pos = {x = 2, y = 5},
 	config = {},
 	rarity = 3,
 	cost = 10,
@@ -7,7 +10,6 @@ local jokerInfo = {
 	blueprint_compat = false,
 	eternal_compat = false,
 	perishable_compat = true,
-	hasSoul = true,
 	streamer = "vinny",
 	artist = 'GuffNFluff'
 }

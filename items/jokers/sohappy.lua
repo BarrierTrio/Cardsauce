@@ -1,5 +1,7 @@
 local jokerInfo = {
 	name = "I'm So Happy",
+	atlas = 'jokers',
+	pos = {x = 6, y = 2},
 	config = {
 		extra = {
 			side = 'happy',
@@ -16,8 +18,6 @@ local jokerInfo = {
 	origin = 'redvox',
 	artist = 'BarrierTrio/Gote'
 }
-
-SMODS.Atlas({ key = 'sosad', path ="jokers/sosad.png", px = 71, py = 95 })
 
 function jokerInfo.loc_vars(self, info_queue, card)
 	return { vars = {card.ability.extra.plus, card.ability.extra.minus}, key = 'j_csau_so'..card.ability.extra.side}
@@ -47,9 +47,7 @@ function jokerInfo.remove_from_deck(self, card, from_debuff)
 end
 
 function jokerInfo.load(self, card, cardTable, other_card)
-	card.config.center.atlas = "csau_so"..cardTable.ability.extra.side
-	card:set_sprites(card.config.center)
-	card.config.center.atlas = "csau_sohappy"
+	card.children.front:set_sprite_pos({x = cardTable.ability.extra.side == 'sad' and 7 or 6, y = 2})
 end
 
 function jokerInfo.calculate(self, card, context)
@@ -63,9 +61,7 @@ function jokerInfo.calculate(self, card, context)
 
 		hand_discard_mod(hand_mod * (card.ability.extra.plus + card.ability.extra.minus), discard_mod * (card.ability.extra.plus + card.ability.extra.minus))
 
-		card.config.center.atlas = "csau_so"..card.ability.extra.side
-		card:set_sprites(card.config.center)
-		card.config.center.atlas = "csau_sohappy"
+		card.children.front:set_sprite_pos({x = card.ability.extra.side == 'sad' and 7 or 6, y = 2})
 
 		card.VT.r = math.pi
 		card.T.r = math.pi

@@ -1,5 +1,9 @@
 local jokerInfo = {
     name = 'Sprunk',
+    animation = {
+        frames = 75,
+        fps = 40,
+    },
     config = {
         extra = {
             mult = 0,
@@ -21,14 +25,6 @@ local jokerInfo = {
     perishable_compat = false,
     pools = { ["Food"] = true },
     streamer = "joel",
-    animated = {
-        tiles = {
-            x = 10,
-            y = 8,
-            last_tile = { x = 5, y = 8}
-        },
-        speed = 0.025
-    },
     artist = 'Donk.TK'
 }
 

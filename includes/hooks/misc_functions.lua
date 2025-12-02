@@ -9,7 +9,7 @@ function jojobal_reset_paper_rank()
 end
 
 local ref_alert_space = alert_no_space
-alert_no_space = function(card, area)
+function alert_no_space(card, area)
 	if card.config.center.key == 'j_csau_ufo' then
 		G.CONTROLLER.locks.no_space = true
 		attention_text({
@@ -43,4 +43,17 @@ alert_no_space = function(card, area)
 	end
 
 	return ref_alert_space(card, area)
+end
+
+
+---------------------------
+--------------------------- Wigsaw hooks
+---------------------------
+
+local ref_localize = localize
+function localize(args, misc_cat)
+	if type(args) ~= 'table' and misc_cat == 'suits_singular' or misc_cat == 'suits_plural' then
+		args = G.GAME.wigsaw_suit or args
+	end
+	return ref_localize(args, misc_cat)
 end

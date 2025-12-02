@@ -1894,7 +1894,7 @@ return {
 				name = "The Purple Joker",
 				text = {
 					"If played hand contains",
-					"a {C:attention}Flush{} of {V:1}#2#{},",
+					"a {C:attention}Flush{} of {V:1}#1#{},",
 					"create a {C:purple}Tarot{} card",
 					"{C:inactive}(Must have room)"
 				},

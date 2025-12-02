@@ -1,7 +1,12 @@
 local jokerInfo = {
     name = 'The Purple Joker',
+    atlas = 'jokers',
+	pos = {x = 5, y = 0},
     config = {
-        tarot = 1
+        extra = {
+            suit = 'Spaces',
+            tarots = 1
+        }
     },
     rarity = 1,
     cost = 4,
@@ -13,14 +18,22 @@ local jokerInfo = {
 }
 
 function jokerInfo.loc_vars(self, info_queue, card)
-    return {vars = { card.ability.tarot, localize(G.GAME and G.GAME.wigsaw_suit or "Spades", 'suits_plural'), colours = {G.C.SUITS[G.GAME and G.GAME.wigsaw_suit or "Spades"]} } }
+    return {
+        vars = {
+            card.ability.tarots,
+            localize(card.ability.extra.suit, 'suits_plural'),
+            colours = {
+                G.C.SUITS[card.ability.extra.suit]
+            }
+        }
+    }
 end
 
 function jokerInfo.calculate(self, card, context)
     if card.debuff or to_big(#G.consumeables.cards) >= to_big(G.consumeables.config.card_limit) then return end
 
-    if context.cardarea == G.jokers and context.before and next(context.poker_hands['Flush'])
-    and ArrowAPI.game.all_same_suit(context.poker_hands['Flush'][1], G.GAME and G.GAME.wigsaw_suit or "Spades")then
+    if context.before and next(context.poker_hands['Flush'])
+    and ArrowAPI.game.all_same_suit(context.poker_hands['Flush'][1], card.ability.extra.suit)then
         if ArrowAPI.vhs.find_activated_tape('c_csau_rawtime') then check_for_unlock({ type = "wheres_po" }) end
 
         G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1

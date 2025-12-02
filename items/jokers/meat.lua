@@ -1,5 +1,7 @@
 local jokerInfo = {
 	name = 'Meat',
+	atlas = 'jokers',
+	pos = {x = 8, y = 0},
 	config = {
 		extra = {
 			cardsRemaining = 3

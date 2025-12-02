@@ -1,5 +1,7 @@
 local jokerInfo = {
 	name = 'Green Needle',
+	atlas = 'jokers',
+	pos = {x = 9, y = 4},
 	config = {},
 	rarity = 3,
 	cost = 10,

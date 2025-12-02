@@ -1,5 +1,7 @@
 local jokerInfo = {
 	name = 'Industry Code',
+	atlas = 'jokers',
+	pos = {x = 5, y = 3},
 	config = {
 		extra = {
 			money = 20

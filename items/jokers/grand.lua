@@ -1,5 +1,7 @@
 local jokerInfo = {
     name = "7 Funny Story",
+    atlas = 'jokers',
+	pos = {x = 4, y = 7},
     config = {
         extra = {
             chance = 7,
@@ -27,19 +29,18 @@ end
 function jokerInfo.calculate(self, card, context)
     if card.debuff then return end
 
-    if context.cardarea == G.jokers and context.joker_main then
+    if context.joker_main then
         local trigger = false
         for _, v in ipairs(context.full_hand) do
             if v:get_id() == 7 then
                 trigger = true
-                break;
+                break
             end
         end
 
         if trigger and SMODS.pseudorandom_probability(card, 'csau_grand', 1, card.ability.extra.chance) then
             return {
-                message = localize{type='variable',key='a_xmult',vars={to_big(card.ability.extra.x_mult)}},
-                Xmult_mod = card.ability.extra.x_mult,
+                x_mult = card.ability.extra.x_mult
             }
         end
     end

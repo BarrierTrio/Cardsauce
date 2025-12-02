@@ -1,5 +1,7 @@
 local jokerInfo = {
 	name = 'Diaper Joker',
+	atlas = 'jokers',
+	pos = {x = 2, y = 1},
 	config = {extra = {
 		mult = 0,
 		mult_mod = 2,

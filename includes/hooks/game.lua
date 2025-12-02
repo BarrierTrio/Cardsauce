@@ -89,3 +89,13 @@ function Game:update(dt)
 	end
 	return ret
 end
+
+local ref_post_splash = Game.init_post_splash
+function Game:init_post_splash()
+	local ret = ref_post_splash(self)
+	G.C.DEFAULT_SUITS = {}
+	for k, v in pairs(G.C.SUITS) do
+		G.C.DEFAULT_SUITS[k] = copy_table(v)
+	end
+	return ret
+end

@@ -30,7 +30,6 @@ local function american_hornet()
     return false
 end
 
--- TODO: can probably improve this
 local ref_eval = eval_card
 function eval_card(card, context)
     local ret = {}

@@ -1,5 +1,7 @@
 local jokerInfo = {
 	name = 'PAC-MAN Incident',
+	atlas = 'jokers',
+	pos = {x = 6, y = 1},
 	config = {
 		extra = {
 			mult = 0,

@@ -1,5 +1,7 @@
 local jokerInfo = {
 	name = 'Running Hell',
+	atlas = 'jokers',
+	pos = {x = 1, y = 6},
 	config = {
 		extra = 1
 	},

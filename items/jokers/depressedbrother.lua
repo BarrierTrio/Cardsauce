@@ -1,5 +1,7 @@
 local jokerInfo = {
 	name = 'Depressed Brother',
+	atlas = 'jokers',
+	pos = {x = 7, y = 0},
 	config = {
 		extra = {
 			mult_mod = 1,

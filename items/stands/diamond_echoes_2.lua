@@ -31,10 +31,7 @@ local consumInfo = {
 function consumInfo.loc_vars(self, info_queue, card)
     local suit_plural = ''
     local color = nil
-    if G.GAME and G.GAME.wigsaw_suit then
-        suit_plural = localize(G.GAME and G.GAME.wigsaw_suit, 'suits_plural')
-        color = G.C.DARK_EDITION
-    elseif card.ability.extra.ref_suit ~= 'none' then
+    if card.ability.extra.ref_suit ~= 'none' then
         suit_plural = card.ability.extra.ref_suit == 'Wild' and 'a random suit' or localize(card.ability.extra.ref_suit, 'suits_plural')
         color = card.ability.extra.ref_suit == 'Wild' and G.C.EDITION or G.C.SUITS[card.ability.extra.ref_suit]
     end
@@ -92,7 +89,7 @@ function consumInfo.calculate(self, card, context)
             end
         elseif card.ability.extra.ref_suit and card.ability.extra.ref_suit ~= "none" then
             local find_suit = (card.ability.extra.ref_suit == 'Wild') and pseudorandom_element(SMODS.Suits, pseudoseed('jojobal_echoes_wild')).key or card.ability.extra.ref_suit
-            local nm = get_first_non_matching(G.GAME and G.GAME.wigsaw_suit or find_suit, context.scoring_hand)
+            local nm = get_first_non_matching(find_suit, context.scoring_hand)
             if not nm then return end
 
             ArrowAPI.stands.flare_aura(card, 0.50)
@@ -103,9 +100,9 @@ function consumInfo.calculate(self, card, context)
                 trigger = 'before',
                 delay = 0.15,
                 func = function()
-                    nm:flip();
-                    play_sound('card1', percent);
-                    nm:juice_up(0.3, 0.3);
+                    nm:flip()
+                    play_sound('card1', percent)
+                    nm:juice_up(0.3, 0.3)
                     return true
                 end
             }))
@@ -117,20 +114,19 @@ function consumInfo.calculate(self, card, context)
                         nm:set_ability(G.P_CENTERS.m_wild)
                     end
 
-                    nm:change_suit(G.GAME and G.GAME.wigsaw_suit or find_suit);
+                    SMODS.change_base(nm, find_suit)
                     card:juice_up();
                     return true
                 end
             }))
 
-            local percent = 0.85 + (1-0.999)/(#context.scoring_hand-0.998)*0.3
             G.E_MANAGER:add_event(Event({
                 trigger = 'before',
                 delay = 0.15,
                 func = function()
-                    nm:flip();
-                    play_sound('tarot2', percent, 0.6);
-                    nm:juice_up(0.3, 0.3);
+                    nm:flip()
+                    play_sound('tarot2', percent, 0.6)
+                    nm:juice_up(0.3, 0.3)
                     return true
                 end
             }))
@@ -140,7 +136,7 @@ function consumInfo.calculate(self, card, context)
     end
 
     if context.individual and context.cardarea == G.play and card.ability.extra.ref_suit ~= "none"
-    and context.other_card:is_suit(G.GAME.wigsaw_suit or card.ability.extra.ref_suit) then
+    and context.other_card:is_suit(card.ability.extra.ref_suit) then
         local flare_card = context.blueprint_card or card
         return {
             func = function()
