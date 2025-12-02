@@ -2,8 +2,11 @@ local consumInfo = {
     name = 'Varuna',
     set = "Planet",
     config = { hand_type = 'csau_FlushBlackjack' },
-    csau_dependencies = {
-        'enableJoelContent',
+    origin = 'joel',
+    dependencies = {
+        config = {
+            ['JoelContent'] = true,
+        }
     }
 }
 

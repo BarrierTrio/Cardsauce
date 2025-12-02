@@ -8,8 +8,12 @@ local jokerInfo = {
 	blueprint_compat = false,
 	eternal_compat = true,
 	perishable_compat = true,
-	streamer = "vinny",
-	origin = "redvox",
+	origin = 'redvox',
+	dependencies = {
+        config = {
+            ['VinnyContent'] = true
+        }
+    },
 	artist = 'BarrierTrio/Gote'
 }
 

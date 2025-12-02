@@ -16,7 +16,11 @@ local jokerInfo = {
 	eternal_compat = true,
 	perishable_compat = true,
 	hasSoul = true,
-	streamer = "othervinny",
+	dependencies = {
+        config = {
+            ['VinnyContent'] = true
+        }
+    },
 	origin = "redvox",
 }
 

@@ -6,14 +6,16 @@ local jokerInfo = {
     blueprint_compat = false,
     eternal_compat = true,
     perishable_compat = true,
-    streamer = "othervinny",
-    csau_dependencies = {
-        'enableVHSs',
+    dependencies = {
+        config = {
+            ['VinnyContent'] = true,
+            ['VHSs'] = true
+        }
     },
     origin = {
-        'rlm',
-        'rlm_wotw',
-        color = 'rlm'
+        category = 'rlm',
+        sub_origins = {'rlm_wotw'},
+        custom_color = 'rlm'
     },
     artist = 'Lyzerus'
 }

@@ -3,7 +3,12 @@ local consumInfo = {
     set = "Spectral",
     cost = 4,
     alerted = true,
-    streamer = 'vinny',
+    origin = 'vinny',
+    dependencies = {
+        config = {
+            ['VinnyContent'] = true
+        }
+    },
     artist = 'BarrierTrio/Gote'
 }
 

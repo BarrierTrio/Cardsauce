@@ -12,14 +12,15 @@ local jokerInfo = {
     eternal_compat = true,
     perishable_compat = true,
     has_shiny = true,
-    streamer = "othervinny",
-    csau_dependencies = {
-        'enableVHSs',
+    dependencies = {
+        config = {
+            ['VHSs'] = true,
+        }
     },
     origin = {
-        'rlm',
-        'rlm_hitb',
-        color = 'rlm'
+        category = 'rlm',
+        sub_origins = {'rlm_botw'},
+        custom_color = 'rlm'
     },
     artist = 'yunkie101'
 }

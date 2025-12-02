@@ -14,7 +14,12 @@ local jokerInfo = {
 	eternal_compat = true,
 	perishable_compat = false,
 	has_shiny = true,
-	streamer = "vinny",
+	origin = 'vinny',
+	dependencies = {
+        config = {
+            ['VinnyContent'] = true
+        }
+    },
 	artist = 'SagaciousCejai'
 }
 

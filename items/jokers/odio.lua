@@ -17,7 +17,7 @@ local jokerInfo = {
 	blueprint_compat = false,
 	eternal_compat = false,
 	perishable_compat = false,
-	streamer = "other",
+	origin = 'cardsauce',
 }
 
 local function update_odio(center, card, x_off)

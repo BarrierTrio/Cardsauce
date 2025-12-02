@@ -6,9 +6,11 @@ local consumInfo = {
     hidden = true,
     soul_rate = 0.003,
     soul_set = "Joker",
-    streamer = 'vinny',
-    csau_dependencies = {
-        'enableVinnyContent',
+    origin = 'vinny',
+    dependencies = {
+        config = {
+            ['VinnyContent'] = true
+        }
     },
     artist = 'Lyman (JankJonklers)',
 }

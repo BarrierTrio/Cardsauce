@@ -7,8 +7,10 @@ local blindInfo = {
     vars = {},
     debuff = {},
     boss = {min = 2, max = 10},
-    csau_dependencies = {
-        'enableJoelContent',
+    dependencies = {
+        config = {
+            ['JoelContent'] = true,
+        }
     }
 }
 

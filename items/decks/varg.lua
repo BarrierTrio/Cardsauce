@@ -2,13 +2,16 @@ local deckInfo = {
     name = 'Varg Deck',
     unlocked = false,
     discovered = false,
-    config = { 
+    config = {
         hand_size = -1,
         probability_mod = 2
     },
     unlock_condition = {type = 'win_deck', deck = 'b_checkered'},
-    csau_dependencies = {
-        'enableJoelContent',
+    origin = 'joel',
+    dependencies = {
+        config = {
+            ['JoelContent'] = true,
+        }
     }
 }
 

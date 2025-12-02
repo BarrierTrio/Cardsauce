@@ -21,7 +21,12 @@ local jokerInfo = {
         ["Meme"] = true
     },
     width = 87,
-    streamer = "joel",
+    origin = 'joel',
+    dependencies = {
+        config = {
+            ['JoelContent'] = true,
+        }
+    },
     artist = 'Crisppyboat'
 }
 

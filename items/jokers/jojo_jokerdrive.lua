@@ -11,6 +11,11 @@ local jokerInfo = {
     eternal_compat = true,
     perishable_compat = true,
     origin = 'jojo',
+    dependencies = {
+        config = {
+            ['Stands'] = true,
+        }
+    },
     artist = 'BarrierTrio/Gote',
     programmer = 'Kekulism'
 }

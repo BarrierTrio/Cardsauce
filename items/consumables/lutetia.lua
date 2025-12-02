@@ -2,8 +2,11 @@ local consumInfo = {
     name = 'Lutetia',
     set = "Planet",
     config = { hand_type = 'csau_Blackjack' },
-    csau_dependencies = {
-        'enableJoelContent',
+    origin = 'joel',
+    dependencies = {
+        config = {
+            ['JoelContent'] = true,
+        }
     }
 }
 

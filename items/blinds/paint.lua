@@ -6,8 +6,11 @@ local blindInfo = {
     mult = 2,
     vars = {},
     boss = {min = 4, max = 10},
-    csau_dependencies = {
-        'enableJoelContent',
+    origin = 'joel',
+    dependencies = {
+        config = {
+            ['JoelContent'] = true,
+        }
     }
 }
 
@@ -52,8 +55,8 @@ function blindInfo.modify_hand(self, cards, poker_hands, text, mult, hand_chips)
                 hand_card:flip()
                 play_sound('card1')
                 hand_card:juice_up(0.3, 0.3)
-                return true 
-            end 
+                return true
+            end
         }))
     end
 
@@ -64,7 +67,7 @@ function blindInfo.modify_hand(self, cards, poker_hands, text, mult, hand_chips)
             delay = 0.1,
             func = function()
                 change_cards[i]:set_sprites(nil, G.P_CARDS[change_cards[i].config.card_key])
-                return true 
+                return true
             end
         }))
     end
@@ -74,12 +77,12 @@ function blindInfo.modify_hand(self, cards, poker_hands, text, mult, hand_chips)
         G.E_MANAGER:add_event(Event({
             trigger = 'after',
             delay = 0.25,
-            func = function() 
+            func = function()
                 change_cards[i]:flip()
                 play_sound('tarot2', 1, 0.6)
                 change_cards[i]:juice_up(0.3, 0.3)
-                return true 
-            end 
+                return true
+            end
         }))
     end
     delay(0.2)

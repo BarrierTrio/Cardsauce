@@ -11,7 +11,12 @@ local jokerInfo = {
     blueprint_compat = false,
     eternal_compat = false,
     perishable_compat = false,
-    streamer = "joel",
+    origin = 'joel',
+    dependencies = {
+        config = {
+            ['JoelContent'] = true,
+        }
+    },
     artist = 'SagaciousCejai'
 }
 

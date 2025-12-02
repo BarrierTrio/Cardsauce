@@ -17,7 +17,12 @@ local jokerInfo = {
     pools = {
         ["Meme"] = true
     },
-    streamer = "joel",
+    origin = 'joel',
+    dependencies = {
+        config = {
+            ['JoelContent'] = true,
+        }
+    },
     artist = 'Akai (Balatrostuck)'
 }
 

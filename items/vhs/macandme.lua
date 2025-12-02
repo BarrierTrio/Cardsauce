@@ -15,6 +15,11 @@ local consumInfo = {
         }
     },
     origin = 'joel',
+    dependencies = {
+        config = {
+            ['JoelContent'] = true,
+        }
+    },
     artist = 'Gongalicious'
 }
 

@@ -6,7 +6,7 @@ local jokerInfo = {
     blueprint_compat = true,
     eternal_compat = true,
     perishable_compat = true,
-    streamer = "other",
+    origin = 'cardsauce',
     artist = 'Alli'
 }
 

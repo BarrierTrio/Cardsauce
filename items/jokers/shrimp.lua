@@ -1,7 +1,9 @@
 -- TODO use soul_pos function to replicate hologram
 local jokerInfo = {
 	name = 'Shrimp Joker',
-	texture = 'shrimp-',
+	atlas = 'jokers',
+	pos = {x = 9, y = 7},
+	soul_pos = {x = 0, y = 8},
 	config = {},
 	rarity = 2,
 	cost = 6,
@@ -9,8 +11,12 @@ local jokerInfo = {
 	blueprint_compat = true,
 	eternal_compat = true,
 	perishable_compat = true,
-	hasSoul = true,
-	streamer = "vinny",
+	origin = 'vinny',
+	dependencies = {
+        config = {
+            ['VinnyContent'] = true
+        }
+    },
 	artist = 'BarrierTrio/Gote'
 }
 

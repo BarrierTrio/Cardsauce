@@ -12,7 +12,12 @@ local jokerInfo = {
 	eternal_compat = false,
 	perishable_compat = true,
 	pools = { ["Food"] = true },
-	streamer = "vinny",
+	origin = 'vinny',
+	dependencies = {
+        config = {
+            ['VinnyContent'] = true
+        }
+    },
 	artist = 'BarrierTrio/Gote'
 }
 

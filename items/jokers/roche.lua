@@ -10,7 +10,12 @@ local jokerInfo = {
 	blueprint_compat = true,
 	eternal_compat = true,
 	perishable_compat = true,
-	streamer = "vinny",
+	origin = 'vinny',
+	dependencies = {
+        config = {
+            ['VinnyContent'] = true
+        }
+    },
 	artist = 'BarrierTrio/Gote',
 	va = G.SETTINGS.roche and 'Austin L. Matthews (AmtraxVA)' or nil
 }

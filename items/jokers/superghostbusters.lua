@@ -10,7 +10,12 @@ local jokerInfo = {
     eternal_compat = true,
     perishable_compat = true,
     has_shiny = true,
-    streamer = "joel",
+    origin = 'joel',
+    dependencies = {
+        config = {
+            ['JoelContent'] = true,
+        }
+    },
     artist = 'BarrierTrio/Gote'
 }
 

@@ -12,7 +12,12 @@ local jokerInfo = {
     blueprint_compat = true,
     eternal_compat = true,
     perishable_compat = true,
-    streamer = "vinny",
+    origin = 'vinny',
+	dependencies = {
+        config = {
+            ['VinnyContent'] = true
+        }
+    },
     artist = "FenixSeraph"
 }
 
@@ -23,13 +28,14 @@ function jokerInfo.loc_vars(self, info_queue, card)
 end
 
 function jokerInfo.calculate(self, card, context)
-    if not (context.cardarea == G.jokers and context.before) or card.debuff then
+    if not context.before or card.debuff then
         return
     end
 
     if context.scoring_name == "Two Pair"  then
         local bj1 = false
         local bj2 = false
+
         if SMODS.pseudorandom_probability(card, 'csau_bjbros1', 1, card.ability.extra.prob_1) then
             bj1 = true
         end

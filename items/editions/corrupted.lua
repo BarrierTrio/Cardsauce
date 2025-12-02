@@ -41,9 +41,11 @@ local editionInfo = {
     weight = 14,
     extra_cost = 4,
     apply_to_float = false,
-    csau_dependencies = {
-        'enableVinnyContent',
-    }
+    dependencies = {
+        config = {
+            ['VinnyContent'] = true
+        }
+    },
 }
 
 G.FUNCS.csau_corrupted_func = function(e)
@@ -55,11 +57,11 @@ end
 
 local function weighted_random(weights, key)
     local total = 0
-	
+
 	for _, v in pairs(weights) do
 		total = total + v.weight
 	end
-	
+
 	local roll = pseudorandom(pseudoseed(key), 1, total)
 	local iter = 0
 	for k, v in pairs(weights) do
@@ -128,7 +130,7 @@ end
 
 -- Modified code from Cryptid
 function editionInfo.calculate(self, card, context)
-    if (context.edition and context.cardarea == G.jokers and card.config.trigger) 
+    if (context.edition and context.cardarea == G.jokers and card.config.trigger)
     or (context.main_scoring and context.cardarea == G.play) then
         local roll = weighted_random(self.config.weights, 'csau_corrupted')
         return {

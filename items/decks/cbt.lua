@@ -4,8 +4,11 @@ local deckInfo = {
     discovered = false,
     config = { hands = -1, discards = -1 },
     unlock_condition = {type = 'win_stake', stake = 8},
-    csau_dependencies = {
-        'enableJoelContent',
+    origin = 'joel',
+    dependencies = {
+        config = {
+            ['JoelContent'] = true,
+        }
     },
     artist = 'BarrierTrio/Gote'
 }

@@ -7,7 +7,6 @@ local consumInfo = {
     no_collection = true,
     width = 169,
 	height = 123,
-    origin = 'vinny',
 }
 
 function consumInfo.set_card_type_badge(self, card, badges)

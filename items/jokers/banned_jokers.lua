@@ -13,7 +13,6 @@ local jokerInfo = {
     perishable_compat = false,
     width = 169,
 	height = 123,
-    origin = 'vinny',
 }
 
 function jokerInfo.set_card_type_badge(self, card, badges)

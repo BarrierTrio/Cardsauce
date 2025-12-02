@@ -7,9 +7,11 @@ local blindInfo = {
     vars = {},
     debuff = {},
     boss = {min = 3, max = 10},
-    csau_dependencies = {
-        'enableVinnyContent',
-    }
+    dependencies = {
+        config = {
+            ['VinnyContent'] = true
+        }
+    },
 }
 
 function blindInfo.set_blind(self)
@@ -22,7 +24,7 @@ function blindInfo.set_blind(self)
             end
             v.csau_hog_checked = true
         end
-        
+
     end
 end
 

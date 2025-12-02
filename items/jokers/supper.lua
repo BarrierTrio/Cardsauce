@@ -15,7 +15,7 @@ local jokerInfo = {
 	eternal_compat = true,
 	perishable_compat = true,
 	has_shiny = true,
-	streamer = "other",
+	origin = 'cardsauce',
 }
 
 function jokerInfo.check_for_unlock(self, args)
@@ -64,4 +64,3 @@ end
 
 
 return jokerInfo
-	

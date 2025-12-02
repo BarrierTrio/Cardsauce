@@ -14,7 +14,13 @@ local jokerInfo = {
     pools = {
         ["Meme"] = true
     },
-    streamer = "otherjoel",
+    origin = 'joel',
+    dependencies = {
+        config = {
+            ['JoelContent'] = true,
+        }
+    },
+
     artist = 'ABBurlap'
 }
 

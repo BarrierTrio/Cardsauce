@@ -1,6 +1,7 @@
 local jokerInfo = {
 	name = 'The NEW Joker!',
-	atlas = 'joker',
+	atlas = 'jokers',
+	pos = {x = 0, y = 0},
 	config = {
 		extra = {
 			mult = 4
@@ -15,7 +16,12 @@ local jokerInfo = {
 	pools = {
 		["Meme"] = true
 	},
-	streamer = "othervinny",
+	origin = 'vinny',
+	dependencies = {
+        config = {
+            ['VinnyContent'] = true
+        }
+    },
 	artist = 'BarrierTrio/Gote'
 }
 

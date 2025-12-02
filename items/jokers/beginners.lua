@@ -1,7 +1,7 @@
 local jokerInfo = {
     name = "Beginner's Luck",
     atlas = 'jokers',
-	pos = {x = 6, y = 7},
+	pos = {x = 7, y = 7},
     config = {
         extra = {
             prob_mod = 3,
@@ -13,7 +13,12 @@ local jokerInfo = {
     blueprint_compat = false,
     eternal_compat = true,
     perishable_compat = true,
-    streamer = "vinny",
+    origin = 'vinny',
+    dependencies = {
+        config = {
+            ['VinnyContent'] = true
+        }
+    },
     artist = 'BarrierTrio/Gote'
 }
 

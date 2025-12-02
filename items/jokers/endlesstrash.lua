@@ -8,21 +8,16 @@ local jokerInfo = {
     blueprint_compat = true,
     eternal_compat = true,
     perishable_compat = true,
-    streamer = "othervinny",
-    csau_dependencies = {
-        'enableVHSs',
-    },
-    csau_filters = {
-        require = {
-            config = {
-                enableVHSs = true,
-            }
+   dependencies = {
+        config = {
+            ['VinnyContent'] = true,
+            ['VHSs'] = true,
         }
     },
     origin = {
-        'rlm',
-        'rlm_hitb',
-        color = 'rlm'
+        category = 'rlm',
+        sub_origins = {'rlm_hitb'},
+        custom_color = 'rlm'
     },
     artist = 'yunkie101'
 }

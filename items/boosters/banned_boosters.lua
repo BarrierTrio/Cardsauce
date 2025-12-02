@@ -10,7 +10,6 @@ local packInfo = {
     kind = 'Joker',
     width = 169,
 	height = 123,
-    origin = 'vinny',
 }
 
 function packInfo.set_card_type_badge(self, card, badges)

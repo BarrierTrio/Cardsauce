@@ -8,6 +8,11 @@ local jokerInfo = {
     perishable_compat = true,
     hasSoul = true,
     origin = 'jojo',
+    dependencies = {
+        config = {
+            ['Stands'] = true,
+        }
+    },
     artist = 'BarrierTrio/Gote',
     programmer = 'Kekulism'
 }

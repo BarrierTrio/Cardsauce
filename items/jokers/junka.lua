@@ -17,14 +17,15 @@ local jokerInfo = {
     blueprint_compat = true,
     eternal_compat = false,
     perishable_compat = false,
-    streamer = "othervinny",
-    csau_dependencies = {
-        'enableVHSs',
+    dependencies = {
+        config = {
+            ['VHSs'] = true,
+        }
     },
     origin = {
-        'rlm',
-        'rlm_j',
-        color = 'rlm'
+        category = 'rlm',
+        sub_origins = {'rlm_j'},
+        custom_color = 'rlm'
     },
     artist = 'yunkie101'
 }

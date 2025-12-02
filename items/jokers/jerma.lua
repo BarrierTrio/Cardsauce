@@ -30,7 +30,7 @@ local jokerInfo = {
     perishable_compat = false,
     width = 142,
     height = 190,
-    streamer = "other",
+    origin = 'cardsauce',
 }
 
 function jokerInfo.loc_vars(self, info_queue, card)

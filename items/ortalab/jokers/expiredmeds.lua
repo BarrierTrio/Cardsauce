@@ -12,7 +12,7 @@ local jokerInfo = {
     blueprint_compat = true,
     eternal_compat = false,
     perishable_compat = false,
-    streamer = "other",
+    origin = 'cardsauce',
     artist = 'MightyKingWario'
 }
 

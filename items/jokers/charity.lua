@@ -11,7 +11,7 @@ local jokerInfo = {
 	eternal_compat = true,
 	perishable_compat = false,
 	unlock_condition = {type = 'win_deck', deck = 'b_green'},
-	streamer = "other",
+	origin = 'cardsauce',
 	artist = 'BarrierTrio/Gote'
 }
 

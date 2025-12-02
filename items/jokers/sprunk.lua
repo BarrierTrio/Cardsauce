@@ -24,7 +24,12 @@ local jokerInfo = {
     eternal_compat = true,
     perishable_compat = false,
     pools = { ["Food"] = true },
-    streamer = "joel",
+    origin = 'joel',
+    dependencies = {
+        config = {
+            ['JoelContent'] = true,
+        }
+    },
     artist = 'Donk.TK'
 }
 

@@ -9,7 +9,6 @@ local voucherInfo = {
     unlocked = true,
     width = 169,
 	height = 123,
-    origin = 'vinny',
 }
 
 function voucherInfo.set_card_type_badge(self, card, badges)

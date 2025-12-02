@@ -5,7 +5,6 @@ local tagInfo = {
     no_collection = true,
     width = 169,
 	height = 123,
-    origin = 'vinny',
 }
 
 function tagInfo.in_pool(self, args)

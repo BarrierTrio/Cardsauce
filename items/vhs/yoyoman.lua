@@ -20,6 +20,11 @@ local consumInfo = {
         },
         custom_color = 'vinny'
     },
+    dependencies = {
+        config = {
+            ['VinnyContent'] = true
+        }
+    },
     artist = 'MightyKingWario'
 }
 

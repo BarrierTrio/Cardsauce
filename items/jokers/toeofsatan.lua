@@ -13,7 +13,12 @@ local jokerInfo = {
     perishable_compat = false,
     has_shiny = true,
     pools = { ["Food"] = true },
-    streamer = "joel",
+    origin = 'joel',
+    dependencies = {
+        config = {
+            ['JoelContent'] = true,
+        }
+    },
     artist = 'PaperMoon'
 }
 

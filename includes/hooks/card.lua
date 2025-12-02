@@ -144,6 +144,10 @@ function Card:is_suit(suit, bypass_debuff, flush_calc)
     return ref_card_suit(self, suit, bypass_debuff, flush_calc)
 end
 
+function Card:get_suit()
+    return G.GAME.wigsaw_suit or self.base.suit
+end
+
 local ref_card_change = Card.change_suit
 function Card:change_suit(new_suit)
     new_suit = G.GAME.wigsaw_suit or new_suit

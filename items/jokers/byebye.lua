@@ -14,7 +14,12 @@ local jokerInfo = {
     perishable_compat = false,
     has_shiny = true,
     unlock_condition = {type = 'win_deck', deck = 'b_abandoned'},
-    streamer = "joel",
+    origin = 'joel',
+    dependencies = {
+        config = {
+            ['JoelContent'] = true,
+        }
+    },
     artist = 'GuffNFluff'
 }
 

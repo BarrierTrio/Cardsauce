@@ -17,7 +17,12 @@ local jokerInfo = {
     pixel_size = { w = 71, h = 73 },
     pools = { ["Food"] = true },
     hasSoul = true,
-    streamer = "joel",
+    origin = 'joel',
+    dependencies = {
+        config = {
+            ['JoelContent'] = true,
+        }
+    },
     artist = 'SagaciousCejai'
 }
 

@@ -8,7 +8,12 @@ local jokerInfo = {
     eternal_compat = false,
     perishable_compat = false,
     has_shiny = true,
-    streamer = "vinny",
+    origin = 'vinny',
+    dependencies = {
+        config = {
+            ['VinnyContent'] = true
+        }
+    },
     artist = 'Swizik'
 }
 

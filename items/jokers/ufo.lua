@@ -14,7 +14,12 @@ local jokerInfo = {
     perishable_compat = false,
     hasSoul = true,
     no_soul_shadow = true,
-    streamer = "joel",
+    origin = 'joel',
+    dependencies = {
+        config = {
+            ['JoelContent'] = true,
+        }
+    },
     artist = {'BarrierTrio/Gote', 'elebant'}
 }
 

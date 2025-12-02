@@ -10,7 +10,12 @@ local jokerInfo = {
     blueprint_compat = true,
     eternal_compat = true,
     perishable_compat = false,
-    streamer = "joel",
+    origin = 'joel',
+    dependencies = {
+        config = {
+            ['JoelContent'] = true,
+        }
+    },
     artist = 'MightyKingWario'
 }
 
@@ -30,7 +35,7 @@ function jokerInfo.calculate(self, card, context)
 
     if not context.blueprint and context.using_consumeable and context.consumeable.config.center.key == "c_fool" then
         return {
-            message = localize { type = 'variable', key = 'a_mult', vars = {get_fools() * card.ability.extra.mult_mod} },
+            message = localize {type = 'variable', key = 'a_mult', vars = {get_fools() * card.ability.extra.mult_mod} },
             colour = G.C.MULT
         }
     end
@@ -40,6 +45,7 @@ function jokerInfo.calculate(self, card, context)
         if fools > to_big(0) then
             return {
                 mult = fools * card.ability.extra.mult_mod,
+                card = context.blueprint_card or card
             }
         end
     end

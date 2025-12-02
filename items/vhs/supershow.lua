@@ -14,6 +14,11 @@ local consumInfo = {
         },
     },
     origin = 'vinny',
+    dependencies = {
+        config = {
+            ['VinnyContent'] = true
+        }
+    },
     artist = 'MightyKingWario'
 }
 

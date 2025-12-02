@@ -8,7 +8,12 @@ local jokerInfo = {
     eternal_compat = true,
     perishable_compat = true,
     unlock_condition = {key = 'j_csau_frich'},
-    streamer = "vinny",
+    origin = 'vinny',
+	dependencies = {
+        config = {
+            ['VinnyContent'] = true
+        }
+    },
     artist = 'FenixSeraph'
 }
 

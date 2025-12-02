@@ -12,7 +12,12 @@ local jokerInfo = {
     blueprint_compat = false,
     eternal_compat = false,
     perishable_compat = false,
-    streamer = "joel",
+    origin = 'joel',
+    dependencies = {
+        config = {
+            ['JoelContent'] = true,
+        }
+    },
     artist = 'creachurearts'
 }
 
@@ -26,7 +31,17 @@ local function get_payout(card)
 end
 
 function jokerInfo.loc_vars(self, info_queue, card)
-    return { vars = { card.ability.extra.dollars_mod, card.ability.extra.suits_inc, get_payout(card), localize(card.ability.extra.suit, 'suits_plural'), colours = {G.C.SUITS[card.ability.extra.suit]} } }
+    return {
+        vars = {
+            card.ability.extra.dollars_mod,
+            card.ability.extra.suits_inc,
+            get_payout(card),
+            localize(card.ability.extra.suit, 'suits_plural'),
+            colours = {
+                G.C.SUITS[card.ability.extra.suit]
+            }
+        }
+    }
 end
 
 function jokerInfo.calc_dollar_bonus(self, card)

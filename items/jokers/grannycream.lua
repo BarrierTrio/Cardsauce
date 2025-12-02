@@ -16,7 +16,7 @@ local jokerInfo = {
     eternal_compat = false,
     perishable_compat = true,
     pools = { ["Food"] = true },
-    streamer = "other",
+    origin = 'cardsauce',
     artist = 'Crisppyboat'
 }
 

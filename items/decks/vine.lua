@@ -9,9 +9,11 @@ local deckInfo = {
         },
     },
     unlock_condition = {type = 'win_deck', deck = 'b_green'},
-    csau_dependencies = {
-        'enableVinnyContent',
-    }
+    dependencies = {
+        config = {
+            ['VinnyContent'] = true
+        }
+    },
 }
 
 deckInfo.loc_vars = function(self, info_queue, card)

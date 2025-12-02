@@ -18,7 +18,12 @@ local jokerInfo = {
 	pools = {
 		["Meme"] = true
 	},
-	streamer = "vinny",
+	origin = 'vinny',
+	dependencies = {
+        config = {
+            ['VinnyContent'] = true
+        }
+    },
 	artist = 'BarrierTrio/Gote'
 }
 
