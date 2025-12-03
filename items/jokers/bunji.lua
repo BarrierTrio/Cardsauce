@@ -23,4 +23,12 @@ function jokerInfo.check_for_unlock(self, args)
     return (G.P_CENTERS[self.unlock_condition.key] or {}).discovered
 end
 
+function jokerInfo.calculate(self, card, context)
+    if context.food_expires then
+        return {
+            food_expires = false
+        }
+    end
+end
+
 return jokerInfo

@@ -24,15 +24,15 @@ function consumInfo.loc_vars(self, info_queue, card)
 	info_queue[#info_queue+1] = {key = "wheel2", set = "Other", vars = {num}}
     info_queue[#info_queue+1] = {key = "vhs_activation", set = "Other"}
     local num2, dom = SMODS.get_probability_vars(self, 1, card.ability.extra.chance, 'csau_nukie_negative')
-    return { vars = { num2, dom, card.ability.extra.runtime-card.ability.extra.uses } }
+    return { vars = { num2, dom, card.ability.runtime-card.ability.uses } }
 end
 
 function consumInfo.calculate(self, card, context)
     if context.using_consumeable and context.consumeable.config.center.key == 'c_wheel_of_fortune'
     and card.ability.activated and ArrowAPI.vhs.find_activated_tape('c_csau_nukie') == card then
-        card.ability.extra.uses = card.ability.extra.uses+1
-        if to_big(card.ability.extra.uses) >= to_big(card.ability.extra.runtime) then
-            ArrowAPi.vhs.destroy_tape(card)
+        card.ability.uses = card.ability.uses+1
+        if to_big(card.ability.uses) >= to_big(card.ability.runtime) then
+            ArrowAPI.vhs.destroy_tape(card)
             card.ability.destroyed = true
         else
             G.E_MANAGER:add_event(Event({

@@ -20,29 +20,4 @@ local chalInfo = {
     end
 }
 
--- TODO: can probably improve this
-local triggered = false
-local debuff_hand_ref = Blind.debuff_hand
-
-function Blind:debuff_hand(cards, hand, handname, check)
-    if G.GAME.modifiers and G.GAME.modifiers.csau_nmbb then
-        if not next(hand["csau_Blackjack"]) then
-            triggered = true
-            return true
-        end
-        triggered = false
-    else
-        triggered = false
-    end
-    return debuff_hand_ref(self, cards, hand, handname, check)
-end
-
-local get_loc_debuff_textref = Blind.get_loc_debuff_text
-function Blind:get_loc_debuff_text()
-    if triggered then
-        return localize("k_not_bj")
-    end
-    return get_loc_debuff_textref(self)
-end
-
 return chalInfo

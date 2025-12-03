@@ -21,9 +21,7 @@ local jokerInfo = {
 }
 
 function jokerInfo.check_for_unlock(self, args)
-    if args.type == "wheel_nope" then
-        return true
-    end
+    return args.type == "wheel_nope"
 end
 
 function jokerInfo.loc_vars(self, info_queue, card)
@@ -31,9 +29,9 @@ function jokerInfo.loc_vars(self, info_queue, card)
 end
 
 function jokerInfo.calculate(self, card, context)
-    if context.joker_main and context.cardarea == G.jokers then
+    if context.joker_main then
         return {
-            xmult = card.ability.extra,
+            x_mult = card.ability.extra,
         }
     end
 

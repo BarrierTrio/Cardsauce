@@ -26,15 +26,15 @@ local consumInfo = {
 
 function consumInfo.loc_vars(self, info_queue, card)
     info_queue[#info_queue+1] = {key = "vhs_activation", set = "Other"}
-    return { vars = { card.ability.extra.runtime-card.ability.extra.uses } }
+    return { vars = { card.ability.runtime-card.ability.uses } }
 end
 
 function consumInfo.calculate(self, card, context)
     if card.ability.activated and not card.ability.destroyed and context.fix_probability and ArrowAPI.vhs.find_activated_tape('c_csau_shakma') == card then
         if context.from_roll then
-            card.ability.extra.uses = math.min(card.ability.extra.runtime, card.ability.extra.uses + 1)
-            if to_big(card.ability.extra.uses) >= to_big(card.ability.extra.runtime) then
-                ArrowAPi.vhs.destroy_tape(card)
+            card.ability.uses = math.min(card.ability.runtime, card.ability.uses + 1)
+            if to_big(card.ability.uses) >= to_big(card.ability.runtime) then
+                ArrowAPI.vhs.destroy_tape(card)
                 card.ability.destroyed = true
             end
         end

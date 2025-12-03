@@ -1,9 +1,16 @@
--- TODO use soul_pos function to replicate hologram
 local jokerInfo = {
 	name = 'Shrimp Joker',
 	atlas = 'jokers',
 	pos = {x = 9, y = 7},
-	soul_pos = {x = 0, y = 8},
+	soul_pos = {
+		x = 0,
+		y = 8,
+		draw = function(self, scale_mod, rotate_mod)
+			self.hover_tilt = self.hover_tilt*1.5
+			self.children.floating_sprite:draw_shader('hologram', nil, self.ARGS.send_to_shader, nil, self.children.center, 2*scale_mod, 2*rotate_mod)
+			self.hover_tilt = self.hover_tilt/1.5
+		end
+	},
 	config = {},
 	rarity = 2,
 	cost = 6,

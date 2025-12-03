@@ -47,7 +47,7 @@ function jokerInfo.calculate(self, card, context)
 			end
 			if activate then
 				card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('k_meat_seal'), colour = G.C.MONEY})
-				if SMODS.food_expires(context) then
+				if SMODS.food_expires(card) then
 					card.ability.extra.cardsRemaining = card.ability.extra.cardsRemaining - 1
 				end
 			end

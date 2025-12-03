@@ -48,28 +48,14 @@ function jokerInfo.calculate(self, card, context)
     end
 
     if context.selling_self then
-        local destroyed_cards = {}
+        local destroy_cards = {}
         for _, v in ipairs(G.hand.cards) do
             if v:is_face() then
-                destroyed_cards[#destroyed_cards+1] = v
+                destroy_cards[#destroy_cards+1] = v
             end
         end
 
-        G.E_MANAGER:add_event(Event({
-            trigger = 'after',
-            delay = 0.1,
-            func = function()
-                for i=#destroyed_cards, 1, -1 do
-                    local card = destroyed_cards[i]
-                    if card.ability.name == 'Glass Card' then
-                        card:shatter()
-                    else
-                        card:start_dissolve(nil, i == #destroyed_cards)
-                    end
-                end
-                return true
-            end
-        }))
+        SMODS.destroy_cards(destroy_cards)
     end
 end
 

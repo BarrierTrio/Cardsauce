@@ -14,6 +14,8 @@ function SMODS.current_mod.reset_game_globals(run_start)
 		end
     end
 
+	G.GAME.current_round.koffing_rerolls = #SMODS.find_card('j_csau_coffing')
+
     jojobal_reset_paper_rank()
 	csau_reset_joeycastle()
 	csau_reset_choicevoice()

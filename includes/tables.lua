@@ -132,9 +132,6 @@ else
 	})
 end
 
-
-G.csau_animated_centers = {}
-
 -- I'll be honest, I have no idea what this does
 -- But it's a global table, so it goes here
 mgt = {"m", "e", "t", "a", "l", "g", "e", "a", "r", "t", "a", "c", "o"}

@@ -132,12 +132,29 @@ G.FUNCS.save_to_morshu = function(e)
     end
 end
 
+
+
+
+
+---------------------------
+--------------------------- Shop dollars hook
+---------------------------
+
+
 local ref_buy_shop = G.FUNCS.buy_from_shop
 G.FUNCS.buy_from_shop = function(e)
     local ret = ref_buy_shop(e)
     check_for_unlock({type = 'csau_spent_in_shop', dollars = G.GAME.shop_dollars_spent})
     return ret
 end
+
+
+
+
+
+---------------------------
+--------------------------- Collab achievements
+---------------------------
 
 local ref_change_collab = G.FUNCS.change_collab
 G.FUNCS.change_collab = function(args)
@@ -159,4 +176,61 @@ G.FUNCS.change_collab = function(args)
     end
 
     return ret
+end
+
+
+
+
+
+---------------------------
+--------------------------- Koffing behavior
+---------------------------
+
+local ref_reroll_shop = G.FUNCS.reroll_shop
+G.FUNCS.reroll_shop = function(e)
+    local koffings = SMODS.find_card('j_csau_coffing')
+    if G.GAME.current_round.koffing_rerolls > 0 then
+        local juice_cards = {koffings[G.GAME.current_round.koffing_rerolls]}
+        for _, v in ipairs(juice_cards) do
+            G.E_MANAGER:add_event(Event({
+                trigger = 'immediate',
+                func = function()
+                    v:juice_up()
+                    return true
+                end
+            }))
+        end
+
+        G.E_MANAGER:add_event(Event({
+            trigger = 'immediate',
+            func = function()
+                for i = #G.shop_booster.cards, 1, -1 do
+                    local c = G.shop_booster:remove_card(G.shop_booster.cards[i])
+                    c:remove()
+                    c = nil
+                end
+
+                G.GAME.current_round.koffing_rerolls = G.GAME.current_round.koffing_rerolls - 1
+                if G.GAME.current_round.koffing_rerolls <= 0 then
+                    G.GAME.current_round.koffing_rerolls = 0
+                end
+
+                G.GAME.current_round.used_packs = {}
+                for i=1, G.GAME.starting_params.boosters_in_shop + (G.GAME.modifiers.extra_boosters or 0) do
+                    G.GAME.current_round.used_packs[i] = get_pack('shop_pack').key
+
+                    local new_booster = Card(G.shop_booster.T.x + G.shop_booster.T.w/2,
+                    G.shop_booster.T.y, G.CARD_W*1.27, G.CARD_H*1.27, G.P_CARDS.empty, G.P_CENTERS[G.GAME.current_round.used_packs[i]], {bypass_discovery_center = true, bypass_discovery_ui = true})
+                    create_shop_card_ui(new_booster, 'Booster', G.shop_booster)
+                    new_booster.ability.booster_pos = i
+                    new_booster:start_materialize()
+                    G.shop_booster:emplace(new_booster)
+                end
+
+                return true
+            end
+        }))
+    end
+
+    return ref_reroll_shop(e)
 end

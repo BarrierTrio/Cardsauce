@@ -17,6 +17,15 @@ Cardsauce.default_ds = 'joel'
 Cardsauce.ortalab_dlc = false
 
 Cardsauce.calculate = function(self, context)
+	if G.GAME.modifiers.csau_nmbb and context.debuff_hand and not next(context.poker_hands['csau_Blackjack']) then
+		return {
+			prevent_debuff = false,
+			debuff = true,
+			debuff_text = localize("k_not_bj"),
+			debuff_source = Cardsauce
+		}
+	end
+
 	if context.splash_card and Cardsauce.chadnova then
 		return {
 			splash_center = 'j_csau_chad'

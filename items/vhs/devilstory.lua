@@ -1,17 +1,11 @@
 local consumInfo = {
     name = 'Devil Story',
-    key = 'devilstory',
     set = "VHS",
+    runtime = 10,
     cost = 3,
-    alerted = true,
     config = {
-        activation = true,
-        activated = false,
-        destroyed = false,
         extra = {
             dollars = 3,
-            runtime = 10,
-            uses = 0,
             ach_enhancement = 'm_gold',
             ach_count = 5
         },
@@ -28,19 +22,17 @@ local consumInfo = {
 
 
 function consumInfo.loc_vars(self, info_queue, card)
-    info_queue[#info_queue+1] = {key = "vhs_activation", set = "Other"}
     return {
         vars = {
             card.ability.extra.dollars,
-            card.ability.extra.runtime-card.ability.extra.uses
         }
     }
 end
 
 function consumInfo.calculate(self, card, context)
-    if card.debuff or context.blueprint or not card.ability.activated then return end
+    if card.debuff or not card.ability.activated then return end
 
-    if context.before and #context.scoring_hand >= card.ability.extra.ach_count then
+    if not context.blueprint and context.before and #context.scoring_hand >= card.ability.extra.ach_count then
         local ach = 0
         for _, v in ipairs(context.scoring_hand) do
             local enhancements = SMODS.get_enhancements(v)
@@ -54,23 +46,16 @@ function consumInfo.calculate(self, card, context)
         end
     end
 
-    if to_big(card.ability.extra.uses) < to_big(card.ability.extra.runtime) and context.individual
-    and context.cardarea == G.play and next(SMODS.get_enhancements(context.other_card)) then
-        card.ability.extra.uses = math.max(0, card.ability.extra.uses + 1)
+    if not card.ability.destroyed and context.individual and context.cardarea == G.play
+    and next(SMODS.get_enhancements(context.other_card)) then
+        if not context.blueprint then
+            ArrowAPI.vhs.run_tape(card)
+        end
         return {
             dollars = card.ability.extra.dollars,
-            func = function()
-                if to_big(card.ability.extra.uses) >= to_big(card.ability.extra.runtime) then
-                    ArrowAPi.vhs.destroy_tape(card)
-                    card.ability.destroyed = true
-                end
-            end
+            card = context.blueprint_card or card
         }
     end
-end
-
-function consumInfo.can_use(self, card)
-    if to_big(#G.consumeables.cards) < to_big(G.consumeables.config.card_limit) or card.area == G.consumeables then return true end
 end
 
 return consumInfo

@@ -6,7 +6,8 @@ local jokerInfo = {
         extra = {
             form = 'mug',
             mult = 1,
-            mult_xmod = 2,
+            mult_mod = 2,
+            round_mod = 1,
             x_mult = 6,
             rounds = 5,
         }
@@ -81,66 +82,50 @@ function jokerInfo.set_sprites(self, card, _front)
     end
 end
 
-function jokerInfo.calculate(self, card, context)
-    if context.joker_main and context.cardarea == G.jokers then
-        if card.ability.extra.form == "mug" then
-            return {
-                mult = card.ability.extra.mult,
-            }
-        elseif card.ability.extra.form == "moment" then
-            return {
-                xmult = card.ability.extra.x_mult,
-            }
-        end
-    end
-    if context.end_of_round and not context.other_card then
-        if card.ability.extra.form == "moment" and SMODS.food_expires(context) then
-            G.E_MANAGER:add_event(Event({
-                func = function()
-                    play_sound('tarot1')
-                    card.T.r = -0.2
-                    card:juice_up(0.3, 0.4)
-                    card.states.drag.is = true
-                    card.children.center.pinch.x = true
-                    G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, blockable = false,
-                         func = function()
-                             G.jokers:remove_card(card)
-                             card:remove()
-                             card = nil
-                             return true
-                         end
-                    }))
-                    return true
-                end
-            }))
-            return {
-                message = localize('k_mug_gone'),
-                colour = G.C.FILTER
-            }
-        elseif card.ability.extra.form == "mug" then
-            card.ability.extra.mult = card.ability.extra.mult * 2
-            card.ability.extra.rounds = card.ability.extra.rounds - 1
-            if to_big(card.ability.extra.rounds) <= to_big(0) then
-                check_for_unlock({ type = "activate_mug" })
-                change_form(card, "moment")
-                card:juice_up(1, 1)
-                return {
-                    message = localize('k_mug_moment'),
-                    colour = G.C.MUG
-                }
-            else
-                return {
-                    message = localize{type='variable',key='a_mult',vars={card.ability.extra.mult}},
-                    colour = G.C.MULT
-                }
-            end
-        end
+function jokerInfo.load(self, card, card_table, other_card)
+    if card_table.ability.extra.form == 'moment' then
+        change_form(card, 'moment')
     end
 end
 
-function jokerInfo.update(self, card)
-    if G.screenwipe and card.ability.extra.form == 'moment' then
-        change_form(card, 'moment')
+function jokerInfo.calculate(self, card, context)
+    if context.joker_main then
+        return {
+            mult = card.ability.extra.form == "mug" and card.ability.extra.mult or nil,
+            x_mult = card.ability.extra.form == "moment" and card.ability.extra.x_mult or nil,
+        }
+    end
+
+    if context.end_of_round and context.main_eval then
+        if card.ability.extra.form == "moment" and SMODS.food_expires(card) then
+            ArrowAPI.game.card_expire(card, 'k_mug_gone')
+        elseif card.ability.extra.form == "mug" then
+
+            SMODS.scale_card(card, {
+                ref_table = card.ability.extra,
+                ref_value = "mult",
+                scalar_value = "mult_mod",
+                operation = 'X',
+                scaling_message = {
+                    message = localize{type='variable',key='a_mult',vars={card.ability.extra.mult}},
+                    colour = G.C.MULT
+                }
+            })
+
+            SMODS.scale_card(card, {
+                ref_table = card.ability.extra,
+                ref_value = "rounds",
+                scalar_value = "round_mod",
+                operation = '-',
+                no_message = true
+            })
+
+            if to_big(card.ability.extra.rounds) <= to_big(0) then
+                check_for_unlock({ type = "activate_mug" })
+                change_form(card, "moment")
+                card:juice_up()
+            end
+        end
     end
 end
 

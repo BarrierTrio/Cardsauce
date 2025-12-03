@@ -81,7 +81,7 @@ end
 function jokerInfo.calculate(self, card, context)
     if card.debuff then return end
 
-    if context.cardarea == G.jokers and context.before then
+    if context.before then
         if card.ability.extra.form == "Base" and not context.blueprint then
             local first = nil
             for i=1, #context.scoring_hand do
@@ -146,6 +146,12 @@ function jokerInfo.calculate(self, card, context)
         card.ability.csau_sts_handplayed = true
     end
 
+    if context.modify_scoring_hand and card.ability.extra.form == 'Diamonds' then
+        return {
+            add_to_hand = true
+        }
+    end
+
     if context.drawing_cards and card.ability.csau_sts_handplayed and card.ability.extra.form == "Spades" then
 		card.ability.csau_sts_handplayed = nil
         return {
@@ -204,7 +210,5 @@ function jokerInfo.calculate(self, card, context)
         card.ability.extra.Diamonds.mult = 0
     end
 end
-
--- TODO: reimplement sts always_scores ref with modern SMODS add_to_hand contexts
 
 return jokerInfo

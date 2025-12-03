@@ -128,7 +128,7 @@ function jokerInfo.load(self, card, card_table, other_card)
 end
 
 function jokerInfo.set_sprites(self, card, initial, delay_sprites)
-    card.config.center.atlas = 'csau_bootleg'
+    card.config.center.atlas = 'csau_jokers'
     card.config.center.pos = { x = 9, y = 10 }
 end
 
@@ -146,7 +146,7 @@ function jokerInfo.calculate(self, card, context)
         local center = pseudorandom_element(G.P_CENTER_POOLS.Joker, pseudoseed('csau_bootleg_center'))
         reduced_set_ability(card, center)
         card.ability.bootlegged_key = center.key
-        card.config.center.atlas = 'csau_bootleg'
+        card.config.center.atlas = 'csau_jokers'
         card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize{type = 'name_text', key = center.key, set = center.set}, colour = G.C.IMPORTANT})
 
         card.config.center = G.P_CENTERS[card.ability.bootlegged_key]

@@ -29,8 +29,8 @@ end
 
 function jokerInfo.calculate(self, card, context)
     if context.change_rank and context.rank_increase then
-        SMODS.scale_card(self, {
-            ref_table = self.ability.extra,
+        SMODS.scale_card(card, {
+            ref_table = card.ability.extra,
             ref_value = "x_mult",
             scalar_value = "x_mult_mod",
             message_colour = G.C.RED

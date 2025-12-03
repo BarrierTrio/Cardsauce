@@ -1,4 +1,4 @@
-Cardsauce.tetris = SMODS.load_file('items/jokers/Tetris/src/game.lua')
+Cardsauce.tetris = SMODS.load_file('items/jokers/Tetris/src/game.lua')()
 
 local jokerInfo = {
     name = "YOU GOT THE TETRIS",

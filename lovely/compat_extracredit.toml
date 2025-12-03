@@ -7,10 +7,10 @@ priority = 9999999
 [patches.pattern]
 target = '''=[SMODS extracredit "src/essay.lua"]'''
 pattern = '''if not context.blueprint then
-                card.ability.extra.uses = card.ability.extra.uses - 1'''
+                card.ability.uses = card.ability.uses - 1'''
 position = "at"
 payload = '''if SMODS.food_expires() and not context.blueprint then
-                card.ability.extra.uses = card.ability.extra.uses - 1'''
+                card.ability.uses = card.ability.uses - 1'''
 match_indent = true
 
 [[patches]]

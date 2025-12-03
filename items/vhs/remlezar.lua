@@ -27,8 +27,8 @@ function consumInfo.loc_vars(self, info_queue, card)
     info_queue[#info_queue+1] = {key = "vhs_activation", set = "Other"}
     return {
         vars = {
-            card.ability.extra.runtime-card.ability.extra.uses,
-            (card.ability.extra.runtime-card.ability.extra.uses) > 1 and 's' or ''
+            card.ability.runtime-card.ability.uses,
+            (card.ability.runtime-card.ability.uses) > 1 and 's' or ''
         }
     }
 end
@@ -39,9 +39,9 @@ function consumInfo.calculate(self, card, context)
         G.E_MANAGER:add_event(Event({
             func = function()
                 card:juice_up()
-                card.ability.extra.uses = card.ability.extra.uses+1
-                if card.ability.extra.uses >= card.ability.extra.runtime then
-                    ArrowAPi.vhs.destroy_tape(card)
+                card.ability.uses = card.ability.uses+1
+                if card.ability.uses >= card.ability.runtime then
+                    ArrowAPI.vhs.destroy_tape(card)
                     card.ability.destroyed = true
                 end
                 return true

@@ -26,9 +26,9 @@ local jokerInfo = {
 function jokerInfo.loc_vars(self, info_queue, card)
     return {
         vars = {
-            localize(G.GAME.current_round.duane_suit, 'suits_singular'),
+            localize(G.GAME.current_round.duane_suit or 'Clubs', 'suits_singular'),
             colours = {
-                G.C.SUITS[G.GAME.current_round.duane_suit]
+                G.C.SUITS[G.GAME.current_round.duane_suit or 'Clubs']
             }
         }
     }

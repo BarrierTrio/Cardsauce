@@ -31,7 +31,7 @@ function jokerInfo.calculate(self, card, context)
             if to_big(spent_chips) > to_big(card.ability.extra.chip_pool) then
                 spent_chips = to_big(card.ability.extra.chip_pool)
             end
-            if SMODS.food_expires(context) then
+            if SMODS.food_expires(card) then
                 card.ability.extra.chip_pool = to_big(card.ability.extra.chip_pool) - to_big(spent_chips)
             end
             return {

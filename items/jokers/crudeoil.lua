@@ -36,7 +36,7 @@ end
 
 function jokerInfo.calculate(self, card, context)
     if context.starting_shop and not context.blueprint then
-        if SMODS.food_expires(context) then
+        if SMODS.food_expires(card) then
             card.ability.extra.dollars = card.ability.extra.dollars - card.ability.extra.dollars_mod
             if card.ability.extra.dollars <= 0 then
                 check_for_unlock({ type = "expire_crudeoil" })

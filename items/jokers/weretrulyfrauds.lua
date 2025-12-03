@@ -22,22 +22,12 @@ local jokerInfo = {
     artist = 'Lyzerus'
 }
 
--- TODO: can easily add this as an arrow API function
-local function refresh_costs()
-    G.E_MANAGER:add_event(Event({func = function()
-        for k, v in pairs(G.I.CARD) do
-            if v.set_cost then v:set_cost() end
-        end
-        return true
-    end }))
-end
-
 function jokerInfo.add_to_deck(self, card)
-    refresh_costs()
+    ArrowAPI.game.refresh_costs()
 end
 
 function jokerInfo.remove_from_deck(self, card)
-    refresh_costs()
+    ArrowAPI.game.refresh_costs()
 end
 
 return jokerInfo

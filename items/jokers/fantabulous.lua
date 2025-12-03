@@ -33,7 +33,7 @@ function jokerInfo.calculate(self, card, context)
 	if context.end_of_round and not context.blueprint and not context.repetition and not context.individual then
 		card.ability.sell_val = card.ability.sell_val - card.ability.money_mod
 		card.sell_cost = card.ability.sell_val
-		if SMODS.food_expires(context) then
+		if SMODS.food_expires(card) then
 			if to_big(card.ability.sell_val) > to_big(0) then
 				return {
 					message = localize('k_val_down'),

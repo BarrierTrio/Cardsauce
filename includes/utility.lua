@@ -50,8 +50,6 @@ end
 --------------------------- One-off Card Helpers
 ---------------------------
 
--- TODO donbeverage and bunji food expiration calc
-
 -- TODO: make this an arrow API function or context
 function SMODS.return_to_hand(card, context)
 	if not G.GAME.blind.disabled and G.GAME.blind.name == 'The Vod' then

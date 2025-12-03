@@ -1,51 +1,3 @@
-local jokerInfo = {
-    name = 'Sprunk',
-    animation = {
-        frames = 75,
-        fps = 40,
-    },
-    config = {
-        extra = {
-            mult = 0,
-            prob_extra = 0,
-            mult_mod = 1,
-            prob_mod = 1,
-            prob = 200,
-        },
-        hidden_prob = {
-            manip = true,
-            non_manip_rate = 1,
-            prob = 3,
-        }
-    },
-    rarity = 2,
-    cost = 7,
-    blueprint_compat = true,
-    eternal_compat = true,
-    perishable_compat = false,
-    pools = { ["Food"] = true },
-    origin = 'joel',
-    dependencies = {
-        config = {
-            ['JoelContent'] = true,
-        }
-    },
-    artist = 'Donk.TK'
-}
-
-function jokerInfo.loc_vars(self, info_queue, card)
-    local num, dom = SMODS.get_probability_vars(card, card.ability.extra.prob_extra, card.ability.extra.prob, 'csau_sprunk_crash')
-    return { vars = { card.ability.extra.mult_mod, card.ability.extra.prob_mod, num, dom, card.ability.extra.mult } }
-end
-
-function jokerInfo.in_pool(self, args)
-    if MP then
-        if MP.LOBBY and MP.LOBBY.connected then
-            return false
-        end
-    end
-    return true
-end
 
 -- Modified code from Cryptid
 local function fake_crash()
@@ -379,12 +331,76 @@ local function fake_crash()
     load("error(messages[math.random(1, #messages)])", 'sprunk', "t")()
 end
 
+local jokerInfo = {
+    name = 'Sprunk',
+    animation = {
+        frames = 75,
+        fps = 40,
+    },
+    config = {
+        extra = {
+            mult = 0,
+            prob_extra = 0,
+            mult_mod = 1,
+            prob_mod = 1,
+            prob = 200,
+        },
+        hidden_prob = {
+            manip = true,
+            non_manip_rate = 1,
+            prob = 3,
+        }
+    },
+    rarity = 2,
+    cost = 7,
+    blueprint_compat = true,
+    eternal_compat = true,
+    perishable_compat = false,
+    pools = { ["Food"] = true },
+    origin = 'joel',
+    dependencies = {
+        config = {
+            ['JoelContent'] = true,
+        }
+    },
+    artist = 'Donk.TK'
+}
+
+function jokerInfo.loc_vars(self, info_queue, card)
+    local num, dom = SMODS.get_probability_vars(card, card.ability.extra.prob_extra, card.ability.extra.prob, 'csau_sprunk_crash')
+    num = SMODS.food_expires(card, check) and 0 or num
+    return { vars = { card.ability.extra.mult_mod, card.ability.extra.prob_mod, num, dom, card.ability.extra.mult } }
+end
+
+function jokerInfo.in_pool(self, args)
+    return not (MP and MP.LOBBY and MP.LOBBY.connected)
+end
+
 function jokerInfo.calculate(self, card, context)
-    if card.debuff or context.cardarea ~= G.jokers then
-        return
+    if card.debuff then return end
+
+    if context.money_altered and context.from_shop then
+        local scale_table = {mult_mod = -context.amount * v.ability.extra.mult_mod, prob_mod = -context.amount * v.ability.extra.prob_mod}
+        SMODS.scale_card(card, {
+            ref_table = card.ability.extra,
+            ref_value = "mult",
+            scalar_table = scale_table,
+            scalar_value = "mult_mod",
+            message_colour = G.C.RED
+        })
+
+        SMODS.scale_card(card, {
+            ref_table = card.ability.extra,
+            ref_value = "prob_extra",
+            scalar_table = scale_table,
+            scalar_value = "prob_mod",
+            no_message = true,
+        })
     end
 
-    if context.before and SMODS.food_expires() and SMODS.pseudorandom_probability(card, 'csau_sprunk_crash', card.ability.extra.prob_extra, card.ability.extra.prob) then
+    if context.before and SMODS.pseudorandom_probability(card, 'csau_sprunk_crash', card.ability.extra.prob_extra, card.ability.extra.prob)
+    and SMODS.food_expires(card) then
+
         local numerator = card.ability.hidden_prob.manip and 1 or card.ability.hidden_prob.non_manip_rate
         if SMODS.pseudorandom_probability(card, 'csau_sprunk_delete', numerator, card.ability.hidden_prob.prob) then
             send("RUN DELETED! LOL")
@@ -408,7 +424,5 @@ function jokerInfo.calculate(self, card, context)
         }
     end
 end
-
--- TODO: reimplement sprunk dollar ref using modern SMODS contexts
 
 return jokerInfo

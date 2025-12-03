@@ -18,11 +18,16 @@ local jokerInfo = {
     programmer = 'Mysthaps'
 }
 
--- TODO: implement koffing's reroll behavior using only contexts
-function jokerInfo.calculate(self, card, context)
-    if context.ending_shop and not context.blueprint then
-        card.ability.extra.rerolled = false
-    end
+function jokerInfo.add_to_deck(self, card, from_debuff)
+    if from_debuff then return end
+
+    G.GAME.current_round.koffing_rerolls = G.GAME.current_round.koffing_rerolls + 1
+end
+
+function jokerInfo.remove_from_deck(self, card, from_debuff)
+    if from_debuff then return end
+
+    G.GAME.current_round.koffing_rerolls = G.GAME.current_round.koffing_rerolls - 1
 end
 
 return jokerInfo
