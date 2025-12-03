@@ -1,18 +1,13 @@
 local consumInfo = {
     name = 'The Osteoporosis Dance',
-    key = 'osteo',
     set = "VHS",
+    runtime = 3,
     cost = 3,
     alerted = true,
     config = {
-        activation = true,
         extra = {
             hand_mod = 1,
-            runtime = 3,
-            uses = 0,
         },
-        activated = false,
-        destroyed = false,
     },
     origin = {
         category = 'rlm',
@@ -24,30 +19,20 @@ local consumInfo = {
     artist = 'Kekulism',
 }
 
-
-function consumInfo.loc_vars(self, info_queue, card)
-    info_queue[#info_queue+1] = {key = "vhs_activation", set = "Other"}
-    return { vars = { card.ability.runtime-card.ability.uses } }
-end
-
 function consumInfo.calculate(self, card, context)
-    if card.ability.activated and context.setting_blind and not card.getting_sliced and not card.debuff then
+    if card.ability.activated and context.setting_blind then
         ease_hands_played(1)
-        card.ability.uses = card.ability.uses+1
-        if to_big(card.ability.uses) >= to_big(card.ability.runtime) then
-            ArrowAPI.vhs.destroy_tape(card)
-            card.ability.destroyed = true
+
+        if not context.blueprint then
+            ArrowAPI.vhs.run_tape(card)
         end
+
         return {
-            card = card,
+            card = context.blueprint_card or card,
             message = localize{type = 'variable', key = 'a_plus_hand', vars = {1}},
             colour = G.C.BLUE
         }
     end
-end
-
-function consumInfo.can_use(self, card)
-    if to_big(#G.consumeables.cards) < to_big(G.consumeables.config.card_limit) or card.area == G.consumeables then return true end
 end
 
 return consumInfo

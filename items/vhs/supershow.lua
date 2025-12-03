@@ -2,17 +2,10 @@ local consumInfo = {
     name = 'The Super Mario Bros. Super Show',
     key = 'supershow',
     set = "VHS",
+    runtime = 3,
     cost = 3,
-    alerted = true,
-    config = {
-        activation = true,
-        activated = false,
-        destroyed = false,
-        extra = {
-            runtime = 3,
-            uses = 0
-        },
-    },
+    blueprint_compat = false,
+    config = {},
     origin = 'vinny',
     dependencies = {
         config = {
@@ -22,13 +15,9 @@ local consumInfo = {
     artist = 'MightyKingWario'
 }
 
-
-function consumInfo.loc_vars(self, info_queue, card)
-    info_queue[#info_queue+1] = {key = "vhs_activation", set = "Other"}
-    return { vars = { card.ability.runtime-card.ability.uses } }
-end
-
 function consumInfo.calculate(self, card, context)
+    if card.debuff or context.blueprint then return end
+
     if card.ability.activated and context.remove_playing_cards then
         check_for_unlock({ type = "activate_supershow" })
         G.E_MANAGER:add_event(Event({
@@ -58,6 +47,8 @@ function consumInfo.calculate(self, card, context)
                         draw_card(nil, G.deck, 90, 'up', nil, new_card)
 
                         new_cards[#new_cards+1] = new_card
+
+                        ArrowAPi.vhs.run_tape(card)
                     end
                 end
 
@@ -69,10 +60,6 @@ function consumInfo.calculate(self, card, context)
             end
         }))
     end
-end
-
-function consumInfo.can_use(self, card)
-    if to_big(#G.consumeables.cards) < to_big(G.consumeables.config.card_limit) or card.area == G.consumeables then return true end
 end
 
 return consumInfo

@@ -234,3 +234,23 @@ G.FUNCS.reroll_shop = function(e)
 
     return ref_reroll_shop(e)
 end
+
+
+
+
+
+---------------------------
+--------------------------- Achievement
+---------------------------
+
+local ref_draw_from_deck = G.FUNCS.draw_from_deck_to_hand
+G.FUNCS.draw_from_deck_to_hand = function(e)
+    if not (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK or G.STATE == G.STATES.SMODS_BOOSTER_OPENED) and
+    G.hand.config.card_limit <= 0 and #G.hand.cards == 0 then
+        if next(find_joker('2 Kings 2:23-24')) then
+            check_for_unlock({ type = "shebear_mauling" })
+        end
+    end
+
+    return ref_draw_from_deck(e)
+end

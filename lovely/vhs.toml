@@ -1,0 +1,22 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 9999999
+
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = "edition = poll_edition('wheel_of_fortune', nil, true, true)"
+position = "at"
+payload = '''
+local nukie = G.FUNCS.find_activated_tape('c_csau_nukie')
+if nukie and SMODS.pseudorandom_probability(nukie, 'csau_nukie_negative', 1, nukie.ability.extra.chance) then
+    edition = {negative = true}
+else
+    edition = poll_edition('wheel_of_fortune', nil, true, true)
+end
+if edition == 'e_polychrome' and next(SMODS.find_card('j_csau_speen')) then
+    check_for_unlock({ type = "high_speen" })
+end'''
+match_indent = true
+times = 1

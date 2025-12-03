@@ -1,14 +1,12 @@
 local consumInfo = {
     name = 'Top Slots',
-    key = 'topslots',
     set = "VHS",
+    runtime = 2,
     cost = 3,
     alerted = true,
     config = {
-        activation = true,
         extra = {
             max_initial_money = 20,
-
             winnings = 0,
             conv_money = 1,
             conv_score = 20,
@@ -16,13 +14,8 @@ local consumInfo = {
             double = 2,
             prob_triple = 8,
             triple = 3,
-
-            runtime = 2,
-            uses = 0,
         },
         alt_title = true,
-        activated = false,
-        destroy = false,
     },
     origin = 'rlm',
     artist = 'chvsau'
@@ -30,8 +23,6 @@ local consumInfo = {
 
 
 function consumInfo.loc_vars(self, info_queue, card)
-    info_queue[#info_queue+1] = {key = "vhs_activation", set = "Other"}
-
     local num, dom1 = SMODS.get_probability_vars(card, 1, card.ability.extra.prob_double, 'csau_topslots_double')
     local _, dom2 = SMODS.get_probability_vars(card, 1, card.ability.extra.prob_triple, 'csau_topslots_triple')
 
@@ -41,7 +32,6 @@ function consumInfo.loc_vars(self, info_queue, card)
             card.ability.extra.conv_score,
             card.ability.extra.max_initial_money,
             num, dom1, dom2,
-            card.ability.runtime-card.ability.uses
         },
         key = self.key..'_alt_title'
     }
@@ -50,7 +40,7 @@ end
 function consumInfo.calculate(self, card, context)
     if card.debuff or context.blueprint then return end
 
-    if card.ability.activated and context.end_of_round and not context.repetition and not context.individual and G.GAME.chips > G.GAME.blind.chips then
+    if card.ability.activated and context.end_of_round and context.main_eval and G.GAME.chips > G.GAME.blind.chips then
         local percent = ((G.GAME.chips - G.GAME.blind.chips) / G.GAME.blind.chips) * 100
         local money = math.floor(percent / card.ability.extra.conv_score) + card.ability.extra.conv_money
         if to_big(money) > to_big(card.ability.extra.max_initial_money) then
@@ -69,19 +59,14 @@ function consumInfo.calculate(self, card, context)
         end
 
         card.ability.extra.winnings = money
-        card.ability.uses = card.ability.uses + 1
+
+        ArrowAPI.vhs.run_tape(card)
+
         if doubled or tripled then
             return {
                 message = localize((doubled and tripled and 'k_ts_wild') or (doubled and not tripled and 'k_ts_doubled') or (tripled and not doubled and 'k_ts_tripled')),
                 card = card
             }
-        end
-    end
-
-    if context.starting_shop and not context.blueprint then
-        if to_big(card.ability.uses) >= to_big(card.ability.runtime) then
-            ArrowAPI.vhs.destroy_tape(card)
-            card.ability.destroyed = true
         end
     end
 
@@ -91,13 +76,7 @@ function consumInfo.calculate(self, card, context)
 end
 
 function consumInfo.calc_dollar_bonus(self, card)
-    if card.ability.extra.winnings then
-        return card.ability.extra.winnings
-    end
-end
-
-function consumInfo.can_use(self, card)
-    if to_big(#G.consumeables.cards) < to_big(G.consumeables.config.card_limit) or card.area == G.consumeables then return true end
+    return card.ability.extra.winnings
 end
 
 return consumInfo

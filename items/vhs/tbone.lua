@@ -1,18 +1,12 @@
 local consumInfo = {
-    name = 'Double Down',
-    key = 'tbone',
+    name = "T-Bone's World of Clowning",
     set = "VHS",
+    runtime = 3,
     cost = 3,
-    alerted = true,
     config = {
-        activation = true,
         extra = {
             mult = 5,
-            runtime = 3,
-            uses = 0,
         },
-        activated = false,
-        destroyed = false,
     },
     origin = {
         category = 'vinny',
@@ -24,10 +18,8 @@ local consumInfo = {
     artist = 'Gongalicious'
 }
 
-
 function consumInfo.loc_vars(self, info_queue, card)
-    info_queue[#info_queue+1] = {key = "vhs_activation", set = "Other"}
-    return { vars = { card.ability.extra.mult, card.ability.runtime-card.ability.uses } }
+    return { vars = { card.ability.extra.mult } }
 end
 
 function consumInfo.calculate(self, card, context)
@@ -38,23 +30,16 @@ function consumInfo.calculate(self, card, context)
                 return true
             end
         }))
+
         return {
-            message = localize{type='variable',key='a_mult',vars={to_big(card.ability.extra.mult)}},
-            mult_mod = card.ability.extra.mult
+            mult = card.ability.extra.mult,
+            card = context.blueprint_card or card
         }
     end
-    local bad_context = context.repetition or context.individual or context.blueprint
-    if context.after and not card.ability.destroyed and card.ability.activated and not bad_context then
-        card.ability.uses = card.ability.uses+1
-        if to_big(card.ability.uses) >= to_big(card.ability.runtime) then
-            ArrowAPI.vhs.destroy_tape(card)
-            card.ability.destroyed = true
-        end
-    end
-end
 
-function consumInfo.can_use(self, card)
-    if to_big(#G.consumeables.cards) < to_big(G.consumeables.config.card_limit) or card.area == G.consumeables then return true end
+    if context.after and card.ability.activated and not context.blueprint then
+       ArrowAPI.vhs.run_tape(card)
+    end
 end
 
 return consumInfo
