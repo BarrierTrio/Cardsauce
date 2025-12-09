@@ -8,7 +8,7 @@ priority = 9999999
 target = '''=[SMODS Neato_Jokers "cards/bananastand.lua"]'''
 pattern = "if pseudorandom('stand') < G.GAME.probabilities.normal/card.ability.extra.destroy_chance then"
 position = "at"
-payload = "if SMODS.food_expires() and pseudorandom('stand') < G.GAME.probabilities.normal/card.ability.extra.destroy_chance then"
+payload = "if SMODS.food_expires(card) and pseudorandom('stand') < G.GAME.probabilities.normal/card.ability.extra.destroy_chance then"
 match_indent = true
 
 [[patches]]
@@ -16,7 +16,7 @@ match_indent = true
 target = '''=[SMODS Neato_Jokers "cards/icecreamsandwhich.lua"]'''
 pattern = "elseif context.end_of_round and not context.repetition and not context.game_over and not context.blueprint and not context.individual then"
 position = "at"
-payload = "elseif context.end_of_round and not context.repetition and not context.game_over and not context.blueprint and not context.individual and SMODS.food_expires() then"
+payload = "elseif context.end_of_round and not context.repetition and not context.game_over and not context.blueprint and not context.individual and SMODS.food_expires(card) then"
 match_indent = true
 
 [[patches]]
@@ -24,5 +24,5 @@ match_indent = true
 target = '''=[SMODS Neato_Jokers "cards/frostedprimerib.lua"]'''
 pattern = "elseif context.after and not context.blueprint then"
 position = "at"
-payload = "elseif context.after and not context.blueprint and SMODS.food_expires() then"
+payload = "elseif context.after and not context.blueprint and SMODS.food_expires(card) then"
 match_indent = true

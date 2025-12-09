@@ -17,6 +17,19 @@ Cardsauce.default_ds = 'joel'
 Cardsauce.ortalab_dlc = false
 
 Cardsauce.calculate = function(self, context)
+	if context.using_consumeable then
+		if context.consumeable.config.center.key == 'c_immolate' then
+			check_for_unlock({type = 'unlock_kings'})
+		elseif context.consumeable.config.center.key == 'c_tower' then
+			for _, v in ipairs(G.hand.highlighted) do
+				if v:get_id() == 12 then
+					check_for_unlock({ type = "unlock_villains" })
+					break
+				end
+			end
+		end
+	end
+
 	if G.GAME.modifiers.csau_nmbb and context.debuff_hand and not next(context.poker_hands['csau_Blackjack']) then
 		return {
 			prevent_debuff = false,

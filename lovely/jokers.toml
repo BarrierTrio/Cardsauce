@@ -27,13 +27,3 @@ payload = '''
 '''
 match_indent = true
 overwrite = false
-
-[[patches]]
-[patches.pattern]
-target = "card.lua"
-pattern = "play_sound('tarot2', 0.76, 0.4);return true end}))"
-position = "at"
-payload = '''local nutbuster_active = SMODS.find_card('j_csau_nutbuster')
-play_sound(nutbuster_active and 'csau_doot' or 'tarot2', nutbuster_active and 1 or 0.76, 0.4);return true end}))'''
-match_indent = true
-times = 1

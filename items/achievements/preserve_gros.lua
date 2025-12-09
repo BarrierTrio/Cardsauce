@@ -1,9 +1,7 @@
 local trophyInfo = {
     rarity = 1,
     unlock_condition = function(self, args)
-        if args.type == "preserve_gros" then
-            return true
-        end
+        return args.type == "preserve_gros" and next(SMODS.find_card('j_csau_bunji'))
     end,
 }
 

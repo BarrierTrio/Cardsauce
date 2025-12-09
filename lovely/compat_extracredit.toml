@@ -9,7 +9,7 @@ target = '''=[SMODS extracredit "src/essay.lua"]'''
 pattern = '''if not context.blueprint then
                 card.ability.uses = card.ability.uses - 1'''
 position = "at"
-payload = '''if SMODS.food_expires() and not context.blueprint then
+payload = '''if SMODS.food_expires(card) and not context.blueprint then
                 card.ability.uses = card.ability.uses - 1'''
 match_indent = true
 
@@ -19,7 +19,7 @@ target = '''=[SMODS extracredit "src/essay.lua"]'''
 pattern = '''if not context.blueprint then
                 card.ability.extra.candies = card.ability.extra.candies - 1'''
 position = "at"
-payload = '''if SMODS.food_expires() and not context.blueprint then
+payload = '''if SMODS.food_expires(card) and not context.blueprint then
                 card.ability.extra.candies = card.ability.extra.candies - 1'''
 match_indent = true
 
@@ -45,7 +45,7 @@ position = "at"
 payload = '''
 local prevent_self = false
 if G.jokers.cards[i] == card then
-    if not SMODS.food_expires() then
+    if not SMODS.food_expires(card) then
         prevent_self = true
     end
 end
@@ -66,7 +66,7 @@ match_indent = true
 target = '''=[SMODS extracredit "src/essay.lua"]'''
 pattern = "if context.card.ability.set == 'Spectral' then"
 position = "at"
-payload = "if SMODS.food_expires() and context.card.ability.set == 'Spectral' then"
+payload = "if SMODS.food_expires(card) and context.card.ability.set == 'Spectral' then"
 match_indent = true
 
 [[patches]]
@@ -74,7 +74,7 @@ match_indent = true
 target = '''=[SMODS extracredit "src/essay.lua"]'''
 pattern = "elseif context.end_of_round and not context.individual and not context.repetition and not context.blueprint then"
 position = "at"
-payload = "elseif context.end_of_round and not context.individual and not context.repetition and not context.blueprint and SMODS.food_expires() then"
+payload = "elseif context.end_of_round and not context.individual and not context.repetition and not context.blueprint and SMODS.food_expires(card) then"
 match_indent = true
 
 [[patches]]
@@ -110,7 +110,7 @@ pattern = '''G.E_MANAGER:add_event(Event({
             }))
 '''
 position = "before"
-payload = "if SMODS.food_expires() then"
+payload = "if SMODS.food_expires(card) then"
 match_indent = true
 
 [[patches]]

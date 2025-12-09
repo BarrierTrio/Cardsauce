@@ -1,42 +1,3 @@
-local suit_text = {
-	singular = {
-		"Converts {C:attention}#1#{}",
-        "selected card",
-        "to {V:1}#2#{}"
-	},
-	multi = {
-		"Converts up to",
-        "{C:attention}#1#{} selected cards",
-        "to {V:1}#2#{}"
-	}
-}
-
-local enhance_text = {
-	singular = {
-		"Enhances {C:attention}#1#{} selected",
-		"card into a {C:attention}#2#{}"
-	},
-	multi = {
-		"Enhances up to {C:attention}#1#{}",
-		"selected cards into",
-		"{C:attention}#2#s{}"
-	}
-}
-
-local seal_text = {
-	singular = {
-		"Add a {C:attention}#1#{} to",
-		"{C:attention}#2#{} selected card",
-		"in your hand"
-	},
-	multi = {
-		"Add {C:attention}#1#s{} to up",
-		"to {C:attention}#2#{} selected cards",
-		"in your hand"
-	}
-}
-
-
 return {
 	misc = {
 		poker_hands = {
@@ -83,159 +44,161 @@ return {
 			},
 		},
 		quips = {
-			wq_1 = {
+			vwq_1 = {
 				"WHO'S THE BIG MEAT",
 				"NOW, MOTHERFUCKER?",
 			},
-			wq_2 = {
+			vwq_2 = {
 				"YEAHHHH INJECT THE",
 				"BALATRO DIRECTLY",
 				"INTO MY COCKVEIN",
 			},
-			wq_3 = {
+			vwq_3 = {
 				"Chat... I love",
 				"this game.",
 			},
-			wq_4 = {
+			vwq_4 = {
 				"Ah, is that another",
 				"Pluto? Don't mind",
 				"if I do.",
 			},
-			wq_5 = {
+			vwq_5 = {
 				"Beaauuuuutiful.",
 				"Give it up, baby!",
 			},
-			wq_6 = {
+			vwq_6 = {
 				"You wanna talk about",
 				"some dedication?",
 			},
-			wq_7 = {
+			vwq_7 = {
 				"Never settle for less!",
 			},
-			wq_8 = {
+			vwq_8 = {
 				"YES! IT IS DONE!",
 			},
-			wq_9 = {
+			vwq_9 = {
 				"Mental.",
 			},
-			wq_10 = {
+			vwq_10 = {
 				"That's my streamer!",
 			},
-			wq_11 = {
+
+			jwq_1 = {
 				"GAMER'D!",
 			},
-			wq_12 = {
+			jwq_2 = {
 				"BA-BOOM, Jackpot!",
 			},
-			wq_13 = {
+			jwq_13 = {
 				"Let's see SimpleFlips",
 				"do THAT!"
 			},
-			wq_14 = {
+			jwq_4 = {
 				"oughhhh....",
 				"gonna finna blow...",
 			},
-			wq_15 = {
+			jwq_5 = {
 				"I'M HAVING SEXXXXXX",
 				"IN BAAALATROOOOOO!!!",
 				"SEXXX!!!!",
 			},
-			wq_16 = {
+			jwq_6 = {
 				"it's the eye of the spider",
 				"it's poison in one bite",
 			},
-			wq_17 = {
+			jwq_7 = {
 				"You're lonely rolling star!",
 			},
-			wq_18 = {
+			jwq_8 = {
 				"We truly were...",
 				"a Balatro."
 			},
-			wq_19 = {
+			jwq_9 = {
 				"Send that to Geoff Keighley's",
 				"Video Game Olympics!"
 			},
-			wq_20 = {
+			jwq_10 = {
 				"NÜT!"
 			},
 
-
-			lq_1 = {
+			vlq_1 = {
 				"HUGE waste of",
 				"brain cells!",
 			},
-			lq_2 = {
+			vlq_2 = {
 				"Melpert? Melpert!?",
 				"MELLLLLPERRRRRRRTTTT!!!",
 			},
-			lq_3 = {
+			vlq_3 = {
 				"\"I am better at this",
 				"game now\" -Vinny",
 			},
-			lq_4 = {
+			vlq_4 = {
 				"Your seed... it was",
 				"not strong enough...",
 			},
-			lq_5 = {
+			vlq_5 = {
 				"What do you mean, Chat.",
 				"WHAT DO YOU MEAN.",
 			},
-			lq_6 = {
+			vlq_6 = {
 				"Oh, fuck you, Luigi!",
 			},
-			lq_7 = {
+			vlq_7 = {
 				"What a bimbo!",
 			},
-			lq_8 = {
+			vlq_8 = {
 				"Don't worry, Johnny",
 				"will cut this out.",
 				"Right?",
 			},
-			lq_9 = {
+			vlq_9 = {
 				"Why he die?",
 				"WHY HE DIE?!",
 			},
-			lq_10 = {
+			vlq_10 = {
 				"I'm watching",
 				"Northernlion now.",
 			},
-			lq_11 = {
+
+			jlq_1 = {
 				"Make sure not to",
 				"click on me :)",
 			},
-			lq_12 = {
+			jlq_2 = {
 				"AGGA",
 			},
-			lq_13 = {
+			jlq_3 = {
 				"Vafaan!",
 			},
-			lq_14 = {
+			jlq_4 = {
 				"YO, SHIT FOR BRAINS!",
 				"WHAT GODDAMN HAND",
 				"WAS THAT, HUH?!",
 			},
-			lq_15 = {
+			jlq_5 = {
 				"Hide in shame.",
 			},
-			lq_16 = {
+			jlq_6 = {
 				"BALATRO OVER?",
 				"What do you mean",
 				"BALATRO OVER?!",
 			},
-			lq_17 = {
+			jlq_7 = {
 				"Grandma has died!",
 			},
-			lq_18 = {
+			jlq_8 = {
 				"No, no, no, here's what",
 				"we're going to do instead,",
 				"everyone draw a Bunco card...",
 			},
-			lq_19 = {
+			jlq_9 = {
 				"PLAY SOMETHING!",
 			},
-			lq_20 = {
+			jlq_10 = {
 				"Habbo Hotel time!",
 			},
+
 			roche_voiceline = {
 				"A {C:planet}Planet{} card for",
 				"you, my friend!"

@@ -54,6 +54,14 @@ function Game:update_shop(dt)
 	return ref_update_shop(self, dt)
 end
 
+
+
+
+
+---------------------------
+--------------------------- Wigsaw helper
+---------------------------
+
 local ref_post_splash = Game.init_post_splash
 function Game:init_post_splash()
 	local ret = ref_post_splash(self)
@@ -62,4 +70,21 @@ function Game:init_post_splash()
 		G.C.DEFAULT_SUITS[k] = copy_table(v)
 	end
 	return ret
+end
+
+
+
+
+
+---------------------------
+--------------------------- 2kings achievement
+---------------------------
+
+local ref_game_over = Game.update_game_over
+function Game:update_game_over(dt)
+	if not G.STATE_COMPLETE and next(SMODS.find_card('j_csau_kings')) then
+		check_for_unlock({ type = "shebear_mauling" })
+	end
+
+	return ref_game_over(self, dt)
 end

@@ -33,12 +33,11 @@ end
 
 
 
+
 ---------------------------
 --------------------------- SMODS Tabs
 ---------------------------
 
--- this function was originally stored in a local function first
--- couldn't figure why, so I directly assigned it instead ~Winter
 local text_scale = 0.9
 ArrowAPI.extra_tabs = function()
     return {
