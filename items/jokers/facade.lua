@@ -20,13 +20,14 @@ local jokerInfo = {
 }
 
 function jokerInfo.loc_vars(self, info_queue, card)
-    return { vars = {card.ability.extra, (G.GAME and G.GAME.hands and G.GAME.hands.Pair.played*card.ability.extra) or 0} }
+    return { vars = {card.ability.extra, (G.GAME.hands['Pair'].played*card.ability.extra)} }
 end
 
 function jokerInfo.calculate(self, card, context)
-    if to_big(G.GAME.hands.Pair.played) > to_big(0) and context.joker_main and context.cardarea == G.jokers then
+    if context.joker_main then
+        local num_pairs = G.GAME.hands['Pair'].played
         return {
-            mult = G.GAME.hands.Pair.played*card.ability.extra,
+            mult = num_pairs*card.ability.extra,
         }
     end
 end

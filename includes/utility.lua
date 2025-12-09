@@ -50,7 +50,6 @@ end
 --------------------------- One-off Card Helpers
 ---------------------------
 
--- TODO: make this an arrow API function or context
 function SMODS.return_to_hand(card, context)
 	if not G.GAME.blind.disabled and G.GAME.blind.name == 'The Vod' then
         return true
@@ -66,5 +65,3 @@ function SMODS.return_to_hand(card, context)
 	if context.scoring_name == "High Card" and next(SMODS.find_card("j_csau_besomeone")) and ArrowAPI.table.contains(context.scoring_hand, card) then return true end
 	return false
 end
-
--- TODO: replace all cards that modify draw with contexts where possible

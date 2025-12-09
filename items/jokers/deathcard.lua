@@ -55,7 +55,7 @@ end
 function jokerInfo.calculate(self, card, context)
 	if card.debuff then return end
 
-	if context.joker_main and context.cardarea == G.jokers then
+	if context.joker_main then
 		return {
 			message = localize{type='variable',key='a_mult',vars={to_big(card.ability.extra.mult)}},
 			colour = G.C.MULT,
@@ -64,7 +64,7 @@ function jokerInfo.calculate(self, card, context)
 		}
 	end
 
-	if context.selling_self then
+	if context.selling_self and not context.blueprint  then
 		card.ability.times_sold = (card.ability.times_sold or 0) + 1
 		G.GAME.csau_saved_deathcards[#G.GAME.csau_saved_deathcards+1] = {
 			key = card.config.center.key,

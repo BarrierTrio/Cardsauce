@@ -23,28 +23,14 @@ function jokerInfo.loc_vars(self, info_queue, card)
 end
 
 function jokerInfo.calculate(self, card, context)
-	if context.setting_blind and not card.getting_sliced and not card.debuff then
-		if not (context.blueprint_card or card).getting_sliced then
-			G.E_MANAGER:add_event(Event({func = function()
-				ease_discard(card.ability.extra)
-				card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = "+"..card.ability.extra.." "..localize('k_hud_discards')})
-		return true end }))
-		end
-	end
-end
+	if card.debuff then return end
 
-local can_discardref = G.FUNCS.can_discard
-G.FUNCS.can_discard = function(e)
-	if next(SMODS.find_card('j_csau_greyjoker')) then
-		if to_big(G.GAME.current_round.discards_left) <= to_big(0) or to_big(#G.hand.highlighted) <= to_big(4) then
-			e.config.colour = G.C.UI.BACKGROUND_INACTIVE
-			e.config.button = nil
-		else
-			e.config.colour = G.C.RED
-			e.config.button = 'discard_cards_from_highlighted'
-		end
-	else
-		can_discardref(e)
+	if context.setting_blind then
+		ease_discard(card.ability.extra)
+		return {
+			message = "+"..card.ability.extra.." "..localize('k_hud_discards'),
+			card = context.blueprint_card or card
+		}
 	end
 end
 

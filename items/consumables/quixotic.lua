@@ -2,7 +2,6 @@ local consumInfo = {
     name = 'Quixotic',
     set = "Spectral",
     cost = 4,
-    alerted = true,
     origin = 'vinny',
     dependencies = {
         config = {
@@ -13,19 +12,18 @@ local consumInfo = {
 }
 
 function consumInfo.loc_vars(self, info_queue, card)
-    info_queue[#info_queue + 1] = G.P_TAGS.tag_ethereal
-    return {}
+    info_queue[#info_queue+1] = G.P_TAGS.tag_ethereal
 end
 
 function consumInfo.use(self, card, area, copier)
     check_for_unlock({ type = "activate_quixotic" })
     G.E_MANAGER:add_event(Event({
-        func = (function()
+        func = function()
             add_tag(Tag('tag_ethereal'))
             play_sound('generic1', 0.9 + math.random() * 0.1, 0.8)
             play_sound('holo1', 1.2 + math.random() * 0.1, 0.4)
             return true
-        end)
+        end
     }))
 end
 

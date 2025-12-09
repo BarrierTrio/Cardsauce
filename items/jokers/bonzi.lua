@@ -69,7 +69,6 @@ function jokerInfo.calculate(self, card, context)
                     colour = G.C.MULT
                 }
             })
-
         else
             if to_big(card.ability.extra.mult) > to_big(0) then
                 local scale_table = {mult_mod = card.ability.extra.mult}

@@ -30,31 +30,6 @@ overwrite = false
 
 [[patches]]
 [patches.pattern]
-target = "functions/common_events.lua"
-pattern = "if add and not G.GAME.banned_keys[v.key] then"
-position = "before"
-payload = '''
-if _append == "jud" and v.key == 'j_csau_hell' then
-    add = false
-end
-'''
-match_indent = true
-
-[[patches]]
-[patches.pattern]
-target = "card.lua"
-pattern = '''self.cost = math.max(1, math.floor((self.base_cost + self.extra_cost + 0.5)*(100-G.GAME.discount_percent)/100))'''
-position = "at"
-payload = '''
-local voucher_discount = 0
-if self.ability.set == "Voucher" then
-    voucher_discount = G.GAME.voucher_discount or 0
-end
-self.cost = math.max(1, math.floor((self.base_cost + self.extra_cost + 0.5)*((100 - G.GAME.discount_percent)/100)*((100 - voucher_discount)/100)))'''
-match_indent = true
-
-[[patches]]
-[patches.pattern]
 target = "card.lua"
 pattern = "play_sound('tarot2', 0.76, 0.4);return true end}))"
 position = "at"

@@ -29,9 +29,7 @@ function jokerInfo.loc_vars(self, info_queue, card)
 end
 
 function jokerInfo.check_for_unlock(self, args)
-    if args.type == "gros_extinct" then
-        return true
-    end
+    return args.type == "gros_extinct"
 end
 
 function jokerInfo.calculate(self, card, context)

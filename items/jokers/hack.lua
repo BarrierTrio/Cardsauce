@@ -28,10 +28,14 @@ local jokerInfo = {
 }
 
 local function get_chips(card)
-    local mod = 1
-    if G.GAME.used_vouchers.v_directors_cut then mod = 2 end
+    local mod = G.GAME.used_vouchers.v_directors_cut and 2 or 1
+
     local vhs_obtained = 0
-    for k, v in pairs(G.GAME.consumeable_usage) do if v.set == 'VHS' then vhs_obtained = vhs_obtained + 1 end end
+    for k, v in pairs(G.GAME.consumeable_usage) do
+        if v.set == 'VHS' then
+            vhs_obtained = vhs_obtained + 1
+        end
+    end
     return (card.ability.extra.chip_mod * vhs_obtained) * mod
 end
 

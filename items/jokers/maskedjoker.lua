@@ -62,7 +62,7 @@ function jokerInfo.calculate(self, card, context)
 		return {
 			chips = card.ability.extra.chips,
 			mult = card.ability.extra.mult,
-			card = card
+			card = context.blueprint_card or card
 		}
 	end
 end

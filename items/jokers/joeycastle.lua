@@ -23,21 +23,30 @@ local jokerInfo = {
 }
 
 function jokerInfo.loc_vars(self, info_queue, card)
-    return { vars = { card.ability.money, localize(G.GAME.current_round.joeycastle.suit, 'suits_singular'), colours = {G.C.SUITS[G.GAME.current_round.joeycastle.suit]} }}
+    return { vars = {
+        card.ability.money,
+        localize(G.GAME.current_round.joeycastle.suit, 'suits_singular'),
+        colours = {
+            G.C.SUITS[G.GAME.current_round.joeycastle.suit]}
+        }
+    }
 end
 
 function jokerInfo.calculate(self, card, context)
-    if context.pre_discard then
-        card.ability.extra.ach_disc = 0
-    end
-
     if card.debuff then return end
 
-    if context.discard and not context.other_card.debuff and context.other_card:is_suit(G.GAME.current_round.joeycastle.suit) then
-        card.ability.extra.ach_disc = card.ability.extra.ach_disc + 1
-        if to_big(card.ability.extra.ach_disc) >= to_big(5) then
-            check_for_unlock({ type = "high_joeyscastle" })
+    if context.pre_discard and #context.full_hand >= 5 then
+        for i, v in ipairs(context.full_hand) do
+            if not v:is_suit(G.GAME.current_round.joeycastle.suit) then
+                return
+            end
         end
+
+        check_for_unlock({ type = "high_joeyscastle" })
+    end
+
+
+    if context.discard and context.other_card:is_suit(G.GAME.current_round.joeycastle.suit) then
         return {
             dollars = card.ability.extra.dollars,
         }

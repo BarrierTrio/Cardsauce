@@ -19,14 +19,12 @@ local jokerInfo = {
 }
 
 function jokerInfo.calculate(self, card, context)
-	if context.modify_level_increment then
-		if context.hand == "High Card" then
-			return {
-				message = localize("k_dontmind"),
-				colour = G.C.SECONDARY_SET.Planet,
-				mult_inc = 2,
-			}
-		end
+	if context.modify_level_increment and context.hand == "High Card" then
+		return {
+			message = localize("k_dontmind"),
+			colour = G.C.SECONDARY_SET.Planet,
+			mult_inc = 2,
+		}
 	end
 end
 

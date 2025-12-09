@@ -30,11 +30,7 @@ SMODS.PokerHand {
         { 'C_3', true },
     },
     evaluate = function(parts, hand)
-        if next(SMODS.find_card("j_csau_blackjack")) then
-            if isBlackjack(hand) then
-                return { hand }
-            end
-        end
+        return { next(SMODS.find_card("j_csau_blackjack")) and isBlackjack(hand) and hand or nil }
     end,
 }
 
@@ -53,11 +49,7 @@ SMODS.PokerHand {
         { 'C_3', true },
     },
     evaluate = function(parts, hand)
-        if next(SMODS.find_card("j_csau_blackjack")) then
-            if next(parts._flush) and isBlackjack(hand) then
-                return { hand }
-            end
-        end
+        return { next(SMODS.find_card("j_csau_blackjack")) and next(parts._flush) and isBlackjack(hand) and hand or nil }
     end,
 }
 

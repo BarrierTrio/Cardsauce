@@ -57,3 +57,37 @@ function localize(args, misc_cat)
 	end
 	return ref_localize(args, misc_cat)
 end
+
+
+
+
+
+---------------------------
+--------------------------- pool modification
+---------------------------
+
+local ref_current_pool = get_current_pool
+function get_current_pool(_type, _rarity, _legendary, _append, ...)
+	local pool, key = ref_current_pool(_type, _rarity, _legendary, _append, ...)
+
+	local frich = _type == 'Food' and next(SMODS.find_card('j_csau_frich'))
+	if G.GAME.starting_params.csau_jokers_rate or G.GAME.starting_params.csau_all_rate or frich then
+		local new_pool = {}
+		for _, v in ipairs(pool) do
+			local rate = frich and 2 or 1
+			local center = G.P_CENTERS[v]
+			if center.original_mod and center.original_mod.id == 'cardsauce'
+			and (G.GAME.starting_params.csau_all_rate or (center and center.set == 'Joker')) then
+				rate = rate * (G.GAME.starting_params.csau_jokers_rate or 1) * (G.GAME.starting_params.csau_all_rate or 1)
+			end
+
+			for i=1, rate-1 do
+				new_pool[#new_pool+1] = v
+			end
+		end
+
+		return new_pool, key
+	end
+
+	return pool, key
+end

@@ -28,32 +28,26 @@ function jokerInfo.loc_vars(self, info_queue, card)
 end
 
 function jokerInfo.calculate(self, card, context)
-    if context.joker_main and context.cardarea == G.jokers and to_big(card.ability.extra.chips) > to_big(0) then
+    if card.debuff then return end
+
+    if context.joker_main and to_big(card.ability.extra.chips) > to_big(0) then
         return {
             message = localize{type='variable',key='a_chips',vars={to_big(card.ability.extra.chips)}},
             chip_mod = card.ability.extra.chips,
             colour = G.C.CHIPS
         }
     end
-    if context.final_scoring_step then
-        G.E_MANAGER:add_event(Event({
-            func = function()
-                if to_big(G.ARGS.score_intensity.earned_score) >= to_big(G.ARGS.score_intensity.required_score) and to_big(G.ARGS.score_intensity.required_score) > to_big(0) then
-                    card.ability.extra.flame = true
-                end
-                return true
-            end
-        }))
-    end
-    if context.end_of_round and not card.debuff and not context.individual and not context.repetition and not context.blueprint then
-        if card.ability.extra.flame then
-            card.ability.extra.flame = false
-            card.ability.extra.chips = to_big(card.ability.extra.chips) + to_big(card.ability.extra.chip_mod)
-            return {
+
+    if context.after and hand_chips*mult > G.GAME.blind.chips then
+        SMODS.scale_card(card, {
+            ref_table = card.ability.extra,
+            ref_value = "chips",
+            scalar_value = "chip_mod",
+            scaling_message = {
                 message = localize('k_upgrade_ex'),
                 colour = G.C.CHIPS
             }
-        end
+        })
     end
 end
 

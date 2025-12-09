@@ -21,13 +21,7 @@ function deckInfo.loc_vars(self, info_queue, card)
 end
 
 function deckInfo.apply(self, back)
-    G.E_MANAGER:add_event(Event({
-        func = function()
-            G.GAME.starting_params.csau_jokers_rate = G.GAME.starting_params.csau_jokers_rate or 1
-            G.GAME.starting_params.csau_jokers_rate = G.GAME.starting_params.csau_jokers_rate * 2
-            return true
-        end
-    }))
+    G.GAME.starting_params.csau_jokers_rate = (G.GAME.starting_params.csau_jokers_rate or 1) * 2
 end
 
 function deckInfo.calculate(self, back, context)

@@ -50,14 +50,13 @@ function jokerInfo.calculate(self, card, context)
             message = localize{type = 'variable', key = 'a_duane', vars = {string.upper(localize(context.suit, 'suits_plural'))}}
         }
     end
-    if context.cardarea == G.play and context.repetition and not context.repetition_only and not card.debuff then
-        if context.other_card:is_suit(G.GAME.current_round.duane_suit) then
-            return {
-                message = 'Again!',
-                repetitions = card.ability.extra.repetitions,
-                card = card
-            }
-        end
+    if context.cardarea == G.play and context.repetition and not card.debuff
+    and context.other_card:is_suit(G.GAME.current_round.duane_suit) then
+        return {
+            message = localize('k_again_ex'),
+            repetitions = card.ability.extra.repetitions,
+            card = card
+        }
     end
 end
 

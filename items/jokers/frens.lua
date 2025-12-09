@@ -21,29 +21,26 @@ local jokerInfo = {
     artist = 'SagaciousCejai'
 }
 
-function jokerInfo.loc_vars(self, info_queue, card)
+local function get_faces()
     local faces = 0
     if G.playing_cards then
         for k, v in pairs(G.playing_cards) do
-            if v:is_face() then faces = faces+1 end
+            if v:is_face() and not v.debuff then faces = faces+1 end
         end
     end
-    return { vars = {card.ability.extra.chips_mod, card.ability.extra.chips_mod * faces} }
+    return faces
+end
+
+function jokerInfo.loc_vars(self, info_queue, card)
+    return { vars = {card.ability.extra.chips_mod, card.ability.extra.chips_mod * get_faces()} }
 end
 
 function jokerInfo.calculate(self, card, context)
-    if context.joker_main and context.cardarea == G.jokers then
-        if not G.playing_cards then return end
-        local faces = 0
-        for k, v in pairs(G.playing_cards) do
-            if v:is_face() then faces = faces+1 end
-        end
-        local chips = card.ability.extra.chips_mod * faces
-        if to_big(chips) > to_big(0) then
+    if context.joker_main then
+        local faces = get_faces()
+        if faces > 0 then
             return {
-                message = localize{type='variable',key='a_chips',vars={to_big(chips)}},
-                chip_mod = chips,
-                colour = G.C.CHIPS
+                chips = card.ability.extra.chips_mod * faces,
             }
         end
     end

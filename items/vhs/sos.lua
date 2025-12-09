@@ -16,7 +16,8 @@ local consumInfo = {
             'rlm_wotw',
         },
         custom_color = 'rlm'
-    }
+    },
+    artist = 'yunkie101'
 }
 
 function consumInfo.loc_vars(self, info_queue, card)

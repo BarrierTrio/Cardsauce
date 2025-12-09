@@ -1508,7 +1508,7 @@ return {
 			j_csau_roger = {
 				name = "Mr. Roger",
 				text = {
-					"This Joker gains {X:mult,C:white} X0.1 {} Mult",
+					"This Joker gains {X:mult,C:white}X0.1{} Mult",
 					"for each {C:attention}finger{} played this {C:attention}Blind{}",
 					"{C:inactive}(Currently {}{X:mult,C:white}X#1#{} {C:inactive}Mult){}",
 				},

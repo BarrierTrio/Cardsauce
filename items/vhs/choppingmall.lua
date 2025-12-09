@@ -1,5 +1,3 @@
--- TODO: replace chopping mall updated hand ref
-
 local consumInfo = {
     name = 'Chopping Mall',
     set = "VHS",

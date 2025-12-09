@@ -2,7 +2,6 @@ local consumInfo = {
     name = 'Protojoker',
     set = "Spectral",
     cost = 4,
-    alerted = true,
     hidden = true,
     soul_rate = 0.003,
     soul_set = "Joker",
@@ -23,8 +22,9 @@ function consumInfo.use(self, card, area, copier)
                 trigger = 'after',
                 delay = 0.4,
                 func = function()
-                ArrowAPI.game.transform_card(G.jokers.cards[i], 'j_csau_chad')
-                return true end
+                    ArrowAPI.game.transform_card(G.jokers.cards[i], 'j_csau_chad')
+                    return true
+                end
             }))
         end
     end

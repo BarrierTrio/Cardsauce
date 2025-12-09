@@ -6,16 +6,16 @@ local deckInfo = {
         },
     },
     unlocked = false,
-    csau_dependencies = {
-        'enableStands',
+    dependencies = {
+        config = {
+            ['Stands'] = true,
+        }
     },
     artist = 'BarrierTrio/Gote'
 }
 
 function deckInfo.check_for_unlock(self, args)
-    if args.type == 'evolve_stand' then
-        return true
-    end
+    return args.type == 'evolve_stand'
 end
 
 function deckInfo.loc_vars(self, info_queue, card)

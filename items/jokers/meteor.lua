@@ -4,7 +4,7 @@ local jokerInfo = {
 	pos = {x = 5, y = 10},
     config = {
         extra = {
-            key = '7',
+            rank = '7',
         }
     },
     rarity = 1,
@@ -26,13 +26,12 @@ function jokerInfo.loc_vars(self, info_queue, card)
 end
 
 function jokerInfo.check_for_unlock(self, args)
-    if args.type == "roche_destroyed" then
-        return true
-    end
+    return args.type == "roche_destroyed"
 end
 
 function jokerInfo.calculate(self, card, context)
-    if context.check_enhancement and context.other_card.base.value == card.ability.extra.key and context.other_card.config.center.key ~= 'm_glass' then
+    if context.check_enhancement and context.other_card.base.value == card.ability.extra.rank
+    and context.other_card.config.center.key ~= 'm_glass' then
         return {
             ['m_glass'] = true
         }
@@ -41,7 +40,7 @@ function jokerInfo.calculate(self, card, context)
     if context.remove_playing_cards then
         local tally = 0
         for _, v in ipairs(context.removed) do
-            if v.base.value == card.ability.extra.key and v.config.center.key ~= 'm_glass' then
+            if v.base.value == card.ability.extra.rank and v.config.center.key ~= 'm_glass' then
                 tally = tally + 1
             end
         end

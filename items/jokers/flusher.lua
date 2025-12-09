@@ -32,7 +32,7 @@ end
 function jokerInfo.calculate(self, card, context)
     if card.debuff then return end
 
-    if context.cardarea == G.jokers and context.before and context.scoring_name == "Flush"
+    if context.before and context.scoring_name == "Flush"
     and SMODS.pseudorandom_probability(card, 'csau_flusher', card.ability.extra.prob_extra, card.ability.extra.prob) then
         return {
             card = card,
@@ -44,7 +44,12 @@ function jokerInfo.calculate(self, card, context)
     if context.blueprint then return end
 
     if context.selling_card and context.card.config.center.consumeable then
-        card.ability.extra.prob_extra = card.ability.extra.prob_extra + 1
+        SMODS.scale_card(card, {
+            ref_table = card.ability.extra,
+            ref_value = "prob_extra",
+            scalar_value = "prob_mod",
+            no_message = true
+        })
         return {
             card = card,
             message = localize{type = 'variable', key = 'a_chance', vars = {SMODS.get_probability_vars(card, card.ability.extra.prob_extra, card.ability.extra.prob, 'csau_flusher')}},

@@ -37,7 +37,7 @@ function jokerInfo.calculate(self, card, context)
     if context.joker_main then
         local trigger = false
         for _, v in ipairs(context.full_hand) do
-            if v:get_id() == 7 then
+            if v:get_id() == 7 and not v.debuff then
                 trigger = true
                 break
             end

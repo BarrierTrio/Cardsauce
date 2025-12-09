@@ -27,11 +27,9 @@ function jokerInfo.loc_vars(self, info_queue, card)
 end
 
 function jokerInfo.calculate(self, card, context)
-	if context.joker_main and context.cardarea == G.jokers then
+	if context.joker_main then
 		return {
-			message = localize{type='variable',key='a_chips',vars={to_big(card.ability.extra.chips)}},
-			chip_mod = card.ability.extra.chips,
-			colour = G.C.CHIPS
+			chips = card.ability.extra.chips,
 		}
 	end
 end

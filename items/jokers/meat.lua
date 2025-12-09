@@ -4,7 +4,8 @@ local jokerInfo = {
 	pos = {x = 8, y = 0},
 	config = {
 		extra = {
-			cardsRemaining = 3
+			remain = 3,
+			remain_mod = 1
 		}
 	},
 	rarity = 2,
@@ -23,61 +24,48 @@ local jokerInfo = {
 }
 
 function jokerInfo.loc_vars(self, info_queue, card)
-	return {vars = { card.ability.extra.cardsRemaining } }
+	return {vars = { card.ability.extra.remain } }
 end
 
 function jokerInfo.calculate(self, card, context)
-	if context.cardarea == G.jokers and context.before and not card.debuff and not context.blueprint then
-		if context.scoring_name == "High Card" then
-			local seal = {
-				[1] = "Gold",
-				[2] = "Red",
-				[3] = "Blue",
-				[4] = "Purple",
-			}
-			local activate = false
-			for k, v in ipairs(context.scoring_hand) do
-				if not v.seal then
-					activate = true
-					v.seal_delay = true
-					v:set_seal(seal[pseudorandom('meat', 1, 4)], nil, nil, {set_func = function()
-						card:juice_up()
-					end} )
-				end
-			end
-			if activate then
-				card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('k_meat_seal'), colour = G.C.MONEY})
-				if SMODS.food_expires(card) then
-					card.ability.extra.cardsRemaining = card.ability.extra.cardsRemaining - 1
-				end
+	if card.debuff or context.blueprint then return end
+
+	if context.before and context.scoring_name == "High Card" then
+		local activate = false
+		for k, v in ipairs(context.scoring_hand) do
+			if not v.seal and not v.debuff then
+				activate = true
+				G.E_MANAGER:add_event(Event({
+					trigger = 'after',
+					func = function()
+						v:set_seal(pseudorandom_element(SMODS.Seal.obj_buffer, 'csau_meat'), nil, nil)
+						return true
+					end
+				}))
 			end
 		end
 
-		if to_big(card.ability.extra.cardsRemaining) <= to_big(0) then
-			G.E_MANAGER:add_event(Event({
-				func = function()
-					play_sound('tarot1')
-					card.T.r = -0.2
-					card:juice_up(0.3, 0.4)
-					card.states.drag.is = true
-					card.children.center.pinch.x = true
-					G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, blockable = false,
-						func = function()
-							G.jokers:remove_card(card)
-							card:remove()
-							card = nil
-							return true
-						end
-					}))
-					check_for_unlock({ type = "meat_beaten" })
-					return true
-				end
-			}))
+		if activate then
+			if SMODS.food_expires(card) then
+				SMODS.scale_card(card, {
+                    ref_table = card.ability.extra,
+                    ref_value = "remain",
+                    scalar_value = "remain_mod",
+                    operation = '-',
+                    no_message = true
+                })
+			end
+
 			return {
-				message = localize('k_meat_destroy'),
+				message = localize('k_meat_seal'),
 				colour = G.C.MONEY
 			}
 		end
+	end
+
+	if to_big(card.ability.extra.remain) <= to_big(0) then
+		ArrowAPI.game.card_expire(card, 'k_meat_destroy', G.C.MONEY)
+		check_for_unlock({ type = "meat_beaten" })
 	end
 end
 

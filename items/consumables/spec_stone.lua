@@ -2,11 +2,18 @@ local consumInfo = {
     name = 'Stone Mask',
     set = "Spectral",
     cost = 4,
-    alerted = true,
-    part = 'phantom',
-    csau_dependencies = {
-        'enableStands',
-    }
+    origin = {
+        category = 'jojo',
+        sub_origins = {
+            'phantom',
+        },
+        custom_color = 'phantom'
+    },
+    dependencies = {
+        config = {
+            ['Stands'] = true,
+        }
+    },
 }
 
 function consumInfo.loc_vars(self, info_queue, card)

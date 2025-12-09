@@ -50,7 +50,8 @@ function jokerInfo.calculate(self, card, context)
     if context.selling_self then
         local destroy_cards = {}
         for _, v in ipairs(G.hand.cards) do
-            if v:is_face() then
+            if v:is_face() and not v.csau_byebye_flagged then
+                v.csau_byebye_flagged = true
                 destroy_cards[#destroy_cards+1] = v
             end
         end
