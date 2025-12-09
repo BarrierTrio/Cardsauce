@@ -44,161 +44,166 @@ return {
 			},
 		},
 		quips = {
-			vwq_1 = {
+			csau_wq_vinny_1 = {
 				"WHO'S THE BIG MEAT",
 				"NOW, MOTHERFUCKER?",
 			},
-			vwq_2 = {
+			csau_wq_vinny_2 = {
 				"YEAHHHH INJECT THE",
 				"BALATRO DIRECTLY",
 				"INTO MY COCKVEIN",
 			},
-			vwq_3 = {
+			csau_wq_vinny_3 = {
 				"Chat... I love",
 				"this game.",
 			},
-			vwq_4 = {
+			csau_wq_vinny_4 = {
 				"Ah, is that another",
 				"Pluto? Don't mind",
 				"if I do.",
 			},
-			vwq_5 = {
+			csau_wq_vinny_5 = {
 				"Beaauuuuutiful.",
 				"Give it up, baby!",
 			},
-			vwq_6 = {
+			csau_wq_vinny_6 = {
 				"You wanna talk about",
 				"some dedication?",
 			},
-			vwq_7 = {
+			csau_wq_vinny_7 = {
 				"Never settle for less!",
 			},
-			vwq_8 = {
+			csau_wq_vinny_8 = {
 				"YES! IT IS DONE!",
 			},
-			vwq_9 = {
+			csau_wq_vinny_9 = {
 				"Mental.",
 			},
-			vwq_10 = {
-				"That's my streamer!",
-			},
 
-			jwq_1 = {
+
+			csau_wq_joel_1 = {
 				"GAMER'D!",
 			},
-			jwq_2 = {
+			csau_wq_joel_2 = {
 				"BA-BOOM, Jackpot!",
 			},
-			jwq_13 = {
+			csau_wq_joel_3 = {
 				"Let's see SimpleFlips",
 				"do THAT!"
 			},
-			jwq_4 = {
+			csau_wq_joel_4 = {
 				"oughhhh....",
 				"gonna finna blow...",
 			},
-			jwq_5 = {
+			csau_wq_joel_5 = {
 				"I'M HAVING SEXXXXXX",
 				"IN BAAALATROOOOOO!!!",
 				"SEXXX!!!!",
 			},
-			jwq_6 = {
+			csau_wq_joel_6 = {
 				"it's the eye of the spider",
 				"it's poison in one bite",
 			},
-			jwq_7 = {
+			csau_wq_joel_7 = {
 				"You're lonely rolling star!",
 			},
-			jwq_8 = {
+			csau_wq_joel_8 = {
 				"We truly were...",
 				"a Balatro."
 			},
-			jwq_9 = {
+			csau_wq_joel_9 = {
 				"Send that to Geoff Keighley's",
 				"Video Game Olympics!"
 			},
-			jwq_10 = {
+			csau_wq_joel_10 = {
 				"NÜT!"
 			},
 
-			vlq_1 = {
+			csau_wq_1 = {
+				"That's my streamer!",
+			},
+			csau_wq_roche = {
+				"You earned it,",
+				"big boy!"
+			},
+
+
+			csau_lq_vinny__1 = {
 				"HUGE waste of",
 				"brain cells!",
 			},
-			vlq_2 = {
+			csau_lq_vinny__2 = {
 				"Melpert? Melpert!?",
 				"MELLLLLPERRRRRRRTTTT!!!",
 			},
-			vlq_3 = {
+			csau_lq_vinny__3 = {
 				"\"I am better at this",
 				"game now\" -Vinny",
 			},
-			vlq_4 = {
+			csau_lq_vinny__4 = {
 				"Your seed... it was",
 				"not strong enough...",
 			},
-			vlq_5 = {
+			csau_lq_vinny__5 = {
 				"What do you mean, Chat.",
 				"WHAT DO YOU MEAN.",
 			},
-			vlq_6 = {
+			csau_lq_vinny__6 = {
 				"Oh, fuck you, Luigi!",
 			},
-			vlq_7 = {
+			csau_lq_vinny__7 = {
 				"What a bimbo!",
 			},
-			vlq_8 = {
+			csau_lq_vinny__8 = {
 				"Don't worry, Johnny",
 				"will cut this out.",
 				"Right?",
 			},
-			vlq_9 = {
+			csau_lq_vinny__9 = {
 				"Why he die?",
 				"WHY HE DIE?!",
 			},
-			vlq_10 = {
-				"I'm watching",
-				"Northernlion now.",
-			},
-
-			jlq_1 = {
-				"Make sure not to",
-				"click on me :)",
-			},
-			jlq_2 = {
+			csau_lq_joel_1 = {
 				"AGGA",
 			},
-			jlq_3 = {
+			csau_lq_joel_2 = {
 				"Vafaan!",
 			},
-			jlq_4 = {
+			csau_lq_joel_3 = {
 				"YO, SHIT FOR BRAINS!",
 				"WHAT GODDAMN HAND",
 				"WAS THAT, HUH?!",
 			},
-			jlq_5 = {
+			csau_lq_joel_4 = {
 				"Hide in shame.",
 			},
-			jlq_6 = {
+			csau_lq_joel_5 = {
 				"BALATRO OVER?",
 				"What do you mean",
 				"BALATRO OVER?!",
 			},
-			jlq_7 = {
+			csau_lq_joel_6 = {
 				"Grandma has died!",
 			},
-			jlq_8 = {
+			csau_lq_joel_7 = {
 				"No, no, no, here's what",
 				"we're going to do instead,",
 				"everyone draw a Bunco card...",
 			},
-			jlq_9 = {
+			csau_lq_joel_8 = {
 				"PLAY SOMETHING!",
 			},
-			jlq_10 = {
+			csau_lq_joel_9 = {
 				"Habbo Hotel time!",
 			},
-
+			csau_lq_1 = {
+				"I'm watching",
+				"Northernlion now.",
+			},
+			csau_lq_2 = {
+				"Make sure not to",
+				"click on me :)",
+			},
 			roche_voiceline = {
 				"A {C:planet}Planet{} card for",
 				"you, my friend!"

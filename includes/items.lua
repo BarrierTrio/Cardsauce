@@ -400,8 +400,49 @@ ArrowAPI.loading.batch_load({
             'cardsauce',
         }
     }
-
 })
+
+if SMODS.JimboQuip then
+    for i=1, 9 do
+        SMODS.JimboQuip{
+            key = 'wq_vinny_'..tostring(i),
+            type = 'win',
+            csau_streamer = 'vinny',
+        }
+
+        SMODS.JimboQuip{
+            key = 'lq_vinny_'..tostring(i),
+            type = 'loss',
+            csau_streamer = 'vinny',
+        }
+        SMODS.JimboQuip{
+            key = 'lq_joel_'..tostring(i),
+            type = 'loss',
+            csau_streamer = 'joel',
+        }
+    end
+
+    for i=1, 10 do
+        SMODS.JimboQuip{
+            key = 'wq_joel_'..tostring(i),
+            type = 'win',
+            csau_streamer = 'joel',
+        }
+    end
+
+    SMODS.JimboQuip{
+        key = 'lq_1',
+        type = 'loss',
+    }
+    SMODS.JimboQuip{
+        key = 'lq_2',
+        type = 'loss',
+    }
+    SMODS.JimboQuip{
+        key = 'wq_1',
+        type = 'win',
+    }
+end
 
 if Cardsauce.ortalab_dlc then
     local init, error = SMODS.load_file("includes/ortalab_dlc.lua")
