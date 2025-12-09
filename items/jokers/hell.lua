@@ -14,6 +14,10 @@ local jokerInfo = {
 	artist = 'BarrierTrio/Gote'
 }
 
+function jokerInfo.in_pool(self, args)
+	return not args or args.source ~= 'jud'
+end
+
 function jokerInfo.add_to_deck(self, card, context)
 	ArrowAPI.game.batch_level_up(card, SMODS.PokerHands, 0)
 	G.E_MANAGER:add_event(Event({

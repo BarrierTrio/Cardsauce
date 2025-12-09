@@ -24,9 +24,7 @@ local jokerInfo = {
 }
 
 function jokerInfo.check_for_unlock(self, args)
-    if args.type == "unlock_villains" then
-        return true
-    end
+    return args.type == "unlock_villains"
 end
 
 function jokerInfo.loc_vars(self, info_queue, card)
@@ -38,7 +36,7 @@ function jokerInfo.calculate(self, card, context)
         local play_more_than = 0
         local most_played = {}
         for k, v in pairs(G.GAME.hands) do
-            if v.visible and v.played > 0 then
+            if SMODS.is_poker_hand_visible(k) and v.played > 0 then
                 if v.played > play_more_than then
                     most_played = {[k] = true}
                     play_more_than = v.played

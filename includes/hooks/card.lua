@@ -1,3 +1,14 @@
+local ref_set_ability = Card.set_ability
+function Card:set_ability(center, initial, delay_sprites)
+    local ret = ref_set_ability(self, center, initial, delay_sprites)
+
+    if self.config.center.key == 'm_glass' then
+        ArrowAPI.stands.set_stand_sprites(self)
+    end
+
+    return ret
+end
+
 function Card:gunshot_func()
     if G.OVERLAY_MENU and G.OVERLAY_MENU:get_UIE_by_ID('jimbo_spot') then
         play_sound("csau_gunshot", 1, 1)
@@ -43,68 +54,16 @@ end
 --------------------------- For loading overlays and auras
 ---------------------------
 
-local ref_cgid = Card.get_id
-function Card:get_id(skip_pmk)
-    skip_pmk = skip_pmk or false
-    if not skip_pmk and (self.area == G.hand or self.area == G.play) and self:is_face() and next(SMODS.find_card("c_csau_lion_paper")) then
-        return SMODS.Ranks[G.GAME.current_round.jojobal_paper_rank or 'Jack'].id
-    end
-    return ref_cgid(self)
-end
-
--- why is this function not a global, i had to steal it from smods code
-function juice_flip(used_tarot)
-    G.E_MANAGER:add_event(Event({
-        trigger = 'after',
-        delay = 0.4,
-        func = function()
-            play_sound('tarot1')
-            used_tarot:juice_up(0.3, 0.5)
-            return true
-        end
-    }))
-    for i = 1, #G.hand.cards do
-        local percent = 1.15 - (i - 0.999) / (#G.hand.cards - 0.998) * 0.3
-        G.E_MANAGER:add_event(Event({
-            trigger = 'after',
-            delay = 0.15,
-            func = function()
-                G.hand.cards[i]:flip(); play_sound('card1', percent); G.hand.cards[i]:juice_up(0.3, 0.3); return true
-            end
-        }))
-    end
-end
-
-SMODS.Consumable:take_ownership('sigil', {
-    use = function(self, card, area, copier)
-        local used_tarot = copier or card
-        juice_flip(used_tarot)
-        local _suit = pseudorandom_element(SMODS.Suits, pseudoseed('sigil'))
-        for i = 1, #G.hand.cards do
-            G.E_MANAGER:add_event(Event({
-                func = function()
-                    local _card = G.hand.cards[i]
-                    assert(SMODS.change_base(_card, _suit.key))
-                    return true
-                end
-            }))
-        end
-        for i = 1, #G.hand.cards do
-            local percent = 0.85 + (i - 0.999) / (#G.hand.cards - 0.998) * 0.3
-            G.E_MANAGER:add_event(Event({
-                trigger = 'after',
-                delay = 0.15,
-                func = function()
-                    G.hand.cards[i]:flip(); play_sound('tarot2', percent, 0.6); G.hand.cards[i]:juice_up(0.3, 0.3); return true
-                end
-            }))
-        end
-        delay(0.5)
-    end,
-})
-
 local ref_set_cost = Card.set_cost
 function Card:set_cost()
+    if self.config.center.key == 'j_csau_veryexpensivejoker' then
+        self.base_cost = self.base_cost or 0
+        self.cost = self.cost or 0
+        self.sell_cost = self.sell_cost or 0
+        self.sell_cost_label = self.sell_cost
+        return
+    end
+
     if G.GAME and G.GAME.modifiers and G.GAME.modifiers.csau_tgyh_tenbob then
         self.base_cost = 10
         self.extra_cost = 0

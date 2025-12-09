@@ -24,7 +24,10 @@ local jokerInfo = {
 }
 
 function jokerInfo.loc_vars(self, info_queue, card)
-	return { vars = {card.ability.extra.plus, card.ability.extra.minus}, key = 'j_csau_so'..card.ability.extra.side}
+	return {
+		vars = {card.ability.extra.plus, card.ability.extra.minus},
+		key = 'j_csau_so'..card.ability.extra.side
+	}
 end
 
 local function hand_discard_mod(hand_mod, discard_mod)
@@ -55,6 +58,8 @@ function jokerInfo.load(self, card, cardTable, other_card)
 end
 
 function jokerInfo.calculate(self, card, context)
+	if card.debuff then return end
+
 	if context.end_of_round and not context.blueprint and context.main_eval then
 		card.ability.extra.side = card.ability.extra.side == 'sad' and 'happy' or 'sad'
 		local hand_mod, discard_mod, colour = 1, -1, G.C.MULT
@@ -65,14 +70,24 @@ function jokerInfo.calculate(self, card, context)
 
 		hand_discard_mod(hand_mod * (card.ability.extra.plus + card.ability.extra.minus), discard_mod * (card.ability.extra.plus + card.ability.extra.minus))
 
-		card.children.front:set_sprite_pos({x = card.ability.extra.side == 'sad' and 7 or 6, y = 2})
-
-		card.VT.r = math.pi
-		card.T.r = math.pi
-
 		return {
 			message = localize('k_flip'),
-			colour = colour
+			colour = colour,
+			extra = {
+				func = function()
+					card.T.r = card.T.r + math.pi
+					G.E_MANAGER:add_event(Event({
+						trigger = 'after',
+						delay = 1,
+						blockable = false,
+						blocking = false,
+						func = function()
+							card.children.front:set_sprite_pos({x = card.ability.extra.side == 'sad' and 7 or 6, y = 2})
+							return true
+						end
+					}))
+				end
+			}
 		}
 
 	end

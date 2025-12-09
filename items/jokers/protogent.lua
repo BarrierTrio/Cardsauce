@@ -32,31 +32,16 @@ end
 function jokerInfo.calculate(self, card, context)
     if card.debuff or context.blueprint then return end
 
-    if context.setting_blind and G.GAME.blind:get_type() == 'Boss' and not card.getting_sliced
+    if context.setting_blind and G.GAME.blind:get_type() == 'Boss'
     and SMODS.pseudorandom_probability(card, 'csau_proto_boss', 1, card.ability.extra.boss_prob) then
         G.E_MANAGER:add_event(Event({
             func = function()
                 G.GAME.blind:disable()
-                play_sound('timpani')
-                card.T.r = -0.2
-                card:juice_up(0.3, 0.4)
-                card.states.drag.is = true
-                card.children.center.pinch.x = true
-                G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, blockable = false,
-                        func = function()
-                            G.jokers:remove_card(card)
-                            card:remove()
-                            card = nil
-                            return true
-                        end
-                }))
                 return true
             end
         }))
-        return {
-            message = localize('ph_boss_disabled'),
-            colour = G.C.FILTER
-        }
+
+        ArrowAPI.game.card_expire(card, 'ph_boss_disabled')
     end
 
     if context.game_over and SMODS.pseudorandom_probability(card, 'csau_proto_save', 1, card.ability.extra.save_prob) then

@@ -42,6 +42,4 @@ function jokerInfo.calculate(self, card, context)
 	end
 end
 
-
-
 return jokerInfo

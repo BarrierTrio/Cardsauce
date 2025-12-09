@@ -19,48 +19,39 @@ local jokerInfo = {
 }
 
 function jokerInfo.calculate(self, card, context)
-	if context.final_scoring_step then
-		G.E_MANAGER:add_event(Event({
-			func = function()
-				local two, ace = false, false
-				local convert = {}
-				for i, v in ipairs(G.play.cards) do
-					if v:get_id() == 14 then
-						convert[i] = true
-						ace = true
-					elseif v:get_id() == 2 then
-						convert[i] = true
-						two = true
-					else
-						convert[i] = false
+	if card.debuff or context.blueprint then return end
+
+	if context.after then
+		local two, ace = false, false
+		for _, v in ipairs(G.play.cards) do
+			if v:get_id() == 14 then
+				two = true
+				G.E_MANAGER:add_event(Event({
+					func = function()
+						SMODS.change_base(v, nil, '2')
+						v:juice_up()
+						return true
 					end
-				end
-				if (two or ace) and #convert > 0 then
-					for i, v in ipairs(G.play.cards) do
-						if convert[i] then
-							v:juice_up()
-							local suit_prefix = string.sub(v.base.suit, 1, 1)..'_'
-							if v:get_id() == 14 then
-								v:set_base(G.P_CARDS[suit_prefix..2])
-							elseif v:get_id() == 2 then
-								v:set_base(G.P_CARDS[suit_prefix..'A'])
-							end
-						end
+				}))
+			elseif v:get_id() == 2 then
+				ace = true
+				G.E_MANAGER:add_event(Event({
+					func = function()
+						SMODS.change_base(v, nil, 'Ace')
+						v:juice_up()
+						return true
 					end
-					if two and ace then
-						card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('k_twoed_aced'), colour = G.C.MONEY, instant = true})
-					elseif two and not ace then
-						card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('k_aced'), colour = G.C.MONEY, instant = true})
-					elseif ace and not two then
-						card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('k_twoed'), colour = G.C.MONEY, instant = true})
-					end
-				end
-				return true
+				}))
 			end
-		}))
+		end
+
+		if two or ace then
+			return {
+				message = localize((two and (ace and 'k_twoed_aced' or 'k_twoed')) or 'k_aced'),
+				colour = G.C.MONEY,
+			}
+		end
 	end
 end
-
-
 
 return jokerInfo

@@ -368,7 +368,7 @@ local jokerInfo = {
 
 function jokerInfo.loc_vars(self, info_queue, card)
     local num, dom = SMODS.get_probability_vars(card, card.ability.extra.prob_extra, card.ability.extra.prob, 'csau_sprunk_crash')
-    num = SMODS.food_expires(card, check) and 0 or num
+    num = SMODS.food_expires(card, true) and 0 or num
     return { vars = { card.ability.extra.mult_mod, card.ability.extra.prob_mod, num, dom, card.ability.extra.mult } }
 end
 

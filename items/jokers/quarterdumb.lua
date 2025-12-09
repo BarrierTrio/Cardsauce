@@ -35,10 +35,10 @@ end
 function jokerInfo.calculate(self, card, context)
 	if card.debuff then return end
 
-	if context.cardarea == G.jokers and context.before and next(context.poker_hands['Flush']) then
+	if context.before and next(context.poker_hands['Flush']) then
 		ease_hands_played(card.ability.extra.hand_mod)
 		return {
-			card = card,
+			card = context.blueprint_card or card,
 			message = localize('k_plus_hand'),
 			colour = G.C.BLUE
 		}

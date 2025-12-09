@@ -30,25 +30,26 @@ function jokerInfo.loc_vars(self, info_queue, card)
 end
 
 function jokerInfo.calculate(self, card, context)
-	if card.debuff or not context.reroll_shop or #G.consumeables.cards + G.GAME.consumeable_buffer >= G.consumeables.config.card_limit then
+	if card.debuff then
 		return
 	end
 
-	G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
-	G.E_MANAGER:add_event(Event({
-		func = (function()
-			G.E_MANAGER:add_event(Event({
-				func = function()
-					local new_card = create_card('Tarot', G.consumeables, nil, nil, nil, nil, 'c_wheel_of_fortune', 'car')
-					new_card:add_to_deck()
-					G.consumeables:emplace(new_card)
-					G.GAME.consumeable_buffer = 0
-					return true
-				end}))
-				card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_speen'), colour = G.C.PURPLE})
-			return true
-		end)}
-	))
+	if context.reroll_shop and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
+		G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
+		G.E_MANAGER:add_event(Event({
+			func = function()
+				SMODS.add_card({key = 'c_wheel_of_fortune', key_append = 'csau_speen'})
+				G.GAME.consumeable_buffer = 0
+				return true
+			end
+		}))
+
+		return {
+			message = localize('k_speen'),
+			colour = G.C.PURPLE,
+			card = context.blueprint_card or card
+		}
+	end
 end
 
 function jokerInfo.update(self, card, dt)
@@ -56,8 +57,6 @@ function jokerInfo.update(self, card, dt)
 end
 
 function jokerInfo.draw(self,card,layer)
-	--Withouth love.graphics.push, .pop, and .reset, it will attempt to use values from the rest of
-	--the rendering code. We need a clean slate for rendering to canvases.
 	if card.area.config.collection and not self.discovered then
 		return
 	end

@@ -29,9 +29,7 @@ SMODS.Sound({
 })
 
 function jokerInfo.check_for_unlock(self, args)
-    if args.type == "wheel_trigger" then
-        return true
-    end
+    return args.type == "wheel_trigger"
 end
 
 function jokerInfo.calculate(self, card, context)

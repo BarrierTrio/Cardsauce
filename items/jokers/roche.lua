@@ -1,9 +1,21 @@
+SMODS.Sound({
+	key = "roche",
+	path = "roche.wav"
+})
+
+SMODS.Sound({
+	key = "rochedies",
+	path = "roche_dies.wav"
+})
+
 local jokerInfo = {
 	name = 'Motorcyclist Joker',
 	atlas = 'jokers',
 	pos = {x = 8, y = 1},
 	config = {
-		gil = 13
+		extra = {
+			gil = 13
+		}
 	},
 	rarity = 1,
 	cost = 5,
@@ -21,81 +33,65 @@ local jokerInfo = {
 }
 
 function jokerInfo.loc_vars(self, info_queue, card)
-	return { vars = {card.ability.gil} }
+	return { vars = {card.ability.extra.gil} }
 end
-
-local roche = SMODS.Sound({
-	key = "roche",
-	path = "roche.wav"
-})
-
-local rochedies = SMODS.Sound({
-	key = "rochedies",
-	path = "roche_dies.wav"
-})
 
 function jokerInfo.remove_from_deck(self, card)
 	if not G.screenwipe then
-		rochedies:play(1, (G.SETTINGS.SOUND.volume/100.0) * (G.SETTINGS.SOUND.game_sounds_volume/70.0),true)
+		play_sound('csau_rochedies', nil, 0.7)
 		check_for_unlock({ type = "roche_destroyed" })
 	end
 end
 
 function jokerInfo.calculate(self, card, context)
-	if context.end_of_round and not self.debuff and not context.individual and not context.repetition then
-		if to_big(G.GAME.dollars) <= to_big(card.ability.gil) and G.GAME.last_hand_played then
-			if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
-				local card_type = 'Planet'
-				G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
+	if card.debuff then return end
 
+	if context.end_of_round and context.main_eval and to_big(G.GAME.dollars) <= to_big(card.ability.gil) and G.GAME.last_hand_played
+	and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
+		G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
 
-				--- say_quip() function is found in `includes > hooks > card.lua`
-				card:say_quip(2, nil, true, 'csau_roche')
+		--- say_quip() function is found in `includes > hooks > card.lua`
+		card:say_quip(2, nil, true, 'csau_roche')
+		G.E_MANAGER:add_event(Event({
+			trigger = 'before',
+			blockable = false,
+			blocking = false,
+			func = function()
+				card:add_quip('roche_voiceline', 'bm', nil, {text_alignment = "cm"})
 				G.E_MANAGER:add_event(Event({
-					trigger = 'before',
-					delay = 0.0,
-					blockable = false,
+					trigger = 'after',
+					delay = 7,
 					blocking = false,
 					func = function()
-						card:add_quip('roche_voiceline', 'bm', nil, {text_alignment = "cm"})
-						G.E_MANAGER:add_event(Event({
-							trigger = 'after',
-							delay = 7,
-							blocking = false,
-							func = function()
-								card:remove_quip()
-								return true
-							end
-						}))
+						card:remove_quip()
 						return true
 					end
 				}))
-				G.E_MANAGER:add_event(Event({
-					trigger = 'after',
-					delay = 0.0,
-					func = (function()
-						local _planet = 0
-						for k, v in pairs(G.P_CENTER_POOLS.Planet) do
-							if v.config.hand_type == G.GAME.last_hand_played then
-								_planet = v.key
-							end
-						end
-						local _card = create_card(card_type,G.consumeables, nil, nil, nil, nil, _planet, 'youearnedit')
-						_card:add_to_deck()
-						G.consumeables:emplace(_card)
-						G.GAME.consumeable_buffer = 0
-						return true
-					end)}))
-				G.E_MANAGER:add_event(Event({
-					trigger = 'after',
-					delay = 3,
-					func = (function()
-						check_for_unlock({ type = "activate_roche" })
-						return true
-					end)}))
-				G.SETTINGS.roche = true
-				G:save_settings()
+				return true
 			end
+		}))
+
+		G.E_MANAGER:add_event(Event({
+			trigger = 'after',
+			func = function()
+				for _, v in pairs(G.P_CENTER_POOLS.Planet) do
+					if v.config.hand_type == G.GAME.last_hand_played then
+						SMODS.add_card({key = v.key})
+						break
+					end
+				end
+
+				G.GAME.consumeable_buffer = 0
+				return true
+			end
+		}))
+
+		check_for_unlock({ type = "activate_roche" })
+
+		if not G.SETTINGS.roche then
+			G.SETTINGS.roche = true
+			G:save_settings()
+			self.va = 'Austin L. Matthews (AmtraxVA)'
 		end
 	end
 end

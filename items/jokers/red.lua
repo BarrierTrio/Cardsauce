@@ -34,9 +34,11 @@ end
 function jokerInfo.calculate(self, card, context)
     if card.debuff or context.blueprint then return end
 
-    if context.cardarea == G.jokers and context.after and SMODS.pseudorandom_probability(card, 'csau_red', 1, card.ability.extra.prob) then
+    if context.after and SMODS.pseudorandom_probability(card, 'csau_red', 1, card.ability.extra.prob) then
         check_for_unlock({ type = "activate_red" })
-        card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize{type = 'variable', key = 'a_red', vars = {string.upper(localize(card.ability.extra.suit_conv, 'suits_plural'))}}})
+        card_eval_status_text(card, 'extra', nil, nil, nil, {
+            message = localize{type = 'variable', key = 'a_red', vars = {string.upper(localize(card.ability.extra.suit_conv, 'suits_plural'))}}
+        })
 
         for i=1, #context.scoring_hand do
             local percent = 1.15 - (i-0.999)/(#context.scoring_hand-0.998)*0.3

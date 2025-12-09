@@ -30,10 +30,10 @@ end
 function jokerInfo.calculate(self, card, context)
 	if card.debuff then return end
 
-	if context.cardarea == G.jokers and context.before and context.scoring_name == "High Card"
+	if context.before and context.scoring_name == "High Card"
 	and	SMODS.pseudorandom_probability(card, 'csau_pivyot', 1, card.ability.extra.chance) then
 		return {
-			card = card,
+			card = context.blueprint_card or card,
 			level_up = true,
 			message = localize('k_level_up_ex')
 		}

@@ -27,11 +27,11 @@ function jokerInfo.loc_vars(self, info_queue, card)
 end
 
 function jokerInfo.set_ability(self, card, initial, delay_sprites)
-	local _poker_hands = {}
-	for k, v in pairs(G.GAME.hands) do
-		if v.visible then _poker_hands[#_poker_hands+1] = k end
+	local hands = {}
+	for _, v in ipairs(G.handlist) do
+		if SMODS.is_poker_hand_visible(v) then hands[#hands+1] = v end
 	end
-	card.ability.extra.hand = pseudorandom_element(_poker_hands, pseudoseed((card.area and card.area.config.type == 'title') and 'false_werewolves' or 'werewolves'))
+	card.ability.extra.hand = pseudorandom_element(hands, (card.area and card.area.config.type == 'title' and 'false_werewolves' or 'werewolves'))
 end
 
 function jokerInfo.calculate(self, card, context)
@@ -49,12 +49,12 @@ function jokerInfo.calculate(self, card, context)
 		}
 	end
 
-	if context.end_of_round and context.main_eval and G.GAME.round_resets.effective_blind == 'Boss' then
-		local _poker_hands = {}
+	if context.end_of_round and context.main_eval and G.GAME.blind:get_type() == 'Boss' then
+		local hands = {}
 		for i, v in ipairs(G.handlist) do
-			if SMODS.is_poker_hand_visible(v) then _poker_hands[#_poker_hands+1] = v end
+			if SMODS.is_poker_hand_visible(v) then hands[#hands+1] = v end
 		end
-		card.ability.extra.hand = pseudorandom_element(_poker_hands, pseudoseed((card.area and card.area.config.type == 'title') and 'false_werewolves' or 'werewolves'))
+		card.ability.extra.hand = pseudorandom_element(hands, pseudoseed((card.area and card.area.config.type == 'title') and 'false_werewolves' or 'werewolves'))
 	end
 end
 

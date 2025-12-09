@@ -120,17 +120,23 @@ function jokerInfo.calculate(self, card, context)
         end
 
         if card.ability.extra.form == "Diamonds" and not context.blueprint then
-            card.ability.extra.Diamonds.mult = card.ability.extra.Diamonds.mult + card.ability.extra.Diamonds.mult_mod * #context.scoring_hand
-            return {
-                message = localize{type = 'variable', key = 'a_mult', vars = {card.ability.extra.Diamonds.mult}},
+            local scale_table = {mult_mod = card.ability.extra.Diamonds.mult_mod * #context.scoring_hand}
+            SMODS.scale_card(card, {
+                ref_table = card.ability.extra.Diamonds,
+                ref_value = "mult",
+                scalar_table = scale_table,
+                scalar_value = "mult_mod",
+                message_key = 'a_mult',
                 colour = G.C.MULT
-            }
+            })
         elseif card.ability.extra.form == "Wild" then
             for _, v in ipairs(context.scoring_hand) do
-                if v.config.center.key == 'c_base' then
-                    v:set_ability(pseudorandom_element(G.P_CENTER_POOLS.Enhanced, pseudoseed('csau_sts_wild')), nil, true)
+                if v.config.center.key == 'c_base' and not v.csau_sts_wild_flagged then
+                    v.csau_sts_wild_flagged = true
                     G.E_MANAGER:add_event(Event({
                         func = function()
+                            v:set_ability(pseudorandom_element(G.P_CENTER_POOLS.Enhanced, pseudoseed('csau_sts_wild')), nil, true)
+                            v.csau_sts_wild_flagged = nil
                             card:juice_up()
                             return true
                         end

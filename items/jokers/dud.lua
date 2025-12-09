@@ -44,13 +44,12 @@ local peeloff = SMODS.Sound({
 })
 
 function jokerInfo.calculate(self, card, context)
-    if context.selling_card and context.card == card then
+    if context.selling_card and context.card ~= card then
         local pool = {}
         for i, v in ipairs(G.jokers.cards) do
-            if not v.debuff  and not v.csau_dud_flagged and card ~= v then
+            if not v.debuff and card ~= v then
                 for k, _ in pairs(SMODS.Stickers) do
                     if v.ability[k] then
-                        v.csau_dud_flagged = true
                         pool[#pool+1] = v
                     end
                 end

@@ -87,15 +87,15 @@ function jokerInfo.calculate(self, card, context)
 		end
 	end
 
-	if context.before and card.ability.extra.form == 5 then
-		local faces = {}
+	if context.before and not context.blueprint and  card.ability.extra.form == 5 then
+		local faces = 0
 		for _, v in ipairs(context.scoring_hand) do
 			if v:is_face() then
-				faces[#faces+1] = v
+				faces = faces + 1
 
-				v:set_ability(G.P_CENTERS.m_glass, nil, true)
 				G.E_MANAGER:add_event(Event({
 					func = function()
+						v:set_ability(G.P_CENTERS.m_glass, nil, true)
 						v:juice_up()
 						return true
 					end
@@ -103,7 +103,7 @@ function jokerInfo.calculate(self, card, context)
 			end
 		end
 
-		if #faces > 0 then
+		if faces > 0 then
 			return {
 				message = localize('k_glass'),
 				colour = G.C.RED,
@@ -118,7 +118,7 @@ function jokerInfo.calculate(self, card, context)
 		}
 	end
 
-	if context.selling_self and card.ability.extra.form == 9 and G.STATE == G.STATES.SELECTING_HAND then
+	if context.selling_self and not context.blueprint and card.ability.extra.form == 9 and G.STATE == G.STATES.SELECTING_HAND then
 		G.GAME.chips = G.GAME.blind.chips
 		G.STATE = G.STATES.HAND_PLAYED
 		G.STATE_COMPLETE = true

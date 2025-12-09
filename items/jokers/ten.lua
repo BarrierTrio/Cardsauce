@@ -28,7 +28,7 @@ function jokerInfo.loc_vars(self, info_queue, card)
 end
 
 function jokerInfo.calculate(self, card, context)
-    if (context.using_consumeable or context.vhs_death) and not G.shop then
+    if (context.using_consumeable or context.vhs_death) and not G.shop and not card.debuff then
         SMODS.scale_card(card, {
             ref_table = card.ability.extra,
             ref_value = "mult",

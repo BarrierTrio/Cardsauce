@@ -28,72 +28,31 @@ local jokerInfo = {
 }
 
 function jokerInfo.check_for_unlock(self, args)
-	if args.type == "meat_beaten" then
-		return true
-	end
+	return args.type == "meat_beaten"
 end
 
 function jokerInfo.calculate(self, card, context)
-	if context.repetition and not self.debuff then
-		if context.end_of_round and context.cardarea == G.hand then
-			if (next(context.card_effects[1]) or #context.card_effects > 1) then
-				if context.other_card.seal == 'Blue' then
-					return {
-						message = localize('k_again_ex'),
-						repetitions = 1,
-						card = card
-					}
-				end
+	if card.debuff then return end
+
+	if context.other_card and context.other_card.seal and context.main_scoring then
+		local ret = {}
+
+		-- gold seal hardcoded
+		if context.cardarea == G.play and context.other_card.seal == 'Gold' then
+			ret.playing_card = {p_dollars = 3}
+		-- blue seal hardcoded
+		elseif context.end_of_round and context.cardarea == G.hand and context.playing_card_end_of_round and context.other_card.seal == 'Blue' then
+			card:get_end_of_round_effect(context)
+		else
+			-- red and purple both handled by this + arbitrary seal effects
+			local seals = card:calculate_seal(context)
+			if seals then
+				ret.seals = seals
 			end
 		end
-		if context.cardarea == G.play then
-			if context.other_card.seal == 'Red' then
-				return {
-					message = localize('k_again_ex'),
-					repetitions = 1,
-					card = card
-				}
-			end
-			if context.other_card.seal == 'Gold' then
-				ease_dollars(3)
-				return {
-					message = localize('k_again_ex'),
-					repetitions = 0,
-					card = card
-				}
-			end
-		end
-		if context.cardarea == G.hand then
-			if context.other_card.seal == 'Red' then
-				return {
-					message = localize('k_again_ex'),
-					repetitions = 1,
-					card = card
-				}
-			end
-		end
-	end
-	if context.discard and not card.debuff then
-		if context.other_card.seal == 'Purple' and to_big(#G.consumeables.cards + G.GAME.consumeable_buffer) < to_big(G.consumeables.config.card_limit) then
-			G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
-			G.E_MANAGER:add_event(Event({
-				trigger = 'after',
-				delay = 0.0,
-				func = (function()
-					card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('k_plus_tarot'), colour = G.C.PURPLE})
-					local _card = create_card('Tarot',G.consumeables, nil, nil, nil, nil, nil, '8ba')
-					_card:add_to_deck()
-					G.consumeables:emplace(_card)
-					G.GAME.consumeable_buffer = 0
-					return true
-				end)}
-			))
-			return {
-				message = localize('k_again_ex'),
-				repetitions = 1,
-				card = card
-			}
-		end
+
+		local flags = SMODS.trigger_effects({ret}, context.other_card)
+		SMODS.update_context_flags(context, flags)
 	end
 end
 
