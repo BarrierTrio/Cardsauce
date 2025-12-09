@@ -1,0 +1,285 @@
+[manifest]
+version = "1.0.0"
+priority = 0
+
+#
+# Patches to enable extra blind support
+#
+
+# save_run()
+[[patches]]
+[patches.pattern]
+target = "functions/misc_functions.lua"
+pattern = '''G.culled_table =  recursive_table_cull{'''
+position = "before"
+payload = '''local extra_blinds = {}
+if G.GAME.arrow_extra_blinds then
+    for i, v in ipairs(G.GAME.arrow_extra_blinds) do
+        if (type(v) == "table") and v.is and v:is(Blind) then
+            local extra_blind_ser = v:save()
+            if extra_blind_ser then extra_blinds[i] = extra_blind_ser end
+        end
+    end
+end
+if not next(extra_blinds) then
+    extra_blinds = nil
+end'''
+match_indent = true
+times = 1
+
+# save_run()
+[[patches]]
+[patches.pattern]
+target = "functions/misc_functions.lua"
+pattern = '''BLIND = G.GAME.blind:save(),'''
+position = "after"
+payload = '''EXTRA_BLINDS = extra_blinds,'''
+match_indent = true
+times = 1
+
+# Game:start_run()
+[[patches]]
+[patches.pattern]
+target = "game.lua"
+pattern = '''G.GAME.blind:load(saveTable.BLIND)'''
+position = "after"
+payload = '''
+if saveTable.EXTRA_BLINDS then
+    self.GAME.arrow_extra_blinds = {}
+    for i, v in ipairs(saveTable.EXTRA_BLINDS) do
+        local blind_source = nil
+        if v.arrow_extra_blind then
+            if G.GAME.blind.in_blind and G.P_BLINDS[v.arrow_extra_blind] then
+                blind_source = G.GAME.blind
+            elseif v.arrow_extra_blind == true then
+                blind_source = {}
+            else
+                for _, card in ipairs(G.I.CARD) do
+                    if card.unique_val == v.arrow_extra_blind then
+                        blind_source = card
+                        break
+                    end
+                end
+            end
+        end
+
+        if blind_source then
+            local new_extra_blind = arrow_init_extra_blind(0, 0, 0, 0, blind_source)
+            new_extra_blind:load(v)
+            if blind_source == G.GAME.blind then
+                blind_source.blind_type = new_extra_blind.config.blind
+            elseif blind_source.ability and type(blind_source.ability) == 'table' then
+                blind_source.ability.blind_type = new_extra_blind.config.blind
+            end
+            self.GAME.arrow_extra_blinds[#self.GAME.arrow_extra_blinds+1] = new_extra_blind
+        end
+    end
+end'''
+match_indent = true
+times = 1
+
+# G.FUNCS.evaluate_play()
+[[patches]]
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = '''mult, hand_chips, modded = G.GAME.blind:modify_hand(G.play.cards, poker_hands, text, mult, hand_chips, scoring_hand)
+mult, hand_chips = mod_mult(mult), mod_chips(hand_chips)
+if modded then update_hand_text({sound = 'chips2', modded = modded}, {chips = hand_chips, mult = mult}) end'''
+position = "after"
+payload = '''for _, v in ipairs(G.GAME.arrow_extra_blinds) do
+    if G.GAME.blind.config.blind ~= v.config.blind then
+        mult, hand_chips, modded = v:modify_hand(G.play.cards, poker_hands, text, mult, hand_chips, scoring_hand)
+        mult, hand_chips = mod_mult(mult), mod_chips(hand_chips)
+        if modded then update_hand_text({sound = 'chips2', modded = modded}, {chips = hand_chips, mult = mult}) end
+    end
+end'''
+match_indent = true
+times = 1
+
+# Game:update(dt)
+[[patches]]
+[patches.pattern]
+target = "game.lua"
+pattern = '''if G.GAME.blind and G.boss_throw_hand and self.STATE == self.STATES.SELECTING_HAND then'''
+position = "at"
+payload = '''local blind_strings = {}
+if self.STATE == self.STATES.SELECTING_HAND then
+    if G.GAME.blind and G.boss_throw_hand then blind_strings[#blind_strings+1] = SMODS.debuff_text or G.GAME.blind:get_loc_debuff_text() end
+    for _, v in ipairs(G.GAME.arrow_extra_blinds) do
+        local debuff_text = v:get_loc_debuff_text()
+        if v.arrow_extra_boss_throw_hand and debuff_text then blind_strings[#blind_strings+1] = debuff_text end
+    end
+
+    if #blind_strings > 1 and blind_strings[1] == '' then table.remove(blind_strings, 1) end
+end
+if #blind_strings > 0 then
+    local dyna_strings = {}
+    for _, v in ipairs(blind_strings) do
+        dyna_strings[#dyna_strings+1] = { string = v, colour = G.C.WHITE }
+    end'''
+match_indent = true
+times = 1
+
+# Game:update(dt)
+[[patches]]
+[patches.pattern]
+target = "game.lua"
+pattern = '''G.boss_throw_hand = nil'''
+position = "after"
+payload = '''if G.GAME.arrow_extra_blinds and G.GAME.arrow_extra_blinds[1] ~= [["]].."MANUAL_REPLACE"..[["]] then
+    for _, v in ipairs(G.GAME.arrow_extra_blinds) do
+        v.arrow_extra_boss_throw_hand = nil
+    end
+end'''
+match_indent = true
+times = 1
+
+# Game:update(dt)
+[[patches]]
+[patches.pattern]
+target = "game.lua"
+pattern = '''{n=G.UIT.O, config={func = "update_blind_debuff_text", object = DynaText({scale = 0.6, string = SMODS.debuff_text or G.GAME.blind:get_loc_debuff_text(), maxw = 9, colours = {G.C.WHITE},float = true, shadow = true, silent = true, pop_in = 0, pop_in_rate = 6})}},'''
+position = "at"
+payload = '''{n=G.UIT.O, config={func = "update_blind_debuff_text", object = DynaText({scale = 0.6, string = dyna_strings, maxw = 9, colours = {G.C.WHITE},float = true, shadow = true, silent = true, pop_in = 0, pop_in_rate = 6, pop_delay = 1, min_cycle_time = 3})}},'''
+match_indent = true
+times = 1
+
+# G.FUNCS.play_cards_from_highlighted
+[[patches]]
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = '''   delay(0.4)
+end'''
+position = "after"
+payload = '''
+for _, v in ipairs(G.GAME.arrow_extra_blinds) do
+    if v:press_play() then
+        G.E_MANAGER:add_event(Event({
+            trigger = 'immediate',
+            func = (function()
+                -- SMODS.juice_up_blind()
+                G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.06*G.SETTINGS.GAMESPEED, blockable = false, blocking = false, func = function()
+                    play_sound('tarot2', 0.76, 0.4);return true end}))
+                play_sound('tarot2', 1, 0.4)
+                return true
+            end)
+        }))
+    end
+end'''
+match_indent = true
+times = 1
+
+# CardArea:parse_highlighted()
+[[patches]]
+[patches.pattern]
+target = "cardarea.lua"
+pattern = '''if G.GAME.blind and G.GAME.blind:debuff_hand(self.highlighted, poker_hands, text, true) then
+    G.boss_throw_hand = true
+else'''
+position = "at"
+payload = '''if G.GAME.blind then
+    local debuff, extra_only = G.GAME.blind:debuff_hand(self.highlighted, poker_hands, text, true)
+    G.boss_throw_hand = (debuff and not extra_only)'''
+match_indent = true
+times = 1
+
+
+
+
+
+#
+# For the purposes of extra blinds, centralizes Blind typing with Blind:get_type() instead of Blind.boss
+#
+
+# end_round()
+[[patches]]
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = '''if G.GAME.blind:get_type() == 'Boss' then
+    local _handname, _played, _order = 'High Card', -1, 100'''
+position = "at"
+payload = '''
+if true then
+    local _handname, _played, _order = 'High Card', -1, 100'''
+match_indent = true
+times = 1
+
+[[patches]]
+[patches.regex]
+target = 'functions/state_events.lua'
+pattern = 'G\.GAME\.blind\.boss'
+position = 'at'
+payload = "G.GAME.blind:get_type() == 'Boss'"
+
+[[patches]]
+[patches.pattern]
+target = 'functions/misc_functions.lua'
+pattern = "(G.GAME.blind and G.GAME.blind.boss and 'music5') or"
+position = 'at'
+payload = "(G.GAME.blind and G.GAME.blind:get_type() == 'Boss' and 'music5') or"
+match_indent = true
+
+[[patches]]
+[patches.regex]
+target = 'card.lua'
+pattern = 'not context\.blind\.boss'
+position = 'at'
+payload = "G.GAME.blind:get_type() ~= 'Boss'"
+
+[[patches]]
+[patches.pattern]
+target = 'blind.lua'
+pattern = '''if self.boss and G.GAME.chips - G.GAME.blind.chips >= 0 then'''
+position = 'at'
+payload = '''if self:get_type() == 'Boss' and G.GAME.chips - G.GAME.blind.chips >= 0 then'''
+match_indent = true
+
+[[patches]]
+[patches.regex]
+target = 'card.lua'
+pattern = 'context\.blind\.boss'
+position = 'at'
+payload = "G.GAME.blind:get_type() == 'Boss'"
+
+# Back:trigger_effect(args)
+[[patches]]
+[patches.pattern]
+target = "blind.lua"
+pattern = '''if self.disabled then self.block_play = nil; return true end'''
+position = "at"
+payload = '''if self.disabled or self.main_blind_disabled then self.block_play = nil; return true end'''
+match_indent = true
+times = 1
+
+# create_UIBox_blind_choice()
+[[patches]]
+[patches.pattern]
+target = "functions/UI_definitions.lua"
+pattern = '''{n=G.UIT.R, config={align = "cm", r = 0.1, outline = 1, outline_colour = blind_col, colour = darken(blind_col, 0.3), minw = 2.9, emboss = 0.1, padding = 0.07, line_emboss = 1}, nodes={'''
+position = "at"
+payload = '''{n=G.UIT.R, config={align = "cm", r = 0.1, outline = 1, outline_colour = blind_col, colour = blind_choice.config.special_colour or darken(blind_col, 0.3), minw = 2.9, emboss = 0.1, padding = 0.07, line_emboss = 1}, nodes={'''
+match_indent = true
+times = 1
+
+# create_UIBox_blind_choice()
+[[patches]]
+[patches.pattern]
+target = "functions/UI_definitions.lua"
+pattern = '''G.blind_select_opts.boss = G.GAME.round_resets.blind_states['Boss'] ~= 'Hide' and UIBox{definition = {n=G.UIT.ROOT, config={align = "cm", colour = G.C.CLEAR}, nodes={UIBox_dyn_container({create_UIBox_blind_choice('Boss')},false,get_blind_main_colour('Boss'), mix_colours(G.C.BLACK, get_blind_main_colour('Boss'), 0.8))}}, config = {align="bmi", offset = {x=0,y=0}}} or nil'''
+position = "at"
+payload = '''G.blind_select_opts.boss = G.GAME.round_resets.blind_states['Boss'] ~= 'Hide' and UIBox{
+    definition = {
+      n=G.UIT.ROOT,
+      config={align = "cm", colour = G.C.CLEAR},
+      nodes={
+        UIBox_dyn_container(
+          {create_UIBox_blind_choice('Boss')},
+          false,
+          get_blind_main_colour('Boss'),
+          G.P_BLINDS[G.GAME.round_resets.blind_choices['Boss']].special_colour or mix_colours(G.C.BLACK, get_blind_main_colour('Boss'),0.8)
+        )
+      }
+    },
+    config = {align="bmi", offset = {x=0,y=0}}} or nil'''
+match_indent = true
+times = 1

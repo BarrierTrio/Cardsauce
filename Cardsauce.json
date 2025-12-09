@@ -16,6 +16,8 @@
 	"conflicts": [
 	],
 	"provides": [
+		"tonsmith (2.0.0)",
+		"ArrowAPI (1.1.0)"
 	],
 	"dump_loc": false
 }

@@ -1,0 +1,45 @@
+[manifest]
+version = "1.0.0"
+priority = 9999999
+
+[[patches]]
+[patches.pattern]
+target = "functions/UI_definitions.lua"
+pattern = "G.FUNCS.DT_add_money = function() if G.STAGE == G.STAGES.RUN then ease_dollars(10) end end"
+position = "at"
+payload = '''
+G.FUNCS.DT_add_money = function() if G.STAGE == G.STAGES.RUN then ease_dollars(10000) end end
+'''
+match_indent = true
+overwrite = false
+
+[[patches]]
+[patches.pattern]
+target = "engine/controller.lua"
+pattern = '''if _card.ability.set == 'Joker' and G.jokers and #G.jokers.cards < G.jokers.config.card_limit then
+    add_joker(_card.config.center.key)
+    _card:set_sprites(_card.config.center)
+end'''
+position = "at"
+payload = '''if _card.ability.set == 'Joker' and G.jokers then
+    local card = SMODS.add_card({set = _card.ability.set, area = G.jokers, no_edition = true, key = _card.config.center.key})
+    card:start_materialize()
+end'''
+match_indent = true
+overwrite = false
+
+[[patches]]
+[patches.pattern]
+target = "engine/controller.lua"
+pattern = '''if _card.ability.consumeable and G.consumeables and #G.consumeables.cards < G.consumeables.config.card_limit then
+    add_joker(_card.config.center.key)
+    _card:set_sprites(_card.config.center)
+end'''
+position = "at"
+payload = '''if _card.ability.consumeable and G.consumeables then
+    SMODS.add_card({set = _card.ability.set, area = G.consumeables, no_edition = true, key = _card.config.center.key})
+end'''
+match_indent = true
+overwrite = false
+
+

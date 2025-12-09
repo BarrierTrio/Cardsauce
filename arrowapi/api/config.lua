@@ -1,0 +1,145 @@
+ArrowAPI.config_tools = {
+    use_credits = function(mod, extra_args)
+        mod.ARROW_USE_CREDITS = true
+        extra_args = extra_args or {}
+        local credit_table = {
+            matrix = extra_args.matrix or ArrowAPI.DEFAULT_CREDIT_MATRIX,
+        }
+
+        local use_default_sections = true
+        for _, arg in ipairs(extra_args) do
+            if arg.key then
+                local contrib_table = {}
+                for i, v in ipairs(arg.contributors or {}) do
+                    local contrib = {
+                        name = v.name,
+                        name_colour = v.name_colour or G.C.UI.TEXT_LIGHT,
+                        name_scale = v.name_scale or 1,
+                        no_tooltip = v.no_tooltip
+                    }
+                    contrib_table[#contrib_table+1] = contrib
+                end
+
+                credit_table[#credit_table+1] = {
+                    key = arg.key,
+                    title_colour = arg.title_colour or SMODS.current_mod.badge_colour,
+                    pos_start = arg.pos_start,
+                    pos_end = arg.pos_end,
+                    contributors = contrib_table
+                }
+
+                for i, sec in ipairs(ArrowAPI.DEFAULT_CREDIT_SECTIONS) do
+                    if arg.key == sec.key then
+                        -- stop using default sections if we've defined
+                        -- a default section with unique dimensions
+                        if arg.pos_start or arg.pos_end then use_default_sections = false end
+
+                        -- default sections cant change their keys for ease
+                        credit_table[#credit_table].key = sec.key
+                        break
+                    elseif i == #ArrowAPI.DEFAULT_CREDIT_SECTIONS then
+                        -- or if a section is not a default section entirely
+                        use_default_sections = false
+                    end
+                end
+            end
+        end
+
+        -- create default sections
+        if use_default_sections then
+            -- check for already used sections with provided info
+            local used_sections = {}
+            for i, v in ipairs(credit_table) do
+                used_sections[v.key] = true
+            end
+
+            -- fill in any default sections without provided information
+            for i = 1, #ArrowAPI.DEFAULT_CREDIT_SECTIONS do
+                local key = ArrowAPI.DEFAULT_CREDIT_SECTIONS[i].key
+                if not used_sections[key] then
+                    credit_table[#credit_table+1] = {
+                        key = key,
+                        title_colour = ArrowAPI.DEFAULT_CREDIT_SECTIONS[i].title_colour,
+                        contributors = {}
+                    }
+                end
+            end
+            credit_table.use_default_sections = true
+        end
+
+        ArrowAPI['credits'][mod.id] = credit_table
+    end,
+
+
+    use_config = function(mod, extra_args)
+        mod.ARROW_USE_CONFIG = {config_map = {}}
+
+        if extra_args then
+            for i, v in ipairs(extra_args) do
+                if mod.config[v.key] == nil then
+                    mod.config[v.key] = not not v.default_value
+                end
+
+                mod.ARROW_USE_CONFIG[i] = {
+                    key = v.key,
+                    value = mod.config[v.key],
+                    exclude_from_ui = v.exclude_from_ui,
+                    before_auto = v.before_auto,
+                    after_auto = not v.before_auto,
+                    order = v.order
+                }
+
+                mod.ARROW_USE_CONFIG.config_map[v.key] = i
+            end
+        end
+
+        -- create an ordered config based on initial config state
+        for k, v in pairs(mod.config) do
+            if not mod.ARROW_USE_CONFIG.config_map[k] then
+                table.insert(mod.ARROW_USE_CONFIG, {key = k, value = v})
+            end
+        end
+
+        ArrowAPI.config_tools.sort_config(mod)
+    end,
+
+    sort_config = function(mod)
+        if not mod.ARROW_USE_CONFIG then return end
+        table.sort(mod.ARROW_USE_CONFIG, function(a, b)
+            if a.before_auto and not b.before_auto then return true
+            elseif b.before_auto and not a.before_auto then return false
+
+            elseif not a.after_auto and b.after_auto then return true
+            elseif not b.after_auto and a.after_auto then return false
+            elseif not a.exclude_from_ui and b.exclude_from_ui then return true
+            elseif not b.exclude_from_ui and a.exclude_from_ui then return false
+            elseif a.order and b.order then return a.order < b.order
+            else return false end
+        end)
+
+        for i, v in ipairs(mod.ARROW_USE_CONFIG) do
+            mod.ARROW_USE_CONFIG.config_map[v.key] = i
+        end
+    end,
+
+    update_config = function(mod, key, value, order, exclude_from_ui)
+        mod.config[key] = value
+        if mod.ARROW_USE_CONFIG then
+            if not mod.ARROW_USE_CONFIG.config_map[key] then
+                table.insert(mod.ARROW_USE_CONFIG, {
+                    key = key, value = value, exclude_from_ui = exclude_from_ui, order = order
+                })
+
+                ArrowAPI.config_tools.sort_config(mod)
+                return
+            end
+
+            local index = mod.ARROW_USE_CONFIG.config_map[key]
+            mod.ARROW_USE_CONFIG[index].value = value
+            mod.ARROW_USE_CONFIG[index].order = order
+            if exclude_from_ui then
+                mod.ARROW_USE_CONFIG[index].exclude_from_ui = exclude_from_ui
+            end
+        end
+    end,
+}

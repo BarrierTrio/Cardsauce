@@ -1,0 +1,13 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 0
+
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = "local id = self:get_id()"
+position = "at"
+payload = "local id = self:get_id(true)"
+match_indent = true
+times = 1

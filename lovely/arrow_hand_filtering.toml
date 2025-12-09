@@ -1,0 +1,20 @@
+[manifest]
+version = "1.0.0"
+priority = 0
+
+#
+# Patch to enable draw filtering, which rearranges the draw prior to it being drawn according to various conditions
+#
+
+# save_run()
+[[patches]]
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = '''SMODS.drawn_cards = {}'''
+position = "after"
+payload = '''SMODS.filter_draw(hand_space)
+for i=0, #hand_space - 1 do
+    cards_to_draw[i + 1] = G.deck.cards[#G.deck.cards - i]
+end'''
+match_indent = true
+times = 1

@@ -234,6 +234,8 @@ ArrowAPI.config_tools.use_config(Cardsauce, {
 
 local includes = {
 	-- includes utility functions required for following files
+	'arrowapi/main',
+
 	'tables',
 	'utility',
 	'ui',
@@ -260,6 +262,7 @@ local includes = {
 	'items',
 	'achievements',
 
+	'jojobal/main',
 	Cardsauce.ortalab_dlc and 'ortalab_dlc' or nil
 }
 

@@ -1,0 +1,69 @@
+[manifest]
+version = "1.0.0"
+priority = 0
+
+#
+# Patches for title screen card replacement
+#
+
+[[patches]]
+[patches.pattern]
+target = "game.lua"
+pattern = '''if (v.set == 'Voucher' or v.set == 'Joker') and not v.demo then '''
+position = "at"
+payload = '''if (v.set == 'Voucher' or v.set == 'Joker') and not v.demo and not v.no_collection then'''
+match_indent = true
+overwrite = false
+
+
+[[patches]]
+[patches.pattern]
+target = "game.lua"
+pattern = '''local replace_card = Card(self.title_top.T.x, self.title_top.T.y, 1.2*G.CARD_W*SC_scale, 1.2*G.CARD_H*SC_scale, G.P_CARDS.S_A, G.P_CENTERS.c_base)'''
+position = "at"
+payload = '''
+local title_card = 'c_base'
+local flags = ArrowAPI.misc.title_calculate({title_card = true, card = title_card})
+title_card = flags.title_card or title_card
+local replace_card = Card(self.title_top.T.x, self.title_top.T.y, 1.2*G.CARD_W*SC_scale, 1.2*G.CARD_H*SC_scale, G.P_CARDS.S_A, G.P_CENTERS[title_card])
+'''
+match_indent = true
+overwrite = false
+
+[[patches]]
+[patches.pattern]
+target = "game.lua"
+pattern = '''SC = Card(G.ROOM.T.w/2 - SC_scale*G.CARD_W/2, 10. + G.ROOM.T.h/2 - SC_scale*G.CARD_H/2, SC_scale*G.CARD_W, SC_scale*G.CARD_H, G.P_CARDS.empty, G.P_CENTERS['j_joker'])'''
+position = "at"
+payload = '''local splash_center = 'j_joker'
+local splash_front = 'empty'
+local flags = ArrowAPI.misc.title_calculate({splash_card = true, splash_main = true, center = splash_center, front = splash_front})
+splash_center = flags.splash_center or splash_center
+splash_front = flags.splash_front or splash_front
+SC = Card(G.ROOM.T.w/2 - SC_scale*G.CARD_W/2, 10. + G.ROOM.T.h/2 - SC_scale*G.CARD_H/2, SC_scale*G.CARD_W, SC_scale*G.CARD_H, G.P_CARDS[splash_front], G.P_CENTERS[splash_center])'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = "game.lua"
+pattern = '''local card = Card(  card_pos.x + G.ROOM.T.w/2 - G.CARD_W*card_size/2,
+                                    card_pos.y + G.ROOM.T.h/2 - G.CARD_H*card_size/2,
+                                    card_size*G.CARD_W, card_size*G.CARD_H, pseudorandom_element(G.P_CARDS), G.P_CENTERS.c_base)'''
+position = "at"
+payload = '''local splash_center = 'c_base'
+local splash_front = 'empty'
+local flags = ArrowAPI.misc.title_calculate({splash_card = true, center = splash_center, front = splash_front})
+splash_center = flags.splash_center or splash_center
+if flags.splash_front then splash_front = flags.splash_front
+else
+    local _, key = pseudorandom_element(G.P_CARDS)
+    splash_front = key
+end
+local card = Card(
+    card_pos.x + G.ROOM.T.w/2 - G.CARD_W*card_size/2,
+    card_pos.y + G.ROOM.T.h/2 - G.CARD_H*card_size/2,
+    card_size*G.CARD_W,
+    card_size*G.CARD_H,
+    G.P_CARDS[splash_front], G.P_CENTERS[splash_center])
+'''
+match_indent = true
