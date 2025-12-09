@@ -159,3 +159,27 @@ SMODS.Center.generate_ui = function(self, info_queue, card, desc_nodes, specific
 	end
 	desc_nodes.background_colour = res.background_colour
 end
+
+
+
+
+
+---------------------------
+--------------------------- One-off Card Helpers
+---------------------------
+
+function SMODS.return_to_hand(card, context)
+	if not G.GAME.blind.disabled and G.GAME.blind.name == 'The Vod' then
+        return true
+    elseif G.GAME.fnwk_extra_blinds then
+        for _, v in ipairs(G.GAME.fnwk_extra_blinds) do
+            if not v.disabled and v.name == 'The Vod' then
+                return true
+            end
+        end
+    end
+
+	if ArrowAPI.vhs.find_activated_tape('c_csau_yoyoman') and ArrowAPI.table.contains(context.scoring_hand, card) then return true end
+	if context.scoring_name == "High Card" and next(SMODS.find_card("j_csau_besomeone")) and ArrowAPI.table.contains(context.scoring_hand, card) then return true end
+	return false
+end

@@ -41,27 +41,3 @@ function create_dummy_ortalab(file_key, item_type, info)
 		})
 	end
 end
-
-
-
-
-
----------------------------
---------------------------- One-off Card Helpers
----------------------------
-
-function SMODS.return_to_hand(card, context)
-	if not G.GAME.blind.disabled and G.GAME.blind.name == 'The Vod' then
-        return true
-    elseif G.GAME.fnwk_extra_blinds then
-        for _, v in ipairs(G.GAME.fnwk_extra_blinds) do
-            if not v.disabled and v.name == 'The Vod' then
-                return true
-            end
-        end
-    end
-
-	if ArrowAPI.vhs.find_activated_tape('c_csau_yoyoman') and ArrowAPI.table.contains(context.scoring_hand, card) then return true end
-	if context.scoring_name == "High Card" and next(SMODS.find_card("j_csau_besomeone")) and ArrowAPI.table.contains(context.scoring_hand, card) then return true end
-	return false
-end

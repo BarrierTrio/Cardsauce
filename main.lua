@@ -5,6 +5,8 @@ Cardsauce.optional_features = {
 	retrigger_joker = true,
 	quantum_enhancements = true,
 }
+Cardsauce.mgt = {"m", "e", "t", "a", "l", "g", "e", "a", "r", "t", "a", "c", "o"}
+Cardsauce.mgt_num = 1
 
 --- chadnova easter egg
 math.randomseed(os.time())
@@ -17,6 +19,10 @@ Cardsauce.default_ds = 'joel'
 Cardsauce.ortalab_dlc = false
 
 Cardsauce.calculate = function(self, context)
+	if context.removed_card and context.removed_card.config.center.set == 'Joker' and context.getting_sliced then
+		check_for_unlock({ type = "unlock_killjester" })
+	end
+
 	if context.using_consumeable then
 		if context.consumeable.config.center.key == 'c_immolate' then
 			check_for_unlock({type = 'unlock_kings'})
@@ -238,8 +244,10 @@ local includes = {
 	-- object hooks
 	'hooks/game',
 	'hooks/button_callbacks',
+	'hooks/sprite',
 	'hooks/card',
-	'hooks/state_events',
+	'hooks/controller',
+	'hooks/common_events',
 	'hooks/misc_functions',
 	'hooks/UI_definitions',
 	'hooks/overrides',
@@ -251,6 +259,8 @@ local includes = {
 	'skins',
 	'items',
 	'achievements',
+
+	Cardsauce.ortalab_dlc and 'ortalab_dlc' or nil
 }
 
 for _, include in ipairs(includes) do

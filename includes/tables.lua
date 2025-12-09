@@ -115,7 +115,7 @@ end
 if not SMODS.ObjectTypes.Food then
 	SMODS.ObjectType({
 		key = "Food",
-		default = "j_reserved_parking",
+		default = "j_gros_michel",
 		cards = {},
 		inject = function(self)
 			SMODS.ObjectType.inject(self)
@@ -131,8 +131,3 @@ else
 		end
 	})
 end
-
--- I'll be honest, I have no idea what this does
--- But it's a global table, so it goes here
-mgt = {"m", "e", "t", "a", "l", "g", "e", "a", "r", "t", "a", "c", "o"}
-mgt_num = 1
