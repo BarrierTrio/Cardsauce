@@ -8,7 +8,7 @@ priority = 9999999
 target = "card.lua"
 pattern = "if self.ability.name == 'Ramen' and not context.blueprint then"
 position = "at"
-payload = "if self.ability.name == 'Ramen' and not context.blueprint and SMODS.food_expires(context) then"
+payload = "if self.ability.name == 'Ramen' and not context.blueprint and SMODS.food_expires(self) then"
 match_indent = true
 
 [[patches]]
@@ -16,7 +16,7 @@ match_indent = true
 target = "card.lua"
 pattern = "if self.ability.name == 'Popcorn' and not context.blueprint then"
 position = "at"
-payload = "if self.ability.name == 'Popcorn' and not context.blueprint and SMODS.food_expires(context) then"
+payload = "if self.ability.name == 'Popcorn' and not context.blueprint and SMODS.food_expires(self) then"
 match_indent = true
 
 [[patches]]
@@ -24,7 +24,7 @@ match_indent = true
 target = "card.lua"
 pattern = "if self.ability.name == 'Ice Cream' and not context.blueprint then"
 position = "at"
-payload = "if self.ability.name == 'Ice Cream' and not context.blueprint and SMODS.food_expires(context) then"
+payload = "if self.ability.name == 'Ice Cream' and not context.blueprint and SMODS.food_expires(self) then"
 match_indent = true
 
 [[patches]]
@@ -32,7 +32,7 @@ match_indent = true
 target = "card.lua"
 pattern = "if self.ability.name == 'Seltzer' and not context.blueprint then"
 position = "at"
-payload = "if self.ability.name == 'Seltzer' and not context.blueprint and SMODS.food_expires(context) then"
+payload = "if self.ability.name == 'Seltzer' and not context.blueprint and SMODS.food_expires(self) then"
 match_indent = true
 
 [[patches]]
@@ -40,7 +40,7 @@ match_indent = true
 target = "card.lua"
 pattern = "if self.ability.name == 'Turtle Bean' and not context.blueprint then"
 position = "at"
-payload = "if self.ability.name == 'Turtle Bean' and not context.blueprint and SMODS.food_expires(context) then"
+payload = "if self.ability.name == 'Turtle Bean' and not context.blueprint and SMODS.food_expires(self) then"
 match_indent = true
 
 [[patches]]
@@ -48,5 +48,5 @@ match_indent = true
 target = "card.lua"
 pattern = "if self.ability.name == 'Gros Michel' or self.ability.name == 'Cavendish' then"
 position = "at"
-payload = "if (self.ability.name == 'Gros Michel' or self.ability.name == 'Cavendish') and SMODS.food_expires(context) then"
+payload = "if (self.ability.name == 'Gros Michel' or self.ability.name == 'Cavendish') and SMODS.food_expires(self) then"
 match_indent = true

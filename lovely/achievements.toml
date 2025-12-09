@@ -115,7 +115,7 @@ pattern = '''end
 if self.ability.name == 'Mr. Bones' and context.game_over and'''
 position = "before"
 payload = '''else
-if self.ability.name == 'Gros Michel' and not SMODS.food_expires(context) and next(SMODS.find_card("j_csau_bunji")) then
+if self.ability.name == 'Gros Michel' and not SMODS.food_expires(self) and next(SMODS.find_card("j_csau_bunji")) then
     check_for_unlock({ type = "preserve_gros" })
 end
 '''
