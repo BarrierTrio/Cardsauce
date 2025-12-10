@@ -1,7 +1,8 @@
 local packInfo = {
     name = 'Analog',
-    atlas = 'boosters',
+    atlas = 'arrow_boosters',
     pos = {x = 0, y = 0},
+    prefix_config = {atlas = false},
     config = {
         extra = 4,
         choose = 1,

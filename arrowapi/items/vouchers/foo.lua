@@ -1,7 +1,8 @@
 local voucherInfo = {
     name = 'Foo Fighter',
-    atlas = 'vouchers',
+    atlas = 'arrow_vouchers',
     pos = {x = 0, y = 0},
+    prefix_config = {atlas = false},
     cost = 10,
     config = {
         extra = {

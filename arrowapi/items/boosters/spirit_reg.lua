@@ -1,7 +1,8 @@
 local packInfo = {
     name = 'Spirit Pack',
-    atlas = 'boosters',
+    atlas = 'arrow_boosters',
     pos = {x = 0, y = 1},
+    prefix_config = {atlas = false},
     config = {
         extra = 2,
         choose = 1,

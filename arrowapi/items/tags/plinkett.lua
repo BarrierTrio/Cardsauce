@@ -1,7 +1,8 @@
 local tagInfo = {
     name = 'Plinkett Tag',
-    atlas = 'tags',
+    atlas = 'arrow_tags',
     pos = {x = 4, y = 0},
+    prefix_config = {atlas = false},
     config = {type = 'new_blind_choice'},
     origin = {
         category = 'rlm',

@@ -1,6 +1,7 @@
 local jokerInfo = {
     name = 'Gravity',
-    atlas = 'jokers',
+    atlas = 'csau_jokers',
+    prefix_config = {atlas = false},
 	pos = {x = 3, y = 15},
     config = {
         extra = {

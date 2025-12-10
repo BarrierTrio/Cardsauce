@@ -2,7 +2,6 @@ local consumInfo = {
     name = 'Stone Mask',
     set = "Spectral",
     cost = 4,
-    alerted = true,
     origin = {
         category = 'jojo',
         sub_origins = {

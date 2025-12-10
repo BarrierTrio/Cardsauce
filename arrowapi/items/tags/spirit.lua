@@ -1,6 +1,7 @@
 local tagInfo = {
     name = 'Spirit Tag',
-    atlas = 'tags',
+    atlas = 'arrow_tags',
+    prefix_config = {atlas = false},
     pos = {x = 3, y = 0},
     config = {type = 'immediate'},
     origin = 'jojo',

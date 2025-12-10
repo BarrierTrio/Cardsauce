@@ -1,6 +1,7 @@
 local jokerInfo = {
     name = 'Photodad',
-    atlas = 'jokers',
+    atlas = 'csau_jokers',
+    prefix_config = {atlas = false},
 	pos = {x = 6, y = 15},
     soul_pos = {x = 7, y = 15},
     config = {},

@@ -69,22 +69,6 @@ ArrowAPI.loading = {
         end
 
         info.key = file_key
-        if mod_prefix then
-            if info.prefix_config ~= false then
-                info.prefix_config = info.prefix_config or {}
-
-                info.prefix_config.key = info.prefix_config.key or {}
-                info.prefix_config.key.mod = false
-
-                info.prefix_config.atlas = info.prefix_config.atlas or {}
-                info.prefix_config.atlas.mod = false
-            end
-            info.key = mod_prefix..info.key
-
-            if info.atlas then
-                info.atlas = mod_prefix..info.key
-            end
-        end
 
         local skip_atlas = not not info.atlas
         if item_type == 'Challenge' then
@@ -110,6 +94,22 @@ ArrowAPI.loading = {
                 info.pos = { x = 1, y = 0 }
                 info.soul_pos = { x = 2, y = 0 }
             end
+        end
+
+        if mod_prefix then
+            if info.atlas and (not info.prefix_config or info.prefix_config.atlas == nil) then
+                info.atlas = mod_prefix..'_'..info.atlas
+            end
+
+            if info.prefix_config ~= false then
+                info.prefix_config = info.prefix_config or {}
+
+                info.prefix_config.key = info.prefix_config.key or {}
+                info.prefix_config.key.mod = false
+
+                info.prefix_config.atlas = false
+            end
+            info.key = mod_prefix..'_'..info.key
         end
 
         -- this is handled by an SMODS.add_mod_badges hook
@@ -246,7 +246,7 @@ ArrowAPI.loading = {
             return true
         end
 
-        local atlas_key = mod_prefix and mod_prefix..file_key or file_key
+        local atlas_key = mod_prefix and mod_prefix..'_'..file_key or file_key
         if item_type == 'Blind' then
             -- separation for animated sprites
             SMODS.Atlas({ key = atlas_key, atlas_table = "ANIMATION_ATLAS", path = "blinds/" .. file_key .. ".png", px = 34, py = 34, frames = 21, prefix_config = mod_prefix and false or nil })
@@ -446,7 +446,7 @@ ArrowAPI.loading = {
 
 ArrowAPI.loading.batch_load({
     config = {
-         parent_folder = 'arrowapi/items/',
+        parent_folder = 'arrowapi/items/',
 	    mod_prefix = 'arrow',
     },
 

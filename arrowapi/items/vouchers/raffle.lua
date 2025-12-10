@@ -1,7 +1,8 @@
 local voucherInfo = {
     name = 'Raffle',
     cost = 10,
-    atlas = 'vouchers',
+    atlas = 'arrow_vouchers',
+    prefix_config = {atlas = false},
     pos = {x = 1, y = 1},
     requires = {'v_arrow_scavenger'},
     unlocked = false,

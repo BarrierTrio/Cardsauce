@@ -1,5 +1,8 @@
 local jokerInfo = {
     name = "Stand of the Week",
+    atlas = 'csau_jokers',
+    prefix_config = {atlas = false},
+	pos = {x = 9, y = 15},
     config = {
         extra = {
             x_mult_mod = 0.25

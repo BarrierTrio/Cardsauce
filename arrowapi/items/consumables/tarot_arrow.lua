@@ -1,8 +1,9 @@
 local consumInfo = {
     name = 'The Arrow',
     set = 'Tarot',
-    atlas = 'tarots',
+    atlas = 'arrow_tarots',
     pos = {x = 2, y = 2},
+    prefix_config = {atlas = false},
     cost = 3,
     alerted = true,
     origin = {

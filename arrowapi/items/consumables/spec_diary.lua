@@ -1,10 +1,10 @@
 local consumInfo = {
     name = 'The Diary',
     set = "Spectral",
-    atlas = 'spectrals',
+    atlas = 'arrow_spectrals',
     pos = {x = 6, y = 2},
+    prefix_config = {atlas = false},
     cost = 4,
-    alerted = true,
     origin = {
         category = 'jojo',
         sub_origins = {

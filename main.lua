@@ -1,6 +1,8 @@
-local init, error = SMODS.load_file("arrowapi/main.lua")
-if error then sendErrorMessage("[ArrowAPI] Failed to load with error "..error) else
-	local data = init()
+local arrow_init, arrow_error = SMODS.load_file("arrowapi/main.lua")
+if arrow_error then
+	sendErrorMessage("[ArrowAPI] Failed to load with error "..arrow_error)
+else
+	arrow_init()
 end
 
 -- Removed the deprecated header metadata in favor of the current json one
@@ -439,7 +441,6 @@ local includes = {
 	'items',
 	'achievements',
 
-	'jojobal/main',
 	Cardsauce.ortalab_dlc and 'ortalab_dlc' or nil
 }
 
@@ -449,4 +450,11 @@ for _, include in ipairs(includes) do
 		local data = init()
 		sendDebugMessage("[Cardsauce] Loaded hook: " .. include)
 	end
+end
+
+local jojobal_init, jojobal_error = SMODS.load_file("jojobal/main.lua")
+if jojobal_error then
+	sendErrorMessage("[Jojobal] Failed to load with error "..jojobal_error)
+else
+	jojobal_init()
 end
