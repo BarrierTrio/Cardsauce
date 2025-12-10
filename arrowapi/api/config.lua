@@ -77,7 +77,8 @@ ArrowAPI.config_tools = {
         if extra_args then
             for i, v in ipairs(extra_args) do
                 if mod.config[v.key] == nil then
-                    mod.config[v.key] = not not v.default_value
+                    sendDebugMessage('adding new config: '..v.key)
+                    mod.config[v.key] = (v.default_value == nil and false) or v.default_value
                 end
 
                 mod.ARROW_USE_CONFIG[i] = {
@@ -123,11 +124,11 @@ ArrowAPI.config_tools = {
     end,
 
     update_config = function(mod, key, value, order, exclude_from_ui)
-        mod.config[key] = value
+        mod.config[key] = value ~= nil and value or mod.config[key]
         if mod.ARROW_USE_CONFIG then
             if not mod.ARROW_USE_CONFIG.config_map[key] then
                 table.insert(mod.ARROW_USE_CONFIG, {
-                    key = key, value = value, exclude_from_ui = exclude_from_ui, order = order
+                    key = key, value = mod.config[key], exclude_from_ui = exclude_from_ui, order = order
                 })
 
                 ArrowAPI.config_tools.sort_config(mod)
@@ -135,11 +136,11 @@ ArrowAPI.config_tools = {
             end
 
             local index = mod.ARROW_USE_CONFIG.config_map[key]
-            mod.ARROW_USE_CONFIG[index].value = value
-            mod.ARROW_USE_CONFIG[index].order = order
+            mod.ARROW_USE_CONFIG[index].value = value ~= nil and value or mod.ARROW_USE_CONFIG[index].value
+            mod.ARROW_USE_CONFIG[index].order = order ~= nil and order or mod.ARROW_USE_CONFIG[index].order
             if exclude_from_ui then
-                mod.ARROW_USE_CONFIG[index].exclude_from_ui = exclude_from_ui
+                mod.ARROW_USE_CONFIG[index].exclude_from_ui = exclude_from_ui ~= nil and exclude_from_ui or mod.ARROW_USE_CONFIG[index].exclude_from_ui
             end
         end
-    end,
+    end
 }

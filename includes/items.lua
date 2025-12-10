@@ -162,12 +162,6 @@ ArrowAPI.loading.batch_load({
         'genres',
         'weretrulyfrauds',
         'junka',
-        --- [[JOJO'S BIZARRE ADVENTURE]]
-        'jojo_gravity',
-        'jojo_jokerdrive',
-        'jojo_photodad',
-        'jojo_no2',
-        'jojo_sotw', -- Page 8 End
 
         -- challenge dummy items
         'banned_cards',
@@ -227,76 +221,16 @@ ArrowAPI.loading.batch_load({
         }
     },
 
-    Stand = {
-        order = 4,
-        items = {
-            -- stardust crusaders
-            'stardust_star',
-            'stardust_world',
-            'stardust_tohth',
-
-            -- diamond is unbreakable
-            'diamond_crazy',
-            'diamond_hand',
-            'diamond_echoes_1',
-            'diamond_echoes_2',
-            'diamond_echoes_3',
-            'diamond_killer',
-            'diamond_killer_btd',
-
-            -- vento aureo
-            'vento_gold',
-            'vento_gold_requiem',
-            'vento_moody',
-            'vento_metallica',
-            'vento_epitaph',
-            'vento_epitaph_king',
-            'vento_watchtower',
-
-            -- stone ocean
-            'stone_stone',
-            'stone_marilyn',
-            'stone_white',
-            'stone_white_moon',
-            'stone_white_heaven',
-
-            -- steel ball run
-            'steel_d4c',
-            'steel_d4c_love',
-            'steel_tusk_1',
-            'steel_tusk_2',
-            'steel_tusk_3',
-            'steel_tusk_4',
-            'steel_civil',
-
-            -- jojolion
-            'lion_soft',
-            'lion_soft_beyond',
-            'lion_paper',
-            'lion_rock',
-            'lion_wonder',
-
-            -- jojolands
-            'lands_november',
-            'lands_smooth',
-            'lands_bigmouth',
-        }
-    },
-
-
     Consumable = {
         order = 5,
         items = {
             -- Planet
             'lutetia',
             'varuna',
-            'planet_whirlpool',
-            'planet_lost',
 
             -- Spectral
             'quixotic',
             'protojoker',
-            'spec_stone',
 
             -- Tarot
             'banned_consumables',
@@ -306,10 +240,6 @@ ArrowAPI.loading.batch_load({
     Voucher = {
         order = 6,
         items = {
-            'scavenger',
-            'raffle',
-            'foo',
-            'plant',
             'lampoil',
             'ropebombs',
             'banned_vouchers',
@@ -329,8 +259,6 @@ ArrowAPI.loading.batch_load({
         order = 8,
         items = {
             'corrupted',
-            'plinkett',
-            'spirit',
             'banned_tags'
         }
     },
@@ -367,7 +295,6 @@ ArrowAPI.loading.batch_load({
             'varg',
             'cbt',
             'wheel',
-            'disc'
         }
     },
 
@@ -378,7 +305,6 @@ ArrowAPI.loading.batch_load({
             'sleeve_varg',
             'sleeve_cbt',
             'sleeve_wheel',
-            'sleeve_disc'
         }
     },
 
@@ -389,7 +315,6 @@ ArrowAPI.loading.batch_load({
             'tucker',
             'tgyh',
             'nmbb',
-            'kriskross',
             'marathon'
         }
     },

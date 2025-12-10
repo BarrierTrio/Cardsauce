@@ -1,5 +1,5 @@
-SMODS.Atlas({key = 'sp_default', path = 'soundpacks/sp_default.png', px = 71, py = 71})
-SMODS.Atlas({key = 'sp_balatro', path = 'soundpacks/sp_balatro.png', px = 71, py = 71})
+SMODS.Atlas({key = 'arrow_sp_default', path = 'soundpacks/sp_default.png', px = 71, py = 71, prefix_config = false})
+SMODS.Atlas({key = 'arrow_sp_balatro', path = 'soundpacks/sp_balatro.png', px = 71, py = 71, prefix_config = false})
 
 TNSMI.SoundPacks = {}
 TNSMI.SoundPack = SMODS.GameObject:extend ({
@@ -7,7 +7,7 @@ TNSMI.SoundPack = SMODS.GameObject:extend ({
     set = 'SoundPack',
     obj_table = TNSMI.SoundPacks,
     class_prefix = "sp",
-    atlas = 'sp_default',
+    atlas = 'arrow_sp_default',
     required_params = {
         'key',
         'sound_table'
@@ -90,6 +90,7 @@ function TNSMI.save_soundpacks()
     replace_map = {}
     if #TNSMI.config.loaded_packs > 0 then
         for i, v in ipairs(TNSMI.config.loaded_packs) do
+            sendDebugMessage('loaded soundpacks: '..v)
             -- Save the priority to the config file.
             local pack = TNSMI.SoundPacks[v]
 

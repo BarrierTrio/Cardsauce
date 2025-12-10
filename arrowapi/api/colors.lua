@@ -1,5 +1,5 @@
 local ffi = require("ffi")
-SMODS.Gradient({key = 'spectrans', colours = {HEX('F98899'), HEX('5BA6DD')}, cycle = 3.5 })
+SMODS.Gradient({key = 'arrow_spectrans', colours = {HEX('F98899'), HEX('5BA6DD')}, cycle = 3.5, prefix_config = false })
 
 local function collect_image_data(set, atlases)
     collectgarbage("stop")

@@ -12,7 +12,7 @@ SMODS.Challenge:take_ownership('jokerless_1', {
 --------------------------- Wings of Time unlock
 ---------------------------
 
-local ref_bones_calc = SMODS.joker.j_mr_bones.calculate or function(self, card, context)
+local ref_bones_calc = function(self, card, context)
     if context.end_of_round and context.game_over and G.GAME.chips/G.GAME.blind.chips >= 0.25 then
         G.E_MANAGER:add_event(Event({
             func = function()

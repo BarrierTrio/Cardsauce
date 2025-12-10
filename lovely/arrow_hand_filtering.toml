@@ -10,7 +10,8 @@ priority = 0
 [[patches]]
 [patches.pattern]
 target = "functions/state_events.lua"
-pattern = '''SMODS.drawn_cards = {}'''
+pattern = '''SMODS.cards_to_draw = (SMODS.cards_to_draw or 0) + space_taken
+SMODS.drawn_cards = {}'''
 position = "after"
 payload = '''SMODS.filter_draw(hand_space)
 for i=0, #hand_space - 1 do

@@ -5,7 +5,7 @@
 	"description": "A Vinesauce-themed expansion for Balatro, made in collaboration with the Balatro Discord and Vinesauce communities!",
 	"prefix": "csau",
 	"main_file": "main.lua",
-	"priority": -8,
+	"priority": 50000,
 	"badge_colour": "32A852",
 	"badge_text_colour": "FFFFFF",
 	"display_name": "Cardsauce",

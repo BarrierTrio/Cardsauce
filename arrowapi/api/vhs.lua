@@ -1,12 +1,14 @@
-SMODS.Sound({ key = "vhsopen", path = "vhsopen.ogg"})
-SMODS.Sound({ key = "vhsclose", path = "vhsclose.ogg"})
+SMODS.Sound({ key = "arrow_vhsopen", path = "vhsopen.ogg", prefix_config = {key = {mod = false}}})
+SMODS.Sound({ key = "arrow_vhsclose", path = "vhsclose.ogg", prefix_config = {key = {mod = false}}})
 SMODS.UndiscoveredSprite{
     key = "VHS",
     atlas = "arrow_undiscovered",
-    pos = { x = 0, y = 0 }
+    pos = { x = 0, y = 0 },
+    prefix_config = false
 }
 SMODS.ConsumableType{
     key = "VHS",
+    prefix_config = false,
     primary_colour = G.C.VHS,
     secondary_colour = G.C.VHS,
     collection_rows = { 7, 6 },

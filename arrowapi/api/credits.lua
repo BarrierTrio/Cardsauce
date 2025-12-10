@@ -6,9 +6,8 @@ ArrowAPI.DEFAULT_CREDIT_SECTIONS = {
     {key = 'programmer', title_colour = G.C.GOLD}
 }
 
-ArrowAPI.ARROW_USE_CREDITS = true
 ArrowAPI.credits = {
-    ArrowAPI = {
+    Cardsauce = {
         matrix = {col = 20, row = 10},
         {
             key = 'direction',

@@ -1,14 +1,15 @@
-SMODS.Shader({ key = 'stand_aura', path = 'stand_aura.fs' })
-SMODS.Shader({ key = 'stand_mask', path = 'stand_mask.fs' })
-SMODS.Atlas({ key = 'stand_noise', path = 'noise.png',  px = 128, py = 128})
-SMODS.Atlas({ key = 'stand_gradient', path = 'gradient.png', px = 64, py = 64})
-SMODS.Shader({key = 'arrow_ui_poly', path = 'ui_poly.fs'})
-SMODS.Shader({key = 'rgb_slider', path = 'rgb_slider.fs'})
+SMODS.Shader({ key = 'arrow_stand_aura', path = 'stand_aura.fs', prefix_config = false })
+SMODS.Shader({ key = 'arrow_stand_mask', path = 'stand_mask.fs', prefix_config = false })
+SMODS.Atlas({ key = 'arrow_stand_noise', path = 'noise.png',  px = 128, py = 128, prefix_config = false})
+SMODS.Atlas({ key = 'arrow_stand_gradient', path = 'gradient.png', px = 64, py = 64, prefix_config = false})
+SMODS.Shader({key = 'arrow_ui_poly', path = 'ui_poly.fs', prefix_config = false})
+SMODS.Shader({key = 'arrow_rgb_slider', path = 'rgb_slider.fs', prefix_config = false})
 
 local default_aura_target = 0.3
 
 SMODS.DrawStep {
-    key = 'stand_aura',
+    key = 'arrow_stand_aura',
+    prefix_config = {key = {mod = false}},
     order = -110,
     func = function(self)
         if self.children.stand_aura and (self.config.center.discovered or self.bypass_discovery_center) then
@@ -144,7 +145,8 @@ SMODS.DrawStep:take_ownership('floating_sprite', {
 }, true)
 
 SMODS.DrawStep {
-    key = 'stand_mask',
+    key = 'arrow_stand_mask',
+    prefix_config = {key = {mod = false}},
     order = 39,
     func = function(self, layer)
         if self.config.center.soul_pos and self.ability.set == 'Stand' and (self.config.center.discovered or self.bypass_discovery_center) then

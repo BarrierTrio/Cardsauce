@@ -1,5 +1,5 @@
 ArrowAPI.loading.batch_load({
-	parent_folder = 'jojobal/items',
+	parent_folder = 'jojobal/items/',
 	mod_prefix = 'jojobal',
 
 	Joker = {

@@ -6,21 +6,32 @@ priority = 9999999
 [[patches]]
 [patches.pattern]
 target = "functions/common_events.lua"
-pattern = '''t.set = res.set or t.set'''
-position = "after"
-payload = '''t.main_start = res.main_start or t.main_start'''
+pattern = '''if G.P_CENTERS['e_'..ed_key].loc_vars and type(G.P_CENTERS['e_'..ed_key].loc_vars) == 'function' then
+    local res = G.P_CENTERS['e_'..ed_key]:loc_vars(info_queue, card) or {}
+    t.vars = res.vars
+    t.key = res.key or t.key
+    t.set = res.set or t.set
+end'''
+position = "at"
+payload = '''if G.P_CENTERS['e_'..ed_key].loc_vars and type(G.P_CENTERS['e_'..ed_key].loc_vars) == 'function' then
+    local res = G.P_CENTERS['e_'..ed_key]:loc_vars(info_queue, card) or {}
+    t.vars = res.vars
+    t.key = res.key or t.key
+    t.set = res.set or t.set
+    t.main_start = res.main_start or t.main_start
+end'''
 match_indent = true
 times = 1
 
 [[patches]]
 [patches.pattern]
 target = "functions/common_events.lua"
-pattern = '''if main_start then 
-    desc_nodes[#desc_nodes+1] = main_start 
+pattern = '''if main_start then
+    desc_nodes[#desc_nodes+1] = main_start
 end'''
 position = "at"
-payload = '''if _c.main_start or main_start then 
-    desc_nodes[#desc_nodes+1] = _c.main_start or main_start 
+payload = '''if _c.main_start or main_start then
+    desc_nodes[#desc_nodes+1] = _c.main_start or main_start
 end'''
 match_indent = true
 

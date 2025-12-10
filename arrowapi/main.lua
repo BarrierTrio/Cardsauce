@@ -1,7 +1,5 @@
-if ArrowAPI then return end
-
 ArrowAPI = SMODS.current_mod
-ArrowAPI.current_config = copy_table(ArrowAPI.config)
+ArrowAPI.ARROW_USE_CREDITS = true
 ArrowAPI.startup_item_check = false
 ArrowAPI.col_stand_hover = nil
 ArrowAPI.palette_ui_config = {
@@ -16,7 +14,6 @@ ArrowAPI.palette_ui_config = {
 
 -- TNSMI setup, aliased from ArrowAPI
 TNSMI = SMODS.current_mod
-TNSMI.config.loaded_packs.replace_map = {}
 TNSMI.cardareas = {}
 TNSMI.prompt_text_input = ''
 TNSMI.search_text = ''
@@ -111,3 +108,4 @@ for _, include in ipairs(includes) do
 	end
 end
 
+sendDebugMessage('is arrow valid: '..tostring(ArrowAPI))

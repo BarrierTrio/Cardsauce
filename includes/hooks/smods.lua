@@ -1,27 +1,3 @@
-function SMODS.current_mod.reset_game_globals(run_start)
-    if run_start then
-		G.GAME.morshu_cards = 0
-		G.GAME.csau_saved_deathcards = {}
-
-		if G.GAME.modifiers.csau_marathon then
-			-- set all consumable types besides VHS to 0 shop rate
-			for _, v in pairs(SMODS.ConsumableTypes) do
-				if v.key ~= 'VHS' then
-					local key = v.key:lower() .. '_rate'
-					G.GAME[key] = 0
-				end
-			end
-		end
-    end
-
-	G.GAME.current_round.koffing_rerolls = #SMODS.find_card('j_csau_coffing')
-
-    jojobal_reset_paper_rank()
-	csau_reset_joeycastle()
-	csau_reset_choicevoice()
-	csau_reset_duane()
-end
-
 function csau_reset_joeycastle()
 	if G.GAME.wigsaw_suit then
 		G.GAME.current_round.joeycastle = { suit = G.GAME.wigsaw_suit }

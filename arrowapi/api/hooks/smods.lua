@@ -5,10 +5,29 @@ function ArrowAPI.reset_game_globals(run_start)
         G.GAME.modifiers.max_stands = G.GAME.modifiers.max_stands or 1
         G.GAME.modifiers.consumable_selection_mod = G.GAME.modifiers.consumable_selection_mod or 0
         G.GAME.arrow_last_upgraded_hand = {}
+
+        G.GAME.morshu_cards = 0
+		G.GAME.csau_saved_deathcards = {}
+
+		if G.GAME.modifiers.csau_marathon then
+			-- set all consumable types besides VHS to 0 shop rate
+			for _, v in pairs(SMODS.ConsumableTypes) do
+				if v.key ~= 'VHS' then
+					local key = v.key:lower() .. '_rate'
+					G.GAME[key] = 0
+				end
+			end
+		end
     end
 
     G.GAME.shop_dollars_spent = 0
     G.GAME.rerolls_this_round = 0
+    G.GAME.current_round.koffing_rerolls = #SMODS.find_card('j_csau_koffing')
+
+    jojobal_reset_paper_rank()
+	csau_reset_joeycastle()
+	csau_reset_choicevoice()
+	csau_reset_duane()
 end
 
 function ArrowAPI.set_ability_reset_keys()

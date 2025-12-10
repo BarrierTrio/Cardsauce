@@ -118,7 +118,7 @@ function create_UIBox_blind_popup(...)
     return ret
 end
 
-SMODS.Atlas({ key = 'mystery', atlas_table = "ANIMATION_ATLAS", path = "blinds/mystery.png", px = 34, py = 34, frames = 21 })
+SMODS.Atlas({key = 'arrow_mystery', atlas_table = "ANIMATION_ATLAS", path = "blinds/mystery.png", px = 34, py = 34, frames = 21, prefix_config = false })
 
 local ref_blind_choice = create_UIBox_blind_choice
 function create_UIBox_blind_choice(...)
@@ -1019,7 +1019,7 @@ end
 --------------------------- Palette editor
 ---------------------------
 
-SMODS.Atlas({key = 'slider_point', path = 'slider_point.png', px = 18, py = 18})
+SMODS.Atlas({key = 'arrow_slider_point', path = 'slider_point.png', px = 18, py = 18, prefix_config = false})
 
 function arrow_create_rgb_slider(args)
     args.w = args.w or 1
