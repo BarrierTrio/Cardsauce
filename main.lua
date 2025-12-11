@@ -8,7 +8,6 @@ end
 -- Removed the deprecated header metadata in favor of the current json one
 -- look in Cardsauce.json for that info! ~Winter
 Cardsauce = SMODS.current_mod
-Cardsauce.current_config = copy_table(Cardsauce.config)
 Cardsauce.optional_features = {
 	retrigger_joker = true,
 	quantum_enhancements = true,
