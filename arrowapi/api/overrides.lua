@@ -1724,7 +1724,7 @@ SMODS.Joker:take_ownership('ice_cream', {
     end
 }, true)
 
-SMODS.Joker:take_ownership('seltzer', {
+SMODS.Joker:take_ownership('selzer', {
     calculate = function(self, card, context)
         if context.repetition and context.cardarea == G.play then
             return {

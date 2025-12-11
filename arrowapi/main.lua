@@ -1,5 +1,4 @@
 ArrowAPI = SMODS.current_mod
-ArrowAPI.ARROW_USE_CREDITS = true
 ArrowAPI.startup_item_check = false
 ArrowAPI.col_stand_hover = nil
 ArrowAPI.palette_ui_config = {
@@ -108,4 +107,39 @@ for _, include in ipairs(includes) do
 	end
 end
 
-sendDebugMessage('is arrow valid: '..tostring(ArrowAPI))
+ArrowAPI.config_tools.use_credits(Cardsauce, {
+    matrix = {col = 18.5, row = 7},
+    {
+		key = 'direction',
+		title_colour = G.C.YELLOW,
+		pos_start = {col = 0, row = 0},
+		pos_end = {col = 5, row = 10},
+		contributors = {
+			{name = "BarrierTrio/Gote"},
+			{name = "Kekulism"},
+			{name = "Vivian Giacobbi"},
+		}
+	},
+	{
+		key = 'artist',
+		title_colour = G.C.ETERNAL,
+		pos_start = {col = 5, row = 0},
+		pos_end = {col = 12.5, row = 10},
+	},
+	{
+		key = 'programmer',
+		title_colour = G.C.GOLD,
+		pos_start = {col = 12.5, row = 0},
+		pos_end = {col = 20, row = 5},
+	},
+	{
+		key = 'graphics',
+		title_colour = G.C.DARK_EDITION,
+		pos_start = {col = 12.5, row = 5},
+		pos_end = {col = 20, row = 10},
+		contributors = {
+			{name = "Vivian Giacobbi"},
+			{name = "Sir. Gameboy"}
+		}
+	}
+})

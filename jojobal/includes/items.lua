@@ -1,6 +1,6 @@
 ArrowAPI.loading.batch_load({
 	config = {
-        parent_folder = 'jojobal/items/',
+        parent_folder = 'jojobal',
 		mod_prefix = 'jojobal',
     },
 

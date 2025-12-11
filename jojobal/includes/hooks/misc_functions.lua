@@ -2,23 +2,6 @@
 --------------------------- Basic Mod Functions
 ---------------------------
 
-function G.FUNCS.jojobal_restart()
-	local settingsMatch = true
-	for k, v in pairs(JojobalMod.current_config) do
-		if v ~= JojobalMod.config [k] then
-			settingsMatch = false
-		end
-	end
-
-	if settingsMatch then
-		sendDebugMessage('Settings match')
-		SMODS.full_restart = 0
-	else
-		sendDebugMessage('Settings mismatch, restart required')
-		SMODS.full_restart = 1
-	end
-end
-
 --- Resets the rank used by the Paper Moon King stand card
 function jojobal_reset_paper_rank()
     G.GAME.current_round.jojobal_paper_rank = 'Jack'

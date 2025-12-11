@@ -518,7 +518,6 @@ ArrowAPI.ui = {
 
             for i, v in ipairs(mod.ARROW_USE_CONFIG) do
                 if not v.exclude_from_ui then
-                    sendDebugMessage('adding config: '..v.key)
                     local column = counts.right < counts.left and 'right' or 'left'
                     local nodes = column == 'right' and right_settings.nodes or left_settings.nodes
 
@@ -568,6 +567,13 @@ ArrowAPI.ui = {
                 }
             }
         end
+    end,
+
+    replace_title = function(mod, args)
+        ArrowAPI.TITLE_REPLACE = args
+        ArrowAPI.TITLE_REPLACE.mod = mod
+        ArrowAPI.TITLE_REPLACE.key = 'balatro'
+        ArrowAPI.TITLE_REPLACE.prefix_config = false
     end
 }
 

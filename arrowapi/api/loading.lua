@@ -50,13 +50,16 @@ ArrowAPI.loading = {
     --- @param file_key string file name to load within the "Items" directory, excluding file extension
     --- @param item_type string SMODS item type (such as Joker, Consumable, Deck, etc)
     --- @param alias string | nil SMODS type alias (I.E. Decks are SMODS['Back'])
-    --- @param folder_key string | nil folder key if needed, otherwise item_type is used
+    --- @param parent_folder string | nil folder key if needed for embedded modules
+    --- @param order_in_type number | nil Manually specify sort order for an item type
+    --- @param mod SMODS.Mod | nil Specify the mod to load, otherwise SMODS.current_mod is used
+    --- @param mod_prefix string | nil Apply a custom mod prefix, takes care of all prefix config. Useful for embedded modules
     --- @return boolean # True if the item successfuly loaded
     load_item = function(file_key, item_type, alias, parent_folder, order_in_type, mod, mod_prefix)
         mod = mod or SMODS.current_mod
-        folder_key = string.lower(item_type)..(item_type == 'VHS' and '' or 's')
-        parent_folder = parent_folder or 'items/'
-        local info = assert(SMODS.load_file(parent_folder .. folder_key .. "/" .. file_key .. ".lua"))()
+        local path = 'items/'..string.lower(item_type)..(item_type == 'VHS' and '' or 's')..'/'
+        if parent_folder then path = parent_folder..'/'..path end
+        local info = assert(SMODS.load_file(path .. file_key .. ".lua"))()
 
         if not ArrowAPI.loading.filter_item(info) or (not ArrowAPI.BATCH_LOAD and not ArrowAPI.loading.filter_type(item_type, order_in_type)) then
             return false
@@ -247,9 +250,16 @@ ArrowAPI.loading = {
         end
 
         local atlas_key = mod_prefix and mod_prefix..'_'..file_key or file_key
+        local prefix_config = nil
+        if mod_prefix then
+            prefix_config = false
+        end
+
+        local old_smods_path = SMODS.path
+        SMODS.path = mod.path..(parent_folder or '')
         if item_type == 'Blind' then
             -- separation for animated sprites
-            SMODS.Atlas({ key = atlas_key, atlas_table = "ANIMATION_ATLAS", path = "blinds/" .. file_key .. ".png", px = 34, py = 34, frames = 21, prefix_config = mod_prefix and false or nil })
+            SMODS.Atlas({ key = atlas_key, atlas_table = "ANIMATION_ATLAS", path = "blinds/" .. file_key .. ".png", px = 34, py = 34, frames = 21, prefix_config = prefix_config })
         else
             local width = 71
             local height = 95
@@ -258,17 +268,17 @@ ArrowAPI.loading = {
             elseif item_type == 'Stake' then
                 width = 29
                 height = 29
-                SMODS.Atlas({ key = atlas_key..'_sticker', path = "stickers/" ..file_key .. "_sticker.png", px = 71, py = 95, prefix_config = mod_prefix and false or nil })
+                SMODS.Atlas({ key = atlas_key..'_sticker', path = "stickers/" ..file_key .. "_sticker.png", px = 71, py = 95, prefix_config = prefix_config })
             elseif item_type == 'SoundPack' then
                 if info.atlas == 'arrow_sp_default' then return true end
                 height = 71
             end
             local atlas_args = {
                 key = atlas_key,
-                path = folder_key .. "/" .. file_key .. ".png",
+                path = path .. "/" .. file_key .. ".png",
                 px = new_item.width or width,
                 py = new_item.height or height,
-                prefix_config = mod_prefix and false or nil
+                prefix_config = prefix_config
             }
 
             if info.animation then
@@ -279,6 +289,7 @@ ArrowAPI.loading = {
 
             SMODS.Atlas(atlas_args)
         end
+        SMODS.path = old_smods_path
         return true
     end,
 
@@ -446,7 +457,7 @@ ArrowAPI.loading = {
 
 ArrowAPI.loading.batch_load({
     config = {
-        parent_folder = 'arrowapi/items/',
+        parent_folder = 'arrowapi',
 	    mod_prefix = 'arrow',
     },
 

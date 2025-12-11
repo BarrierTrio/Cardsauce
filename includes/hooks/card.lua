@@ -2,8 +2,10 @@ local ref_set_ability = Card.set_ability
 function Card:set_ability(center, initial, delay_sprites)
     local ret = ref_set_ability(self, center, initial, delay_sprites)
 
-    if self.config.center.key == 'm_glass' then
-        ArrowAPI.stands.set_stand_sprites(self)
+    if self.config.center.key == 'm_glass' and next(SMODS.find_card('j_csau_plaguewalker')) then
+        local plague = SMODS.find_card('j_csau_plaguewalker')[1]
+        self.ability.extra = plague.ability.extra.glass_break
+        self.ability.Xmult = plague.ability.extra.glass_mult
     end
 
     return ret

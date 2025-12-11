@@ -121,7 +121,6 @@ ArrowAPI.colors = {
                         atlases[v.atlas] = {}
                     end
 
-                    sendDebugMessage('collecting atlas '..v.atlas..' for item '..k)
                     atlases[v.atlas][#atlases[v.atlas]+1] = {key = k, table = 'CENTERS'}
                     items[#items+1] = {key = k, table = 'CENTERS', set = v.set}
                 end

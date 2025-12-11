@@ -412,6 +412,29 @@ ArrowAPI.config_tools.use_config(Cardsauce, {
 	}, exclude_from_ui = true},
 })
 
+ArrowAPI.game.add_game_globals_func(Cardsauce, function(run_start)
+    if run_start then
+        G.GAME.morshu_cards = 0
+		G.GAME.csau_saved_deathcards = {}
+
+		if G.GAME.modifiers.csau_marathon then
+			-- set all consumable types besides VHS to 0 shop rate
+			for _, v in pairs(SMODS.ConsumableTypes) do
+				if v.key ~= 'VHS' then
+					local key = v.key:lower() .. '_rate'
+					G.GAME[key] = 0
+				end
+			end
+		end
+    end
+
+    G.GAME.current_round.koffing_rerolls = #SMODS.find_card('j_csau_koffing')
+
+	csau_reset_joeycastle()
+	csau_reset_choicevoice()
+	csau_reset_duane()
+end)
+
 local includes = {
 	-- includes utility functions required for following files
 
@@ -420,7 +443,6 @@ local includes = {
 	'ui',
 	'shaders',
 	'compat',
-	'music',
 
 	-- object hooks
 	'hooks/game',
@@ -439,7 +461,6 @@ local includes = {
 
 	'skins',
 	'items',
-	'achievements',
 
 	Cardsauce.ortalab_dlc and 'ortalab_dlc' or nil
 }
@@ -453,8 +474,5 @@ for _, include in ipairs(includes) do
 end
 
 local jojobal_init, jojobal_error = SMODS.load_file("jojobal/main.lua")
-if jojobal_error then
-	sendErrorMessage("[Jojobal] Failed to load with error "..jojobal_error)
-else
-	jojobal_init()
-end
+if jojobal_error then sendErrorMessage("[Jojobal] Failed to load with error "..jojobal_error)
+else jojobal_init() end

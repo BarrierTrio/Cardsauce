@@ -90,7 +90,6 @@ function TNSMI.save_soundpacks()
     replace_map = {}
     if #TNSMI.config.loaded_packs > 0 then
         for i, v in ipairs(TNSMI.config.loaded_packs) do
-            sendDebugMessage('loaded soundpacks: '..v)
             -- Save the priority to the config file.
             local pack = TNSMI.SoundPacks[v]
 

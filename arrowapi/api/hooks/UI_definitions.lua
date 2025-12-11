@@ -1191,7 +1191,6 @@ function G.UIDEF.arrow_palette_tab(tab)
     local default_palette = palette.default_palette
 
     for i=1, #default_palette do
-        sendDebugMessage('setting default color: '..tostring(current_palette[i].default))
         local color = default_palette[i]
         local custom_color = not current_palette[i].default and current_palette[i] or color
 

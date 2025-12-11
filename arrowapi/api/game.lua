@@ -515,5 +515,34 @@ ArrowAPI.game = {
             end
             return true
         end }))
+    end,
+
+    game_globals_funcs = {},
+    add_game_globals_func = function(mod, func)
+        ArrowAPI.game.game_globals_funcs[mod.id] = func
+    end,
+
+    reset_keys_funcs = {},
+    add_reset_keys_func = function(mod, func)
+        ArrowAPI.game.reset_keys_funcs[mod.id] = func
     end
 }
+
+ArrowAPI.game.add_game_globals_func(ArrowAPI, function(run_start)
+    if run_start then
+        G.GAME.arrow_extra_discounts = {}
+        G.GAME.arrow_extra_blinds = G.GAME.arrow_extra_blinds or {}
+        G.GAME.modifiers.max_stands = G.GAME.modifiers.max_stands or 1
+        G.GAME.modifiers.consumable_selection_mod = G.GAME.modifiers.consumable_selection_mod or 0
+        G.GAME.arrow_last_upgraded_hand = {}
+    end
+
+    G.GAME.shop_dollars_spent = 0
+    G.GAME.rerolls_this_round = 0
+end)
+
+ArrowAPI.game.add_reset_keys_func(ArrowAPI, function()
+    return {
+        'evolved'
+    }
+end)
