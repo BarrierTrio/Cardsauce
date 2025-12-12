@@ -82,7 +82,7 @@ function jokerInfo.calculate(self, card, context)
 						blockable = false,
 						blocking = false,
 						func = function()
-							card.children.front:set_sprite_pos({x = card.ability.extra.side == 'sad' and 7 or 6, y = 2})
+							card.children.center:set_sprite_pos({x = card.ability.extra.side == 'sad' and 7 or 6, y = 2})
 							return true
 						end
 					}))

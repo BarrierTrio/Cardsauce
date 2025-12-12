@@ -38,7 +38,11 @@ function jokerInfo.calculate(self, card, context)
 				G.E_MANAGER:add_event(Event({
 					trigger = 'after',
 					func = function()
-						v:set_seal(pseudorandom_element(SMODS.Seal.obj_buffer, 'csau_meat'), nil, nil)
+						local new_seal = pseudorandom_element(SMODS.Seal.obj_buffer, 'csau_meat')
+						v:set_seal(new_seal, true, nil)
+						v:juice_up()
+						local sound = G.P_SEALS[new_seal].sound or {sound = 'gold_seal', per = 1.2, vol = 0.4}
+						play_sound(sound.sound, sound.per, sound.vol)
 						return true
 					end
 				}))
@@ -63,7 +67,7 @@ function jokerInfo.calculate(self, card, context)
 		end
 	end
 
-	if to_big(card.ability.extra.remain) <= to_big(0) then
+	if context.after and to_big(card.ability.extra.remain) <= to_big(0) then
 		ArrowAPI.game.card_expire(card, 'k_meat_destroy', G.C.MONEY)
 		check_for_unlock({ type = "meat_beaten" })
 	end

@@ -2,7 +2,7 @@ local jokerInfo = {
 	name = 'Grey Joker',
 	atlas = 'jokers',
 	pos = {x = 0, y = 1},
-	soul_pos = {x = 0, y = 2},
+	soul_pos = {x = 1, y = 1},
 	config = {extra = 3},
 	rarity = 2,
 	cost = 6,

@@ -6,7 +6,8 @@ local jokerInfo = {
 		extra = {
 			mult = 0,
 			mult_mod = 2,
-			tally = 0
+			tally = 0,
+			rank_id = 2,
 		}
 	},
 	rarity = 1,
@@ -30,7 +31,7 @@ end
 
 function jokerInfo.calculate(self, card, context)
 	if context.joker_main and not card.debuff then
-		local tally = ArrowAPI.game.get_rank_tally(2)
+		local tally = ArrowAPI.game.get_rank_tally(card.ability.extra.rank_id)
 		if tally > 0 then
 			return {
 				mult = tally * card.ability.extra.mult_mod,

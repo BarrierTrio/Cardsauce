@@ -46,7 +46,7 @@ end
 function jokerInfo.calculate(self, card, context)
 	if card.debuff then return end
 
-	if context.end_of_round and context.main_eval and to_big(G.GAME.dollars) <= to_big(card.ability.gil) and G.GAME.last_hand_played
+	if context.end_of_round and context.main_eval and to_big(G.GAME.dollars) <= to_big(card.ability.extra.gil) and G.GAME.last_hand_played
 	and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
 		G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
 
