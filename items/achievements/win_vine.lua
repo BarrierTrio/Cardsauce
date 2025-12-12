@@ -1,4 +1,4 @@
-local trophyInfo = {
+local achInfo = {
     rarity = 3,
     unlock_condition = function(self, args)
         if args.type == 'win_deck' then
@@ -9,4 +9,4 @@ local trophyInfo = {
     end,
 }
 
-return trophyInfo
+return achInfo

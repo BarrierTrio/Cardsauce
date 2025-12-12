@@ -1,0 +1,151 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 0
+
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = '''if self.ability.set == 'Joker' and not self.sticker_run then'''
+position = "before"
+payload = '''
+if self.ability.set == 'Stand' and not self.sticker_run then
+    local get_sticker = ArrowAPI.stands.get_win_sticker(self.config.center)
+    self.sticker_run = get_sticker or 'NONE'
+end'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = "set_joker_win()"
+position = "after"
+payload = "ArrowAPI.stands.set_stand_win()"
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = "functions/UI_definitions.lua"
+pattern = '''local rows, protos = {}, {'collection', 'challenges', 'joker_stickers', 'deck_stake_wins'}
+_profile_progress = _profile_progress or G.PROFILES[G.SETTINGS.profile].progress'''
+position = "after"
+payload = '''
+if not ArrowAPI.loading.consumeable_has_items('Stand') then
+    rows, protos = {}, {'collection', 'challenges', 'joker_stickers', 'stand_stickers', 'deck_stake_wins'}
+    _profile_progress = _profile_progress or G.PROFILES[G.SETTINGS.profile].progress
+    if not _profile_progress.stand_stickers then
+        local of = 0; for _, v in pairs(G.P_CENTERS) do if v.set == 'Stand' then of = of + 1 end end
+        _profile_progress.stand_stickers = {tally = 0, of = of*#G.P_CENTER_POOLS.Stake }
+    end
+end
+'''
+match_indent = true
+times = 1
+
+[[patches]]
+[patches.pattern]
+target = "functions/UI_definitions.lua"
+pattern = "local text_scale = smaller and 0.7 or 1"
+position = "before"
+payload = '''
+if not ArrowAPI.loading.consumeable_has_items('Stand') then
+  _profile_progress.overall_tally, _profile_progress.overall_of =
+  _profile_progress.discovered.tally/_profile_progress.discovered.of +
+  _profile_progress.deck_stakes.tally/_profile_progress.deck_stakes.of +
+  _profile_progress.joker_stickers.tally/_profile_progress.joker_stickers.of +
+  _profile_progress.stand_stickers.tally/_profile_progress.stand_stickers.of +
+  _profile_progress.challenges.tally/_profile_progress.challenges.of,
+  5
+end
+'''
+match_indent = true
+times = 1
+
+[[patches]]
+[patches.pattern]
+target = "functions/UI_definitions.lua"
+pattern = "elseif v == 'joker_stickers' then"
+position = "before"
+payload = '''elseif v == 'stand_stickers' then
+    tab, val, max = _profile_progress.stand_stickers, 'tally', _profile_progress.stand_stickers.of'''
+match_indent = true
+times = 1
+
+[[patches]]
+[patches.pattern]
+target = "functions/UI_definitions.lua"
+pattern = '''{n=G.UIT.T, config={text = " (".._profile_progress.challenges.tally..'/'.._profile_progress.challenges.of..")", scale = 0.35, colour = G.C.JOKER_GREY}}
+    }'''
+position = "after"
+payload = '''or v == 'stand_stickers' and {
+      {n=G.UIT.O, config={object = DynaText({string = {math.floor(0.01+100*_profile_progress.stand_stickers.tally/_profile_progress.stand_stickers.of)..'%'}, colours = {G.C.WHITE},shadow = true, float = true, scale = 0.55*text_scale})}},
+      {n=G.UIT.T, config={text = " (".._profile_progress.stand_stickers.tally..'/'.._profile_progress.stand_stickers.of..")", scale = 0.35, colour = G.C.JOKER_GREY}}
+    }'''
+match_indent = true
+times = 1
+
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "if specific_vars and specific_vars.sticker then info_queue[#info_queue+1] = {key = string.lower(specific_vars.sticker)..'_sticker', set = 'Other'} end"
+position = "at"
+payload = '''if specific_vars and specific_vars.sticker and type(specific_vars.sticker) ~= 'number' then
+    info_queue[#info_queue+1] = {key = string.lower(specific_vars.sticker)..'_sticker', set = 'Other', vars = { localize('k_'..string.lower(_c.set)) or localize('k_joker') }}
+end'''
+match_indent = true
+times = 2
+
+#G.UIDEF.card_focus_ui
+[[patches]]
+[patches.pattern]
+target = "functions/UI_definitions.lua"
+pattern = '''local buy_and_use = nil
+if card.ability.consumeable then'''
+position = "at"
+payload = '''local buy_and_use = nil
+if card.ability.consumeable and card.ability.set ~= 'Stand' then'''
+match_indent = true
+times = 1
+
+#G.UIDEF.card_focus_ui
+[[patches]]
+[patches.pattern]
+target = "functions/UI_definitions.lua"
+pattern = '''card.ability.consumeable then --Add a use button'''
+position = "at"
+payload = '''card.ability.consumeable and card.ability.set ~= 'Stand' then'''
+match_indent = true
+times = 1
+
+#G.UIDEF.card_focus_ui
+[[patches]]
+[patches.pattern]
+target = "functions/UI_definitions.lua"
+pattern = '''if card.ability.consumeable then --and card:can_use_consumeable(true, true)'''
+position = "at"
+payload = '''if card.ability.consumeable and card.ability.set ~= 'Stand' then'''
+match_indent = true
+times = 1
+
+#G.UIDEF.card_focus_ui
+[[patches]]
+[patches.pattern]
+target = "functions/UI_definitions.lua"
+pattern = '''if card.ability.consumeable then
+    if (card.area == G.pack_cards and G.pack_cards) then'''
+position = "at"
+payload = '''if card.ability.consumeable and card.ability.set ~= 'Stand' then
+    if (card.area == G.pack_cards and G.pack_cards) then'''
+match_indent = true
+times = 1
+
+#G.UIDEF.card_focus_ui
+[[patches]]
+[patches.pattern]
+target = "functions/UI_definitions.lua"
+pattern = '''if (card.area == G.pack_cards and G.pack_cards) and not card.ability.consumeable then --Add a use button'''
+position = "at"
+payload = '''if (card.area == G.pack_cards and G.pack_cards) and (card.ability.set == 'Stand' or not card.ability.consumeable) then'''
+match_indent = true
+times = 1
+

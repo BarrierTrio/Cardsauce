@@ -1,12 +1,13 @@
-local trophyInfo = {
+local achInfo = {
     rarity = 1,
+    config = {joker = 'j_csau_fisheye'},
     unlock_condition = function(self, args)
-        if args.type == 'win' then
-            if next(SMODS.find_card('j_csau_fisheye')) then
-                return true
-            end
-        end
+        return args.type == 'win' and next(SMODS.find_card(self.config.joker))
     end,
 }
 
-return trophyInfo
+function achInfo.loc_vars(self)
+    return { vars = { G.P_CENTERS[self.config.joker].discovered and localize{type = 'name_text', set = 'Joker', key = self.config.joker} or '?????'}}
+end
+
+return achInfo

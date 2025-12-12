@@ -1,4 +1,4 @@
-local trophyInfo = {
+local achInfo = {
     rarity = 2,
     unlock_condition = function(self, args)
         if G.jokers and #G.jokers.cards > 0 then
@@ -12,4 +12,4 @@ local trophyInfo = {
     end,
 }
 
-return trophyInfo
+return achInfo

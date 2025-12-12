@@ -1,4 +1,4 @@
-local trophyInfo = {
+local achInfo = {
     rarity = 3,
     config = {key = 'j_csau_quarterdumb'},
     hidden_text = true,
@@ -7,4 +7,4 @@ local trophyInfo = {
     end,
 }
 
-return trophyInfo
+return achInfo

@@ -1,4 +1,4 @@
-local trophyInfo = {
+local achInfo = {
     rarity = 3,
     hidden_text = true,
     unlock_key = 'j_csau_vincenzo',
@@ -7,4 +7,4 @@ local trophyInfo = {
     end,
 }
 
-return trophyInfo
+return achInfo

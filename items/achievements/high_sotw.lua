@@ -1,4 +1,4 @@
-local trophyInfo = {
+local achInfo = {
     rarity = 1,
     unlock_condition = function(self, args)
         local cards = SMODS.find_card('j_csau_sotw')
@@ -12,4 +12,4 @@ local trophyInfo = {
     end,
 }
 
-return trophyInfo
+return achInfo

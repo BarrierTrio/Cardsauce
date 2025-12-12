@@ -1,4 +1,4 @@
-local trophyInfo = {
+local achInfo = {
     rarity = 1,
     unlock_condition = function(self, args)
         if G.consumeables then
@@ -13,4 +13,4 @@ local trophyInfo = {
     end,
 }
 
-return trophyInfo
+return achInfo

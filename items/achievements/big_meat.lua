@@ -1,4 +1,4 @@
-local trophyInfo = {
+local achInfo = {
     rarity = 4,
     unlock_condition = function(self, args)
         local all = true
@@ -13,4 +13,4 @@ local trophyInfo = {
     end,
 }
 
-return trophyInfo
+return achInfo

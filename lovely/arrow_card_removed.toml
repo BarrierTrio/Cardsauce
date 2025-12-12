@@ -1,0 +1,45 @@
+[manifest]
+version = "1.0.0"
+priority = 0
+
+#
+# Adds a "playing_card_removed" individual context
+#
+
+# G.FUNCS.evaluate_play()
+[[patches]]
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = '''G.E_MANAGER:add_event(Event({
+    func = function()
+        if cards_destroyed[i].shattered then
+            cards_destroyed[i]:shatter()
+        else
+            cards_destroyed[i]:start_dissolve()
+        end
+        return true
+    end
+}))'''
+position = "before"
+payload = '''SMODS.calculate_context({scoring_hand = scoring_hand, pre_playing_card_removed = true, removed = cards_destroyed[i] })'''
+match_indent = true
+times = 1
+
+# G.FUNCS.evaluate_play()
+[[patches]]
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = '''G.E_MANAGER:add_event(Event({
+    func = function()
+        if cards_destroyed[i].shattered then
+            cards_destroyed[i]:shatter()
+        else
+            cards_destroyed[i]:start_dissolve()
+        end
+        return true
+    end
+}))'''
+position = "after"
+payload = '''SMODS.calculate_context({scoring_hand = scoring_hand, post_playing_card_removed = true, removed = cards_destroyed[i] })'''
+match_indent = true
+times = 1

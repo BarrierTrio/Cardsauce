@@ -1,0 +1,103 @@
+[manifest]
+version = "1.0.0"
+priority = 10
+
+#
+# Patches jokers that use inconsistent "Xmult" property
+#
+
+[[patches]]
+[patches.pattern]
+target = "functions/UI_definitions.lua"
+pattern = '''   tab_definition_function_args = 'Audio'
+}
+'''
+position = "after"
+payload = '''tabs[#tabs+1] = {
+    label = localize('b_set_palettes'),
+    tab_definition_function = G.UIDEF.settings_tab,
+    tab_definition_function_args = 'Palettes'
+}
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = "game.lua"
+pattern = '''G.SPLASH_BACK:define_draw_steps({{
+    shader = 'splash',
+    send = {
+        {name = 'time', ref_table = G.TIMERS, ref_value = 'REAL_SHADER'},
+        {name = 'vort_speed', val = 0.4},
+        {name = 'colour_1', ref_table = G.C, ref_value = 'RED'},
+        {name = 'colour_2', ref_table = G.C, ref_value = 'BLUE'},
+        {name = 'mid_flash', ref_table = splash_args, ref_value = 'mid_flash'},
+        {name = 'vort_offset', val = 0},
+    }}})'''
+position = "at"
+payload = '''G.SPLASH_BACK:define_draw_steps({{
+    shader = 'splash',
+    send = {
+        {name = 'time', ref_table = G.TIMERS, ref_value = 'REAL_SHADER'},
+        {name = 'vort_speed', val = 0.4},
+        {name = 'colour_1', ref_table = G.C.BLIND, ref_value = 'SHOWDOWN_COL_1'},
+        {name = 'colour_2', ref_table = G.C.BLIND, ref_value = 'SHOWDOWN_COL_2'},
+        {name = 'mid_flash', ref_table = splash_args, ref_value = 'mid_flash'},
+        {name = 'vort_offset', val = 0},
+    }}})'''
+match_indent = true
+times = 2
+
+[[patches]]
+[patches.pattern]
+target = "game.lua"
+pattern = '''G.SPLASH_BACK:define_draw_steps({{
+    shader = 'splash',
+    send = {
+        {name = 'time', ref_table = G.SANDBOX, ref_value = 'vort_time'},
+        {name = 'vort_speed', val = 0.4},
+        {name = 'colour_1', ref_table = G.SANDBOX, ref_value = 'col1'},
+        {name = 'colour_2', ref_table = G.SANDBOX, ref_value = 'col2'},
+        {name = 'mid_flash', ref_table = G.SANDBOX, ref_value = 'mid_flash'},
+        {name = 'vort_offset', val = 0},
+}}})'''
+position = "at"
+payload = '''G.SPLASH_BACK:define_draw_steps({{
+    shader = 'splash',
+    send = {
+        {name = 'time', ref_table = G.TIMERS, ref_value = 'REAL_SHADER'},
+        {name = 'vort_speed', val = 0.4},
+        {name = 'colour_1', ref_table = G.C.BLIND, ref_value = 'SHOWDOWN_COL_1'},
+        {name = 'colour_2', ref_table = G.C.BLIND, ref_value = 'SHOWDOWN_COL_2'},
+        {name = 'mid_flash', ref_table = G.SANDBOX, ref_value = 'mid_flash'},
+        {name = 'vort_offset', val = 0},
+    }
+}})'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = "game.lua"
+pattern = '''G.SPLASH_BACK:define_draw_steps({{
+    shader = 'splash',
+    send = {
+        {name = 'time', ref_table = G.TIMERS, ref_value = 'REAL'},
+        {name = 'vort_speed', val = 1},
+        {name = 'colour_1', ref_table = G.C, ref_value = 'BLUE'},
+        {name = 'colour_2', ref_table = G.C, ref_value = 'WHITE'},
+        {name = 'mid_flash', val = 0},
+        {name = 'vort_offset', val = (2*90.15315131*os.time())%100000},
+    }}})'''
+position = "at"
+payload = '''G.SPLASH_BACK:define_draw_steps({{
+    shader = 'splash',
+    send = {
+        {name = 'time', ref_table = G.TIMERS, ref_value = 'REAL'},
+        {name = 'vort_speed', val = 1},
+        {name = 'colour_1', ref_table = G.C.BLIND, ref_value = 'SHOWDOWN_COL_2'},
+        {name = 'colour_2', ref_table = G.C, ref_value = 'WHITE'},
+        {name = 'mid_flash', val = 0},
+        {name = 'vort_offset', val = (2*90.15315131*os.time())%100000},
+    }}})'''
+match_indent = true
+

@@ -24,8 +24,12 @@ function jokerInfo.locked_loc_vars(self, info_queue, card)
 end
 
 function jokerInfo.in_pool(self, args)
-    if G.GAME.modifiers.enable_eternals_in_shop then
-        return true
+    if not G.jokers or #G.jokers.cards < 1 then return false end
+
+    for _, v in ipairs(G.jokers.cards) do
+        for k, _ in pairs(SMODS.Stickers) do
+            if v.ability[k] then return true end
+        end
     end
 end
 

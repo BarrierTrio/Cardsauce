@@ -1,4 +1,4 @@
-local trophyInfo = {
+local achInfo = {
     rarity = 2,
     unlock_condition = function(self, args)
         if args.type == "miracle_inherit" then
@@ -7,4 +7,4 @@ local trophyInfo = {
     end,
 }
 
-return trophyInfo
+return achInfo

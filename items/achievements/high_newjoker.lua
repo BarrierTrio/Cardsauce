@@ -1,4 +1,4 @@
-local trophyInfo = {
+local achInfo = {
     rarity = 1,
     unlock_condition = function(self, args)
         if args.type == 'hand' and next(SMODS.find_card('j_csau_newjoker')) then
@@ -15,4 +15,4 @@ local trophyInfo = {
     end,
 }
 
-return trophyInfo
+return achInfo
