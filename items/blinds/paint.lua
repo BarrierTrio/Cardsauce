@@ -1,12 +1,19 @@
 local blindInfo = {
     name = "The Paint",
+    atlas = 'blinds',
+    pos = {x = 0, y = 4},
     color = HEX('6957b0'),
-    pos = {x = 0, y = 0},
     dollars = 5,
     mult = 2,
     vars = {},
     boss = {min = 4, max = 10},
-    origin = 'joel',
+    origin = {
+        category = 'cardsauce',
+        sub_origins = {
+            'joel',
+        },
+        custom_color = 'joel'
+    },
     dependencies = {
         config = {
             ['JoelContent'] = true,

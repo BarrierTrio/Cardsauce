@@ -15,7 +15,13 @@ local jokerInfo = {
 	eternal_compat = true,
 	perishable_compat = true,
 	has_shiny = true,
-	origin = 'vinny',
+	origin = {
+        category = 'cardsauce',
+        sub_origins = {
+            'vinny',
+        },
+        custom_color = 'vinny'
+    },
 	dependencies = {
         config = {
             ['VinnyContent'] = true
@@ -41,6 +47,8 @@ function jokerInfo.add_to_deck(self, card, from_debuff)
 
 	card.ability.extra.x_mult = 1 + math.floor(G.GAME.dollars/10) * card.ability.extra.x_mult_mod
 	card.base_cost = G.GAME.dollars
+	ease_dollars(-card.base_cost)
+
 	card.cost = card.base_cost
 	card.sell_cost = math.min(10, card.cost/2)
 	card_eval_status_text(card, 'extra', nil, nil, nil, {

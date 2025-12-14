@@ -478,6 +478,7 @@ return {
 			k_aced = "Aced!",
 			k_twoed = "Twoed!",
 			k_twoed_aced = "Two-Aced!",
+			k_plus_one = "+1",
 			k_plus_two = "+2 ",
 			k_child = "Child",
 			k_plus_judge = "+1 Judgement",
@@ -1243,8 +1244,9 @@ return {
 			j_csau_greyjoker = {
 				name = "Grey Joker",
 				text = {
-					"{C:mult}+#1#{} discards, but must",
-					"discard 5 cards {C:attention}at a time{}",
+					"{C:red}+#1#{} discards each round",
+					"but cannot discard less than",
+					"{C:attention}5 cards{}",
 				},
 			},
 			j_csau_pacman = {
@@ -3582,11 +3584,8 @@ return {
 			},
 		},
 		Planet = {
-			---------------------------
-			--------------------------- jojobal provides
-			---------------------------
-			c_jojobal_planet_whirlpool = {
-				name = "Whirlpool",
+			c_csau_planet_varuna = {
+				name = "Varuna",
 				text = {
 					"{S:0.8}({S:0.8,V:1}lvl.#1#{S:0.8}){} Level up",
 					"{C:attention}#2#",
@@ -3594,8 +3593,8 @@ return {
 					"{C:chips}+#4#{} chips",
 				}
 			},
-			c_jojobal_planet_lost = {
-				name = "Lost Galaxy",
+			c_csau_planet_lutetia = {
+				name = "Lutetia",
 				text = {
 					"{S:0.8}({S:0.8,V:1}lvl.#1#{S:0.8}){} Level up",
 					"{C:attention}#2#",

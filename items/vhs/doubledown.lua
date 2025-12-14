@@ -1,5 +1,7 @@
 local consumInfo = {
     name = 'Double Down',
+    atlas = 'vhs',
+	pos = {x = 7, y = 1},
     set = "VHS",
     runtime = 3,
     cost = 3,

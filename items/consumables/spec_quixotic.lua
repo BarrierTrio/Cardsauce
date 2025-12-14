@@ -1,0 +1,42 @@
+local consumInfo = {
+    name = 'Quixotic',
+    atlas = 'spectrals',
+    pos = {x = 0, y = 0},
+    set = "Spectral",
+    cost = 4,
+    origin = {
+        category = 'cardsauce',
+        sub_origins = {
+            'vinny',
+        },
+        custom_color = 'vinny'
+    },
+    dependencies = {
+        config = {
+            ['VinnyContent'] = true
+        }
+    },
+    artist = 'BarrierTrio/Gote'
+}
+
+function consumInfo.loc_vars(self, info_queue, card)
+    info_queue[#info_queue+1] = G.P_TAGS.tag_ethereal
+end
+
+function consumInfo.use(self, card, area, copier)
+    check_for_unlock({ type = "activate_quixotic" })
+    G.E_MANAGER:add_event(Event({
+        func = function()
+            add_tag(Tag('tag_ethereal'))
+            play_sound('generic1', 0.9 + math.random() * 0.1, 0.8)
+            play_sound('holo1', 1.2 + math.random() * 0.1, 0.4)
+            return true
+        end
+    }))
+end
+
+function consumInfo.can_use(self, card)
+    return true
+end
+
+return consumInfo

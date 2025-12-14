@@ -6,7 +6,13 @@ local jokerInfo = {
 	blueprint_compat = false,
 	eternal_compat = true,
 	perishable_compat = true,
-	origin = 'vinny',
+	origin = {
+        category = 'cardsauce',
+        sub_origins = {
+            'vinny',
+        },
+        custom_color = 'vinny'
+    },
 	dependencies = {
         config = {
             ['VinnyContent'] = true

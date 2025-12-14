@@ -1,5 +1,7 @@
 local consumInfo = {
     name = 'SOS',
+    atlas = 'vhs',
+	pos = {x = 7, y = 2},
     set = "VHS",
     runtime = 3,
     cost = 3,
@@ -11,8 +13,9 @@ local consumInfo = {
         },
     },
     origin = {
-        category = 'rlm',
+        category = 'cardsauce',
         sub_origins = {
+            'rlm',
             'rlm_wotw',
         },
         custom_color = 'rlm'

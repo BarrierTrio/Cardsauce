@@ -1,5 +1,7 @@
 local consumInfo = {
     name = 'Alien Private Eye',
+    atlas = 'vhs',
+	pos = {x = 4, y = 4},
     set = "VHS",
     runtime = 100,
     cost = 3,

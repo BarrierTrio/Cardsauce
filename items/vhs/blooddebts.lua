@@ -1,5 +1,7 @@
 local consumInfo = {
     name = 'Blood Debts',
+    atlas = 'vhs',
+	pos = {x = 5, y = 1},
     set = "VHS",
     runtime = 3,
     cost = 3,

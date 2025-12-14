@@ -1,5 +1,7 @@
 local voucherInfo = {
     name = 'Rope & Bombs',
+    atlas = 'vouchers',
+    pos = {x = 0, y = 1},
     cost = 10,
     requires = {'v_csau_lampoil'},
     config = {

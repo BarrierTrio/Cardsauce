@@ -1,13 +1,16 @@
 local consumInfo = {
     name = 'Yo-Yo Man Instructional Video',
+    atlas = 'vhs',
+	pos = {x = 6, y = 4},
     set = "VHS",
     runtime = 5,
     cost = 3,
     alerted = true,
     config = {},
     origin = {
-        category = 'vinny',
+        category = 'cardsauce',
         sub_origins = {
+            'vinny',
             'vinny_wotw',
         },
         custom_color = 'vinny'

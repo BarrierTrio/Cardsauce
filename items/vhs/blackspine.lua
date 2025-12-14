@@ -1,13 +1,16 @@
 local consumInfo = {
     name = 'Black Spine',
+    atlas = 'vhs',
+	pos = {x = 0, y = 0},
     set = "VHS",
     runtime = 1,
     cost = 3,
     nosleeve = true,
     config = {},
     origin = {
-        category = 'rlm',
+        category = 'cardsauce',
         sub_origins = {
+            'rlm',
             'rlm_bs',
         },
         custom_color = 'rlm'

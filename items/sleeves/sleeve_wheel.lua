@@ -1,5 +1,7 @@
 local sleeveInfo = {
     name = 'Wheel Sleeve',
+    atlas = 'sleeves',
+    pos = {x = 2, y = 0},
     config = {},
     unlocked = false,
     unlock_condition = { deck = "b_csau_wheel", stake = "stake_green" },

@@ -21,7 +21,13 @@ local jokerInfo = {
         }
     },
 	artist = 'BarrierTrio/Gote',
-	origin = "redvox",
+	origin = {
+		category = "cardsauce",
+		sub_origins = {
+			"redvox",
+		},
+		custom_color = "redvox",
+	},
 }
 
 function jokerInfo.loc_vars(self, info_queue, card)

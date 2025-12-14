@@ -1,5 +1,7 @@
 local deckInfo = {
     name = 'Wheel Deck',
+    atlas = 'decks',
+    pos = {x = 2, y = 0},
     unlocked = false,
     discovered = false,
     config = {

@@ -1,14 +1,16 @@
 local consumInfo = {
     name = 'California Big Hunks',
+    atlas = 'vhs',
+	pos = {x = 1, y = 1},
     set = "VHS",
     runtime = 3,
     cost = 3,
-    alerted = true,
     config = {},
     blueprint_compat = false,
     origin = {
-        category = 'rlm',
+        category = 'cardsauce',
         sub_origins = {
+            'rlm',
             'rlm_j',
         },
         custom_color = 'rlm'

@@ -1,5 +1,7 @@
 local consumInfo = {
     name = 'Miami Connection',
+    atlas = 'vhs',
+	pos = {x = 2, y = 3},
     set = "VHS",
     runtime = 3,
     cost = 3,
@@ -10,8 +12,9 @@ local consumInfo = {
         }
     },
     origin = {
-        category = 'rlm',
+        category = 'cardsauce',
         sub_origins = {
+            'rlm',
             'rlm_botw',
         },
         custom_color = 'rlm'

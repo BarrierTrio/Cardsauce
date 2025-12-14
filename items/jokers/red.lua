@@ -13,8 +13,13 @@ local jokerInfo = {
     blueprint_compat = false,
     eternal_compat = true,
     perishable_compat = true,
-    origin = 'mike',
-
+    origin = {
+        category = 'cardsauce',
+        sub_origins = {
+            'mike'
+        },
+        custom_color = 'mike'
+    },
     artist = 'Gappie',
 }
 

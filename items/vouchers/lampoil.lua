@@ -1,5 +1,7 @@
 local voucherInfo = {
     name = 'Lamp Oil',
+    atlas = 'vouchers',
+    pos = {x = 0, y = 0},
     cost = 10,
     config = {
         extra = {

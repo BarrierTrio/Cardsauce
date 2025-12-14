@@ -1,5 +1,7 @@
 local consumInfo = {
     name = 'Mac and Me',
+    atlas = 'vhs',
+	pos = {x = 0, y = 3},
     set = "VHS",
     runtime = 2,
     cost = 3,
@@ -9,7 +11,13 @@ local consumInfo = {
             retrigger = 1,
         }
     },
-    origin = 'joel',
+    origin = {
+        category = 'cardsauce',
+        sub_origins = {
+            'joel',
+        },
+        custom_color = 'joel'
+    },
     dependencies = {
         config = {
             ['JoelContent'] = true,

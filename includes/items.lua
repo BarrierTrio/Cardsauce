@@ -1,5 +1,12 @@
 SMODS.Atlas({ key = 'achievements', path = "achievements.png", px = 66, py = 66})
-SMODS.Atlas({key = 'jokers', path = 'jokers/jokers.png', px = 71, py = 95})
+SMODS.Atlas({key = 'jokers', path = 'jokers.png', px = 71, py = 95})
+SMODS.Atlas({key = 'planets', path = 'planets.png', px = 71, py = 95})
+SMODS.Atlas({key = 'spectrals', path = 'spectrals.png', px = 71, py = 95})
+SMODS.Atlas({key = 'vhs', path = 'vhs.png', px = 71, py = 95})
+SMODS.Atlas({key = 'vouchers', path = 'vouchers.png', px = 71, py = 95})
+SMODS.Atlas({key = 'blinds', atlas_table = "ANIMATION_ATLAS", path = 'blinds.png', px = 34, py = 34, frames = 21})
+SMODS.Atlas({key = 'tags', path = 'tags.png', px = 34, py = 34})
+SMODS.Atlas({key = 'soundpacks', path = 'soundpacks.png', px = 71, py = 71})
 
 ArrowAPI.loading.batch_load({
     Joker = {
@@ -226,12 +233,12 @@ ArrowAPI.loading.batch_load({
         order = 5,
         items = {
             -- Planet
-            'lutetia',
-            'varuna',
+            'planet_lutetia',
+            'planet_varuna',
 
             -- Spectral
-            'quixotic',
-            'protojoker',
+            'spec_quixotic',
+            'spec_protojoker',
 
             -- Tarot
             'banned_consumables',

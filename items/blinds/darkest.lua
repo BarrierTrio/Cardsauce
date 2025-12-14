@@ -1,7 +1,8 @@
 local blindInfo = {
     name = "The Darkest",
-    color = HEX('c0a800'),
+    atlas = 'blinds',
     pos = {x = 0, y = 0},
+    color = HEX('c0a800'),
     dollars = 5,
     mult = 2,
     vars = {},

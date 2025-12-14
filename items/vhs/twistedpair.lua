@@ -1,5 +1,7 @@
 local consumInfo = {
     name = 'Twisted Pair',
+    atlas = 'vhs',
+	pos = {x = 0, y = 2},
     set = "VHS",
     runtime = 2,
     cost = 3,

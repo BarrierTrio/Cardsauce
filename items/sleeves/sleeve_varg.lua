@@ -1,5 +1,7 @@
 local sleeveInfo = {
     name = 'Varg Sleeve',
+    atlas = 'sleeves',
+    pos = {x = 1, y = 0},
     config = {
         probability_mult = 2,
         probability_mult_alt = 1.5,

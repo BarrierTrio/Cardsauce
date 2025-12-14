@@ -188,14 +188,14 @@ end
 
 local ref_reroll_shop = G.FUNCS.reroll_shop
 G.FUNCS.reroll_shop = function(e)
-    local koffings = SMODS.find_card('j_csau_coffing')
+    local koffings = SMODS.find_card('j_csau_koffing')
     if G.GAME.current_round.koffing_rerolls > 0 then
         local juice_cards = {koffings[G.GAME.current_round.koffing_rerolls]}
         for _, v in ipairs(juice_cards) do
             G.E_MANAGER:add_event(Event({
                 trigger = 'immediate',
                 func = function()
-                    v:juice_up()
+                    v:juice_up(0.7, 0.7)
                     return true
                 end
             }))

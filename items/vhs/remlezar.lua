@@ -1,12 +1,19 @@
 local consumInfo = {
     name = 'Creating Rem Lezar',
-    key = 'remlezar',
+    atlas = 'vhs',
+	pos = {x = 1, y = 0},
     set = "VHS",
     runtime = 1,
     cost = 3,
     blueprint_compat = false,
     config = {},
-    origin = 'vinny',
+    origin = {
+        category = 'cardsauce',
+        sub_origins = {
+            'vinny',
+        },
+        custom_color = 'vinny'
+    },
     dependencies = {
         config = {
             ['VinnyContent'] = true

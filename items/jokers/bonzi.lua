@@ -21,7 +21,13 @@ local jokerInfo = {
         ["Meme"] = true
     },
     width = 87,
-    origin = 'joel',
+    origin = {
+        category = 'cardsauce',
+        sub_origins = {
+            'joel',
+        },
+        custom_color = 'joel'
+    },
     dependencies = {
         config = {
             ['JoelContent'] = true,

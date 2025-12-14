@@ -281,28 +281,33 @@ end
 
 local ref_create_shop = create_card_for_shop
 function create_card_for_shop(area)
-	if area == G.shop_jokers and next(G.GAME.csau_saved_deathcards) and G.GAME.csau_rerolls_this_round == 0
+	if area == G.shop_jokers and next(G.GAME.csau_saved_deathcards) and G.GAME.rerolls_this_round == 0
 	and not (G.SETTINGS.tutorial_progress and G.SETTINGS.tutorial_progress.forced_shop
 	and G.SETTINGS.tutorial_progress.forced_shop[#G.SETTINGS.tutorial_progress.forced_shop]) then
 		-- hate doing this
 		local pop_deathcard = table.remove(G.GAME.csau_saved_deathcards, 1)
-		local card = Card(
-			area.T.x + area.T.w/2,
-			area.T.y,
-			G.CARD_W,
-			G.CARD_H,
-			nil,
-			G.P_CENTERS[pop_deathcard.key]
-		)
+		local new_deathcard = create_card('Joker', area, nil, nil, nil, nil, 'j_csau_deathcard', 'csau_deathcard_respawn')
+        new_deathcard.states.visible = false
+		G.E_MANAGER:add_event(Event({
+            delay = 0.4,
+            trigger = 'after',
+            func = (function()
+                new_deathcard:start_materialize()
+                play_sound('generic1', 0.9 + math.random()*0.1, 0.8)
+                play_sound('negative', 1, 0.65)
+                new_deathcard:juice_up()
+                return true
+            end)
+        }))
 
-		card.ability.id = pop_deathcard.id
-		card.ability.times_sold = pop_deathcard.times_sold
-		card.cost = card.cost + (card.ability.extra.money_mod * card.ability.times_sold)
-		card.ability.extra.mult = card.ability.extra.mult + (card.ability.extra.mult_mod * card.ability.times_sold)
-		card:set_edition(pop_deathcard.edition)
-		create_shop_card_ui(card)
+		new_deathcard.ability.deathcard_id = pop_deathcard.deathcard_id
+		new_deathcard.ability.times_sold = pop_deathcard.times_sold
+		new_deathcard.cost = new_deathcard.cost + (new_deathcard.ability.extra.money_mod * new_deathcard.ability.times_sold)
+		new_deathcard.ability.extra.mult = new_deathcard.ability.extra.mult + (new_deathcard.ability.extra.mult_mod * new_deathcard.ability.times_sold)
+		new_deathcard:set_edition(pop_deathcard.edition)
+		create_shop_card_ui(new_deathcard)
 
-		return card
+		return new_deathcard
 	end
 
 	return ref_create_shop(area)

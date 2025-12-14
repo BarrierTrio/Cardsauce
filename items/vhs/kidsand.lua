@@ -1,5 +1,7 @@
 local consumInfo = {
     name = 'Kid Sand Airbags',
+    atlas = 'vhs',
+	pos = {x = 4, y = 3},
     set = "VHS",
     runtime = 3,
     cost = 3,
@@ -9,8 +11,9 @@ local consumInfo = {
         }
     },
     origin = {
-        category = 'rlm',
+        category = 'cardsauce',
         sub_origins = {
+            'rlm',
             'rlm_wotw',
         },
         custom_color = 'rlm'

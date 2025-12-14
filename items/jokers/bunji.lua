@@ -10,7 +10,13 @@ local jokerInfo = {
     eternal_compat = true,
     perishable_compat = true,
     unlock_condition = {key = 'j_csau_frich'},
-    origin = 'vinny',
+    origin = {
+        category = 'cardsauce',
+        sub_origins = {
+            'vinny',
+        },
+        custom_color = 'vinny'
+    },
 	dependencies = {
         config = {
             ['VinnyContent'] = true

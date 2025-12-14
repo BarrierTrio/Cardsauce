@@ -3,13 +3,19 @@ local jokerInfo = {
 	atlas = 'jokers',
 	pos = {x = 0, y = 1},
 	soul_pos = {x = 1, y = 1},
-	config = {extra = 3},
+	config = {d_size = 3},
 	rarity = 2,
 	cost = 6,
-	blueprint_compat = true,
+	blueprint_compat = false,
 	eternal_compat = true,
 	perishable_compat = true,
-	origin = 'vinny',
+	origin = {
+        category = 'cardsauce',
+        sub_origins = {
+            'vinny',
+        },
+        custom_color = 'vinny'
+    },
 	dependencies = {
         config = {
             ['VinnyContent'] = true
@@ -19,19 +25,14 @@ local jokerInfo = {
 }
 
 function jokerInfo.loc_vars(self, info_queue, card)
-	return { vars = {card.ability.extra} }
+	return { vars = {card.ability.d_size} }
 end
 
-function jokerInfo.calculate(self, card, context)
-	if card.debuff then return end
-
-	if context.setting_blind then
-		ease_discard(card.ability.extra)
-		return {
-			message = "+"..card.ability.extra.." "..localize('k_hud_discards'),
-			card = context.blueprint_card or card
-		}
-	end
+function jokerInfo.add_to_deck(self, card, from_discard)
+	card_eval_status_text(card, 'extra', nil, nil, nil, {
+		message = "+"..card.ability.d_size.." "..localize('k_hud_discards'),
+		colour = G.C.RED
+	})
 end
 
 return jokerInfo

@@ -14,7 +14,13 @@ local jokerInfo = {
     eternal_compat = false,
     perishable_compat = true,
     has_shiny = true,
-    origin = 'joel',
+    origin = {
+        category = 'cardsauce',
+        sub_origins = {
+            'joel',
+        },
+        custom_color = 'joel'
+    },
     dependencies = {
         config = {
             ['JoelContent'] = true,

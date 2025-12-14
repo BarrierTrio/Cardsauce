@@ -32,19 +32,19 @@ function jokerInfo.add_to_deck(self, card)
 		check_for_unlock({ type = "five_deathcard" })
 	end
 
-	if not card.ability.id then
+	if not card.ability.deathcard_id then
 		if not G.GAME.csau_unique_deathcards then
 			G.GAME.csau_unique_deathcards = (G.GAME.csau_unique_deathcards or 0) + 1
 		end
-		card.ability.id = G.GAME.csau_unique_deathcards
+		card.ability.deathcard_id = G.GAME.csau_unique_deathcards
 	else
 		-- handles what occurs on copying
 		local other_dc = SMODS.find_card('j_csau_deathcard')
 		if next(other_dc) then
 			for _, v in ipairs(other_dc) do
-				if v ~= card and v.ability.id == card.ability.id then
+				if v ~= card and v.ability.id == card.ability.deathcard_id then
 					G.GAME.csau_unique_deathcards = G.GAME.csau_unique_deathcards + 1
-					card.ability.id = G.GAME.csau_unique_deathcards
+					card.ability.deathcard_id = G.GAME.csau_unique_deathcards
 					return
 				end
 			end
@@ -64,11 +64,12 @@ function jokerInfo.calculate(self, card, context)
 		}
 	end
 
-	if context.selling_self and not context.blueprint  then
+	if context.selling_self and not context.blueprint then
+		sendDebugMessage('sending')
 		card.ability.times_sold = (card.ability.times_sold or 0) + 1
 		G.GAME.csau_saved_deathcards[#G.GAME.csau_saved_deathcards+1] = {
 			key = card.config.center.key,
-			id = card.ability.id,
+			id = card.ability.deathcard_id,
 			times_sold = card.ability.times_sold,
 			edition = card.edition and 'e_'..card.edition.type or nil
 		}

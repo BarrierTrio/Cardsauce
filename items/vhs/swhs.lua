@@ -1,5 +1,7 @@
 local consumInfo = {
     name = 'Star Wars Holiday Special',
+    atlas = 'vhs',
+	pos = {x = 5, y = 0},
     set = "VHS",
     runtime = 3,
     cost = 3,

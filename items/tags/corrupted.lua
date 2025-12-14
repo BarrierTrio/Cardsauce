@@ -1,5 +1,6 @@
 local tagInfo = {
     name = 'Corrupted Tag',
+    atlas = 'tags',
     config = {type = 'store_joker_modify', edition = 'csau_corrupted', odds = 3},
     alerted = true,
     csau_dependencies = {

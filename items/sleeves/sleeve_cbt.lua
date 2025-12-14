@@ -1,5 +1,7 @@
 local sleeveInfo = {
     name = 'CBT Sleeve',
+    atlas = 'sleeves',
+    pos = {x = 3, y = 0},
     config = { max_money = 30 },
     unlocked = false,
     unlock_condition = { deck = "b_csau_cbt", stake = "stake_gold" },
@@ -29,7 +31,7 @@ end
 
 function sleeveInfo.calculate(self, back, context)
     if context.end_of_round and G.GAME.blind:get_type() == 'Boss'
-    and ArrowAPI.game.get_lowest_hand_level() > 1
+    and ArrowAPI.game.get_hand_level_metric('lowest') > 1
     and self.get_current_deck_key() ~= "b_csau_cbt" then
         ArrowAPI.game.batch_level_up(self, G.handlist, 0)
     end

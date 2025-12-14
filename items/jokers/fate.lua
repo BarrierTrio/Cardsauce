@@ -8,7 +8,13 @@ local jokerInfo = {
     blueprint_compat = true,
     eternal_compat = true,
     perishable_compat = true,
-    origin = 'vinny',
+    origin = {
+        category = 'cardsauce',
+        sub_origins = {
+            'vinny',
+        },
+        custom_color = 'vinny'
+    },
     dependencies = {
         config = {
             ['VinnyContent'] = true
@@ -30,12 +36,11 @@ function jokerInfo.calculate(self, card, context)
         if type then
             local key, color = ArrowAPI.game.get_tag_by_type(type, 'IMAWATTOOO_'..type)
             return {
-                message = localize('k_plus_one')..localize({type = 'name_text', set = 'Tag', key = key}),
+                message = localize('k_plus_one')..' '..localize({type = 'name_text', set = 'Tag', key = key}),
                 colour = color,
                 extra = {
                     func = function()
                         add_tag(Tag(key))
-                        play_sound('generic1', 0.9 + math.random()*0.1, 0.8)
                         play_sound('holo1', 1.2 + math.random()*0.1, 0.4)
                     end
                 }

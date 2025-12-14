@@ -1,5 +1,7 @@
 local consumInfo = {
     name = "T-Bone's World of Clowning",
+    atlas = 'vhs',
+	pos = {x = 5, y = 2},
     set = "VHS",
     runtime = 3,
     cost = 3,
@@ -9,8 +11,9 @@ local consumInfo = {
         },
     },
     origin = {
-        category = 'vinny',
+        category = 'cardsauce',
         sub_origins = {
+            'vinny',
             'vinny_wotw',
         },
         custom_color = 'vinny'

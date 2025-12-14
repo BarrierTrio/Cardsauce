@@ -16,7 +16,13 @@ local jokerInfo = {
 	pools = {
 		["Meme"] = true
 	},
-	origin = 'vinny',
+	origin = {
+        category = 'cardsauce',
+        sub_origins = {
+            'vinny',
+        },
+        custom_color = 'vinny'
+    },
 	dependencies = {
         config = {
             ['VinnyContent'] = true

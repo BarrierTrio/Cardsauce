@@ -1,11 +1,19 @@
 local consumInfo = {
     name = 'Troll 2',
+    atlas = 'vhs',
+	pos = {x = 4, y = 0},
     set = "VHS",
     runtime = 3,
     cost = 3,
     alerted = true,
     config = {},
-    origin = 'vinny',
+    origin = {
+        category = 'cardsauce',
+        sub_origins = {
+            'vinny',
+        },
+        custom_color = 'vinny'
+    },
     dependencies = {
         config = {
             ['VinnyContent'] = true

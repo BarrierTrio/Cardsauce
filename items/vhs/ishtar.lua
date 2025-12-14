@@ -1,5 +1,7 @@
 local consumInfo = {
     name = 'Ishtar',
+    atlas = 'vhs',
+	pos = {x = 2, y = 1},
     set = "VHS",
     runtime = 3,
     cost = 3,

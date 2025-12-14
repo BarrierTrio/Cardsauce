@@ -14,7 +14,13 @@ local jokerInfo = {
 	blueprint_compat = false,
 	eternal_compat = true,
 	perishable_compat = true,
-	origin = 'redvox',
+	origin = {
+		category = "cardsauce",
+		sub_origins = {
+			"redvox",
+		},
+		custom_color = "redvox",
+	},
 	dependencies = {
         config = {
             ['VinnyContent'] = true
@@ -40,7 +46,7 @@ end
 function jokerInfo.add_to_deck(self, card, from_debuff)
 	if card.ability.extra.side == 'happy' then
 		hand_discard_mod(card.ability.extra.plus, -card.ability.extra.minus)
-	elseif card.ability.side == 'sad' then
+	elseif card.ability.extra.side == 'sad' then
 		hand_discard_mod(-card.ability.extra.minus, card.ability.extra.plus)
 	end
 end
@@ -48,13 +54,14 @@ end
 function jokerInfo.remove_from_deck(self, card, from_debuff)
 	if card.ability.extra.side == 'happy' then
 		hand_discard_mod(-card.ability.extra.plus, card.ability.extra.minus)
-	elseif card.ability.side == 'sad' then
+	elseif card.ability.extra.side == 'sad' then
 		hand_discard_mod(card.ability.extra.minus, -card.ability.extra.plus)
 	end
 end
 
-function jokerInfo.load(self, card, cardTable, other_card)
-	card.children.front:set_sprite_pos({x = cardTable.ability.extra.side == 'sad' and 7 or 6, y = 2})
+function jokerInfo.set_sprites(self, card, front)
+	if not card.ability then return end
+	card.children.center:set_sprite_pos({x = card.ability.extra.side == 'sad' and 7 or 6, y = 2})
 end
 
 function jokerInfo.calculate(self, card, context)
@@ -70,24 +77,26 @@ function jokerInfo.calculate(self, card, context)
 
 		hand_discard_mod(hand_mod * (card.ability.extra.plus + card.ability.extra.minus), discard_mod * (card.ability.extra.plus + card.ability.extra.minus))
 
+		G.E_MANAGER:add_event(Event({
+			func = function()
+				card.states.drag.is = true
+				card.T.r = math.pi
+				return true
+			end
+		}))
+		G.E_MANAGER:add_event(Event({
+			trigger = 'after',
+			delay = 0.3,
+			func = function()
+				card.states.drag.is = false
+				card.children.center:set_sprite_pos({x = card.ability.extra.side == 'sad' and 7 or 6, y = 2})
+				return true
+			end
+		}))
+
 		return {
 			message = localize('k_flip'),
 			colour = colour,
-			extra = {
-				func = function()
-					card.T.r = card.T.r + math.pi
-					G.E_MANAGER:add_event(Event({
-						trigger = 'after',
-						delay = 1,
-						blockable = false,
-						blocking = false,
-						func = function()
-							card.children.center:set_sprite_pos({x = card.ability.extra.side == 'sad' and 7 or 6, y = 2})
-							return true
-						end
-					}))
-				end
-			}
 		}
 
 	end

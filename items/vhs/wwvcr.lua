@@ -1,5 +1,7 @@
 local consumInfo = {
     name = "Wayne's World VCR Board Game",
+    atlas = 'vhs',
+	pos = {x = 6, y = 2},
     set = "VHS",
     runtime = 3,
     cost = 3,
@@ -10,8 +12,9 @@ local consumInfo = {
         },
     },
     origin = {
-        category = 'vinny',
+        category = 'cardsauce',
         sub_origins = {
+            'vinny',
             'vinny_wotw',
         },
         custom_color = 'vinny'

@@ -15,7 +15,13 @@ local jokerInfo = {
     eternal_compat = false,
     perishable_compat = false,
     unlock_condition = {type = 'win_no_hand', extra = 'High Card'},
-    origin = 'vinny',
+    origin = {
+        category = 'cardsauce',
+        sub_origins = {
+            'vinny',
+        },
+        custom_color = 'vinny'
+    },
     dependencies = {
         config = {
             ['VinnyContent'] = true

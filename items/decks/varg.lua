@@ -1,5 +1,7 @@
 local deckInfo = {
     name = 'Varg Deck',
+    atlas = 'decks',
+    pos = {x = 1, y = 0},
     unlocked = false,
     discovered = false,
     config = {
@@ -7,7 +9,13 @@ local deckInfo = {
         probability_mod = 2
     },
     unlock_condition = {type = 'win_deck', deck = 'b_checkered'},
-    origin = 'joel',
+    origin = {
+        category = 'cardsauce',
+        sub_origins = {
+            'joel',
+        },
+        custom_color = 'joel'
+    },
     dependencies = {
         config = {
             ['JoelContent'] = true,

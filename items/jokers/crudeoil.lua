@@ -15,7 +15,13 @@ local jokerInfo = {
     perishable_compat = true,
     has_shiny = true,
     pools = { ["Food"] = true },
-    origin = 'vinny',
+    origin = {
+        category = 'cardsauce',
+        sub_origins = {
+            'vinny',
+        },
+        custom_color = 'vinny'
+    },
 	dependencies = {
         config = {
             ['VinnyContent'] = true

@@ -1,5 +1,7 @@
 local sleeveInfo = {
     name = 'Vine Sleeve',
+    atlas = 'sleeves',
+    pos = {x = 0, y = 0},
     config = {
         csau_jokers_rate = 3,
         csau_all_rate = 3

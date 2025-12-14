@@ -1,3 +1,8 @@
+SMODS.Sound({
+	key = "cavestorytext",
+	path = "cavestorytext.ogg"
+})
+
 local jokerInfo = {
 	name = 'Running Hell',
 	atlas = 'jokers',
@@ -18,17 +23,23 @@ function jokerInfo.in_pool(self, args)
 	return not args or args.source ~= 'jud'
 end
 
-function jokerInfo.add_to_deck(self, card, context)
-	ArrowAPI.game.batch_level_up(card, SMODS.PokerHands, 0)
+function jokerInfo.add_to_deck(self, card, from_debuff)
+	if from_debuff then return end
+
+	local highest = ArrowAPI.game.get_hand_level_metric('highest')
+	if highest <= 1 then return end
+
+	ArrowAPI.game.batch_level_up(card, G.handlist, 0)
 	G.E_MANAGER:add_event(Event({
-		trigger = 'after',
-		delay = 1.8,
-		blockable = false,
-		func = (function()
-			play_area_status_text(localize('k_cavestorytext'))
+		func = function()
+			attention_text({
+				scale = 0.9, text = localize('k_cavestorytext'), hold = 1.5, align = 'tm',
+				major = G.play, offset = {x = 0, y = -1}
+			})
+			G.ROOM.jiggle = G.ROOM.jiggle + 2
 			play_sound('csau_cavestorytext')
 			return true
-		end)
+		end
 	}))
 end
 
@@ -42,23 +53,19 @@ function jokerInfo.calculate(self, card, context)
 		}
 	end
 
-	if context.end_of_round and context.main_eval and G.GAME.blind:get_type() == 'Boss' then
-		for _, v in pairs(G.handlist) do
-			if to_big(v.level) > to_big(1) then
-				ArrowAPI.game.batch_level_up(card, G.handlist, 0)
-				G.E_MANAGER:add_event(Event({
-					trigger = 'after',
-					delay = 1.8,
-					blockable = false,
-					func = (function()
-						play_area_status_text(localize('k_cavestorytext'))
-						play_sound('csau_cavestorytext')
-						return true
-					end)
-				}))
-				return
+	if context.end_of_round and context.main_eval and G.GAME.blind:get_type() == 'Boss' and ArrowAPI.game.get_hand_level_metric('highest') > 1 then
+		ArrowAPI.game.batch_level_up(card, G.handlist, 0)
+		G.E_MANAGER:add_event(Event({
+			func = function()
+				attention_text({
+					scale = 0.9, text = localize('k_cavestorytext'), hold = 1.5, align = 'tm',
+					major = G.play, offset = {x = 0, y = -1}
+				})
+				G.ROOM.jiggle = G.ROOM.jiggle + 2
+				play_sound('csau_cavestorytext')
+				return true
 			end
-		end
+		}))
 	end
 end
 

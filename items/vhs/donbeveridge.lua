@@ -1,13 +1,16 @@
 local consumInfo = {
     name = 'Don Beveridge Customerization Seminar',
+    atlas = 'vhs',
+	pos = {x = 3, y = 4},
     set = "VHS",
     runtime = 5,
     cost = 3,
     config = {},
     blueprint_compat = false,
     origin = {
-        category = 'rlm',
+        category = 'cardsauce',
         sub_origins = {
+            'rlm',
             'rlm_bs',
         },
         custom_color = 'rlm'

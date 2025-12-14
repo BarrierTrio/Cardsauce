@@ -1,11 +1,19 @@
 local consumInfo = {
     name = 'Space Cop',
+    atlas = 'vhs',
+	pos = {x = 5, y = 3},
     set = "VHS",
     runtime = 3,
     cost = 3,
     alerted = true,
     config = {},
-    origin = 'rlm',
+    origin = {
+        category = 'cardsauce',
+        sub_origins = {
+            'rlm',
+        },
+        custom_color = 'rlm'
+    },
     artist = 'BarrierTrio/Gote'
 }
 

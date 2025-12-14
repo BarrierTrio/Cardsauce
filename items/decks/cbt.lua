@@ -1,10 +1,18 @@
 local deckInfo = {
     name = 'CBT Deck',
+    atlas = 'decks',
+    pos = {x = 3, y = 0},
     unlocked = false,
     discovered = false,
     config = { hands = -1, discards = -1 },
     unlock_condition = {type = 'win_stake', stake = 8},
-    origin = 'joel',
+    origin = {
+        category = 'cardsauce',
+        sub_origins = {
+            'joel',
+        },
+        custom_color = 'joel'
+    },
     dependencies = {
         config = {
             ['JoelContent'] = true,
@@ -19,7 +27,7 @@ end
 
 function deckInfo.calculate(self, back, context)
     if context.end_of_round and G.GAME.blind:get_type() == 'Boss'
-    and ArrowAPI.game.get_lowest_hand_level() > 1 then
+    and ArrowAPI.game.get_hand_level_metric('lowest') > 1 then
         ArrowAPI.game.batch_level_up(self, G.handlist, 0)
     end
 end

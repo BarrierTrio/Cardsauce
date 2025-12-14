@@ -1,13 +1,16 @@
 local consumInfo = {
     name = 'Surviving Edged Weapons',
+    atlas = 'vhs',
+	pos = {x = 2, y = 0},
     set = "VHS",
     runtime = 4,
     cost = 3,
     blueprint_compat = false,
     config = {},
     origin = {
-        category = 'rlm',
+        category = 'cardsauce',
         sub_origins = {
+            'rlm',
             'rlm_wotw',
         },
         custom_color = 'rlm'

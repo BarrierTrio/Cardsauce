@@ -19,7 +19,13 @@ local jokerInfo = {
     eternal_compat = false,
     perishable_compat = false,
     no_soul_shadow = true,
-    origin = 'joel',
+    origin = {
+        category = 'cardsauce',
+        sub_origins = {
+            'joel',
+        },
+        custom_color = 'joel'
+    },
     dependencies = {
         config = {
             ['JoelContent'] = true,

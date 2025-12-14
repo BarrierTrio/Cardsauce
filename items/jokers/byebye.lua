@@ -16,7 +16,13 @@ local jokerInfo = {
     perishable_compat = false,
     has_shiny = true,
     unlock_condition = {type = 'win_deck', deck = 'b_abandoned'},
-    origin = 'joel',
+    origin = {
+        category = 'cardsauce',
+        sub_origins = {
+            'joel',
+        },
+        custom_color = 'joel'
+    },
     dependencies = {
         config = {
             ['JoelContent'] = true,

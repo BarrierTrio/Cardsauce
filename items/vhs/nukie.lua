@@ -1,5 +1,7 @@
 local consumInfo = {
     name = 'Nukie',
+    atlas = 'vhs',
+	pos = {x = 3, y = 1},
     set = "VHS",
     runtime = 6,
     cost = 3,
@@ -9,7 +11,13 @@ local consumInfo = {
             chance = 10
         }
     },
-    origin = 'rlm',
+    origin = {
+        category = 'cardsauce',
+        sub_origins = {
+            'rlm',
+        },
+        custom_color = 'rlm'
+    },
     artist = 'MightyKingWario'
 }
 

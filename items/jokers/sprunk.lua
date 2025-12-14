@@ -357,7 +357,13 @@ local jokerInfo = {
     eternal_compat = true,
     perishable_compat = false,
     pools = { ["Food"] = true },
-    origin = 'joel',
+    origin = {
+        category = 'cardsauce',
+        sub_origins = {
+            'joel',
+        },
+        custom_color = 'joel'
+    },
     dependencies = {
         config = {
             ['JoelContent'] = true,

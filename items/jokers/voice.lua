@@ -17,11 +17,12 @@ local jokerInfo = {
 }
 
 function jokerInfo.loc_vars(self, info_queue, card)
+    local choicevoice = G.GAME.current_round.choicevoice or { suit = G.GAME.wigsaw_suit or 'Clubs', rank = 'Ace', id = 14 }
     return { vars = {
-        localize(G.GAME.current_round.choicevoice.rank, 'ranks'),
-        localize(G.GAME.current_round.choicevoice.suit, 'suits_plural'),
+        localize(choicevoice.rank, 'ranks'),
+        localize(choicevoice.suit, 'suits_plural'),
         colours = {
-            G.C.SUITS[G.GAME.current_round.choicevoice.suit]
+            G.C.SUITS[choicevoice.suit]
         }
     }}
 end

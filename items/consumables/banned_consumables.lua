@@ -1,12 +1,13 @@
+SMODS.Atlas({key = 'banned_consumables', path = 'banned_consumables.png', px = 169, py = 123})
+
 local consumInfo = {
     name = "Banned Consumables",
+    atlas = 'banned_consumables',
     set = "Tarot",
     config = {},
     no_doe = true,
     no_mod_badges = true,
     no_collection = true,
-    width = 169,
-	height = 123,
 }
 
 function consumInfo.set_card_type_badge(self, card, badges)

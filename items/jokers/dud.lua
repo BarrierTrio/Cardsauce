@@ -10,7 +10,13 @@ local jokerInfo = {
     eternal_compat = false,
     perishable_compat = false,
     has_shiny = true,
-    origin = 'vinny',
+    origin = {
+        category = 'cardsauce',
+        sub_origins = {
+            'vinny',
+        },
+        custom_color = 'vinny'
+    },
     dependencies = {
         config = {
             ['VinnyContent'] = true

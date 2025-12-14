@@ -15,7 +15,13 @@ local jokerInfo = {
 	eternal_compat = true,
 	perishable_compat = true,
 	has_shiny = true,
-	origin = 'vinny',
+	origin = {
+        category = 'cardsauce',
+        sub_origins = {
+            'vinny',
+        },
+        custom_color = 'vinny'
+    },
 	dependencies = {
         config = {
             ['VinnyContent'] = true
@@ -26,7 +32,7 @@ local jokerInfo = {
 
 local function has_played_secret()
 	for _, v in ipairs(G.handlist) do
-		if (type(SMODS.PokerHands[v].visible) ~= "function" and not SMODS.PokerHands[v].visible or (not not SMODS.PokerHands[v]:visible()))
+		if ((type(SMODS.PokerHands[v].visible) == "function" and not SMODS.PokerHands[v]:visible() or not SMODS.PokerHands[v].visible))
 			and G.GAME.hands[v].visible then
 			return true
 		end

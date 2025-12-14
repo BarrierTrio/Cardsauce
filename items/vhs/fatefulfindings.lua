@@ -1,10 +1,18 @@
 local consumInfo = {
     name = 'Fateful Findings',
+    atlas = 'vhs',
+	pos = {x = 1, y = 2},
     set = "VHS",
     runtime = 3,
     cost = 3,
     config = {},
-    origin = 'rlm',
+    origin = {
+        category = 'cardsauce',
+        sub_origins = {
+            'rlm',
+        },
+        custom_color = 'rlm'
+    },
     blueprint_compat = false,
     artist = 'Burdrehnar'
 }

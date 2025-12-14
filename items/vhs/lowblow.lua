@@ -1,5 +1,7 @@
 local consumInfo = {
     name = 'Low Blow',
+    atlas = 'vhs',
+	pos = {x = 3, y = 3},
     set = "VHS",
     runtime = 2,
     cost = 3,
@@ -8,7 +10,13 @@ local consumInfo = {
             retrigger = 4,
         }
     },
-    origin = 'rlm',
+    origin = {
+        category = 'cardsauce',
+        sub_origins = {
+            'rlm',
+        },
+        custom_color = 'rlm'
+    },
     artist = 'yunkie101'
 }
 

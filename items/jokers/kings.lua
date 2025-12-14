@@ -14,7 +14,13 @@ local jokerInfo = {
     blueprint_compat = false,
     eternal_compat = true,
     perishable_compat = true,
-    origin = 'joel',
+    origin = {
+        category = 'cardsauce',
+        sub_origins = {
+            'joel',
+        },
+        custom_color = 'joel'
+    },
     dependencies = {
         config = {
             ['JoelContent'] = true,
@@ -236,6 +242,7 @@ function jokerInfo.remove_from_deck(self, card, from_debuff)
         G.E_MANAGER:add_event(Event({
             trigger = 'immediate',
             func = function()
+                local num_cards = #remove_cards
                 for i=1, #remove_cards do
                     G.E_MANAGER:add_event(Event({
                         trigger = 'before',
@@ -255,7 +262,7 @@ function jokerInfo.remove_from_deck(self, card, from_debuff)
 
                             G.VIBRATION = G.VIBRATION + 0.35
                             card:juice_up()
-                            play_sound('card1', 0.85 + (1-(i*100/kings_area.config.card_limit))*0.2/100, 0.6)
+                            play_sound('card1', 0.85 + (1-(i*100/num_cards))*0.2/100, 0.6)
                             return true
                         end
                     }))

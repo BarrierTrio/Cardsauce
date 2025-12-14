@@ -1,5 +1,7 @@
 local deckInfo = {
     name = 'Vine Deck',
+    atlas = 'decks',
+    pos = {x = 0, y = 0},
     unlocked = false,
     discovered = false,
     config = {

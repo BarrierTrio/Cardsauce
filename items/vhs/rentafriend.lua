@@ -1,6 +1,7 @@
 local consumInfo = {
     name = 'Rent-a-Friend',
-    key = 'rentafriend',
+    atlas = 'vhs',
+	pos = {x = 4, y = 2},
     set = "VHS",
     runtime = 5,
     cost = 3,
@@ -15,8 +16,9 @@ local consumInfo = {
         destroyed = false,
     },
     origin = {
-        category = 'vinny',
+        category = 'cardsauce',
         sub_origins = {
+            'vinny',
             'vinny_wotw',
         },
         custom_color = 'vinny'

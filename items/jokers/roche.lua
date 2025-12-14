@@ -1,11 +1,11 @@
 SMODS.Sound({
 	key = "roche",
-	path = "roche.wav"
+	path = "roche.ogg"
 })
 
 SMODS.Sound({
 	key = "rochedies",
-	path = "roche_dies.wav"
+	path = "roche_dies.ogg"
 })
 
 local jokerInfo = {
@@ -22,7 +22,13 @@ local jokerInfo = {
 	blueprint_compat = true,
 	eternal_compat = true,
 	perishable_compat = true,
-	origin = 'vinny',
+	origin = {
+        category = 'cardsauce',
+        sub_origins = {
+            'vinny',
+        },
+        custom_color = 'vinny'
+    },
 	dependencies = {
         config = {
             ['VinnyContent'] = true
@@ -49,6 +55,12 @@ function jokerInfo.calculate(self, card, context)
 	if context.end_of_round and context.main_eval and to_big(G.GAME.dollars) <= to_big(card.ability.extra.gil) and G.GAME.last_hand_played
 	and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
 		G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
+
+		if not G.SETTINGS.roche then
+			G.SETTINGS.roche = true
+			G:save_settings()
+			self.va = 'Austin L. Matthews (AmtraxVA)'
+		end
 
 		--- say_quip() function is found in `includes > hooks > card.lua`
 		card:say_quip(2, nil, true, 'csau_roche')
@@ -87,12 +99,6 @@ function jokerInfo.calculate(self, card, context)
 		}))
 
 		check_for_unlock({ type = "activate_roche" })
-
-		if not G.SETTINGS.roche then
-			G.SETTINGS.roche = true
-			G:save_settings()
-			self.va = 'Austin L. Matthews (AmtraxVA)'
-		end
 	end
 end
 

@@ -1,6 +1,7 @@
 local consumInfo = {
     name = 'Suburban Sasquatch',
-    key = 'suburbansasquatch',
+    atlas = 'vhs',
+	pos = {x = 1, y = 4},
     set = "VHS",
     runtime = 2,
     cost = 3,

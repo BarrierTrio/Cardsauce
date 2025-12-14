@@ -1,12 +1,15 @@
 local consumInfo = {
     name = 'Exploding Varmints',
+    atlas = 'vhs',
+	pos = {x = 6, y = 0},
     set = "VHS",
     runtime = 2,
     cost = 3,
     config = {},
     origin = {
-        category = 'rlm',
+        category = 'cardsauce',
         sub_origins = {
+            'rlm',
             'rlm_wotw',
         },
         custom_color = 'rlm'

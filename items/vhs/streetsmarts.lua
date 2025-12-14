@@ -1,5 +1,7 @@
 local consumInfo = {
     name = 'Street Smarts: Straight Talk For Kids, Teens & Parents',
+    atlas = 'vhs',
+	pos = {x = 2, y = 2},
     set = "VHS",
     runtime = 3,
     cost = 3,
@@ -10,8 +12,9 @@ local consumInfo = {
         },
     },
     origin = {
-        category = 'rlm',
+        category = 'cardsauce',
         sub_origins = {
+            'rlm',
             'rlm_j',
         },
         custom_color = 'rlm'

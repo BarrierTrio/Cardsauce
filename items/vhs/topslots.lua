@@ -1,5 +1,7 @@
 local consumInfo = {
     name = 'Top Slots',
+    atlas = 'vhs',
+	pos = {x = 6, y = 1},
     set = "VHS",
     runtime = 2,
     cost = 3,
@@ -17,7 +19,13 @@ local consumInfo = {
         },
         alt_title = true,
     },
-    origin = 'rlm',
+    origin = {
+        category = 'cardsauce',
+        sub_origins = {
+            'rlm',
+        },
+        custom_color = 'rlm'
+    },
     artist = 'chvsau'
 }
 

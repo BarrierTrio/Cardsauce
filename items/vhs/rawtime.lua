@@ -1,5 +1,7 @@
 local consumInfo = {
     name = 'rAw TiMe',
+    atlas = 'vhs',
+	pos = {x = 2, y = 4},
     set = "VHS",
     runtime = 3,
     cost = 3,
@@ -15,8 +17,9 @@ local consumInfo = {
         },
     },
     origin = {
-        category = 'vinny',
+        category = 'cardsauce',
         sub_origins = {
+            'vinny',
             'vinny_pa',
         },
         custom_color = 'vinny'

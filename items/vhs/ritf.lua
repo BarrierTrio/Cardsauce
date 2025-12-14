@@ -1,5 +1,7 @@
 local consumInfo = {
     name = "Robot in the Family",
+    atlas = 'vhs',
+	pos = {x = 0, y = 4},
     key = 'ritf',
     set = "VHS",
     cost = 3,

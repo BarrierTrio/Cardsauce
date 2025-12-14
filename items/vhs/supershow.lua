@@ -1,12 +1,20 @@
 local consumInfo = {
     name = 'The Super Mario Bros. Super Show',
+    atlas = 'vhs',
+	pos = {x = 5, y = 4},
     key = 'supershow',
     set = "VHS",
     runtime = 3,
     cost = 3,
     blueprint_compat = false,
     config = {},
-    origin = 'vinny',
+    origin = {
+        category = 'cardsauce',
+        sub_origins = {
+            'vinny',
+        },
+        custom_color = 'vinny'
+    },
     dependencies = {
         config = {
             ['VinnyContent'] = true

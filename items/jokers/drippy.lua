@@ -28,7 +28,7 @@ function jokerInfo.calculate(self, card, context)
             rand_card.csau_drippy_flagged = true
             G.E_MANAGER:add_event(Event({
                 func = function()
-                    rand_card:set_ability(pseudorandom_element(G.P_CENTER_POOLS['Enhanced'], pseudoseed('whothefuckisdrippysaidvinny')), nil, true)
+                    rand_card:set_ability(pseudorandom_element(G.P_CENTER_POOLS['Enhanced'], pseudoseed('whothefuckisdrippysaidvinny')))
                     rand_card:juice_up()
                     rand_card.csau_drippy_flagged = nil
                     return true

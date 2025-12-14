@@ -1,6 +1,8 @@
 local consumInfo = {
     name = 'Law Enforcement Guide to Satanic Cults',
     set = "VHS",
+    atlas = 'vhs',
+	pos = {x = 4, y = 1},
     runtime = 3,
     cost = 3,
     config = {
@@ -9,8 +11,9 @@ local consumInfo = {
         }
     },
     origin = {
-        category = 'rlm',
+        category = 'cardsauce',
         sub_origins = {
+            'rlm',
             'rlm_wotw',
         },
         custom_color = 'rlm'

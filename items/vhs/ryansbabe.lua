@@ -1,11 +1,19 @@
 local consumInfo = {
     name = "Ryan's Babe",
+    atlas = 'vhs',
+	pos = {x = 7, y = 3},
     set = "VHS",
-        runtime = 3,
+    runtime = 3,
     cost = 3,
     blueprint_compat = false,
     config = {},
-    origin = 'rlm',
+    origin = {
+        category = 'cardsauce',
+        sub_origins = {
+            'rlm',
+        },
+        custom_color = 'rlm'
+    },
     artist = 'yunkie101'
 }
 

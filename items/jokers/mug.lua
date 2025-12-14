@@ -19,7 +19,13 @@ local jokerInfo = {
     perishable_compat = false,
     pixel_size = { w = 71, h = 73 },
     pools = { ["Food"] = true },
-    origin = 'joel',
+    origin = {
+        category = 'cardsauce',
+        sub_origins = {
+            'joel',
+        },
+        custom_color = 'joel'
+    },
     dependencies = {
         config = {
             ['JoelContent'] = true,

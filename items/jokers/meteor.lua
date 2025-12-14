@@ -13,6 +13,7 @@ local jokerInfo = {
     blueprint_compat = false,
     eternal_compat = true,
     perishable_compat = true,
+    origin = 'cardsauce',
     dependencies = {
         config = {
             ['VinnyContent'] = true
