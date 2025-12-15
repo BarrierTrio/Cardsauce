@@ -1,6 +1,6 @@
-[submodule "Arrow"]
+[submodule "modules/Arrow"]
 	path = modules/Arrow
 	url = git@github.com:Kekulism/Arrow.git
-[submodule "jojobal"]
+[submodule "modules/jojobal"]
 	path = modules/jojobal
 	url = git@github.com:VivianGiacobbi/jojobal.git
