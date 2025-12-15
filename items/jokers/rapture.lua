@@ -37,8 +37,8 @@ end
 function jokerInfo.calculate(self, card, context)
     if card.debuff then return end
 
-    if context.before and context.scoring_name == "High Card" then
-        if card.ability.extra.mult > 0 then
+    if context.before then
+        if context.scoring_name == "High Card" and card.ability.extra.mult > 0 then
             card.ability.extra.mult = 0
             return {
                 message = localize('k_reset'),

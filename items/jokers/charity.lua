@@ -50,14 +50,20 @@ function jokerInfo.calculate(self, card, context)
 	end
 	if context.blueprint then return end
 
-	if context.end_of_round and context.main_eval then
-		local scale_table = {mult_mod = G.GAME.interest_amount*math.min(math.floor(G.GAME.dollars)/5, G.GAME.interest_cap/5)}
-		SMODS.scale_card(card, {
-			ref_table = card.ability.extra,
-			ref_value = "mult",
-			scalar_table = scale_table,
-			scalar_value = "mult_mod",
-		})
+	if context.round_eval and G.GAME.dollars > 5 then
+		local mod = G.GAME.interest_amount*math.min(math.floor(G.GAME.dollars/5), math.floor(G.GAME.interest_cap/5))
+		if mod > 0 then
+			local scale_table = {mult_mod = mod}
+			SMODS.scale_card(card, {
+				ref_table = card.ability.extra,
+				ref_value = "mult",
+				scalar_table = scale_table,
+				scalar_value = "mult_mod",
+				message_key = 'a_mult',
+				message_colour = G.C.MULT
+			})
+		end
+
 	end
 end
 

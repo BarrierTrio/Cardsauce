@@ -44,9 +44,9 @@ function jokerInfo.calculate(self, card, context)
 		card.ability.extra.draw_this_hand = false
 	end
 
-	if context.drawing_cards then
+	if context.drawing_cards and card.ability.extra.draw_this_hand then
 		return {
-			amount = context.amount + card.ability.extra.num_cards
+			modify = math.max(context.amount + card.ability.extra.num_cards, 2)
 		}
 	end
 end

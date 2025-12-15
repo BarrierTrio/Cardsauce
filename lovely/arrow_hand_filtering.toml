@@ -19,3 +19,14 @@ for i=0, hand_space - 1 do
 end'''
 match_indent = true
 times = 1
+
+# save_run()
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = '''local card_type = 'Planet'
+G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1'''
+position = "before"
+payload = '''sendDebugMessage('blue seal effect')'''
+match_indent = true
+times = 1

@@ -1,4 +1,4 @@
-SMODS.Atlas({key = 'banned_tags', path = 'banned_tags.png', px = 169, py = 123})
+SMODS.Atlas({key = 'banned_tags', path = 'banned/banned_tags.png', px = 169, py = 123})
 
 local tagInfo = {
     name = "Banned Tags",

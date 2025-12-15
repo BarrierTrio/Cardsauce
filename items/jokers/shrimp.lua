@@ -38,28 +38,31 @@ function jokerInfo.check_for_unlock(self, args)
 end
 
 function jokerInfo.calculate(self, card, context)
-	if card.debuff then return end
+	if card.debuff or not context.other_card or not context.other_card.seal then return end
 
-	if context.other_card and context.other_card.seal and context.main_scoring then
-		local ret = {}
-
-		-- gold seal hardcoded
-		if context.cardarea == G.play and context.other_card.seal == 'Gold' then
-			ret.playing_card = {p_dollars = 3}
-		-- blue seal hardcoded
-		elseif context.end_of_round and context.cardarea == G.hand and context.playing_card_end_of_round and context.other_card.seal == 'Blue' then
-			card:get_end_of_round_effect(context)
-		else
-			-- red and purple both handled by this + arbitrary seal effects
-			local seals = card:calculate_seal(context)
-			if seals then
-				ret.seals = seals
-			end
+	local ret = {}
+    if context.cardarea == G.play and context.main_scoring then
+        local obj = G.P_SEALS[self.seal]
+		ret.playing_card = {}
+    	if obj.get_p_dollars and type(obj.get_p_dollars) == 'function' then
+        	ret.playing_card.p_dollars = obj:get_p_dollars(context.other_card)
 		end
+    end
+    if context.end_of_round and context.cardarea == G.hand and context.playing_card_end_of_round then
+        local end_of_round = card:get_end_of_round_effect(context)
+        if end_of_round then
+            ret.end_of_round = end_of_round
+        end
+    end
 
-		local flags = SMODS.trigger_effects({ret}, context.other_card)
-		SMODS.update_context_flags(context, flags)
-	end
+    if card.seal then
+        local seals = card:calculate_seal(context)
+        if seals then
+            ret.seals = seals
+        end
+    end
+
+    return ret
 end
 
 return jokerInfo

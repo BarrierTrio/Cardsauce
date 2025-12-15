@@ -2,7 +2,7 @@ local blindInfo = {
     name = "Mocha Mike",
     atlas = 'blinds',
     pos = {x = 0, y = 9},
-    color = HEX('a07c64'),
+    boss_colour = HEX('a07c64'),
     dollars = 8,
     mult = 2,
     vars = {},

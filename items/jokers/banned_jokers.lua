@@ -1,4 +1,4 @@
-SMODS.Atlas({key = 'banned_jokers', path = 'banned_jokers.png', px = 169, py = 123})
+SMODS.Atlas({key = 'banned_jokers', path = 'banned/banned_jokers.png', px = 169, py = 123})
 
 local jokerInfo = {
     name = "Banned Jokers",

@@ -1,4 +1,4 @@
-SMODS.Atlas({key = 'banned_boosters', path = 'banned_boosters.png', px = 169, py = 123})
+SMODS.Atlas({key = 'banned_boosters', path = 'banned/banned_boosters.png', px = 169, py = 123})
 
 local packInfo = {
     name = "Banned Boosters",

@@ -161,7 +161,7 @@ function jokerInfo.calculate(self, card, context)
     if context.drawing_cards and card.ability.csau_sts_handplayed and card.ability.extra.form == "Spades" then
 		card.ability.csau_sts_handplayed = nil
         return {
-			cards_to_draw = context.amount + card.ability.extra.Spades.extra_cards
+			modify = context.amount + card.ability.extra.Spades.extra_cards
 		}
 	end
 

@@ -2,7 +2,7 @@ local blindInfo = {
     name = "Felt Fortress",
     atlas = 'blinds',
     pos = {x = 0, y = 8},
-    color = HEX('88e054'),
+    boss_colour = HEX('88e054'),
     dollars = 8,
     mult = 2,
     vars = {},

@@ -34,7 +34,7 @@ function consumInfo.calculate(self, card, context)
         end
 
         return {
-            amount = context.amount + card.ability.extra.draw_mod
+            modify = context.amount + card.ability.extra.draw_mod
         }
     end
 end

@@ -2,7 +2,7 @@ local blindInfo = {
     name = "The Tray",
     atlas = 'blinds',
     pos = {x = 0, y = 5},
-    color = HEX('de423b'),
+    boss_colour = HEX('de423b'),
     dollars = 5,
     mult = 2,
     vars = {},
