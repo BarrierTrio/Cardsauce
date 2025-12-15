@@ -7,8 +7,9 @@ priority = 30
 [patches.pattern]
 target = '=[SMODS _ "src/utils.lua"]'
 pattern = ''''message','''
-position = "before"
-payload = ''''pre_func','''
+position = "at"
+payload = ''''pre_func',
+'message', -- csau_arrow patch tag'''
 match_indent = true
 times = 1
 
@@ -17,10 +18,11 @@ times = 1
 [patches.pattern]
 target = '=[SMODS _ "src/utils.lua"]'
 pattern = '''if key == 'message' and not SMODS.no_resolve then'''
-position = "before"
+position = "at"
 payload = '''if key == 'pre_func' then
     effect.pre_func()
     return true
-end'''
+end
+if key == 'message' and not SMODS.no_resolve then -- csau_arrow patch tag'''
 match_indent = true
 times = 1

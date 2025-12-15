@@ -12,8 +12,11 @@ target = "game.lua"
 pattern = '''if type(_ch.restrictions.banned_cards) == 'function' then
     _ch.restrictions.banned_cards = _ch.restrictions.banned_cards()
 end'''
-position = "after"
-payload = '''
+position = "at"
+payload = '''if type(_ch.restrictions.banned_cards) == 'function' then
+    _ch.restrictions.banned_cards = _ch.restrictions.banned_cards()
+end -- csau_arrow patch tag
+
     if _ch.restrictions.banned_cards.allowed then
         local bans = {}
         local allow_map = {}
@@ -41,8 +44,8 @@ times = 1
 [patches.pattern]
 target = "game.lua"
 pattern = '''if _ch.restrictions.banned_tags then'''
-position = "after"
-payload = '''
+position = "at"
+payload = '''if _ch.restrictions.banned_tags then -- csau_arrow patch tag
     if type(_ch.restrictions.banned_tags) == 'function' then
         _ch.restrictions.banned_tags = _ch.restrictions.banned_tags()
     end'''
@@ -53,8 +56,8 @@ times = 1
 [patches.pattern]
 target = "game.lua"
 pattern = '''if _ch.restrictions.banned_other then'''
-position = "after"
-payload = '''
+position = "at"
+payload = '''if _ch.restrictions.banned_other then -- csau_arrow patch tag
     if type(_ch.restrictions.banned_other) == 'function' then
         _ch.restrictions.banned_other = _ch.restrictions.banned_other()
     end
@@ -89,7 +92,7 @@ times = 1
 [patches.pattern]
 target = "game.lua"
 pattern = '''if _ch.restrictions then'''
-position = "before"
+position = "at"
 payload = '''if _ch.extra_blinds then
     G.GAME.arrow_extra_blinds = {}
     for _, v in ipairs(_ch.extra_blinds) do
@@ -98,7 +101,8 @@ payload = '''if _ch.extra_blinds then
 end
 if _ch.post_apply and type(_ch.post_apply) == "function" then
     _ch:post_apply()
-end'''
+end
+if _ch.restrictions then -- csau_arrow patch tag'''
 match_indent = true
 times = 1
 
@@ -138,7 +142,7 @@ if v.colours then
         vars.colours = colours
     end
 end
-game_rules[#game_rules+1] = {n=G.UIT.R, config={align = "cl"}, nodes = localize{type = 'text', key = 'ch_c_'..v.id, vars = vars}}'''
+game_rules[#game_rules+1] = {n=G.UIT.R, config={align = "cl"}, nodes = localize{type = 'text', key = 'ch_c_'..v.id, vars = vars}} -- csau_arrow patch tag'''
 match_indent = true
 times = 1
 
@@ -231,7 +235,8 @@ times = 2
 [patches.pattern]
 target = 'functions/button_callbacks.lua'
 pattern = """G.GAME.round_resets.blind_states[G.GAME.blind_on_deck] = 'Current'"""
-position = 'before'
-payload = """G.GAME.round_resets.effective_blind = G.GAME.blind_on_deck"""
+position = 'at'
+payload = '''G.GAME.round_resets.effective_blind = G.GAME.blind_on_deck
+G.GAME.round_resets.blind_states[G.GAME.blind_on_deck] = 'Current' -- csau_arrow patch tag'''
 match_indent = true
 times = 1

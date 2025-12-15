@@ -19,8 +19,9 @@ pattern = '''G.E_MANAGER:add_event(Event({
         end
         return true
     end
-}))'''
-position = "before"
+}))
+SMODS.calculate_context({scoring_hand = scoring_hand, pre_playing_card_removed = true, removed = cards_destroyed[i] }) -- csau_arrow patch tag'''
+position = "at"
 payload = '''SMODS.calculate_context({scoring_hand = scoring_hand, pre_playing_card_removed = true, removed = cards_destroyed[i] })'''
 match_indent = true
 times = 1
@@ -29,7 +30,8 @@ times = 1
 [[patches]]
 [patches.pattern]
 target = "functions/state_events.lua"
-pattern = '''G.E_MANAGER:add_event(Event({
+pattern = '''SMODS.calculate_context({scoring_hand = scoring_hand, post_playing_card_removed = true, removed = cards_destroyed[i] }) -- csau_arrow patch tag
+G.E_MANAGER:add_event(Event({
     func = function()
         if cards_destroyed[i].shattered then
             cards_destroyed[i]:shatter()
@@ -39,7 +41,7 @@ pattern = '''G.E_MANAGER:add_event(Event({
         return true
     end
 }))'''
-position = "after"
+position = "at"
 payload = '''SMODS.calculate_context({scoring_hand = scoring_hand, post_playing_card_removed = true, removed = cards_destroyed[i] })'''
 match_indent = true
 times = 1

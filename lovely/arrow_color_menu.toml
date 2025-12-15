@@ -12,8 +12,11 @@ target = "functions/UI_definitions.lua"
 pattern = '''   tab_definition_function_args = 'Audio'
 }
 '''
-position = "after"
-payload = '''tabs[#tabs+1] = {
+position = "at"
+payload = '''   tab_definition_function_args = 'Audio'
+} -- csau_arrow patch tag
+
+tabs[#tabs+1] = {
     label = localize('b_set_palettes'),
     tab_definition_function = G.UIDEF.settings_tab,
     tab_definition_function_args = 'Palettes'

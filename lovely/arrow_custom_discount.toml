@@ -11,8 +11,9 @@ priority = 0
 [patches.pattern]
 target = "card.lua"
 pattern = '''self.cost = math.max(1, math.floor((self.base_cost + self.extra_cost + 0.5)*(100-G.GAME.discount_percent)/100))'''
-position = "after"
-payload = '''if G.GAME and G.GAME.arrow_extra_discounts then
+position = "at"
+payload = '''self.cost = math.max(1, math.floor((self.base_cost + self.extra_cost + 0.5)*(100-G.GAME.discount_percent)/100)) -- csau_arrow patch tag
+if G.GAME and G.GAME.arrow_extra_discounts then
     for k,v in pairs(G.GAME.arrow_extra_discounts) do
         if not v.center_set or (v.center_set == self.ability.set) then
             self.cost = math.max(1, math.floor(self.cost * v.discount))
