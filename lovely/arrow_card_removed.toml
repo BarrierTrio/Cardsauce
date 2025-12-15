@@ -24,6 +24,7 @@ pattern = '''for i=1, #cards_destroyed do
 end'''
 position = "at"
 payload = '''for i=1, #cards_destroyed do
+    -- arrow patch tag
     SMODS.calculate_context({scoring_hand = scoring_hand, pre_playing_card_removed = true, removed = cards_destroyed[i] })
     G.E_MANAGER:add_event(Event({
         func = function()

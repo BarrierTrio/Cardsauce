@@ -148,13 +148,15 @@ ArrowAPI.config_tools.use_credits(Cardsauce, {
         pos_end = {col = 4.5, row = 7},
 		contributors = {
 			{
-				name = function()
+				name = 'Austin L. Matthews',
+				name_func = function()
 					return G.SETTINGS.roche and 'Austin L. Matthews' or '?????'
 				end,
 				name_scale = 1.1
 			},
 			{
-				name = function()
+				name = '(AmtraxVA)',
+				name_func = function()
 					return G.SETTINGS.roche and '(AmtraxVA)' or '?????'
 				end,
 				name_color = G.C.UI.TEXT_INACTIVE,
