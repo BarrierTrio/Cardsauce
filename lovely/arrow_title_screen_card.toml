@@ -21,14 +21,12 @@ overwrite = false
 target = "game.lua"
 pattern = '''local replace_card = Card(self.title_top.T.x, self.title_top.T.y, 1.2*G.CARD_W*SC_scale, 1.2*G.CARD_H*SC_scale, G.P_CARDS.S_A, G.P_CENTERS.c_base)'''
 position = "at"
-payload = '''
-local title_center = 'c_base'
+payload = '''local title_center = 'c_base'
 local title_front = 'S_A'
 local flags = ArrowAPI.misc.title_calculate({title_card = true, center = title_center, front = title_front})
 title_center = flags.title_center or title_center
 title_front = flags.title_front or title_front
-local replace_card = Card(self.title_top.T.x, self.title_top.T.y, 1.2*G.CARD_W*SC_scale, 1.2*G.CARD_H*SC_scale, G.P_CARDS[title_front], G.P_CENTERS[title_center])
-'''
+local replace_card = Card(self.title_top.T.x, self.title_top.T.y, 1.2*G.CARD_W*SC_scale, 1.2*G.CARD_H*SC_scale, G.P_CARDS[title_front], G.P_CENTERS[title_center])'''
 match_indent = true
 overwrite = false
 

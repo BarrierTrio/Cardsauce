@@ -11,8 +11,9 @@ priority = 0
 [patches.pattern]
 target = "game.lua"
 pattern = '''edition_rate = 1,'''
-position = "after"
-payload = '''negative_rate = 1,'''
+position = "at"
+payload = '''edition_rate = 1, -- csau_arrow patch tag
+negative_rate = 1,'''
 match_indent = true
 times = 1
 

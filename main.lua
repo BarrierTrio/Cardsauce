@@ -1,4 +1,7 @@
-SMODS.load_file("modules/Arrow/main.lua")()
+if not ArrowAPI then
+	SMODS.load_file("modules/Arrow/main.lua")()
+end
+
 
 -- Removed the deprecated header metadata in favor of the current json one
 -- look in Cardsauce.json for that info! ~Winter
@@ -468,4 +471,7 @@ for _, include in ipairs(includes) do
 	end
 end
 
-SMODS.load_file("modules/jojobal/main.lua")()
+if not JojobalMod then
+	SMODS.load_file("modules/jojobal/main.lua")()
+end
+

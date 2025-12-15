@@ -11,7 +11,7 @@ priority = 0
 [patches.pattern]
 target = "functions/misc_functions.lua"
 pattern = '''G.culled_table =  recursive_table_cull{'''
-position = "before"
+position = "at"
 payload = '''local extra_blinds = {}
 if G.GAME.arrow_extra_blinds then
     for i, v in ipairs(G.GAME.arrow_extra_blinds) do
@@ -23,7 +23,8 @@ if G.GAME.arrow_extra_blinds then
 end
 if not next(extra_blinds) then
     extra_blinds = nil
-end'''
+end
+G.culled_table =  recursive_table_cull{ -- csau_arrow patch tag'''
 match_indent = true
 times = 1
 
@@ -32,8 +33,9 @@ times = 1
 [patches.pattern]
 target = "functions/misc_functions.lua"
 pattern = '''BLIND = G.GAME.blind:save(),'''
-position = "after"
-payload = '''EXTRA_BLINDS = extra_blinds,'''
+position = "at"
+payload = '''BLIND = G.GAME.blind:save(), -- csau_arrow patch tag
+EXTRA_BLINDS = extra_blinds,'''
 match_indent = true
 times = 1
 
@@ -42,8 +44,9 @@ times = 1
 [patches.pattern]
 target = "game.lua"
 pattern = '''G.GAME.blind:load(saveTable.BLIND)'''
-position = "after"
+position = "at"
 payload = '''
+G.GAME.blind:load(saveTable.BLIND) -- csau_arrow patch tag
 if saveTable.EXTRA_BLINDS then
     self.GAME.arrow_extra_blinds = {}
     for i, v in ipairs(saveTable.EXTRA_BLINDS) do
@@ -85,8 +88,12 @@ target = "functions/state_events.lua"
 pattern = '''mult, hand_chips, modded = G.GAME.blind:modify_hand(G.play.cards, poker_hands, text, mult, hand_chips, scoring_hand)
 mult, hand_chips = mod_mult(mult), mod_chips(hand_chips)
 if modded then update_hand_text({sound = 'chips2', modded = modded}, {chips = hand_chips, mult = mult}) end'''
-position = "after"
-payload = '''for _, v in ipairs(G.GAME.arrow_extra_blinds) do
+position = "at"
+payload = '''
+mult, hand_chips, modded = G.GAME.blind:modify_hand(G.play.cards, poker_hands, text, mult, hand_chips, scoring_hand)
+mult, hand_chips = mod_mult(mult), mod_chips(hand_chips)
+if modded then update_hand_text({sound = 'chips2', modded = modded}, {chips = hand_chips, mult = mult}) end -- csau_arrow patch tag
+for _, v in ipairs(G.GAME.arrow_extra_blinds) do
     if G.GAME.blind.config.blind ~= v.config.blind then
         mult, hand_chips, modded = v:modify_hand(G.play.cards, poker_hands, text, mult, hand_chips, scoring_hand)
         mult, hand_chips = mod_mult(mult), mod_chips(hand_chips)
@@ -125,8 +132,9 @@ times = 1
 [patches.pattern]
 target = "game.lua"
 pattern = '''G.boss_throw_hand = nil'''
-position = "after"
-payload = '''if G.GAME.arrow_extra_blinds and G.GAME.arrow_extra_blinds[1] ~= [["]].."MANUAL_REPLACE"..[["]] then
+position = "at"
+payload = '''G.boss_throw_hand = nil -- csau_arrow patch tag
+if G.GAME.arrow_extra_blinds and G.GAME.arrow_extra_blinds[1] ~= [["]].."MANUAL_REPLACE"..[["]] then
     for _, v in ipairs(G.GAME.arrow_extra_blinds) do
         v.arrow_extra_boss_throw_hand = nil
     end
@@ -150,8 +158,9 @@ times = 1
 target = "functions/state_events.lua"
 pattern = '''   delay(0.4)
 end'''
-position = "after"
-payload = '''
+position = "at"
+payload = '''	delay(0.4)
+end -- csau_arrow patch tag
 for _, v in ipairs(G.GAME.arrow_extra_blinds) do
     if v:press_play() then
         G.E_MANAGER:add_event(Event({
