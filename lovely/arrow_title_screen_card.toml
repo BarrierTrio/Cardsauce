@@ -23,9 +23,11 @@ pattern = '''local replace_card = Card(self.title_top.T.x, self.title_top.T.y, 1
 position = "at"
 payload = '''
 local title_card = 'c_base'
+local title_front = 'S_A'
 local flags = ArrowAPI.misc.title_calculate({title_card = true, card = title_card})
 title_card = flags.title_card or title_card
-local replace_card = Card(self.title_top.T.x, self.title_top.T.y, 1.2*G.CARD_W*SC_scale, 1.2*G.CARD_H*SC_scale, G.P_CARDS.S_A, G.P_CENTERS[title_card])
+title_front = flags.title_front or title_front
+local replace_card = Card(self.title_top.T.x, self.title_top.T.y, 1.2*G.CARD_W*SC_scale, 1.2*G.CARD_H*SC_scale, G.P_CARDS[title_front], G.P_CENTERS[title_card])
 '''
 match_indent = true
 overwrite = false
