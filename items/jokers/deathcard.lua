@@ -65,7 +65,6 @@ function jokerInfo.calculate(self, card, context)
 	end
 
 	if context.selling_self and not context.blueprint then
-		sendDebugMessage('sending')
 		card.ability.times_sold = (card.ability.times_sold or 0) + 1
 		G.GAME.csau_saved_deathcards[#G.GAME.csau_saved_deathcards+1] = {
 			key = card.config.center.key,

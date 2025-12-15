@@ -491,12 +491,6 @@ return {
 					75,
 					194,
 					146,
-					["key"] = "Small",
-				},
-				{
-					75,
-					194,
-					146,
 					["key"] = "SHOWDOWN_COL_1",
 				},
 				{
@@ -853,6 +847,7 @@ return {
 	["rows"] = 2,
 	["forceEnableOrtalab"] = false,
 	["loaded_packs"] = {
+		"sp_csau_cardsauce",
 		"sp_balatro",
 		["replace_map"] = {
 		},
