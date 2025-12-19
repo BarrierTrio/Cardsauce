@@ -28,3 +28,47 @@ else
 end'''
 times = 1
 match_indent = true
+
+# UIElement:draw_pixelated_rect
+[[patches]]
+[patches.pattern]
+target = "engine/ui.lua"
+pattern = '''love.graphics.rectangle('fill', 0,0, self.VT.w*G.TILESIZE, self.VT.h*G.TILESIZE)'''
+position = "at"
+payload = '''if self.config.id then
+    local sub = self.config.id:sub(1, 20)
+    if sub == 'arrow_palette_button' or sub == 'arrow_palette_defaul' then
+        local scale = G.TILESIZE * G.TILESCALE
+        G.SHADERS['arrow_button_grad']:send('start_x', self.VT.x * scale + self.VT.w/2 * scale)
+        G.SHADERS['arrow_button_grad']:send('end_x', self.VT.x * scale + self.VT.w/2 * scale + self.VT.w * scale)
+
+        if self.config.id == 'arrow_palette_button_1' then
+            sendDebugMessage('has grad pos: '..tostring(self.config.colour.grad_pos))
+        end
+
+        local array_table = {}
+        local grad_pos = self.config.colour.grad_pos or {0}
+        local size = #grad_pos
+        for i=1, 8 do
+            if i <= size then
+                local start_idx = (i - 1) * 3
+                array_table[i] = {self.config.colour[start_idx + 1]/255, self.config.colour[start_idx + 2]/255, self.config.colour[start_idx + 3]/255, grad_pos[i]}
+            else
+                array_table[i] = {1, 1, 1, 1}
+            end
+        end
+
+        G.SHADERS['arrow_button_grad']:send("grad_size", size)
+        G.SHADERS['arrow_button_grad']:send("grad_points", unpack(array_table))
+
+        love.graphics.setShader(G.SHADERS['arrow_button_grad'])
+        love.graphics.rectangle('fill', 0,0, self.VT.w*G.TILESIZE, self.VT.h*G.TILESIZE)
+        love.graphics.setShader()
+    else
+        love.graphics.rectangle('fill', 0,0, self.VT.w*G.TILESIZE, self.VT.h*G.TILESIZE)
+    end
+else
+    love.graphics.rectangle('fill', 0,0, self.VT.w*G.TILESIZE, self.VT.h*G.TILESIZE)
+end'''
+times = 1
+match_indent = true

@@ -1,7 +1,7 @@
 local jokerInfo = {
     name = "Beginner's Luck",
     atlas = 'jokers',
-	pos = {x = 7, y = 7},
+	pos = {x = 6, y = 7},
     config = {
         extra = {
             prob_mod = 3,
