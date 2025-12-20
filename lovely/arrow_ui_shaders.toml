@@ -23,52 +23,66 @@ elseif self.config.id == 'arrow_rgb_slider' then
     love.graphics.setShader(G.SHADERS['arrow_rgb_slider'])
     love.graphics.polygon((_type == 'line' or _type == 'line_emboss') and 'line' or "fill", self.pixellated_rect[_type].vertices)
     love.graphics.setShader()
-else
+elseif self.config.id == 'arrow_grad_widget_box' then
+    local scale = G.TILESIZE * G.TILESCALE
+    local start_x = (self.T.x + self.T.w/2 - 0.15) * scale
+    local end_x = (self.T.x + self.T.w/2 + self.T.w - 0.15) * scale
+    G.SHADERS['arrow_button_grad']:send('start_x', start_x)
+    G.SHADERS['arrow_button_grad']:send('end_x', end_x)
+
+    local color = ArrowAPI.colors.palettes[ArrowAPI.palette_ui_config.open_palette.set].current_palette[ArrowAPI.palette_ui_config.open_palette.idx]
+
+    local array_table = {}
+    local size = #color.grad_pos
+    for i=1, 8 do
+        if i <= size then
+            local start_idx = (i - 1) * 3
+            array_table[i] = {color[start_idx + 1]/255, color[start_idx + 2]/255, color[start_idx + 3]/255, color.grad_pos[i]}
+        else
+            array_table[i] = {1, 1, 1, 1}
+        end
+    end
+
+    G.SHADERS['arrow_button_grad']:send("grad_size", size)
+    G.SHADERS['arrow_button_grad']:send("grad_points", unpack(array_table))
+
+    love.graphics.setShader(G.SHADERS['arrow_button_grad'])
     love.graphics.polygon((_type == 'line' or _type == 'line_emboss') and 'line' or "fill", self.pixellated_rect[_type].vertices)
-end'''
-times = 1
-match_indent = true
+    love.graphics.setShader()
+elseif self.config.id and (self.config.id:sub(1,20) == 'arrow_palette_button' or self.config.id:sub(1,20) == 'arrow_palette_defaul') then
+    local scale = G.TILESIZE * G.TILESCALE
+    local start_x = (self.T.x + self.T.w/2 - 0.15) * scale
+    local end_x = (self.T.x + self.T.w/2 + self.T.w - 0.15) * scale
+    G.SHADERS['arrow_button_grad']:send('start_x', start_x)
+    G.SHADERS['arrow_button_grad']:send('end_x', end_x)
 
-# UIElement:draw_pixelated_rect
-[[patches]]
-[patches.pattern]
-target = "engine/ui.lua"
-pattern = '''love.graphics.rectangle('fill', 0,0, self.VT.w*G.TILESIZE, self.VT.h*G.TILESIZE)'''
-position = "at"
-payload = '''if self.config.id then
-    local sub = self.config.id:sub(1, 20)
-    if sub == 'arrow_palette_button' or sub == 'arrow_palette_defaul' then
-        local scale = G.TILESIZE * G.TILESCALE
-        G.SHADERS['arrow_button_grad']:send('start_x', self.VT.x * scale + self.VT.w/2 * scale)
-        G.SHADERS['arrow_button_grad']:send('end_x', self.VT.x * scale + self.VT.w/2 * scale + self.VT.w * scale)
-
-        if self.config.id == 'arrow_palette_button_1' then
-            sendDebugMessage('has grad pos: '..tostring(self.config.colour.grad_pos))
-        end
-
-        local array_table = {}
-        local grad_pos = self.config.colour.grad_pos or {0}
-        local size = #grad_pos
-        for i=1, 8 do
-            if i <= size then
-                local start_idx = (i - 1) * 3
-                array_table[i] = {self.config.colour[start_idx + 1]/255, self.config.colour[start_idx + 2]/255, self.config.colour[start_idx + 3]/255, grad_pos[i]}
-            else
-                array_table[i] = {1, 1, 1, 1}
+    local array_table = {}
+    local size = #self.config.colour.grad_pos
+    for i=1, 8 do
+        if i <= size then
+            local start_idx = (i - 1) * 3
+            array_table[i] = {self.config.colour[start_idx + 1]/255, self.config.colour[start_idx + 2]/255, self.config.colour[start_idx + 3]/255, self.config.colour.grad_pos[i]}
+            if _type == 'emboss' then
+                array_table[i] =  darken(array_table[i], self.states.hover.is and 0.5 or 0.3)
             end
+        else
+            array_table[i] = {1, 1, 1, 1}
         end
+    end
 
-        G.SHADERS['arrow_button_grad']:send("grad_size", size)
-        G.SHADERS['arrow_button_grad']:send("grad_points", unpack(array_table))
+    G.SHADERS['arrow_button_grad']:send("grad_size", size)
+    G.SHADERS['arrow_button_grad']:send("grad_points", unpack(array_table))
 
-        love.graphics.setShader(G.SHADERS['arrow_button_grad'])
-        love.graphics.rectangle('fill', 0,0, self.VT.w*G.TILESIZE, self.VT.h*G.TILESIZE)
-        love.graphics.setShader()
-    else
-        love.graphics.rectangle('fill', 0,0, self.VT.w*G.TILESIZE, self.VT.h*G.TILESIZE)
+    love.graphics.setShader(G.SHADERS['arrow_button_grad'])
+    love.graphics.polygon((_type == 'line' or _type == 'line_emboss') and 'line' or "fill", self.pixellated_rect[_type].vertices)
+    love.graphics.setShader()
+
+    if ((self.config.hover and self.states.hover.is) or (self.last_clicked and self.last_clicked > G.TIMERS.REAL - 0.1)) then
+        love.graphics.setColor(G.C.UI.HOVER)
+        love.graphics.polygon((_type == 'line' or _type == 'line_emboss') and 'line' or "fill", self.pixellated_rect[_type].vertices)
     end
 else
-    love.graphics.rectangle('fill', 0,0, self.VT.w*G.TILESIZE, self.VT.h*G.TILESIZE)
+    love.graphics.polygon((_type == 'line' or _type == 'line_emboss') and 'line' or "fill", self.pixellated_rect[_type].vertices)
 end'''
 times = 1
 match_indent = true
