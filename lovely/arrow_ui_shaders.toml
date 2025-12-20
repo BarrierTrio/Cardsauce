@@ -49,7 +49,7 @@ elseif self.config.id == 'arrow_grad_widget_box' then
     love.graphics.setShader(G.SHADERS['arrow_button_grad'])
     love.graphics.polygon((_type == 'line' or _type == 'line_emboss') and 'line' or "fill", self.pixellated_rect[_type].vertices)
     love.graphics.setShader()
-elseif self.config.id and (self.config.id:sub(1,20) == 'arrow_palette_button' or self.config.id:sub(1,20) == 'arrow_palette_defaul') then
+elseif type(self.config.id) == 'string' and (self.config.id:sub(1,20) == 'arrow_palette_button' or self.config.id:sub(1,20) == 'arrow_palette_defaul') then
     local scale = G.TILESIZE * G.TILESCALE
     local start_x = (self.T.x + self.T.w/2 - 0.15) * scale
     local end_x = (self.T.x + self.T.w/2 + self.T.w - 0.15) * scale
