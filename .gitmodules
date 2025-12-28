@@ -1,0 +1,6 @@
+[submodule "modules/Arrow"]
+	path = modules/Arrow
+	url = https://github.com/Kekulism/Arrow.git
+[submodule "modules/jojobal"]
+	path = modules/jojobal
+	url = https://github.com/VivianGiacobbi/jojobal.git

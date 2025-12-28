@@ -1,12 +1,16 @@
 local jokerInfo = {
     name = 'BITCONNEEEEEEEEEEEEEEEEE',
+    atlas = 'jokers',
+	pos = {x = 7, y = 12},
     config = {
-        extra = 5,
-        scam_hands = {
-            "High Card",
-            "Pair",
-            "Two Pair",
-        }
+        extra = {
+            dollars = 5,
+            scam_hands = {
+                ["High Card"] = true,
+                ["Pair"] = true,
+                ["Two Pair"] = true,
+            }
+        },
     },
     rarity = 2,
     cost = 8,
@@ -16,30 +20,30 @@ local jokerInfo = {
     pools = {
         ["Meme"] = true
     },
-    streamer = "joel",
+    origin = {
+        category = 'cardsauce',
+        sub_origins = {
+            'joel',
+        },
+        custom_color = 'joel'
+    },
+    dependencies = {
+        config = {
+            ['JoelContent'] = true,
+        }
+    },
+    artist = 'plunch'
 }
 
 function jokerInfo.loc_vars(self, info_queue, card)
-    info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.plunch } }
-    return { vars = { card.ability.extra } }
-end
-
-local function validHand(card, context)
-    if not context.scoring_name then return false end
-    for i, v in ipairs(card.ability.scam_hands) do
-        if context.scoring_name == v then
-            return true
-        end
-    end
-    return false
+    return { vars = { card.ability.extra.dollars } }
 end
 
 function jokerInfo.calculate(self, card, context)
-    if context.cardarea == G.jokers and context.before and not card.debuff then
-        local money = card.ability.extra
-        if validHand(card, context) then
-            money = -money
-        end
+    if card.debuff then return end
+
+    if context.before then
+        local money = card.ability.extra.dollars * (card.ability.extra.scam_hands[context.scoring_name] and -1 or 1)
         return {
             dollars = money
         }

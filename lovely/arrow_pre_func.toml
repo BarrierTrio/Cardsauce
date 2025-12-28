@@ -1,0 +1,28 @@
+[manifest]
+version = "1.0.0"
+priority = 30
+
+# SMODS.calculate_context()
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/utils.lua"]'
+pattern = ''''message','''
+position = "at"
+payload = ''''pre_func',
+'message', -- csau_arrow patch tag'''
+match_indent = true
+times = 1
+
+# SMODS.calculate_context()
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/utils.lua"]'
+pattern = '''if key == 'message' and not SMODS.no_resolve then'''
+position = "at"
+payload = '''if key == 'pre_func' then
+    effect.pre_func()
+    return true
+end
+if key == 'message' and not SMODS.no_resolve then -- csau_arrow patch tag'''
+match_indent = true
+times = 1

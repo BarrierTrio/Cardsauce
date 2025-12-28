@@ -1,8 +1,10 @@
 local jokerInfo = {
 	name = 'Charity Stream',
+	atlas = 'jokers',
+	pos = {x = 2, y = 8},
 	config = {extra = {
 		mult = 0,
-		mult_gain = 0
+		mult_mod = 0
 	}},
 	rarity = 2,
 	cost = 7,
@@ -11,7 +13,8 @@ local jokerInfo = {
 	eternal_compat = true,
 	perishable_compat = false,
 	unlock_condition = {type = 'win_deck', deck = 'b_green'},
-	streamer = "other",
+	origin = 'cardsauce',
+	artist = 'BarrierTrio/Gote'
 }
 
 function jokerInfo.check_for_unlock(self, args)
@@ -21,7 +24,6 @@ function jokerInfo.check_for_unlock(self, args)
 end
 
 function jokerInfo.loc_vars(self, info_queue, card)
-	info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.gote } }
 	return { vars = { card.ability.extra.mult } }
 end
 
@@ -38,28 +40,33 @@ function jokerInfo.remove_from_deck(self, card)
 end
 
 function jokerInfo.calculate(self, card, context)
-	if context.end_of_round and not card.debuff and not context.individual and not context.repetition and not context.blueprint then
-		card.ability.extra.mult_gain = 0
-		if G.GAME.modifiers.no_interest then
-			card.ability.extra.mult_gain = to_big(G.GAME.interest_amount)*math.min(math.floor(to_big(G.GAME.dollars)/to_big(5)), to_big(G.GAME.interest_cap)/to_big(5))
-		end
-		card.ability.extra.mult = to_big(card.ability.extra.mult) + to_big(card.ability.extra.mult_gain)
-		if to_big(card.ability.extra.mult_gain) ~= 0 then
-			card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize{ type = 'variable', key = 'a_mult', vars = {to_big(card.ability.extra.mult_gain)} }, colour = G.C.MULT})
-		end
+	if card.debuff then return end
+
+	if context.joker_main and to_big(card.ability.extra.mult) ~= to_big(0) then
+		return {
+			mult = card.ability.extra.mult,
+		}
+
 	end
-	
-	if context.joker_main and context.cardarea == G.jokers then
-		if to_big(card.ability.extra.mult) ~= to_big(0) then
-			return {
-				message = localize { type = 'variable', key = 'a_mult', vars = {to_big(card.ability.extra.mult)} },
-				mult_mod = card.ability.extra.mult,
-			}
+	if context.blueprint then return end
+
+	if context.round_eval and G.GAME.dollars > 5 then
+		local mod = G.GAME.interest_amount*math.min(math.floor(G.GAME.dollars/5), math.floor(G.GAME.interest_cap/5))
+		if mod > 0 then
+			local scale_table = {mult_mod = mod}
+			SMODS.scale_card(card, {
+				ref_table = card.ability.extra,
+				ref_value = "mult",
+				scalar_table = scale_table,
+				scalar_value = "mult_mod",
+				message_key = 'a_mult',
+				message_colour = G.C.MULT
+			})
 		end
+
 	end
 end
 
 
 
 return jokerInfo
-	

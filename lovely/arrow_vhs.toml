@@ -1,0 +1,28 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 0
+
+[[patches]]
+[patches.pattern]
+target = "functions/UI_definitions.lua"
+pattern = '''
+{n=G.UIT.B, config = {w=0.1,h=0.6}},
+{n=G.UIT.T, config={text = localize('b_use'),colour = G.C.UI.TEXT_LIGHT, scale = 0.55, shadow = true}}
+'''
+position = "at"
+payload = '''
+{n=G.UIT.B, config = {w=card.ability.set == "VHS" and 0.2 or 0.1,h=0.6 }},
+{n=G.UIT.T, config={text = card.ability.set == "VHS" and (card.ability.activated and localize('b_deactivate') or localize('b_activate')) or localize('b_use'),colour = G.C.UI.TEXT_LIGHT, scale = card.ability.set == "VHS" and 0.75 or 0.55, shadow = true}}
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = "functions/UI_definitions.lua"
+pattern = "button_contents = {n=G.UIT.T, config={text = localize('b_use'),colour = G.C.WHITE, scale = 0.5}}"
+position = "at"
+payload = "button_contents = {n=G.UIT.T, config={text = args.card.ability.set == 'VHS' and localize('b_'..(args.card.ability.activated and 'de' or '')..'activate') or localize('b_use'),colour = G.C.WHITE, scale = 0.5}}"
+match_indent = true
+times = 1
+

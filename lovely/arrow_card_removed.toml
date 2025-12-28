@@ -1,0 +1,42 @@
+[manifest]
+version = "1.0.0"
+priority = 0
+
+#
+# Adds a "playing_card_removed" individual context
+#
+
+# G.FUNCS.evaluate_play()
+[[patches]]
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = '''for i=1, #cards_destroyed do
+    G.E_MANAGER:add_event(Event({
+        func = function()
+            if cards_destroyed[i].shattered then
+                cards_destroyed[i]:shatter()
+            else
+                cards_destroyed[i]:start_dissolve()
+            end
+            return true
+        end
+        }))
+end'''
+position = "at"
+payload = '''for i=1, #cards_destroyed do
+    -- arrow patch tag
+    SMODS.calculate_context({scoring_hand = scoring_hand, pre_playing_card_removed = true, removed = cards_destroyed[i] })
+    G.E_MANAGER:add_event(Event({
+        func = function()
+            if cards_destroyed[i].shattered then
+                cards_destroyed[i]:shatter()
+            else
+                cards_destroyed[i]:start_dissolve()
+            end
+            return true
+        end
+        }))
+    SMODS.calculate_context({scoring_hand = scoring_hand, post_playing_card_removed = true, removed = cards_destroyed[i] })
+end'''
+match_indent = true
+times = 1

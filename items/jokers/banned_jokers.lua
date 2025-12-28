@@ -1,5 +1,8 @@
+SMODS.Atlas({key = 'banned_jokers', path = 'banned/banned_jokers.png', px = 169, py = 123})
+
 local jokerInfo = {
     name = "Banned Jokers",
+    atlas = 'banned_jokers',
     config = {},
     rarity = 1,
     cost = 1,
@@ -11,9 +14,6 @@ local jokerInfo = {
     blueprint_compat = false,
     eternal_compat = false,
     perishable_compat = false,
-    width = 169,
-	height = 123,
-    origin = 'vinny',
 }
 
 function jokerInfo.set_card_type_badge(self, card, badges)

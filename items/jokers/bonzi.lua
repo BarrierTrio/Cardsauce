@@ -1,5 +1,9 @@
 local jokerInfo = {
     name = "Bonzi Buddy",
+    animation = {
+        frames = 12,
+        fps = 10,
+    },
     config = {
         extra = {
             mult = 0,
@@ -17,13 +21,19 @@ local jokerInfo = {
         ["Meme"] = true
     },
     width = 87,
-    streamer = "joel",
-    animated = {
-        tiles = {
-            x = 6,
-            y = 2,
+    origin = {
+        category = 'cardsauce',
+        sub_origins = {
+            'joel',
         },
-    }
+        custom_color = 'joel'
+    },
+    dependencies = {
+        config = {
+            ['JoelContent'] = true,
+        }
+    },
+    artist = 'Crisppyboat'
 }
 
 local function getSignum(num)
@@ -46,7 +56,6 @@ function jokerInfo.set_sprites(self, card, _front)
 end
 
 function jokerInfo.loc_vars(self, info_queue, card)
-    info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.crispy } }
     return { vars = {card.ability.extra.mult_mod, card.ability.extra.dollars, getSignum(card.ability.extra.mult)..card.ability.extra.mult} }
 end
 
@@ -57,16 +66,36 @@ function jokerInfo.calculate(self, card, context)
                 card.ability.extra.mult = -card.ability.extra.mult
             end
             ease_dollars(-card.ability.extra.dollars)
-            card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.mult_mod
-            card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('k_upgrade_ex'), colour = G.C.MULT})
+            SMODS.scale_card(card, {
+                ref_table = card.ability.extra,
+                ref_value = "mult",
+                scalar_value = "mult_mod",
+                scaling_message = {
+                    message = localize('k_upgrade_ex'),
+                    colour = G.C.MULT
+                }
+            })
         else
             if to_big(card.ability.extra.mult) > to_big(0) then
-                card.ability.extra.mult = -card.ability.extra.mult
-                card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('k_negative_mult'), colour = G.C.DARK_EDITION})
+                local scale_table = {mult_mod = card.ability.extra.mult}
+                card.ability.extra.mult = 0
+
+                SMODS.scale_card(card, {
+                    ref_table = card.ability.extra,
+                    ref_value = "mult",
+                    scalar_table = scale_table,
+                    scalar_value = "mult_mod",
+                    operation = '-',
+                    scaling_message = {
+                        message = localize('k_negative_mult'),
+                        colour = G.C.DARK_EDITION
+                    }
+                })
             end
         end
     end
-    if to_big(card.ability.extra.mult) ~= to_big(0) and context.joker_main and context.cardarea == G.jokers then
+
+    if to_big(card.ability.extra.mult) ~= to_big(0) and context.joker_main then
         return {
             mult = card.ability.extra.mult,
         }
@@ -90,18 +119,6 @@ function jokerInfo.update(self, card, dt)
             card.children.use_button.bonzi_draw = true
         end
     end
-end
-
-local ds_ref = Sprite.draw_shader
-function Sprite:draw_shader(_shader, _shadow_height, _send, _no_tilt, other_obj, ms, mr, mx, my, custom_shader, tilt_shadow)
-    if self.atlas.name == 'stickers' then
-        if other_obj and other_obj.parent and other_obj.parent.Mid and other_obj.parent.Mid.config and other_obj.parent.Mid.config.center_key then
-            if other_obj.parent.Mid.config.center_key == 'j_csau_bonzi' then
-                mx = 0.45
-            end
-        end
-    end
-    ds_ref(self, _shader, _shadow_height, _send, _no_tilt, other_obj, ms, mr, mx, my, custom_shader, tilt_shadow)
 end
 
 return jokerInfo

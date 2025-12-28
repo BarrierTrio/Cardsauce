@@ -1,5 +1,7 @@
 local jokerInfo = {
     name = 'Business Trading Card',
+    atlas = 'jokers',
+	pos = {x = 6, y = 0},
     config = {
         extra = {
             dollars = 6,
@@ -12,11 +14,22 @@ local jokerInfo = {
     blueprint_compat = true,
     eternal_compat = true,
     perishable_compat = true,
-    streamer = "vinny",
+    origin = {
+        category = 'cardsauce',
+        sub_origins = {
+            'vinny',
+        },
+        custom_color = 'vinny'
+    },
+	dependencies = {
+        config = {
+            ['VinnyContent'] = true
+        }
+    },
+    artist = 'Kekulism',
 }
 
 function jokerInfo.loc_vars(self, info_queue, card)
-    info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.keku } }
     local num, dom = SMODS.get_probability_vars(card, 1, card.ability.extra.chance, 'csau_business_1')
     return { vars = {card.ability.extra.dollars, num, dom, card.ability.extra.destroy} }
 end
@@ -33,8 +46,9 @@ end
 function jokerInfo.calculate(self, card, context)
     if card.debuff then return end
 
-    if context.before and context.cardarea == G.jokers and to_big(G.GAME.current_round.hands_played) == to_big(0) and all_faces(context.full_hand) then
-        if not context.blueprint and not context.retrigger_joker and SMODS.pseudorandom_probability(card, 'csau_business_1', 1, card.ability.extra.chance) then
+    if context.before and to_big(G.GAME.current_round.hands_played) == to_big(0) and all_faces(context.full_hand) then
+        if not context.blueprint and not context.retrigger_joker
+        and SMODS.pseudorandom_probability(card, 'csau_business_1', 1, card.ability.extra.chance) then
             local idx_tbl = {}
             for i=1, #context.full_hand do
                 idx_tbl[#idx_tbl+1] = i
@@ -54,7 +68,7 @@ function jokerInfo.calculate(self, card, context)
         }
     end
 
-    if context.blueprint then return end
+    if context.blueprint or context.retrigger_joker then return end
 
     if context.destroy_card and context.destroy_card.csau_removed_by_business then
         return {

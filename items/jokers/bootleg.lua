@@ -1,5 +1,3 @@
-local mod = SMODS.current_mod
-
 SMODS.Shader {
     key = 'bootleg',
     path = 'bootleg.fs',
@@ -7,6 +5,8 @@ SMODS.Shader {
 
 local jokerInfo = {
     name = 'Bootleg Joker',
+    atlas = 'jokers',
+	pos = {x = 9, y = 10},
     config = {},
     bootlegged_center = nil,
     rarity = 1,
@@ -14,7 +14,19 @@ local jokerInfo = {
     blueprint_compat = true,
     eternal_compat = true,
     perishable_compat = true,
-    streamer = "joel",
+    origin = {
+        category = 'cardsauce',
+        sub_origins = {
+            'joel',
+        },
+        custom_color = 'joel'
+    },
+    dependencies = {
+        config = {
+            ['JoelContent'] = true,
+        }
+    },
+    artist = 'BarrierTrio/Gote'
 }
 
 local function reduced_set_ability(card, center)
@@ -122,8 +134,8 @@ function jokerInfo.load(self, card, card_table, other_card)
 end
 
 function jokerInfo.set_sprites(self, card, initial, delay_sprites)
-    card.config.center.atlas = 'csau_bootleg'
-    card.config.center.pos = { x = 0, y = 0 }
+    card.config.center.atlas = 'csau_jokers'
+    card.config.center.pos = { x = 9, y = 10 }
 end
 
 function jokerInfo.calc_dollar_bonus(self, card)
@@ -140,7 +152,7 @@ function jokerInfo.calculate(self, card, context)
         local center = pseudorandom_element(G.P_CENTER_POOLS.Joker, pseudoseed('csau_bootleg_center'))
         reduced_set_ability(card, center)
         card.ability.bootlegged_key = center.key
-        card.config.center.atlas = 'csau_bootleg'
+        card.config.center.atlas = 'csau_jokers'
         card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize{type = 'name_text', key = center.key, set = center.set}, colour = G.C.IMPORTANT})
 
         card.config.center = G.P_CENTERS[card.ability.bootlegged_key]
@@ -149,8 +161,8 @@ function jokerInfo.calculate(self, card, context)
         card.config.center = G.P_CENTERS['j_csau_bootleg']
     end
 
-    
-    if context.end_of_round and context.main_eval and not context.blueprint and not context.retrigger_joker then  
+
+    if context.end_of_round and context.main_eval and not context.blueprint and not context.retrigger_joker then
         if card.ability.bootlegged_key then
             -- make sure values are reset
             card.config.center = G.P_CENTERS[card.ability.bootlegged_key]
@@ -164,10 +176,10 @@ function jokerInfo.calculate(self, card, context)
                     card:juice_up()
                     play_sound('generic1')
                     return true
-                end 
+                end
             }))
         end
-        reduced_set_ability(card, G.P_CENTERS['j_csau_bootleg']) 
+        reduced_set_ability(card, G.P_CENTERS['j_csau_bootleg'])
         return
     end
 
@@ -240,13 +252,12 @@ function jokerInfo.generate_ui(self, info_queue, card, desc_nodes, specific_vars
         return
     end
 
-    info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.gote } }
     if card.config.center.discovered then
         -- If statement makes it so that this function doesnt activate in the "Joker Unlocked" UI and cause 'Not Discovered' to be stuck in the corner
         full_UI_table.name = localize{type = 'name', key = self.key, set = self.set, name_nodes = {}, vars = specific_vars or {}}
     end
 
-    if csau_config['detailedDescs'] then
+    if ArrowAPI.current_config['enable_DetailedDescs'] then
         localize{type = 'descriptions', key = self.key.."_detailed", set = self.set, nodes = desc_nodes, vars = self.loc_vars and self.loc_vars(self, info_queue, card).vars or {}}
     else
         set_discover_tallies()
@@ -327,4 +338,3 @@ function jokerInfo.draw(self, card, layer)
 end
 
 return jokerInfo
-	

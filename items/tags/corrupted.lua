@@ -1,16 +1,14 @@
 local tagInfo = {
     name = 'Corrupted Tag',
+    atlas = 'tags',
     config = {type = 'store_joker_modify', edition = 'csau_corrupted', odds = 3},
     alerted = true,
     csau_dependencies = {
         'enableVinnyContent',
         'enableEditions',
-    }
+    },
+    artist = 'BarrierTrio/Gote'
 }
-
-tagInfo.loc_vars = function(self, info_queue, card)
-    info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.gote } }
-end
 
 tagInfo.apply = function(self, tag, context)
     if context.type == self.config.type then

@@ -1,7 +1,10 @@
 local jokerInfo = {
     name = "Blue Shell Incident",
+    atlas = 'jokers',
+	pos = {x = 1, y = 12},
     config = {
         extra = {
+            rank_id = 14,
             x_mult = 3,
         },
     },
@@ -11,32 +14,37 @@ local jokerInfo = {
     eternal_compat = true,
     perishable_compat = true,
     has_shiny = true,
-    streamer = "joel",
+    origin = {
+        category = 'cardsauce',
+        sub_origins = {
+            'joel',
+        },
+        custom_color = 'joel'
+    },
+    dependencies = {
+        config = {
+            ['JoelContent'] = true,
+        }
+    },
+    artist = 'greek_shmeek'
 }
 
-
-local function ace_tally()
-    local tally = 0
-    if not G.playing_cards then return tally end
-
-    for _, v in ipairs(G.playing_cards) do
-        if v:get_id() == 14 then tally = tally+1 end
-    end
-
-    return tally
-end
-
 function jokerInfo.loc_vars(self, info_queue, card)
-    info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.greeky } }
-    return { vars = {card.ability.extra.x_mult, ace_tally()} }
+    return { vars = {card.ability.extra.x_mult, ArrowAPI.game.get_rank_tally(card.ability.extra.rank_id)} }
 end
 
 function jokerInfo.calculate(self, card, context)
-    if context.joker_main and context.cardarea == G.jokers and ace_tally() == 0 then
-        return {
-            message = localize{type='variable',key='a_xmult',vars={to_big(card.ability.extra.x_mult)}},
-            Xmult_mod = card.ability.extra.x_mult,
-        }
+    if card.debuff then return end
+
+    if context.joker_main then
+        local ace_tally = ArrowAPI.game.get_rank_tally(card.ability.extra.rank_id)
+
+        if ace_tally == 0 then
+            return {
+                x_mult = card.ability.extra.x_mult,
+            }
+        end
+
     end
 end
 

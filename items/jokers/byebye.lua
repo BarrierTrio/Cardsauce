@@ -1,11 +1,7 @@
-local csc = Card.set_cost
-function Card.set_cost(self)
-    csc(self)
-    self.sell_cost = self.sell_cost + (self.ability.csau_extra_value or 0)
-end
-
 local jokerInfo = {
     name = 'Bye-Bye, Norway',
+    atlas = 'jokers',
+	pos = {x = 2, y = 13},
     config = {
         extra = {
             dollars_mod = 4
@@ -20,11 +16,22 @@ local jokerInfo = {
     perishable_compat = false,
     has_shiny = true,
     unlock_condition = {type = 'win_deck', deck = 'b_abandoned'},
-    streamer = "joel",
+    origin = {
+        category = 'cardsauce',
+        sub_origins = {
+            'joel',
+        },
+        custom_color = 'joel'
+    },
+    dependencies = {
+        config = {
+            ['JoelContent'] = true,
+        }
+    },
+    artist = 'GuffNFluff'
 }
 
 function jokerInfo.loc_vars(self, info_queue, card)
-    info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.guff } }
     return { vars = { card.ability.extra.dollars_mod } }
 end
 
@@ -47,30 +54,16 @@ function jokerInfo.calculate(self, card, context)
     end
 
     if context.selling_self then
-        local destroyed_cards = {}
+        local destroy_cards = {}
         for _, v in ipairs(G.hand.cards) do
-            if v:is_face() then
-                destroyed_cards[#destroyed_cards+1] = v
+            if v:is_face() and not v.csau_byebye_flagged then
+                v.csau_byebye_flagged = true
+                destroy_cards[#destroy_cards+1] = v
             end
         end
 
-        G.E_MANAGER:add_event(Event({
-            trigger = 'after',
-            delay = 0.1,
-            func = function()
-                for i=#destroyed_cards, 1, -1 do
-                    local card = destroyed_cards[i]
-                    if card.ability.name == 'Glass Card' then
-                        card:shatter()
-                    else
-                        card:start_dissolve(nil, i == #destroyed_cards)
-                    end
-                end
-                return true
-            end 
-        }))
+        SMODS.destroy_cards(destroy_cards)
     end
 end
 
 return jokerInfo
-	

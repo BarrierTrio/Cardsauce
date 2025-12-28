@@ -1,5 +1,7 @@
 local jokerInfo = {
     name = "Hack Fraud",
+    atlas = 'jokers',
+	pos = {x = 3, y = 14},
     config = {
         extra = {
             chip_mod = 15,
@@ -12,27 +14,32 @@ local jokerInfo = {
     eternal_compat = true,
     perishable_compat = true,
     has_shiny = true,
-    streamer = "othervinny",
-    csau_dependencies = {
-        'enableVHSs',
+    dependencies = {
+        config = {
+            ['VHSs'] = true,
+        }
     },
     origin = {
-        'rlm',
-        'rlm_hitb',
-        color = 'rlm'
-    }
+        category = 'rlm',
+        sub_origins = {'rlm_botw'},
+        custom_color = 'rlm'
+    },
+    artist = 'yunkie101'
 }
 
 local function get_chips(card)
-    local mod = 1
-    if G.GAME.used_vouchers.v_directors_cut then mod = 2 end
+    local mod = G.GAME.used_vouchers.v_directors_cut and 2 or 1
+
     local vhs_obtained = 0
-    for k, v in pairs(G.GAME.consumeable_usage) do if v.set == 'VHS' then vhs_obtained = vhs_obtained + 1 end end
+    for k, v in pairs(G.GAME.consumeable_usage) do
+        if v.set == 'VHS' then
+            vhs_obtained = vhs_obtained + 1
+        end
+    end
     return (card.ability.extra.chip_mod * vhs_obtained) * mod
 end
 
 function jokerInfo.loc_vars(self, info_queue, card)
-    info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.yunkie } }
     return { vars = { card.ability.extra.chip_mod, get_chips(card) } }
 end
 
@@ -45,4 +52,3 @@ function jokerInfo.calculate(self, card, context)
 end
 
 return jokerInfo
-	

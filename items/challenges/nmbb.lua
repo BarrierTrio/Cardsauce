@@ -16,32 +16,8 @@ local chalInfo = {
         }
     },
     unlocked = function(self)
-        return G.FUNCS.discovery_check({ mode = 'key', key = 'j_csau_blackjack' })
+        return (G.P_CENTERS['j_csau_blackjack'] or {}).discovered
     end
 }
-
-local triggered = false
-local debuff_hand_ref = Blind.debuff_hand
-
-function Blind:debuff_hand(cards, hand, handname, check)
-    if G.GAME.modifiers and G.GAME.modifiers.csau_nmbb then
-        if not next(hand["csau_Blackjack"]) then
-            triggered = true
-            return true
-        end
-        triggered = false
-    else
-        triggered = false
-    end
-    return debuff_hand_ref(self, cards, hand, handname, check)
-end
-
-local get_loc_debuff_textref = Blind.get_loc_debuff_text
-function Blind:get_loc_debuff_text()
-    if triggered then
-        return localize("k_not_bj")
-    end
-    return get_loc_debuff_textref(self)
-end
 
 return chalInfo

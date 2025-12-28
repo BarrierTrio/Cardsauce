@@ -12,7 +12,7 @@ extern MY_HIGHP_OR_MEDIUMP vec4 base_color;
 extern MY_HIGHP_OR_MEDIUMP float spread;
 extern MY_HIGHP_OR_MEDIUMP vec2 step_size;
 extern MY_HIGHP_OR_MEDIUMP number seed;
-extern MY_HIGHP_OR_MEDIUMP number aura_rate;
+extern MY_HIGHP_OR_MEDIUMP number aura_rate = 1;
 
 vec4 effect(vec4 color, Image tex, vec2 tex_coords, vec2 screen_coords) {
 	float t = (time * aura_rate) + seed / 65536.;
@@ -23,14 +23,14 @@ vec4 effect(vec4 color, Image tex, vec2 tex_coords, vec2 screen_coords) {
 	float noise_value_1 = Texel(noise_tex, upper_coords + vec2(0.0, t)).x;
 	float noise_value_2 = Texel(noise_tex, lower_coords + vec2(0.0, t + 0.43)).x;
 
-    float alpha = 4.0 * ret.a;
+    float alpha = 4 * ret.a;
     alpha -= Texel(tex, tex_coords + vec2(step_size.x, 0.0)).a;
     alpha -= Texel(tex, tex_coords + vec2(-step_size.x, 0.0)).a;
     alpha -= Texel(tex, tex_coords + vec2(0.0, step_size.y)).a;
     alpha -= Texel(tex, tex_coords + vec2(0.0, -step_size.y)).a;
 
     vec4 ret_color = vec4(outline_color.rgb, min(outline_color.a, alpha));
-    if (alpha <= 0.0 && ret.a > 0.0) {
+    if (alpha <= 0 && ret.a > 0) {
         ret_color = base_color;
     }
 
@@ -42,7 +42,7 @@ vec4 effect(vec4 color, Image tex, vec2 tex_coords, vec2 screen_coords) {
 		vec3 bd_lower = mix(base_color.rgb, outline_color.rgb, step1_lower - step2_lower);
 		vec4 apply_lower = vec4(bd_lower, min(step1_lower, base_color.a));
 
-		if ((apply_lower.a > 0.0) && (ret.a <= 0.0 || alpha > 0.0)) {
+		if ((apply_lower.a > 0) && (ret.a <= 0 || alpha > 0)) {
 			ret_color = apply_lower;
 		}
 	}
@@ -54,7 +54,7 @@ vec4 effect(vec4 color, Image tex, vec2 tex_coords, vec2 screen_coords) {
 	vec3 bd_upper = mix(base_color.rgb, outline_color.rgb, step1_upper - step2_upper);
 	vec4 apply_upper = vec4(bd_upper, min(step1_upper, base_color.a));
 
-	if ((apply_upper.a > 0.0) && (ret.a <= 0.0 || alpha > 0.0)) {
+	if ((apply_upper.a > 0) && (ret.a <= 0 || alpha > 0)) {
 		ret_color = apply_upper;
 	}
 	

@@ -1,4 +1,4 @@
-local trophyInfo = {
+local achInfo = {
     rarity = 3,
     unlock_condition = function(self, args)
         if G.jokers and #G.jokers.cards > 0 then
@@ -10,9 +10,9 @@ local trophyInfo = {
                 'j_csau_vincenzo',
                 'j_csau_quarterdumb'
             }
-            return G.FUNCS.have_multiple_jokers(jokers, 4)
+            return ArrowAPI.game.have_multiple_jokers(jokers, 4)
         end
     end,
 }
 
-return trophyInfo
+return achInfo

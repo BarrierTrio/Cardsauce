@@ -1,5 +1,7 @@
 local jokerInfo = {
     name = "Battle of the Genres",
+    atlas = 'jokers',
+	pos = {x = 5, y = 14},
     config = {
         extra = {
             h_mod = 1,
@@ -11,24 +13,26 @@ local jokerInfo = {
     blueprint_compat = false,
     eternal_compat = true,
     perishable_compat = true,
-    streamer = "othervinny",
-    csau_dependencies = {
-        'enableVHSs',
+    dependencies = {
+        config = {
+            ['VinnyContent'] = true,
+            ['VHSs'] = true,
+        }
     },
     origin = {
-        'rlm',
-        'rlm_botw',
-        color = 'rlm'
-    }
+        category = 'rlm',
+        sub_origins = {'rlm_botw'},
+        custom_color = 'rlm'
+    },
+    artist = 'yunkie101'
 }
 
 function jokerInfo.loc_vars(self, info_queue, card)
-    info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.yunkie } }
-    return { vars = { card.ability.extra.h_mod, G.FUNCS.get_vhs_count()*card.ability.extra.h_mod } }
+    return { vars = { card.ability.extra.h_mod, ArrowAPI.vhs.get_vhs_count()*card.ability.extra.h_mod } }
 end
 
 function jokerInfo.add_to_deck(self, card)
-    local count = G.FUNCS.get_vhs_count()
+    local count = ArrowAPI.vhs.get_vhs_count()
     if count > 0 then
         G.hand:change_size(card.ability.extra.h_mod * count)
         card.ability.added_h_size = card.ability.added_h_size + card.ability.extra.h_mod * count

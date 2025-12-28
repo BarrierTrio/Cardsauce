@@ -1,31 +1,38 @@
 local consumInfo = {
     name = 'Mac and Me',
-    key = 'macandme',
+    atlas = 'vhs',
+	pos = {x = 0, y = 3},
     set = "VHS",
+    runtime = 2,
     cost = 3,
     alerted = true,
     config = {
-        activation = true,
-        activated = false,
-        destroyed = false,
         extra = {
             retrigger = 1,
-            runtime = 2,
-            uses = 0,
         }
     },
-    origin = 'joel'
+    origin = {
+        category = 'cardsauce',
+        sub_origins = {
+            'joel',
+        },
+        custom_color = 'joel'
+    },
+    dependencies = {
+        config = {
+            ['JoelContent'] = true,
+        }
+    },
+    artist = 'Gongalicious'
 }
 
 
 function consumInfo.loc_vars(self, info_queue, card)
-    info_queue[#info_queue+1] = {key = "vhs_activation", set = "Other"}
-    info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.gong } }
-    return { vars = { card.ability.extra.runtime-card.ability.extra.uses } }
+    return { vars = { card.ability.runtime-card.ability.uses } }
 end
 
 function consumInfo.calculate(self, card, context)
-    if card.ability.activated and context.cardarea == G.play and context.repetition and not context.repetition_only then
+    if card.ability.activated and context.cardarea == G.play and context.repetition then
         if (context.scoring_hand[1] and context.other_card == context.scoring_hand[1]) or (context.scoring_hand[2] and context.other_card == context.scoring_hand[2]) then
             return {
                 message = 'Again!',
@@ -34,18 +41,9 @@ function consumInfo.calculate(self, card, context)
             }
         end
     end
-    local bad_context = context.repetition or context.individual or context.blueprint
-    if context.after and not card.ability.destroyed and card.ability.activated and not bad_context then
-        card.ability.extra.uses = card.ability.extra.uses+1
-        if to_big(card.ability.extra.uses) >= to_big(card.ability.extra.runtime) then
-            G.FUNCS.destroy_tape(card)
-            card.ability.destroyed = true
-        end
+    if context.after and card.ability.activated and not context.blueprint then
+        ArrowAPI.vhs.run_tape(card)
     end
-end
-
-function consumInfo.can_use(self, card)
-    if to_big(#G.consumeables.cards) < to_big(G.consumeables.config.card_limit) or card.area == G.consumeables then return true end
 end
 
 return consumInfo

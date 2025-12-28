@@ -1,5 +1,7 @@
 local jokerInfo = {
     name = "April Fools' Joker",
+    atlas = 'jokers',
+	pos = {x = 8, y = 12},
     config = {
         extra = {
             mult_mod = 4
@@ -10,40 +12,51 @@ local jokerInfo = {
     blueprint_compat = true,
     eternal_compat = true,
     perishable_compat = false,
-    streamer = "joel",
+    origin = {
+        category = 'cardsauce',
+        sub_origins = {
+            'joel',
+        },
+        custom_color = 'joel'
+    },
+    dependencies = {
+        config = {
+            ['JoelContent'] = true,
+        }
+    },
+    artist = 'MightyKingWario'
 }
 
-local function get_mult(card)
-    if G.GAME.consumeable_usage and G.GAME.consumeable_usage['c_fool'] then
-        if to_big(G.GAME.consumeable_usage['c_fool'].count) > to_big(0) then
-            return G.GAME.consumeable_usage['c_fool'].count * card.ability.extra.mult_mod
-        end
-    end
-    return 0
+local function get_fools()
+    if not G.GAME.consumeable_usage or not G.GAME.consumeable_usage['c_fool'] then return 0 end
+
+    return G.GAME.consumeable_usage['c_fool'].count
 end
 
 function jokerInfo.loc_vars(self, info_queue, card)
-    info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.wario } }
-    return { 
-        vars = { card.ability.extra.mult_mod, get_mult(card) },
-        key = self.key..(csau_config['detailedDescs'] and '_detailed' or '')
+    return {
+        vars = { card.ability.extra.mult_mod, get_fools() * card.ability.extra.mult_mod },
     }
 end
 
 function jokerInfo.calculate(self, card, context)
-    if context.using_consumeable then
-        if (context.consumeable.config.center.key == "c_fool") and not context.blueprint then
-            G.E_MANAGER:add_event(Event({
-                func = function()
-                    card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize{type='variable',key='a_mult',vars={get_mult(card)}}}); return true
-                end}))
-            return nil, true
-        end
-    end
-    if to_big(get_mult(card)) > to_big(0) and context.joker_main and context.cardarea == G.jokers and not card.debuff then
+    if card.debuff then return end
+
+    if not context.blueprint and context.using_consumeable and context.consumeable.config.center.key == "c_fool" then
         return {
-            mult = get_mult(card),
+            message = localize {type = 'variable', key = 'a_mult', vars = {get_fools() * card.ability.extra.mult_mod} },
+            colour = G.C.MULT
         }
+    end
+
+    if context.joker_main then
+        local fools = get_fools()
+        if fools > to_big(0) then
+            return {
+                mult = fools * card.ability.extra.mult_mod,
+                card = context.blueprint_card or card
+            }
+        end
     end
 end
 

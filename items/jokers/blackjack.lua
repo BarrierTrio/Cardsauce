@@ -30,11 +30,7 @@ SMODS.PokerHand {
         { 'C_3', true },
     },
     evaluate = function(parts, hand)
-        if next(SMODS.find_card("j_csau_blackjack")) then
-            if isBlackjack(hand) then
-                return { hand }
-            end
-        end
+        return { next(SMODS.find_card("j_csau_blackjack")) and isBlackjack(hand) and hand or nil }
     end,
 }
 
@@ -53,17 +49,15 @@ SMODS.PokerHand {
         { 'C_3', true },
     },
     evaluate = function(parts, hand)
-        if next(SMODS.find_card("j_csau_blackjack")) then
-            if next(parts._flush) and isBlackjack(hand) then
-                return { hand }
-            end
-        end
+        return { next(SMODS.find_card("j_csau_blackjack")) and next(parts._flush) and isBlackjack(hand) and hand or nil }
     end,
 }
 
 
 local jokerInfo = {
     name = "Blackjack",
+    atlas = 'jokers',
+	pos = {x = 1, y = 13},
     config = {},
     rarity = 2,
     cost = 6,
@@ -71,7 +65,19 @@ local jokerInfo = {
     blueprint_compat = true,
     eternal_compat = true,
     perishable_compat = true,
-    streamer = "joel",
+    origin = {
+        category = 'cardsauce',
+        sub_origins = {
+            'joel',
+        },
+        custom_color = 'joel'
+    },
+    dependencies = {
+        config = {
+            ['JoelContent'] = true,
+        }
+    },
+    artist = 'BarrierTrio/Gote'
 }
 
 function jokerInfo.check_for_unlock(self, args)
@@ -87,11 +93,6 @@ function jokerInfo.check_for_unlock(self, args)
             return true
         end
     end
-end
-
-function jokerInfo.loc_vars(self, info_queue, card)
-    info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.gote } }
-    return { vars = { } }
 end
 
 function jokerInfo.add_to_deck(self, card)

@@ -1,5 +1,5 @@
-local Tetromino = require(notbalatro and "src.tetromino" or "tetromino")
-local Board = require(notbalatro and "src.board" or "board")
+local Tetromino = SMODS.load_file('items/jokers/Tetris/src/tetromino.lua')()
+local Board = SMODS.load_file('items/jokers/Tetris/src/board.lua')()
 
 Tetris = {}
 
@@ -58,7 +58,7 @@ Tetris.gameOverAnimationTimer = 0
 Tetris.gameOverAnimationNumber = 0
 Tetris.gameOverAnimLength = 2.5
 
-function Tetris:getRandomTetrominoShape()
+function Tetris.getRandomTetrominoShape()
     local tetrominoShapes = {"I", "O", "T", "J", "L", "S", "Z"}
     local randomIndex = math.random(1, #tetrominoShapes)
     local shape = tetrominoShapes[randomIndex]
@@ -70,7 +70,7 @@ function Tetris.load()
     Tetris.mult = Board:new('mult', 3, 25, 4, 10, 2)
     Tetris.speed = Board:new('speed', 1, 17, 51, 9, 3)
 
-    local nextShape = Tetris:getRandomTetrominoShape()
+    local nextShape = Tetris.getRandomTetrominoShape()
 
     Tetris.currentTetromino = Tetromino:new(nextShape, 5, 1)
     Tetris.currentTetromino.board = Tetris.board
@@ -210,11 +210,11 @@ function Tetris.update(dt)
             Tetris.softDropTimer = 0
         end
 
-        Tetris:updateGhostTetromino()
+        Tetris.updateGhostTetromino()
     end
 end
 
-function Tetris:updateGhostTetromino()
+function Tetris.updateGhostTetromino()
     local ghost = Tetromino:new(Tetris.currentTetromino.type, Tetris.currentTetromino.x, Tetris.currentTetromino.y)
     ghost.rotation = Tetris.currentTetromino.rotation
     ghost.shape = Tetromino.shapes[ghost.type][ghost.rotation + 1]
@@ -240,7 +240,7 @@ function Tetris.moveTetromino(dx, dy)
     return ret
 end
 
-function Tetris:hardDrop()
+function Tetris.hardDrop()
     if Tetris.gameOver then
         return
     end
@@ -256,14 +256,14 @@ function Tetris:hardDrop()
         end
         Tetris.linesCleared = Tetris.linesCleared + Tetris.rowsCleared
 
-        local newShape = Tetris:getRandomTetrominoShape()
+        local newShape = Tetris.getRandomTetrominoShape()
 
         Tetris.currentTetromino = Tetromino:new(newShape, 5, 1)
         Tetris.currentTetromino.board = Tetris.board
 
-        Tetris:updateGhostTetromino()
+        Tetris.updateGhostTetromino()
 
-        if Tetris.board:checkCollision(Tetris.currentTetromino) then
+        if Tetris.board.checkCollision(Tetris.currentTetromino) then
             Tetris.gameOver = true
         end
     end
@@ -394,11 +394,11 @@ end
 
 function Tetris:controller_press_update(button, dt)
     if button == "dpup" then
-        Tetris:hardDrop()
+        Tetris.hardDrop()
     end
     if button == "dpdown" then
         if not Tetris.moveTetromino(0, 1) then
-            Tetris:hardDrop()
+            Tetris.hardDrop()
             Tetris.dropTimer = 0
         end
     end

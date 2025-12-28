@@ -12,11 +12,11 @@ local jokerInfo = {
     blueprint_compat = true,
     eternal_compat = false,
     perishable_compat = false,
-    streamer = "other",
+    origin = 'cardsauce',
+    artist = 'MightyKingWario'
 }
 
 function jokerInfo.loc_vars(self, info_queue, card)
-    info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.wario } }
     local num, dom = SMODS.get_probability_vars(card, 1, card.ability.extra.chance, 'csau_expired_reset')
     return { vars = {card.ability.extra.chips_mod, num, dom, card.ability.extra.chips} }
 end
@@ -53,14 +53,13 @@ function jokerInfo.calculate(self, card, context)
         end
     end
 
-    if context.csau_created_card and context.area == G.shop_jokers and G.GAME.csau_sold_meds then
-        context.csau_created_card:set_ability(G.P_CENTERS[G.GAME.csau_sold_meds.key], nil, nil)
-        context.csau_created_card.ability.extra.chips = context.csau_created_card.ability.extra.chips + context.csau_created_card.ability.extra.chips_mod * G.GAME.csau_unique_meds_acquired
+    if context.created_card and context.area == G.shop_jokers and G.GAME.csau_sold_meds then
+        context.created_card:set_ability(G.P_CENTERS[G.GAME.csau_sold_meds.key], nil, nil)
+        context.created_card.ability.extra.chips = context.created_card.ability.extra.chips + context.created_card.ability.extra.chips_mod * G.GAME.csau_unique_meds_acquired
         if G.GAME.csau_sold_meds.edition then
-            context.csau_created_card:set_edition({[G.GAME.csau_sold_meds.edition] = true}, true, true)
+            context.created_card:set_edition({[G.GAME.csau_sold_meds.edition] = true}, true, true)
         end
     end
 end
 
 return jokerInfo
-	

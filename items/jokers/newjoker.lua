@@ -1,5 +1,7 @@
 local jokerInfo = {
 	name = 'The NEW Joker!',
+	atlas = 'jokers',
+	pos = {x = 0, y = 0},
 	config = {
 		extra = {
 			mult = 4
@@ -14,12 +16,23 @@ local jokerInfo = {
 	pools = {
 		["Meme"] = true
 	},
-	streamer = "othervinny",
+	origin = {
+        category = 'cardsauce',
+        sub_origins = {
+            'vinny',
+        },
+        custom_color = 'vinny'
+    },
+	dependencies = {
+        config = {
+            ['VinnyContent'] = true
+        }
+    },
+	artist = 'BarrierTrio/Gote'
 }
 
 
 function jokerInfo.loc_vars(self, info_queue, card)
-	info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.gote } }
 	return {vars = {card.ability.extra.mult}}
 end
 
@@ -35,7 +48,4 @@ function jokerInfo.calculate(self, card, context)
 	end
 end
 
-
-
 return jokerInfo
-	

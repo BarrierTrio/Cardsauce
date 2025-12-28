@@ -1,5 +1,7 @@
 local jokerInfo = {
     name = "Bulkin' The Mouscles",
+    atlas = 'jokers',
+	pos = {x = 2, y = 11},
     config = {
         extra = {
             x_mult = 1,
@@ -12,15 +14,35 @@ local jokerInfo = {
     eternal_compat = true,
     perishable_compat = true,
     has_shiny = true,
-    streamer = "joel",
+    origin = {
+        category = 'cardsauce',
+        sub_origins = {
+            'joel',
+        },
+        custom_color = 'joel'
+    },
+    dependencies = {
+        config = {
+            ['JoelContent'] = true,
+        }
+    },
+    artist = 'Drawer_Mary'
 }
 
 function jokerInfo.loc_vars(self, info_queue, card)
-    info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.mary } }
     return { vars = { card.ability.extra.x_mult_mod, card.ability.extra.x_mult } }
 end
 
 function jokerInfo.calculate(self, card, context)
+    if context.change_rank and context.rank_increase then
+        SMODS.scale_card(card, {
+            ref_table = card.ability.extra,
+            ref_value = "x_mult",
+            scalar_value = "x_mult_mod",
+            message_colour = G.C.RED
+        })
+    end
+
     if context.joker_main and to_big(card.ability.extra.x_mult) > to_big(1) then
         return {
             xmult = card.ability.extra.x_mult

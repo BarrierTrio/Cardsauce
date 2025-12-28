@@ -12,7 +12,7 @@ local chalInfo = {
         { id = 'v_csau_foo'}
     },
     unlocked = function(self)
-        return G.FUNCS.discovery_check({ mode = 'set_count', set = 'csau_Stand', count = 1, })
+        return ArrowAPI.game.check_mod_discoveries(Cardsauce.id, 'Stand', 1)
     end
 }
 

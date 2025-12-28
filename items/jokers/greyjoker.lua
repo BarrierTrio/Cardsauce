@@ -1,45 +1,38 @@
 local jokerInfo = {
 	name = 'Grey Joker',
-	config = {extra = 3},
+	atlas = 'jokers',
+	pos = {x = 0, y = 1},
+	soul_pos = {x = 1, y = 1},
+	config = {d_size = 3},
 	rarity = 2,
 	cost = 6,
-	blueprint_compat = true,
+	blueprint_compat = false,
 	eternal_compat = true,
 	perishable_compat = true,
-	hasSoul = true,
-	streamer = "vinny",
+	origin = {
+        category = 'cardsauce',
+        sub_origins = {
+            'vinny',
+        },
+        custom_color = 'vinny'
+    },
+	dependencies = {
+        config = {
+            ['VinnyContent'] = true
+        }
+    },
+	artist = 'SagaciousCejai'
 }
 
 function jokerInfo.loc_vars(self, info_queue, card)
-	info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.cejai } }
-	return { vars = {card.ability.extra} }
+	return { vars = {card.ability.d_size} }
 end
 
-function jokerInfo.calculate(self, card, context)
-	if context.setting_blind and not card.getting_sliced and not card.debuff then
-		if not (context.blueprint_card or card).getting_sliced then
-			G.E_MANAGER:add_event(Event({func = function()
-				ease_discard(card.ability.extra)
-				card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = "+"..card.ability.extra.." "..localize('k_hud_discards')})
-		return true end }))
-		end
-	end
-end
-
-local can_discardref = G.FUNCS.can_discard
-G.FUNCS.can_discard = function(e)
-	if next(SMODS.find_card('j_csau_greyjoker')) then
-		if to_big(G.GAME.current_round.discards_left) <= to_big(0) or to_big(#G.hand.highlighted) <= to_big(4) then
-			e.config.colour = G.C.UI.BACKGROUND_INACTIVE
-			e.config.button = nil
-		else
-			e.config.colour = G.C.RED
-			e.config.button = 'discard_cards_from_highlighted'
-		end
-	else
-		can_discardref(e)
-	end
+function jokerInfo.add_to_deck(self, card, from_discard)
+	card_eval_status_text(card, 'extra', nil, nil, nil, {
+		message = "+"..card.ability.d_size.." "..localize('k_hud_discards'),
+		colour = G.C.RED
+	})
 end
 
 return jokerInfo
-	

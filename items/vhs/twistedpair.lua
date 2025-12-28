@@ -1,29 +1,23 @@
 local consumInfo = {
     name = 'Twisted Pair',
-    key = 'twistedpair',
+    atlas = 'vhs',
+	pos = {x = 0, y = 2},
     set = "VHS",
+    runtime = 2,
     cost = 3,
     alerted = true,
-    config = {
-        activation = true,
-        extra = {
-            runtime = 2,
-            uses = 0,
-        },
-        activated = false,
-        destroy = false,
-    },
+    config = {},
+    artist = 'FenixSeraph'
 }
 
-
-function consumInfo.loc_vars(self, info_queue, card)
-    info_queue[#info_queue+1] = {key = "vhs_activation", set = "Other"}
-    info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.fenix } }
-    return { vars = { card.ability.extra.runtime-card.ability.extra.uses } }
-end
-
 function consumInfo.calculate(self, card, context)
-    if card.ability.activated and context.before and not card.debuff and not context.blueprint then
+    if card.debuff then return end
+
+    if card.ability.activated and context.before then
+        if not context.blueprint then
+            ArrowAPI.vhs.run_tape(card)
+        end
+
         G.E_MANAGER:add_event(Event({
             func = function()
                 local _card = copy_card(context.scoring_hand[1])
@@ -32,18 +26,10 @@ function consumInfo.calculate(self, card, context)
                 table.insert(G.playing_cards, _card)
                 playing_card_joker_effects({_card})
                 card:juice_up()
-                card.ability.extra.uses = card.ability.extra.uses+1
-                if to_big(card.ability.extra.uses) >= to_big(card.ability.extra.runtime) then
-                    G.FUNCS.destroy_tape(card)
-                    card.ability.destroyed = true
-                end
                 return true
-            end}))
+            end
+        }))
     end
-end
-
-function consumInfo.can_use(self, card)
-    if to_big(#G.consumeables.cards) < to_big(G.consumeables.config.card_limit) or card.area == G.consumeables then return true end
 end
 
 return consumInfo

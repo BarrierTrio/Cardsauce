@@ -1,5 +1,7 @@
 local jokerInfo = {
     name = 'THE FLUSHER™',
+    atlas = 'jokers',
+	pos = {x = 1, y = 11},
     config = {
         extra = {
             prob = 5,
@@ -12,12 +14,23 @@ local jokerInfo = {
     blueprint_compat = true,
     eternal_compat = true,
     perishable_compat = true,
-    streamer = "joel",
+    origin = {
+        category = 'cardsauce',
+        sub_origins = {
+            'joel',
+        },
+        custom_color = 'joel'
+    },
+    dependencies = {
+        config = {
+            ['JoelContent'] = true,
+        }
+    },
+    artist = 'BarrierTrio/Gote'
 }
 
 
 function jokerInfo.loc_vars(self, info_queue, card)
-    info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.gote } }
     local num, dom = SMODS.get_probability_vars(card, card.ability.extra.prob_extra, card.ability.extra.prob, 'csau_flusher')
     return { vars = {num, dom, card.ability.extra.prob_mod } }
 end
@@ -25,7 +38,7 @@ end
 function jokerInfo.calculate(self, card, context)
     if card.debuff then return end
 
-    if context.cardarea == G.jokers and context.before and context.scoring_name == "Flush"
+    if context.before and context.scoring_name == "Flush"
     and SMODS.pseudorandom_probability(card, 'csau_flusher', card.ability.extra.prob_extra, card.ability.extra.prob) then
         return {
             card = card,
@@ -37,7 +50,12 @@ function jokerInfo.calculate(self, card, context)
     if context.blueprint then return end
 
     if context.selling_card and context.card.config.center.consumeable then
-        card.ability.extra.prob_extra = card.ability.extra.prob_extra + 1
+        SMODS.scale_card(card, {
+            ref_table = card.ability.extra,
+            ref_value = "prob_extra",
+            scalar_value = "prob_mod",
+            no_message = true
+        })
         return {
             card = card,
             message = localize{type = 'variable', key = 'a_chance', vars = {SMODS.get_probability_vars(card, card.ability.extra.prob_extra, card.ability.extra.prob, 'csau_flusher')}},
@@ -55,4 +73,3 @@ function jokerInfo.calculate(self, card, context)
 end
 
 return jokerInfo
-	

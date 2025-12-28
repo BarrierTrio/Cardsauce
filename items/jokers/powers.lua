@@ -1,5 +1,7 @@
 local jokerInfo = {
     name = 'Live Dangerously',
+    atlas = 'jokers',
+	pos = {x = 2, y = 15},
     config = {
         extra = 1.5
     },
@@ -9,24 +11,33 @@ local jokerInfo = {
     blueprint_compat = false,
     eternal_compat = true,
     perishable_compat = true,
-    streamer = "joel",
+    origin = {
+        category = 'cardsauce',
+        sub_origins = {
+            'joel',
+        },
+        custom_color = 'joel'
+    },
+    dependencies = {
+        config = {
+            ['JoelContent'] = true,
+        }
+    },
+    artist = 'BarrierTrio/Gote'
 }
 
 function jokerInfo.check_for_unlock(self, args)
-    if args.type == "wheel_nope" then
-        return true
-    end
+    return args.type == "wheel_nope"
 end
 
 function jokerInfo.loc_vars(self, info_queue, card)
-    info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.gote } }
     return { vars = { card.ability.extra } }
 end
 
 function jokerInfo.calculate(self, card, context)
-    if context.joker_main and context.cardarea == G.jokers then
+    if context.joker_main then
         return {
-            xmult = card.ability.extra,
+            x_mult = card.ability.extra,
         }
     end
 

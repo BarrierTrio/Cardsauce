@@ -1,42 +1,26 @@
 local consumInfo = {
     name = 'Surviving Edged Weapons',
-    key = 'sew',
+    atlas = 'vhs',
+	pos = {x = 2, y = 0},
     set = "VHS",
+    runtime = 4,
     cost = 3,
-    alerted = true,
-    config = {
-        activation = true,
-        activated = false,
-        destroyed = false,
-        extra = {
-            runtime = 4,
-            uses = 0
-        },
-    },
+    blueprint_compat = false,
+    config = {},
     origin = {
-        'rlm',
-        'rlm_wotw',
-        color = 'rlm'
-    }
+        category = 'cardsauce',
+        sub_origins = {
+            'rlm',
+            'rlm_wotw',
+        },
+        custom_color = 'rlm'
+    },
+    artist = 'yunkie101'
 }
 
-
-function consumInfo.loc_vars(self, info_queue, card)
-    info_queue[#info_queue+1] = {key = "vhs_activation", set = "Other"}
-    info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.yunkie } }
-    return { 
-        vars = {
-            card.ability.extra.runtime-card.ability.extra.uses,
-            (card.ability.extra.runtime-card.ability.extra.uses) > 1 and 's' or ''
-        }
-    }
-end
-
-function consumInfo.can_use(self, card)
-    if to_big(#G.consumeables.cards) < to_big(G.consumeables.config.card_limit) or card.area == G.consumeables then return true end
-end
-
 function consumInfo.calculate(self, card, context)
+    if card.debuff or context.blueprint then return end
+
     if card.ability.activated and not card.ability.destroyed and context.check_eternal and context.other_card.ability.set == 'Joker'
     and not context.trigger.from_sell and SMODS.find_card('c_csau_sew')[1] == card then
         if context.trigger.config then
@@ -61,7 +45,7 @@ function consumInfo.calculate(self, card, context)
                 })
             end
         end
-        		
+
         G.E_MANAGER:add_event(Event({
             func = function()
                 context.other_card:juice_up()
@@ -69,15 +53,12 @@ function consumInfo.calculate(self, card, context)
             end
         }))
 
-		card.ability.extra.uses = card.ability.extra.uses+1
-		if card.ability.extra.uses >= card.ability.extra.runtime then
-			G.FUNCS.destroy_tape(card)
-			card.ability.destroyed = true
-		else
-			card_eval_status_text(card, 'extra', nil, nil, nil, {
+        ArrowAPI.vhs.run_tape(card)
+        if not card.ability.destroyed then
+            card_eval_status_text(card, 'extra', nil, nil, nil, {
                 message = localize('k_survived'),
             })
-		end
+        end
 
         return {
             no_destroy = true
@@ -86,17 +67,3 @@ function consumInfo.calculate(self, card, context)
 end
 
 return consumInfo
-
---[[
-
-THINGS AFFECTED BY SURVIVING EDGED WEAPONS MANUALLY (FUCK):
-
-Vanilla:
-- Ceremonial Dagger ✔️
-- Madness ✔️
-- Ankh ✔️
-- Hex ✔️
-Cardsauce:
-- Kill Jester ✔️
-
-]]--

@@ -1,52 +1,33 @@
-local csc = Card.set_cost
-function Card.set_cost(self)
-    csc(self)
-    if (self.ability.set == 'VHS' or (self.ability.set == 'Booster' and self.ability.name:find('Analog'))) then
-        if #SMODS.find_card('j_csau_weretrulyfrauds') > 0 then
-            self.cost = 0
-        end
-    end
-end
-
 local jokerInfo = {
     name = "WE'RE TRULY FRAUDS!",
+    atlas = 'jokers',
+	pos = {x = 6, y = 14},
     config = {},
     rarity = 2,
     cost = 8,
     blueprint_compat = false,
     eternal_compat = true,
     perishable_compat = true,
-    streamer = "othervinny",
-    csau_dependencies = {
-        'enableVHSs',
+    dependencies = {
+        config = {
+            ['VinnyContent'] = true,
+            ['VHSs'] = true
+        }
     },
     origin = {
-        'rlm',
-        'rlm_wotw',
-        color = 'rlm'
-    }
+        category = 'rlm',
+        sub_origins = {'rlm_wotw'},
+        custom_color = 'rlm'
+    },
+    artist = 'Lyzerus'
 }
 
-function jokerInfo.loc_vars(self, info_queue, card)
-    info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.lyzerus } }
-end
-
-local function refresh_costs()
-    G.E_MANAGER:add_event(Event({func = function()
-        for k, v in pairs(G.I.CARD) do
-            if v.set_cost then v:set_cost() end
-        end
-        return true
-    end }))
-end
-
 function jokerInfo.add_to_deck(self, card)
-    refresh_costs()
+    ArrowAPI.game.refresh_costs()
 end
 
 function jokerInfo.remove_from_deck(self, card)
-    refresh_costs()
+    ArrowAPI.game.refresh_costs()
 end
 
 return jokerInfo
-	

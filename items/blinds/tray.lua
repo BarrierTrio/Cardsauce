@@ -1,15 +1,18 @@
 local blindInfo = {
     name = "The Tray",
-    color = HEX('de423b'),
-    pos = {x = 0, y = 0},
+    atlas = 'blinds',
+    pos = {x = 0, y = 5},
+    boss_colour = HEX('de423b'),
     dollars = 5,
     mult = 2,
     vars = {},
     debuff = {},
     boss = {min = 3, max = 10},
-    csau_dependencies = {
-        'enableVinnyContent',
-    }
+    dependencies = {
+        config = {
+            ['VinnyContent'] = true
+        }
+    },
 }
 
 function blindInfo.modify_hand(self, cards, poker_hands, text, mult, hand_chips)

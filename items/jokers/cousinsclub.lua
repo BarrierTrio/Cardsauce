@@ -1,9 +1,13 @@
 local jokerInfo = {
 	name = "Cousin's Club",
+	atlas = 'jokers',
+	pos = {x = 4, y = 2},
 	config = {
 		extra = {
+			suit = 'Clubs',
 			chips = 0,
-			chip_mod = 1
+			chip_mod = 1,
+			chip_mod_double = 2
 		}
 	},
 	rarity = 2,
@@ -11,31 +15,53 @@ local jokerInfo = {
 	blueprint_compat = true,
 	eternal_compat = true,
 	perishable_compat = false,
-	streamer = "vinny",
+	origin = {
+        category = 'cardsauce',
+        sub_origins = {
+            'vinny',
+        },
+        custom_color = 'vinny'
+    },
+	dependencies = {
+        config = {
+            ['VinnyContent'] = true
+        }
+    },
+	artist = 'BarrierTrio/Gote'
 }
 
 function jokerInfo.loc_vars(self, info_queue, card)
-	info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.gote } }
-	return { vars = {card.ability.extra.chips, card.ability.extra.chip_mod, localize(G.GAME and G.GAME.wigsaw_suit or "Clubs", 'suits_singular'), colours = {G.C.SUITS[G.GAME and G.GAME.wigsaw_suit or "Clubs"]}} }
+	return {
+		vars = {
+			card.ability.extra.chips,
+			card.ability.extra.chip_mod,
+			localize(card.ability.extra.suit, 'suits_singular'),
+			colours = {
+				G.C.SUITS[card.ability.extra.suit]
+			}
+		}
+	}
 end
 
 function jokerInfo.calculate(self, card, context)
-	if context.individual and context.cardarea == G.play and not card.debuff and not context.blueprint and context.other_card:is_suit(G.GAME and G.GAME.wigsaw_suit or "Clubs") then
-		local chip = to_big(card.ability.extra.chip_mod)
-		if next(context.poker_hands['Flush']) then
-			chip = to_big(chip) * to_big(2)
-		end
-		card.ability.extra.chips = to_big(card.ability.extra.chips) + to_big(chip)
-		return {
-			extra = {focus = card, message = next(context.poker_hands['Flush']) and localize('k_upgrade_double_ex') or localize('k_upgrade_ex'), colour = G.C.CHIPS},
-			card = card
-		}
+	if context.debuff then return end
+
+	if context.individual and context.cardarea == G.play and not context.blueprint and context.other_card:is_suit(card.ability.extra.suit) then
+		local has_flush = next(context.poker_hands['Flush'])
+		SMODS.scale_card(card, {
+            ref_table = card.ability.extra,
+            ref_value = "chips",
+            scalar_value = "chip_mod"..(has_flush and '_double' or ''),
+            scaling_message = {
+                message = localize(has_flush and 'k_upgrade_double_ex' or 'k_upgrade_ex'),
+                colour = G.C.CHIPS
+            }
+        })
 	end
-	if context.joker_main and context.cardarea == G.jokers and to_big(card.ability.extra.chips) > to_big(0) then
+
+	if context.joker_main and to_big(card.ability.extra.chips) > to_big(0) then
 		return {
-			message = localize{type='variable',key='a_chips',vars={to_big(card.ability.extra.chips)}},
-			chip_mod = card.ability.extra.chips, 
-			colour = G.C.CHIPS
+			chips = card.ability.extra.chips
 		}
 	end
 end
@@ -43,4 +69,3 @@ end
 
 
 return jokerInfo
-	

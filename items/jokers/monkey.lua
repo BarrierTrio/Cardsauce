@@ -1,5 +1,7 @@
 local jokerInfo = {
     name = "Monkey Mondays",
+    atlas = 'jokers',
+	pos = {x = 0, y = 13},
     config = {
         extra = {
             mult = 5,
@@ -12,19 +14,28 @@ local jokerInfo = {
     blueprint_compat = true,
     eternal_compat = true,
     perishable_compat = true,
-    streamer = "joel",
+origin = {
+        category = 'cardsauce',
+        sub_origins = {
+            'joel',
+        },
+        custom_color = 'joel'
+    },
+    dependencies = {
+        config = {
+            ['JoelContent'] = true,
+        }
+    },
+    artist = 'Lyzerus'
 }
 
 function jokerInfo.loc_vars(self, info_queue, card)
-    info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.lyzerus } }
     local num, dom = SMODS.get_probability_vars(card, 1, card.ability.extra.prob, 'csau_monkey')
     return { vars = { card.ability.extra.mult, num, dom } }
 end
 
 function jokerInfo.check_for_unlock(self, args)
-    if args.type == "gros_extinct" then
-        return true
-    end
+    return args.type == "gros_extinct"
 end
 
 function jokerInfo.calculate(self, card, context)

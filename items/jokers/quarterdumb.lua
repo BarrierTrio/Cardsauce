@@ -1,5 +1,8 @@
 local jokerInfo = {
 	name = 'Quarterdumb',
+	atlas = 'jokers',
+	pos = {x = 8, y = 5},
+	soul_pos = {x = 9, y = 5},
 	config = {
 		extra = {
 			hand_mod = 1
@@ -12,9 +15,19 @@ local jokerInfo = {
 	blueprint_compat = true,
 	eternal_compat = true,
 	perishable_compat = true,
-	hasSoul = true,
-	streamer = "othervinny",
-	origin = "redvox",
+	dependencies = {
+        config = {
+            ['VinnyContent'] = true
+        }
+    },
+	artist = 'BarrierTrio/Gote',
+	origin = {
+		category = "cardsauce",
+		sub_origins = {
+			"redvox",
+		},
+		custom_color = "redvox",
+	},
 }
 
 function jokerInfo.loc_vars(self, info_queue, card)
@@ -22,16 +35,16 @@ function jokerInfo.loc_vars(self, info_queue, card)
 end
 
 function jokerInfo.generate_ui(self, info_queue, card, desc_nodes, specific_vars, full_UI_table)
-	G.FUNCS.generate_legendary_desc(self, info_queue, card, desc_nodes, specific_vars, full_UI_table)
+	ArrowAPI.ui.generate_legendary_desc(self, info_queue, card, desc_nodes, specific_vars, full_UI_table)
 end
 
 function jokerInfo.calculate(self, card, context)
 	if card.debuff then return end
 
-	if context.cardarea == G.jokers and context.before and next(context.poker_hands['Flush']) then
+	if context.before and next(context.poker_hands['Flush']) then
 		ease_hands_played(card.ability.extra.hand_mod)
 		return {
-			card = card,
+			card = context.blueprint_card or card,
 			message = localize('k_plus_hand'),
 			colour = G.C.BLUE
 		}

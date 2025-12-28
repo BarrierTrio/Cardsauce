@@ -1,5 +1,7 @@
 local jokerInfo = {
     name = 'Murder the Monolith',
+    atlas = 'jokers',
+	pos = {x = 9, y = 9},
     rarity = 3,
     cost = 8,
     config = {
@@ -28,16 +30,17 @@ local jokerInfo = {
     blueprint_compat = true,
     eternal_compat = true,
     perishable_compat = true,
-    streamer = "other",
+    origin = 'cardsauce',
+    artist = 'BarrierTrio/Gote'
 }
 
 local forms = {
-        ["Base"] = { pos = {x=0,y=0}, color = G.C.PURPLE },
-        ["Hearts"] = { pos = {x=1,y=0}, color = G.C.SUITS.Hearts },
-        ["Clubs"] = { pos = {x=2,y=0}, color = G.C.SUITS.Clubs },
-        ["Diamonds"] = { pos = {x=3,y=0}, color = G.C.SUITS.Diamonds },
-        ["Spades"] = { pos = {x=4,y=0}, color = G.C.SUITS.Spades },
-        ["Wild"] = { pos = {x=5,y=0, color = G.C.GOLD },
+        ["Base"] = { pos = {x=9,y=9}, color = G.C.PURPLE },
+        ["Hearts"] = { pos = {x=0,y=10}, color = G.C.SUITS.Hearts },
+        ["Clubs"] = { pos = {x=1,y=10}, color = G.C.SUITS.Clubs },
+        ["Diamonds"] = { pos = {x=2,y=10}, color = G.C.SUITS.Diamonds },
+        ["Spades"] = { pos = {x=3,y=10}, color = G.C.SUITS.Spades },
+        ["Wild"] = { pos = {x=4,y=10, color = G.C.GOLD },
     }
 }
 
@@ -62,8 +65,7 @@ local change_form = function(card, form)
 end
 
 function jokerInfo.loc_vars(self, info_queue, card)
-    info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.gote } }
-    return { 
+    return {
         vars = {
             card.ability.extra.Diamonds.mult_mod,
             card.ability.extra.Diamonds.mult,
@@ -79,7 +81,7 @@ end
 function jokerInfo.calculate(self, card, context)
     if card.debuff then return end
 
-    if context.cardarea == G.jokers and context.before then
+    if context.before then
         if card.ability.extra.form == "Base" and not context.blueprint then
             local first = nil
             for i=1, #context.scoring_hand do
@@ -90,7 +92,7 @@ function jokerInfo.calculate(self, card, context)
 
             if first then
                 local form = change_form(card, first.config.center.key == 'm_wild' and 'Wild' or first.base.suit)
-                                
+
                 -- resetting collection sprites
                 G.E_MANAGER:add_event(Event({ func = function()
                     card:juice_up(0.7, 0.7)
@@ -116,19 +118,25 @@ function jokerInfo.calculate(self, card, context)
                 end
             end
         end
-        
+
         if card.ability.extra.form == "Diamonds" and not context.blueprint then
-            card.ability.extra.Diamonds.mult = card.ability.extra.Diamonds.mult + card.ability.extra.Diamonds.mult_mod * #context.scoring_hand
-            return {
-                message = localize{type = 'variable', key = 'a_mult', vars = {card.ability.extra.Diamonds.mult}},
+            local scale_table = {mult_mod = card.ability.extra.Diamonds.mult_mod * #context.scoring_hand}
+            SMODS.scale_card(card, {
+                ref_table = card.ability.extra.Diamonds,
+                ref_value = "mult",
+                scalar_table = scale_table,
+                scalar_value = "mult_mod",
+                message_key = 'a_mult',
                 colour = G.C.MULT
-            }
+            })
         elseif card.ability.extra.form == "Wild" then
             for _, v in ipairs(context.scoring_hand) do
-                if v.config.center.key == 'c_base' then
-                    v:set_ability(pseudorandom_element(G.P_CENTER_POOLS.Enhanced, pseudoseed('csau_sts_wild')), nil, true)
+                if v.config.center.key == 'c_base' and not v.csau_sts_wild_flagged then
+                    v.csau_sts_wild_flagged = true
                     G.E_MANAGER:add_event(Event({
                         func = function()
+                            v:set_ability(pseudorandom_element(G.P_CENTER_POOLS.Enhanced, pseudoseed('csau_sts_wild')), nil, true)
+                            v.csau_sts_wild_flagged = nil
                             card:juice_up()
                             return true
                         end
@@ -144,10 +152,16 @@ function jokerInfo.calculate(self, card, context)
         card.ability.csau_sts_handplayed = true
     end
 
+    if context.modify_scoring_hand and card.ability.extra.form == 'Diamonds' then
+        return {
+            add_to_hand = true
+        }
+    end
+
     if context.drawing_cards and card.ability.csau_sts_handplayed and card.ability.extra.form == "Spades" then
 		card.ability.csau_sts_handplayed = nil
         return {
-			cards_to_draw = context.amount + card.ability.extra.Spades.extra_cards
+			modify = context.amount + card.ability.extra.Spades.extra_cards
 		}
 	end
 
@@ -168,7 +182,7 @@ function jokerInfo.calculate(self, card, context)
         }
     end
 
-    
+
     if context.after and card.ability.extra.form == "Clubs" then
         G.E_MANAGER:add_event(Event({
             func = function()
@@ -201,21 +215,6 @@ function jokerInfo.calculate(self, card, context)
 
         card.ability.extra.Diamonds.mult = 0
     end
-end
-
-local ref_as = SMODS.always_scores
-SMODS.always_scores = function(card)
-    local stses = SMODS.find_card('j_csau_sts')
-    local diamonds = nil
-    for _, v in ipairs(stses) do
-        if not v.debuff and v.ability.extra.form == 'Diamonds' then
-            diamonds = true
-            break
-        end
-    end
-
-    if diamonds then return true end
-    return ref_as(card)
 end
 
 return jokerInfo

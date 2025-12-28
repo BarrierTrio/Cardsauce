@@ -1,10 +1,16 @@
-local trophyInfo = {
+local achInfo = {
     rarity = 1,
+    config = {joker = 'j_csau_reyn', ante = 1},
     unlock_condition = function(self, args)
-        if args.type == "early_reyn" then
-            return true
-        end
+        return args.type == "early_reyn"
     end,
 }
 
-return trophyInfo
+function achInfo.loc_vars(self)
+    return { vars = {
+        G.P_CENTERS[self.config.joker].discovered and localize{type = 'name_text', set = 'Joker', key = self.config.joker} or '?????',
+        self.config.ante
+    }}
+end
+
+return achInfo

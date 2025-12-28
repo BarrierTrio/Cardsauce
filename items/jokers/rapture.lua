@@ -1,5 +1,7 @@
 local jokerInfo = {
     name = 'Rapture',
+    atlas = 'jokers',
+	pos = {x = 7, y = 8},
     config = {
         extra = {
             mult = 0,
@@ -13,42 +15,53 @@ local jokerInfo = {
     eternal_compat = false,
     perishable_compat = false,
     unlock_condition = {type = 'win_no_hand', extra = 'High Card'},
-    streamer = "vinny",
+    origin = {
+        category = 'cardsauce',
+        sub_origins = {
+            'vinny',
+        },
+        custom_color = 'vinny'
+    },
+    dependencies = {
+        config = {
+            ['VinnyContent'] = true
+        }
+    },
+    artist = 'Burdrehnar'
 }
 
 function jokerInfo.loc_vars(self, info_queue, card)
-    info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.burd } }
     return { vars = { card.ability.extra.mult_mod, card.ability.extra.mult }}
 end
 
 function jokerInfo.calculate(self, card, context)
-    local bad_context = context.repetition or context.individual or context.blueprint
-    if context.cardarea == G.jokers and context.before and not card.debuff and not bad_context then
-        if context.scoring_name == "High Card" then
-            if to_big(card.ability.extra.mult) > to_big(0) then
-                card.ability.extra.mult = to_big(0)
-                return {
-                    message = localize('k_reset'),
-                    colour = G.C.RED
-                }
-            end
+    if card.debuff then return end
+
+    if context.before then
+        if context.scoring_name == "High Card" and card.ability.extra.mult > 0 then
+            card.ability.extra.mult = 0
+            return {
+                message = localize('k_reset'),
+                colour = G.C.RED
+            }
         else
-            card.ability.extra.mult = to_big(card.ability.extra.mult) + to_big(card.ability.extra.mult_mod)
-            if to_big(card.ability.extra.mult) >= to_big(30) and next(find_joker('2 Kings 2:23-24')) then
+            SMODS.scale_card(card, {
+                ref_table = card.ability.extra,
+                ref_value = "mult",
+                scalar_value = "mult_mod",
+                message_key = 'a_mult',
+                message_colour = G.C.MULT
+            })
+            if to_big(card.ability.extra.mult) >= to_big(30) and next(SMODS.find_card('j_csau_kings')) then
                 check_for_unlock({ type = "supreme_ascend" })
             end
-            return {
-                card = card,
-                message = localize{type='variable',key='a_mult',vars={to_big(card.ability.extra.mult)}}
-            }
         end
     end
-    if context.joker_main and context.cardarea == G.jokers and not card.debuff then
-        if to_big(card.ability.extra.mult) > to_big(0) then
-            return {
-                mult = card.ability.extra.mult,
-            }
-        end
+
+    if context.joker_main and card.ability.extra.mult > 0 then
+        return {
+            mult = card.ability.extra.mult,
+        }
     end
 end
 

@@ -1,5 +1,9 @@
 local jokerInfo = {
     name = 'Granny Cream',
+    animation = {
+        frames = 36,
+        fps = 10,
+    },
     config = {
         extra = {
             chip_goal = 150,
@@ -12,62 +16,28 @@ local jokerInfo = {
     eternal_compat = false,
     perishable_compat = true,
     pools = { ["Food"] = true },
-    streamer = "other",
-    animated = {
-        tiles = {
-            x = 9,
-            y = 4,
-        },
-    }
+    origin = 'cardsauce',
+    artist = 'Crisppyboat'
 }
 
 function jokerInfo.loc_vars(self, info_queue, card)
-    info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.crispy } }
     return { vars = {card.ability.extra.chip_goal, card.ability.extra.chip_pool } }
 end
 
 function jokerInfo.calculate(self, card, context)
-    if context.joker_main then
-        if to_big(hand_chips) < to_big(card.ability.extra.chip_goal) then
-            local spent_chips = to_big(card.ability.extra.chip_goal) - to_big(hand_chips)
-            if to_big(spent_chips) > to_big(card.ability.extra.chip_pool) then
-                spent_chips = to_big(card.ability.extra.chip_pool)
-            end
-            if SMODS.food_expires(context) then
-                card.ability.extra.chip_pool = to_big(card.ability.extra.chip_pool) - to_big(spent_chips)
-            end
-            return {
-                message = localize{type='variable',key='a_chips',vars={to_big(spent_chips)}},
-                chip_mod = spent_chips
-            }
-        end
+    if card.debuff or context.blueprint then return end
+
+    if context.joker_main and hand_chips < card.ability.extra.chip_goal and SMODS.food_expires(card) then
+        local spent_chips = math.min(card.ability.extra.chip_pool, card.ability.extra.chip_goal - hand_chips)
+        card.ability.extra.chip_pool = card.ability.extra.chip_pool - spent_chips
+
+        return {
+            chips = spent_chips
+        }
     end
-    if context.cardarea == G.jokers and context.after and not (card.debuff or context.blueprint or context.repetition or context.individual or context.before) then
-        if to_big(card.ability.extra.chip_pool) == to_big(0) then
-            check_for_unlock({ type = "expire_grannycream" })
-            G.E_MANAGER:add_event(Event({
-                func = function()
-                    play_sound('tarot1')
-                    card.T.r = -0.2
-                    card:juice_up(0.3, 0.4)
-                    card.states.drag.is = true
-                    card.children.center.pinch.x = true
-                    G.E_MANAGER:add_event(Event({trigger = 'after', delay = 1, blockable = false,
-                         func = function()
-                             G.jokers:remove_card(card)
-                             card:remove()
-                             card = nil
-                             return true
-                         end
-                    }))
-                    return true
-                end
-            }))
-            return {
-                message = localize('k_sipped_ex'),
-                colour = G.C.CHIPS
-            }
-        end
+
+    if context.after and card.ability.extra.chip_pool <= 0 then
+        ArrowAPI.game.card_expire(card, 'k_sipped_ex', G.C.CHIPS)
     end
 end
 

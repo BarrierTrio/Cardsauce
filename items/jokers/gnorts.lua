@@ -1,5 +1,7 @@
 local jokerInfo = {
 	name = 'Rekoj Gnorts',
+	atlas = 'jokers',
+	pos = {x = 3, y = 0},
 	config = {},
 	rarity = 1,
 	cost = 4,
@@ -7,12 +9,19 @@ local jokerInfo = {
 	eternal_compat = true,
 	perishable_compat = true,
 	has_shiny = true,
-	streamer = "vinny",
+	origin = {
+        category = 'cardsauce',
+        sub_origins = {
+            'vinny',
+        },
+        custom_color = 'vinny'
+    },
+	dependencies = {
+        config = {
+            ['VinnyContent'] = true
+        }
+    },
+	artist = 'BarrierTrio/Gote'
 }
 
-function jokerInfo.loc_vars(self, info_queue, card)
-	info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.gote } }
-end
-
 return jokerInfo
-	

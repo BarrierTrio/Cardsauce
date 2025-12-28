@@ -1,14 +1,24 @@
 local blindInfo = {
     name = "Felt Fortress",
-    color = HEX('88e054'),
-    pos = {x = 0, y = 0},
+    atlas = 'blinds',
+    pos = {x = 0, y = 8},
+    boss_colour = HEX('88e054'),
     dollars = 8,
     mult = 2,
     vars = {},
     debuff = {},
     boss = {min = 1, max = 10, showdown = true},
-    csau_dependencies = {
-        'enableJoelContent',
+    origin = {
+        category = 'cardsauce',
+        sub_origins = {
+            'joel',
+        },
+        custom_color = 'joel'
+    },
+    dependencies = {
+        config = {
+            ['JoelContent'] = true,
+        }
     }
 }
 

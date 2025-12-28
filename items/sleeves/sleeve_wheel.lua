@@ -1,44 +1,58 @@
 local sleeveInfo = {
     name = 'Wheel Sleeve',
+    atlas = 'sleeves',
+    pos = {x = 2, y = 0},
     config = {},
     unlocked = false,
     unlock_condition = { deck = "b_csau_wheel", stake = "stake_green" },
+    dependencies = {
+        config = {
+            ['VHSs'] = true,
+        }
+    },
+    artist = 'Kekulism',
 }
 
-sleeveInfo.loc_vars = function(self, info_queue)
-    if info_queue then info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.keku } } end
+function sleeveInfo.loc_vars(self, info_queue)
+    local matching_deck = self.get_current_deck_key() == "b_csau_wheel"
 
-    local key = self.key
-    self.config = { voucher = 'v_crystal_ball' }
+    return {
+        key = self.key..(matching_deck and '_alt' or ''),
+        vars = {
+            localize({
+                type = 'name_text',
+                key =  matching_deck and 'v_csau_scavenger' or 'v_crystal_ball',
+                set = 'Voucher'
+            })
+        }
+    }
+end
 
+function sleeveInfo.apply(self, sleeve)
     if self.get_current_deck_key() == "b_csau_wheel" then
-        key = key .. "_alt"
-        self.config.voucher = "v_csau_scavenger"
+        self.config.voucher = 'v_csau_scavenger'
+    else
+        self.config.voucher = 'v_crystal_ball'
     end
 
-    local vars = { localize{type = 'name_text', key = self.config.voucher, set = 'Voucher'} }
-    return { key = key, vars = vars }
+    CardSleeves.Sleeve.apply(sleeve)
 end
+
 
 sleeveInfo.calculate = function(self, card, context)
-    if context.end_of_round and G.GAME.blind.boss and not context.other_card then
-        if self.get_current_deck_key() ~= "b_csau_wheel" then
-            G.E_MANAGER:add_event(Event({
-                func = function()
-                    if to_big(#G.consumeables.cards + G.GAME.consumeable_buffer) < to_big(G.consumeables.config.card_limit) then
-                        local _card = create_card('VHS', G.consumeables, nil, nil, nil, nil, 'c_csau_blackspine', 'car')
-                        _card:add_to_deck()
-                        G.consumeables:emplace(_card)
-                        G.GAME.consumeable_buffer = 0
-                    end
-                    return true
-                end }))
-        end
+    if context.end_of_round and context.main_eval and to_big(#G.consumeables.cards) < to_big(G.consumeables.config.card_limit)
+    and G.GAME.blind:get_type() == 'Boss' and self.get_current_deck_key() ~= "b_csau_wheel" then
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
+                local _card = create_card('VHS', G.consumeables, nil, nil, nil, nil, 'c_csau_blackspine', 'csau_wheel_sleeve')
+                _card:add_to_deck()
+                G.consumeables:emplace(_card)
+                G.GAME.consumeable_buffer = 0
+                return true
+            end
+        }))
     end
-end
-
-sleeveInfo.apply = function(self, sleeve)
-    CardSleeves.Sleeve.apply(sleeve)
 end
 
 return sleeveInfo

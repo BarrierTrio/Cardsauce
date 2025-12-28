@@ -1,15 +1,18 @@
 local blindInfo = {
     name = "The Hog",
-    color = HEX('a11f1f'),
-    pos = {x = 0, y = 0},
+    atlas = 'blinds',
+    pos = {x = 0, y = 2},
+    boss_colour = HEX('a11f1f'),
     dollars = 5,
     mult = 2,
     vars = {},
     debuff = {},
     boss = {min = 3, max = 10},
-    csau_dependencies = {
-        'enableVinnyContent',
-    }
+    dependencies = {
+        config = {
+            ['VinnyContent'] = true
+        }
+    },
 }
 
 function blindInfo.set_blind(self)
@@ -22,7 +25,7 @@ function blindInfo.set_blind(self)
             end
             v.csau_hog_checked = true
         end
-        
+
     end
 end
 

@@ -1,10 +1,10 @@
-local trophyInfo = {
+local achInfo = {
     rarity = 3,
+    config = {unlock_key = 'j_csau_wigsaw'},
     hidden_text = true,
-    unlock_key = 'j_csau_wigsaw',
     unlock_condition = function(self, args)
-        return G.FUNCS.discovery_check({ mode = 'key', key = self.unlock_key })
+        return (G.P_CENTERS[self.config.unlock_key] or {}).discovered
     end,
 }
 
-return trophyInfo
+return achInfo

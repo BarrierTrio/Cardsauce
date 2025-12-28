@@ -1,14 +1,17 @@
 local blindInfo = {
     name = "The Darkest",
-    color = HEX('c0a800'),
+    atlas = 'blinds',
     pos = {x = 0, y = 0},
+    boss_colour = HEX('c0a800'),
     dollars = 5,
     mult = 2,
     vars = {},
     boss = {min = 4, max = 10},
-    csau_dependencies = {
-        'enableVinnyContent',
-    }
+    dependencies = {
+        config = {
+            ['VinnyContent'] = true
+        }
+    },
 }
 
 function blindInfo.defeat(self)
@@ -38,8 +41,8 @@ function blindInfo.modify_hand(self, cards, poker_hands, text, mult, hand_chips)
                     card:flip()
                     play_sound('card1')
                     card:juice_up(0.3, 0.3)
-                    return true 
-                end 
+                    return true
+                end
             }))
         end
     end
@@ -51,7 +54,7 @@ function blindInfo.modify_hand(self, cards, poker_hands, text, mult, hand_chips)
             delay = 0.1,
             func = function()
                 change_cards[i]:set_sprites(nil, G.P_CARDS[change_cards[i].config.card_key])
-                return true 
+                return true
             end
         }))
     end
@@ -61,12 +64,12 @@ function blindInfo.modify_hand(self, cards, poker_hands, text, mult, hand_chips)
         G.E_MANAGER:add_event(Event({
             trigger = 'after',
             delay = 0.25,
-            func = function() 
+            func = function()
                 change_cards[i]:flip()
                 play_sound('tarot2', 1, 0.6)
                 change_cards[i]:juice_up(0.3, 0.3)
-                return true 
-            end 
+                return true
+            end
         }))
     end
     delay(0.2)

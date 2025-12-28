@@ -1,0 +1,28 @@
+[manifest]
+version = "1.0.0"
+priority = 0
+
+#
+# Adds a direct negative rate modifier to the vanilla code
+#
+
+# Game.init_game_object()
+[[patches]]
+[patches.pattern]
+target = "game.lua"
+pattern = '''edition_rate = 1,'''
+position = "at"
+payload = '''edition_rate = 1, -- csau_arrow patch tag
+negative_rate = 1,'''
+match_indent = true
+times = 1
+
+# poll_edition()
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = '''if edition_poll > 1 - 0.003*_mod and not _no_neg then'''
+position = "at"
+payload = '''if edition_poll > 1 - 0.003*G.GAME.negative_rate*_mod and not _no_neg then'''
+match_indent = true
+times = 1

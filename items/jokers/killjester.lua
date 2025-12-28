@@ -1,5 +1,7 @@
 local jokerInfo = {
     name = 'Kill Jester',
+    atlas = 'jokers',
+	pos = {x = 9, y = 8},
     config = {
         extra = {
             x_mult = 1,
@@ -12,50 +14,67 @@ local jokerInfo = {
     blueprint_compat = true,
     eternal_compat = false,
     perishable_compat = false,
-    streamer = "vinny",
+    origin = {
+        category = 'cardsauce',
+        sub_origins = {
+            'vinny',
+        },
+        custom_color = 'vinny'
+    },
+    dependencies = {
+        config = {
+            ['VinnyContent'] = true
+        }
+    },
+    artist = 'Swizik'
 }
 
 function jokerInfo.check_for_unlock(self, args)
-    if args.type == "unlock_killjester" then
-        return true
-    end
+    return  args.type == "unlock_killjester"
 end
 
 function jokerInfo.loc_vars(self, info_queue, card)
-    info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.swizik } }
     return { vars = {card.ability.extra.x_mult_mod, card.ability.extra.x_mult} }
 end
 
-local function valid_name(name)
-    if containsString(name, "Joker") or containsString(name, "Jester") then
-        return true
-    end
-    return false
-end
 
 function jokerInfo.calculate(self, card, context)
-    if context.setting_blind and not context.blueprint and not card.getting_sliced and not card.debuff then
+    if card.debuff then return end
+
+    if context.setting_blind and not context.blueprint then
         local trigger = false
         for i = 1, #G.jokers.cards do
-            if G.jokers.cards[i] ~= card and not (G.jokers.cards[i].getting_sliced or G.jokers.cards[i].ability.eternal) then
-                if valid_name(G.jokers.cards[i].ability.name) and not SMODS.is_eternal(G.jokers.cards[i], self) then
-                    card.ability.extra.x_mult = to_big(card.ability.extra.x_mult) + to_big(card.ability.extra.x_mult_mod)
-                    G.jokers.cards[i].getting_sliced = true
-                    trigger = true
-                    G.E_MANAGER:add_event(Event({func = function()
-                        G.jokers.cards[i]:start_dissolve({G.C.RED}, nil, 1.6)
-                    return true end }))
-                end
+            local joker = G.jokers.cards[i]
+            if joker ~= card and not joker.getting_sliced and (ArrowAPI.string.contains(joker.config.center.name, "Joker")
+            or ArrowAPI.string.contains(joker.config.center.name, "Jester")) and not SMODS.is_eternal(joker, self) then
+                SMODS.scale_card(card, {
+                    ref_table = card.ability.extra,
+                    ref_value = "x_mult",
+                    scalar_value = "x_mult_mod",
+                    no_message = true
+                })
+                joker.getting_sliced = true
+                trigger = true
+
+                G.E_MANAGER:add_event(Event({
+                    func = function()
+                        joker:start_dissolve({G.C.RED}, nil, 1.6)
+                        return true
+                    end
+                }))
             end
         end
-        if trigger and not (context.blueprint_card or card).getting_sliced then
-            card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize{type = 'variable', key = 'a_xmult', vars = {card.ability.extra.x_mult}}})
+
+        if trigger then
+            return {
+                message = localize{type = 'variable', key = 'a_xmult', vars = {card.ability.extra.x_mult}}
+            }
         end
     end
-    if context.joker_main and context.cardarea == G.jokers and card.ability.extra.x_mult > 1 then
+
+    if context.joker_main and card.ability.extra.x_mult > 1 then
         return {
-            message = localize{type='variable',key='a_xmult',vars={to_big(card.ability.extra.x_mult)}},
-            Xmult_mod = card.ability.extra.x_mult,
+            x_mult = card.ability.extra.x_mult,
         }
     end
 end

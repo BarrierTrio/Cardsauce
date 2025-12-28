@@ -1,35 +1,42 @@
 local consumInfo = {
     name = 'Miami Connection',
-    key = 'miami',
+    atlas = 'vhs',
+	pos = {x = 2, y = 3},
     set = "VHS",
+    runtime = 3,
     cost = 3,
     alerted = true,
     config = {
-        activation = true,
-        activated = false,
-        destroyed = false,
         extra = {
-            runtime = 3,
-            uses = 0,
             draw_mod = 3,
         }
     },
     origin = {
-        'rlm',
-        'rlm_botw',
-        color = 'rlm'
-    }
+        category = 'cardsauce',
+        sub_origins = {
+            'rlm',
+            'rlm_botw',
+        },
+        custom_color = 'rlm'
+    },
+    artist = 'Dolos'
 }
 
 
 function consumInfo.loc_vars(self, info_queue, card)
-    info_queue[#info_queue+1] = {key = "vhs_activation", set = "Other"}
-    info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.dolos } }
-    return { vars = { card.ability.extra.draw_mod, card.ability.extra.runtime-card.ability.extra.uses } }
+    return { vars = { card.ability.extra.draw_mod } }
 end
 
-function consumInfo.can_use(self, card)
-    if to_big(#G.consumeables.cards) < to_big(G.consumeables.config.card_limit) or card.area == G.consumeables then return true end
+function consumInfo.calculate(self, card, context)
+    if context.drawing_cards and card.ability.activated then
+        if not context.blueprint then
+            ArrowAPI.vhs.run_tape(card)
+        end
+
+        return {
+            modify = context.amount + card.ability.extra.draw_mod
+        }
+    end
 end
 
 return consumInfo

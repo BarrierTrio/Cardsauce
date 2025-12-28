@@ -1,5 +1,7 @@
 local voucherInfo = {
     name = 'Rope & Bombs',
+    atlas = 'vouchers',
+    pos = {x = 0, y = 1},
     cost = 10,
     requires = {'v_csau_lampoil'},
     config = {
@@ -9,12 +11,9 @@ local voucherInfo = {
         }
     },
     unlock_condition = {type = 'csau_spent_in_shop', spent_money = 100},
-    unlocked = false
+    unlocked = false,
+    artist = 'MightyKingWario'
 }
-
-function voucherInfo.loc_vars(self, info_queue, card)
-    info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.wario } }
-end
 
 function voucherInfo.locked_loc_vars(self, info_queue, card)
     return { vars = { self.unlock_condition.spent_money }}

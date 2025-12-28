@@ -1,11 +1,11 @@
+SMODS.Atlas({key = 'banned_tags', path = 'banned/banned_tags.png', px = 169, py = 123})
+
 local tagInfo = {
     name = "Banned Tags",
+    atlas = 'banned_tags',
     no_doe = true,
     no_mod_badges = true,
     no_collection = true,
-    width = 169,
-	height = 123,
-    origin = 'vinny',
 }
 
 function tagInfo.in_pool(self, args)

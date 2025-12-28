@@ -1,40 +1,28 @@
 local consumInfo = {
     name = 'Shakma',
-    key = 'shakma',
+    atlas = 'vhs',
+	pos = {x = 3, y = 0},
     set = "VHS",
+    runtime = 4,
     cost = 3,
-    alerted = true,
-    config = {
-        activation = true,
-        activated = false,
-        destroyed = false,
-        extra = {
-            runtime = 4,
-            uses = 0
-        },
-    },
+    blueprint_compat = false,
+    config = {},
     origin = {
-        'rlm',
-        'rlm_botw',
-        color = 'rlm'
-    }
+        category = 'rlm',
+        sub_origins = {
+            'rlm_botw',
+        },
+        custom_color = 'rlm'
+    },
+    artist = 'Joey'
 }
 
-
-function consumInfo.loc_vars(self, info_queue, card)
-    info_queue[#info_queue+1] = {key = "vhs_activation", set = "Other"}
-    info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.joey } }
-    return { vars = { card.ability.extra.runtime-card.ability.extra.uses } }
-end
-
 function consumInfo.calculate(self, card, context)
-    if card.ability.activated and not card.ability.destroyed and context.fix_probability and G.FUNCS.find_activated_tape('c_csau_shakma') == card then
+    if card.debuff or context.blueprint then return end
+
+    if card.ability.activated and not card.ability.destroyed and context.fix_probability and ArrowAPI.vhs.find_activated_tape('c_csau_shakma') == card then
         if context.from_roll then
-            card.ability.extra.uses = math.min(card.ability.extra.runtime, card.ability.extra.uses + 1)
-            if to_big(card.ability.extra.uses) >= to_big(card.ability.extra.runtime) then
-                G.FUNCS.destroy_tape(card)
-                card.ability.destroyed = true
-            end
+            ArrowAPI.vhs.run_tape(card)
         end
 
         return {
@@ -43,10 +31,6 @@ function consumInfo.calculate(self, card, context)
             denominator = context.denominator,
         }
     end
-end
-
-function consumInfo.can_use(self, card)
-    if to_big(#G.consumeables.cards) < to_big(G.consumeables.config.card_limit) or card.area == G.consumeables then return true end
 end
 
 return consumInfo

@@ -1,5 +1,7 @@
 local jokerInfo = {
 	name = 'Green Needle',
+	atlas = 'jokers',
+	pos = {x = 9, y = 4},
 	config = {},
 	rarity = 3,
 	cost = 10,
@@ -9,12 +11,11 @@ local jokerInfo = {
 	perishable_compat = true,
 	has_shiny = true,
 	unlock_condition = {type = 'win_deck', deck = 'b_green'},
-	streamer = "other",
+	origin = 'cardsauce',
+	artist = 'BarrierTrio/Gote'
 }
 
 function jokerInfo.loc_vars(self, info_queue, card)
-	info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.gote } }
-
 	local compat = 'incompatible'
     if G.jokers and #G.jokers.cards > 1 and card.rank < #G.jokers.cards and G.jokers.cards[#G.jokers.cards].ability.set == 'Joker' then
         compat = G.jokers.cards[#G.jokers.cards].config.center.blueprint_compat and 'compatible' or 'incompatible'
@@ -39,7 +40,7 @@ function jokerInfo.loc_vars(self, info_queue, card)
 end
 
 function jokerInfo.check_for_unlock(self, args)
-	if (args.type == "win_deck" and get_deck_win_stake(self.unlock_condition.deck)) or G.FUNCS.discovery_check({ mode = 'key', key = 'b_green' }) then
+	if (args.type == "win_deck" and get_deck_win_stake(self.unlock_condition.deck)) or (G.P_CENTERS['b_green'] or {}).unlocked then
 		return true
 	end
 end
@@ -51,4 +52,3 @@ function jokerInfo.calculate(self, card, context)
 end
 
 return jokerInfo
-	

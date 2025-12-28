@@ -1,31 +1,11 @@
-local mod = SMODS.current_mod
-local mod_path = SMODS.current_mod.path:match("Mods/[^/]+")..'/'
 
-mod.speenTimer = 0
-
-mod.speenBase = love.graphics.newImage(mod_path..'assets/1x/jokers/speenBase.png')
-mod.speenFace = love.graphics.newImage(mod_path..'assets/1x/jokers/speenFace.png')
-
-local drawFace = function()
-	local r = math.sin(mod.speenTimer/2) * 60
-	local sx = math.sin(mod.speenTimer*4)
-	love.graphics.draw(mod.speenFace,71/2,95/2,r,sx,1,71/2,95/2)
-end
-
-local setupCanvas = function(self)
-	self.children.center.video = love.graphics.newCanvas(71,95)
-	self.children.center.video:renderTo(function()
-		love.graphics.clear(1,1,1,0)
-		love.graphics.setColor(1,1,1,1)
-		--Draw the base, then the face
-		love.graphics.draw(mod.speenBase)
-		drawFace()
-	end)
-end
+local shared_speen = love.graphics.newQuad(355, 95, 71, 95, 710, 1520)
 
 local jokerInfo = {
 	name = 'SPEEEEEEN',
-	config = {},
+	atlas = 'jokers',
+	pos = {x = 4, y = 1},
+	config = {speen_timer = 0},
 	rarity = 1,
 	cost = 6,
 	blueprint_compat = true,
@@ -34,68 +14,73 @@ local jokerInfo = {
 	pools = {
 		["Meme"] = true
 	},
-	streamer = "vinny",
+	origin = {
+        category = 'cardsauce',
+        sub_origins = {
+            'vinny',
+        },
+        custom_color = 'vinny'
+    },
+	dependencies = {
+        config = {
+            ['VinnyContent'] = true
+        }
+    },
+	programmer = 'DPS2004',
+	artist = 'BarrierTrio/Gote'
 }
 
 function jokerInfo.loc_vars(self, info_queue, card)
 	local num, _ =  SMODS.get_probability_vars(card, 1, 1, 'wheel_of_fortune')
 	info_queue[#info_queue+1] = {key = "wheel2", set = "Other", vars = {num}}
-	info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.gote } }
-	info_queue[#info_queue+1] = {key = "codercredit", set = "Other", vars = { G.csau_team.dps } }
 end
 
 function jokerInfo.calculate(self, card, context)
-	if card.debuff or not context.reroll_shop or #G.consumeables.cards + G.GAME.consumeable_buffer >= G.consumeables.config.card_limit then 
-		return 
+	if card.debuff then
+		return
 	end
 
-	G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
-	G.E_MANAGER:add_event(Event({
-		func = (function()
-			G.E_MANAGER:add_event(Event({
-				func = function() 
-					local new_card = create_card('Tarot', G.consumeables, nil, nil, nil, nil, 'c_wheel_of_fortune', 'car')
-					new_card:add_to_deck()
-					G.consumeables:emplace(new_card)
-					G.GAME.consumeable_buffer = 0
-					return true
-				end}))
-				card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_speen'), colour = G.C.PURPLE})
-			return true
-		end)}
-	))
+	if context.reroll_shop and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
+		G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
+		G.E_MANAGER:add_event(Event({
+			func = function()
+				SMODS.add_card({key = 'c_wheel_of_fortune', key_append = 'csau_speen'})
+				G.GAME.consumeable_buffer = 0
+				return true
+			end
+		}))
+
+		return {
+			message = localize('k_speen'),
+			colour = G.C.PURPLE,
+			card = context.blueprint_card or card
+		}
+	end
 end
 
-local loveUpdateReference = love.update
-function love.update(dt)
-	if mod.speenTimer and G.SETTINGS.GAMESPEED then
-		mod.speenTimer = (mod.speenTimer + (dt * (G.SETTINGS.GAMESPEED / 4))) % (math.pi * 4)
-	end
-	loveUpdateReference(dt)
+function jokerInfo.update(self, card, dt)
+	card.ability.speen_timer = (card.ability.speen_timer + (G.real_dt / 4)) % (math.pi * 4)
 end
 
 function jokerInfo.draw(self,card,layer)
-	--Withouth love.graphics.push, .pop, and .reset, it will attempt to use values from the rest of 
-	--the rendering code. We need a clean slate for rendering to canvases.
 	if card.area.config.collection and not self.discovered then
 		return
 	end
-	
-	love.graphics.push('all')
-		love.graphics.reset()
-		if not card.children.center.video then
-			--Sometimes, such as when a game is saved and loaded, the canvas gets de-initialized.
-			--We need to check for this, and re-initialize it.
-			setupCanvas(card)
-		end
-		
-		card.children.center.video:renderTo(function()
-			--Same as before, but this time we pass in the timer.
-			love.graphics.draw(mod.speenBase)
-			drawFace(mod.speenTimer)
-		end)
+
+	prep_draw(card.children.center, 0.75, math.sin(card.ability.speen_timer) * 60)
+	love.graphics.scale(1/(card.children.center.scale.x/card.children.center.VT.w), 1/(card.children.center.scale.y/card.children.center.VT.h))
+    love.graphics.setColor(G.C.WHITE)
+
+	love.graphics.draw(
+	G.ASSET_ATLAS['csau_jokers'].image,
+	shared_speen,
+	0, 0,
+	0,
+	card.children.center.VT.w/(card.children.center.T.w) + math.sin(card.ability.speen_timer*4) * 0.3,
+	card.children.center.VT.h/(card.children.center.T.h))
 	love.graphics.pop()
+	add_to_drawhash(card.children.center)
+    card.children.center:draw_boundingrect()
 end
 
 return jokerInfo
-	

@@ -1,5 +1,7 @@
 local jokerInfo = {
     name = 'Black Spine Junka',
+    atlas = 'jokers',
+	pos = {x = 7, y = 14},
     config = {
         unlock = 10,
         extra = {
@@ -17,19 +19,20 @@ local jokerInfo = {
     blueprint_compat = true,
     eternal_compat = false,
     perishable_compat = false,
-    streamer = "othervinny",
-    csau_dependencies = {
-        'enableVHSs',
+    dependencies = {
+        config = {
+            ['VHSs'] = true,
+        }
     },
     origin = {
-        'rlm',
-        'rlm_j',
-        color = 'rlm'
-    }
+        category = 'rlm',
+        sub_origins = {'rlm_j'},
+        custom_color = 'rlm'
+    },
+    artist = 'yunkie101'
 }
 
 function jokerInfo.loc_vars(self, info_queue, card)
-    info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.yunkie } }
     local num, dom = SMODS.get_probability_vars(card, card.ability.extra.prob_extra, card.ability.extra.prob, 'csau_junka')
     return { vars = {card.ability.extra.x_mult_mod, card.ability.extra.prob_mod, num, dom, card.ability.extra.x_mult } }
 end
@@ -52,29 +55,24 @@ function jokerInfo.calculate(self, card, context)
     if context.vhs_death and not context.blueprint and not card.ability.extra.destroyed then
         if SMODS.pseudorandom_probability(card, 'csau_junka', card.ability.extra.prob_extra, card.ability.extra.prob) then
             card.ability.extra.destroyed = true
-            G.E_MANAGER:add_event(Event({
-                func = function()
-                    play_sound('tarot1')
-                    card.T.r = -0.2
-                    card:juice_up(0.3, 0.4)
-                    card.states.drag.is = true
-                    card.children.center.pinch.x = true
-                    G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.3, blockable = false,
-                         func = function()
-                             G.jokers:remove_card(card)
-                             card:remove()
-                             card = nil
-                             return true; end}))
-                    return true
-                end
-            }))
-            return {
-                message = localize('k_junka_lose')
-            }
+            ArrowAPI.game.card_expire(card, 'k_junka_lose')
         else
-            card.ability.extra.x_mult = card.ability.extra.x_mult + card.ability.extra.x_mult_mod
-            card.ability.extra.prob_extra = card.ability.extra.prob_extra + card.ability.extra.prob_mod
-            card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize{type = 'variable', key = 'a_xmult', vars = {card.ability.extra.x_mult}}, delay = 0.4 })
+            SMODS.scale_card(card, {
+                ref_table = card.ability.extra,
+                ref_value = "x_mult",
+                scalar_value = "x_mult_mod",
+                no_message = true
+            })
+            SMODS.scale_card(card, {
+                ref_table = card.ability.extra,
+                ref_value = "prob_extra",
+                scalar_value = "prob_mod",
+                no_message = true
+            })
+
+            return {
+                message = localize{type = 'variable', key = 'a_xmult', vars = {card.ability.extra.x_mult}}
+            }
         end
     end
 

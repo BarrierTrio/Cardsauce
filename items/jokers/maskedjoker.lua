@@ -1,5 +1,7 @@
 local jokerInfo = {
 	name = 'Masked Joker',
+	atlas = 'jokers',
+	pos = {x = 7, y = 3},
 	config = {
 		extra = {
 			chips = 29,
@@ -13,12 +15,23 @@ local jokerInfo = {
 	blueprint_compat = true,
 	eternal_compat = true,
 	perishable_compat = true,
-	streamer = "vinny",
+	origin = {
+        category = 'cardsauce',
+        sub_origins = {
+            'vinny',
+        },
+        custom_color = 'vinny'
+    },
+	dependencies = {
+        config = {
+            ['VinnyContent'] = true
+        }
+    },
+	artist = 'BarrierTrio/Gote'
 }
 
 function jokerInfo.loc_vars(self, info_queue, card)
 	info_queue[#info_queue+1] = G.P_CENTERS[card.ability.extra.enhancement]
-	info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.gote } }
 	return { vars = {card.ability.extra.chips, card.ability.extra.mult}}
 end
 
@@ -55,7 +68,7 @@ function jokerInfo.calculate(self, card, context)
 		return {
 			chips = card.ability.extra.chips,
 			mult = card.ability.extra.mult,
-			card = card
+			card = context.blueprint_card or card
 		}
 	end
 end
@@ -63,4 +76,4 @@ end
 
 
 return jokerInfo
-	
+

@@ -6,7 +6,18 @@ local jokerInfo = {
 	blueprint_compat = false,
 	eternal_compat = true,
 	perishable_compat = true,
-	streamer = "vinny",
+	origin = {
+        category = 'cardsauce',
+        sub_origins = {
+            'vinny',
+        },
+        custom_color = 'vinny'
+    },
+	dependencies = {
+        config = {
+            ['VinnyContent'] = true
+        }
+    },
 }
 
 function jokerInfo.calculate(self, card, context)
@@ -14,4 +25,3 @@ function jokerInfo.calculate(self, card, context)
 end
 
 return jokerInfo
-	

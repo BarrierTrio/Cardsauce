@@ -1,4 +1,4 @@
-local trophyInfo = {
+local achInfo = {
     rarity = 2,
     hidden_text = true,
     unlock_condition = function(self, args)
@@ -8,5 +8,5 @@ local trophyInfo = {
     end,
 }
 
-return trophyInfo
+return achInfo
 

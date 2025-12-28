@@ -1,36 +1,49 @@
 local jokerInfo = {
     name = 'Blowzo Brothers',
+    atlas = 'jokers',
+	pos = {x = 2, y = 9},
     config = {
         extra = {
             prob_1 = 4,
             prob_2 = 4
         }
-        
+
     },
     rarity = 2,
     cost = 5,
     blueprint_compat = true,
     eternal_compat = true,
     perishable_compat = true,
-    streamer = "vinny",
+    origin = {
+        category = 'cardsauce',
+        sub_origins = {
+            'vinny',
+        },
+        custom_color = 'vinny'
+    },
+	dependencies = {
+        config = {
+            ['VinnyContent'] = true
+        }
+    },
+    artist = "FenixSeraph"
 }
 
 function jokerInfo.loc_vars(self, info_queue, card)
-    info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.fenix } }
-
     local num, dom1 = SMODS.get_probability_vars(card, 1, card.ability.extra.prob_1, 'csau_bjbros1')
     local _, dom2 = SMODS.get_probability_vars(card, 1, card.ability.extra.prob_2, 'csau_bjbros2')
     return { vars = {num, dom1, dom2 } }
 end
 
 function jokerInfo.calculate(self, card, context)
-    if not (context.cardarea == G.jokers and context.before) or card.debuff then
+    if not context.before or card.debuff then
         return
     end
 
     if context.scoring_name == "Two Pair"  then
         local bj1 = false
         local bj2 = false
+
         if SMODS.pseudorandom_probability(card, 'csau_bjbros1', 1, card.ability.extra.prob_1) then
             bj1 = true
         end

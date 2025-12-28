@@ -1,5 +1,7 @@
 local jokerInfo = {
     name = 'Jokers of Circumstance',
+    atlas = 'jokers',
+	pos = {x = 8, y = 8},
     config = {
         extra = {
             chips = 50,
@@ -12,17 +14,26 @@ local jokerInfo = {
     blueprint_compat = true,
     eternal_compat = true,
     perishable_compat = true,
-    streamer = "vinny",
+    origin = {
+        category = 'cardsauce',
+        sub_origins = {
+            'vinny',
+        },
+        custom_color = 'vinny'
+    },
+    dependencies = {
+        config = {
+            ['VinnyContent'] = true
+        }
+    },
+    artist = 'BarrierTrio/Gote'
 }
 
 function jokerInfo.check_for_unlock(self, args)
-    if args.type == "unlock_villains" then
-        return true
-    end
+    return args.type == "unlock_villains"
 end
 
 function jokerInfo.loc_vars(self, info_queue, card)
-    info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.gote } }
     return { vars = {card.ability.extra.chips, card.ability.extra.mult}}
 end
 
@@ -31,7 +42,7 @@ function jokerInfo.calculate(self, card, context)
         local play_more_than = 0
         local most_played = {}
         for k, v in pairs(G.GAME.hands) do
-            if v.visible and v.played > 0 then
+            if SMODS.is_poker_hand_visible(k) and v.played > 0 then
                 if v.played > play_more_than then
                     most_played = {[k] = true}
                     play_more_than = v.played
@@ -40,7 +51,7 @@ function jokerInfo.calculate(self, card, context)
                 end
             end
         end
-        
+
         if most_played[context.scoring_name] then
             return {
                 chips = card.ability.extra.chips,

@@ -1,6 +1,8 @@
 local sleeveInfo = {
     name = 'Varg Sleeve',
-    config = { 
+    atlas = 'sleeves',
+    pos = {x = 1, y = 0},
+    config = {
         probability_mult = 2,
         probability_mult_alt = 1.5,
         csau_jokers_rate = 2,
@@ -9,13 +11,10 @@ local sleeveInfo = {
     },
     unlocked = false,
     unlock_condition = { deck = "b_csau_varg", stake = "stake_green" },
+    artist = 'Kekulism',
 }
 
 function sleeveInfo.loc_vars(self, info_queue)
-    if info_queue then
-        info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.keku } }
-    end
-
     local key, vars
     if self.get_current_deck_key() == "b_csau_varg" then
         key = self.key .. "_alt"
@@ -29,22 +28,21 @@ function sleeveInfo.loc_vars(self, info_queue)
 end
 
 function sleeveInfo.apply(self, sleeve)
-    if (sleeve.config.csau_jokers_rate) then
-        G.GAME.starting_params.csau_jokers_rate = G.GAME.starting_params.csau_jokers_rate or 1
-        G.GAME.starting_params.csau_jokers_rate = G.GAME.starting_params.csau_jokers_rate * sleeve.config.csau_jokers_rate
-        sleeve.config.hand_size = 1
-    end
     if self.get_current_deck_key() == "b_csau_varg" then
         G.GAME.starting_params.csau_all_rate = G.GAME.starting_params.csau_all_rate or 1
         G.GAME.starting_params.csau_all_rate = G.GAME.starting_params.csau_all_rate * sleeve.config.csau_all_rate
         sleeve.config.hand_size = nil
+    else
+        G.GAME.starting_params.csau_jokers_rate = G.GAME.starting_params.csau_jokers_rate or 1
+        G.GAME.starting_params.csau_jokers_rate = G.GAME.starting_params.csau_jokers_rate * sleeve.config.csau_jokers_rate
+        sleeve.config.hand_size = 1
     end
     CardSleeves.Sleeve.apply(sleeve)
 end
 
 function sleeveInfo.calculate(self, sleeve, context)
     if context.mod_probability then
-        local mod = self.get_current_deck_key() and sleeve.config.probability_mult_alt or sleeve.config.probability_mult
+        local mod = self.get_current_deck_key() == "b_csau_varg" and sleeve.config.probability_mult_alt or sleeve.config.probability_mult
         return {
             numerator = context.numerator * mod
         }

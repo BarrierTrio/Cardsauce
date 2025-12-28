@@ -1,5 +1,7 @@
 local jokerInfo = {
     name = 'Chromed Up',
+    atlas = 'jokers',
+	pos = {x = 5, y = 4},
     config = {
         extra = {
             x_mult = 1.77
@@ -10,12 +12,23 @@ local jokerInfo = {
     blueprint_compat = true,
     eternal_compat = true,
     perishable_compat = true,
-    streamer = "vinny",
+    origin = {
+        category = 'cardsauce',
+        sub_origins = {
+            'vinny',
+        },
+        custom_color = 'vinny'
+    },
+	dependencies = {
+        config = {
+            ['VinnyContent'] = true
+        }
+    },
+    artist = 'Gappie',
 }
 
 function jokerInfo.loc_vars(self, info_queue, card)
     info_queue[#info_queue+1] = G.P_CENTERS.m_steel
-    info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.gappie } }
     return { vars = { card.ability.extra.x_mult } }
 end
 

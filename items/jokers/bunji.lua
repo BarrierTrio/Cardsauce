@@ -1,5 +1,7 @@
 local jokerInfo = {
     name = "Scourge Of Pantsylvania",
+    atlas = 'jokers',
+	pos = {x = 8, y = 10},
     config = {},
     rarity = 2,
     cost = 5,
@@ -7,17 +9,32 @@ local jokerInfo = {
     blueprint_compat = false,
     eternal_compat = true,
     perishable_compat = true,
-    unlock_key = 'j_csau_frich',
-    streamer = "vinny",
+    unlock_condition = {key = 'j_csau_frich'},
+    origin = {
+        category = 'cardsauce',
+        sub_origins = {
+            'vinny',
+        },
+        custom_color = 'vinny'
+    },
+	dependencies = {
+        config = {
+            ['VinnyContent'] = true
+        }
+    },
+    artist = 'FenixSeraph'
 }
 
-function jokerInfo.loc_vars(self, info_queue, card)
-    info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.fenix } }
-    return { vars = { } }
+function jokerInfo.check_for_unlock(self, args)
+    return (G.P_CENTERS[self.unlock_condition.key] or {}).discovered
 end
 
-function jokerInfo.check_for_unlock(self, args)
-    return G.FUNCS.discovery_check({ mode = 'key', key = self.unlock_key })
+function jokerInfo.calculate(self, card, context)
+    if context.food_expires then
+        return {
+            food_expires = false
+        }
+    end
 end
 
 return jokerInfo

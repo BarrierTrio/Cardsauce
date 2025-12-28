@@ -1,69 +1,56 @@
 local jokerInfo = {
     name = 'Lidl',
+    atlas = 'jokers',
+	pos = {x = 4, y = 9},
     config = {
         extra = {
-            discount = 50,
+            discount = 0.5,
         },
-        active = false,
     },
     rarity = 1,
     cost = 6,
     blueprint_compat = false,
     eternal_compat = true,
     perishable_compat = true,
-    streamer = "joel",
+origin = {
+        category = 'cardsauce',
+        sub_origins = {
+            'joel',
+        },
+        custom_color = 'joel'
+    },
+    dependencies = {
+        config = {
+            ['JoelContent'] = true,
+        }
+    },
+    artist = {'BardVergil', 'Kekulism'}
 }
 
-local function activate(bool, card)
-    if bool then
-        G.E_MANAGER:add_event(Event({func = function()
-            G.GAME.voucher_discount = card.ability.extra.discount
-            for k, v in pairs(G.I.CARD) do
-                if v.set_cost then v:set_cost() end
-            end
-            return true
-        end }))
-    else
-        G.E_MANAGER:add_event(Event({func = function()
-            G.GAME.voucher_discount = 0
-            for k, v in pairs(G.I.CARD) do
-                if v.set_cost then v:set_cost() end
-            end
-            return true
-        end }))
-    end
-end
-
 function jokerInfo.loc_vars(self, info_queue, card)
-    info_queue[#info_queue+1] = {key = "csau_artistcredit_2", set = "Other", vars = { G.csau_team.bard, G.csau_team.keku } }
-    return { vars = { card.ability.extra.discount } }
+    return { vars = { card.ability.extra.discount * 100 } }
 end
 
-function jokerInfo.add_to_deck(self, card)
-    card.ability.active = true
-    activate(true, card)
+function jokerInfo.add_to_deck(self, card, from_debuff)
+    G.E_MANAGER:add_event(Event({
+        trigger = 'after',
+        delay = 0.15,
+        func = function()
+            ArrowAPI.game.set_center_discount(card, card.ability.extra.discount, true, 'Voucher')
+            return true
+        end
+    }))
 end
 
-function jokerInfo.remove_from_deck(self, card)
-    card.ability.active = false
-    activate(false, card)
-end
-
-function jokerInfo.update(self, card, dt)
-    if card.debuff and card.ability.active then
-        card.ability.active = false
-        activate(false, card)
-    elseif not card.debuff and not card.ability.active and card.area == G.jokers then
-        card.ability.active = true
-        activate(true, card)
-    end
-end
-
-local igo = Game.init_game_object
-function Game:init_game_object()
-    local ret = igo(self)
-    ret.voucher_discount = 0
-    return ret
+function jokerInfo.remove_from_deck(self, card, from_debuff)
+    G.E_MANAGER:add_event(Event({
+        trigger = 'after',
+        delay = 0.15,
+        func = function()
+            ArrowAPI.game.clear_discount(card)
+            return true
+        end
+    }))
 end
 
 return jokerInfo

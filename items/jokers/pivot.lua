@@ -1,5 +1,7 @@
 local jokerInfo = {
 	name = 'Pivyot Joker',
+	atlas = 'jokers',
+	pos = {x = 2, y = 0},
 	config = {
 		extra = {
 			chance = 3
@@ -11,22 +13,33 @@ local jokerInfo = {
 	eternal_compat = true,
 	perishable_compat = true,
 	has_shiny = true,
-	streamer = "vinny",
+	origin = {
+        category = 'cardsauce',
+        sub_origins = {
+            'vinny',
+        },
+        custom_color = 'vinny'
+    },
+	dependencies = {
+        config = {
+            ['VinnyContent'] = true
+        }
+    },
+	artist = 'BarrierTrio/Gote'
 }
 
 
 function jokerInfo.loc_vars(self, info_queue, card)
-	info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.gote } }
 	return { vars = {SMODS.get_probability_vars(card, 1, card.ability.extra.chance, 'csau_pivyot')} }
 end
 
 function jokerInfo.calculate(self, card, context)
 	if card.debuff then return end
 
-	if context.cardarea == G.jokers and context.before and context.scoring_name == "High Card"
+	if context.before and context.scoring_name == "High Card"
 	and	SMODS.pseudorandom_probability(card, 'csau_pivyot', 1, card.ability.extra.chance) then
 		return {
-			card = card,
+			card = context.blueprint_card or card,
 			level_up = true,
 			message = localize('k_level_up_ex')
 		}
@@ -34,4 +47,3 @@ function jokerInfo.calculate(self, card, context)
 end
 
 return jokerInfo
-	

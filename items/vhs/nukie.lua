@@ -1,40 +1,42 @@
 local consumInfo = {
     name = 'Nukie',
-    key = 'nukie',
+    atlas = 'vhs',
+	pos = {x = 3, y = 1},
     set = "VHS",
+    runtime = 6,
     cost = 3,
-    alerted = true,
+    blueprint_compat = false,
     config = {
-        activation = true,
-        activated = false,
-        destroyed = false,
         extra = {
-            runtime = 6,
-            uses = 0,
             chance = 10
         }
     },
-    origin = 'rlm'
+    origin = {
+        category = 'cardsauce',
+        sub_origins = {
+            'rlm',
+        },
+        custom_color = 'rlm'
+    },
+    artist = 'MightyKingWario'
 }
 
 
 function consumInfo.loc_vars(self, info_queue, card)
     local num, _ =  SMODS.get_probability_vars(card, 1, 1, 'wheel_of_fortune')
 	info_queue[#info_queue+1] = {key = "wheel2", set = "Other", vars = {num}}
-    info_queue[#info_queue+1] = {key = "vhs_activation", set = "Other"}
-    info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.wario } }
     local num2, dom = SMODS.get_probability_vars(self, 1, card.ability.extra.chance, 'csau_nukie_negative')
-    return { vars = { num2, dom, card.ability.extra.runtime-card.ability.extra.uses } }
+    return { vars = { num2, dom } }
 end
 
 function consumInfo.calculate(self, card, context)
+    if card.debuff or context.blueprint then return end
+
     if context.using_consumeable and context.consumeable.config.center.key == 'c_wheel_of_fortune'
-    and card.ability.activated and G.FUNCS.find_activated_tape('c_csau_nukie') == card then
-        card.ability.extra.uses = card.ability.extra.uses+1
-        if to_big(card.ability.extra.uses) >= to_big(card.ability.extra.runtime) then
-            G.FUNCS.destroy_tape(card)
-            card.ability.destroyed = true
-        else
+    and card.ability.activated and ArrowAPI.vhs.find_activated_tape('c_csau_nukie') == card then
+        ArrowAPI.vhs.run_tape(card)
+
+        if not card.ability.destroyed then
             G.E_MANAGER:add_event(Event({
                 func = function()
                     card:juice_up()
@@ -44,10 +46,6 @@ function consumInfo.calculate(self, card, context)
             }))
         end
     end
-end
-
-function consumInfo.can_use(self, card)
-    if to_big(#G.consumeables.cards) < to_big(G.consumeables.config.card_limit) or card.area == G.consumeables then return true end
 end
 
 return consumInfo

@@ -7,10 +7,13 @@ local partnerInfo = {
             related_card = "j_csau_roche",
         }
     },
+    dependencies = {
+        mods = {'partner'}
+    },
+    artist = 'BarrierTrio/Gote'
 }
 
 partnerInfo.loc_vars = function(self, info_queue, card)
-    info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.gote } }
     local word = next(SMODS.find_card(card.ability.extra.related_card)) and localize('b_next_round_2') or localize('k_ante')
     return { vars = { word } }
 end
@@ -18,7 +21,7 @@ end
 partnerInfo.check_for_unlock = function(self, args)
     for _, v in pairs(G.P_CENTER_POOLS["Joker"]) do
         if v.key == self.config.extra.related_card then
-            if get_joker_win_sticker(v, true) >= 8 then
+            if ArrowAPI.stands.get_win_sticker(v, true) >= 8 then
                 return true
             end
             break

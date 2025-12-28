@@ -1,0 +1,242 @@
+[manifest]
+version = "1.0.0"
+priority = 0
+
+#
+# Adds support for banned cards in challenges being returned from function results
+#
+
+[[patches]]
+[patches.pattern]
+target = "game.lua"
+pattern = '''if type(_ch.restrictions.banned_cards) == 'function' then
+    _ch.restrictions.banned_cards = _ch.restrictions.banned_cards()
+end'''
+position = "at"
+payload = '''if type(_ch.restrictions.banned_cards) == 'function' then
+    _ch.restrictions.banned_cards = _ch.restrictions.banned_cards()
+end -- csau_arrow patch tag
+
+    if _ch.restrictions.banned_cards.allowed then
+        local bans = {}
+        local allow_map = {}
+        local allow_list = {}
+        for _, sets in pairs(_ch.restrictions.banned_cards.allowed) do
+            for _, info in ipairs(sets) do
+                allow_list[#allow_list+1] = { id = info.id, ids = info.ids }
+                allow_map[info.id] = true
+                for _, id in ipairs(info.ids or {}) do allow_map[id] = true end
+            end
+        end
+
+        for k, center in pairs(G.P_CENTERS) do
+            if not allow_map[k] and _ch.restrictions.banned_cards.allowed[center.set] then
+                bans[#bans+1] = k
+            end
+        end
+
+        _ch.restrictions.banned_cards = {{id = 'j_joker', ids = bans}}
+    end'''
+match_indent = true
+times = 1
+
+[[patches]]
+[patches.pattern]
+target = "game.lua"
+pattern = '''if _ch.restrictions.banned_tags then'''
+position = "at"
+payload = '''if _ch.restrictions.banned_tags then -- csau_arrow patch tag
+    if type(_ch.restrictions.banned_tags) == 'function' then
+        _ch.restrictions.banned_tags = _ch.restrictions.banned_tags()
+    end'''
+match_indent = true
+times = 1
+
+[[patches]]
+[patches.pattern]
+target = "game.lua"
+pattern = '''if _ch.restrictions.banned_other then'''
+position = "at"
+payload = '''if _ch.restrictions.banned_other then -- csau_arrow patch tag
+    if type(_ch.restrictions.banned_other) == 'function' then
+        _ch.restrictions.banned_other = _ch.restrictions.banned_other()
+    end
+
+    if _ch.restrictions.banned_other.allowed then
+        local bans = {}
+        local allow_map = {}
+        local allow_list = {}
+        for _, blind in pairs(_ch.restrictions.banned_other.allowed) do
+            allow_list[#allow_list+1] = { id = blind.id, type = 'blind' }
+            allow_map[info.id] = true
+        end
+
+        for k, _ in pairs(G.P_BLINDS) do
+            if not allow_map[k] then
+                bans[#bans+1] = { id = k, type = 'blind' }
+            end
+        end
+
+        _ch.restrictions.banned_other = bans
+    end'''
+match_indent = true
+times = 1
+
+
+
+#
+# Inits extra blinds added in challenges
+#
+
+[[patches]]
+[patches.pattern]
+target = "game.lua"
+pattern = '''if _ch.restrictions then'''
+position = "at"
+payload = '''if _ch.extra_blinds then
+    G.GAME.arrow_extra_blinds = {}
+    for _, v in ipairs(_ch.extra_blinds) do
+        ArrowAPI.game.create_extra_blind({}, G.P_BLINDS[v], true)
+    end
+end
+if _ch.post_apply and type(_ch.post_apply) == "function" then
+    _ch:post_apply()
+end
+if _ch.restrictions then -- csau_arrow patch tag'''
+match_indent = true
+times = 1
+
+
+
+
+
+#
+# Adds variable colors in challenge descriptions
+#
+
+[[patches]]
+[patches.pattern]
+target = "functions/UI_definitions.lua"
+pattern = '''game_rules[#game_rules+1] = {n=G.UIT.R, config={align = "cl"}, nodes= localize{type = 'text', key = 'ch_c_'..v.id, vars = {v.value}}}'''
+position = "at"
+payload = '''local vars = {}
+if v.value and type(v.value) == 'table' and #v.value > 1 then
+    for _, vv in ipairs(v.value) do
+        vars[#vars+1] = (vv.type and vv.set and vv.key) and localize(vv) or vv
+    end
+elseif v.value then
+    vars = {(type(v.value) == 'table' and v.value.type and v.value.set and v.value.key) and localize(v.value) or v.value}
+end
+
+local colours = nil
+if v.colours then
+    colours = {}
+    for _, colour in ipairs(v.colours) do
+        if type(colour) == 'table' and colour.ref_table and colour.ref_key and colour.ref_value then
+            colours[#colours+1] = colour.ref_table[colour.ref_key][colour.ref_value]
+        else
+            colours[#colours+1] = colour
+        end
+    end
+    if #colours > 0 then
+        vars.colours = colours
+    end
+end
+game_rules[#game_rules+1] = {n=G.UIT.R, config={align = "cl"}, nodes = localize{type = 'text', key = 'ch_c_'..v.id, vars = vars}} -- csau_arrow patch tag'''
+match_indent = true
+times = 1
+
+
+
+
+
+#
+# Function support and alternate win condition for challenges
+#
+
+[[patches]]
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = '''if G.GAME.round_resets.ante == G.GAME.win_ante and G.GAME.blind:get_type() == 'Boss' then'''
+position = "at"
+payload = '''local prevent_win = false
+local ch = G.CHALLENGES[get_challenge_int_from_id(G.GAME.challenge or -1)]
+if ch and ch.gameover and G.GAME.round_resets.ante == G.GAME.win_ante then
+    local lose = ch.gameover.endgame_type == 'lose' or (ch.gameover.func and ch.gameover.func(ch, true) == false)
+    if lose then
+        ArrowAPI.game.game_over(false, true)
+    end
+    prevent_win = lose or ch.gameover.endgame_type == 'prevent'
+end
+if not prevent_win and G.GAME.round_resets.ante == G.GAME.win_ante and G.GAME.blind:get_type() == 'Boss' then'''
+match_indent = true
+times = 1
+
+
+
+
+
+#
+# Adds eternal support for challenge consumables
+#
+
+[[patches]]
+[patches.pattern]
+target = "game.lua"
+pattern = '''add_joker(v.id, nil, k ~= 1)'''
+position = "at"
+payload = '''ArrowAPI.eternal_compat_bypass = true
+add_joker(v.id, nil, k ~= 1, v.eternal)
+ArrowAPI.eternal_compat_bypass = nil'''
+match_indent = true
+times = 1
+
+[[patches]]
+[patches.pattern]
+target = "game.lua"
+pattern = '''local _joker = add_joker(v.id, v.edition, k ~= 1)
+if v.eternal then _joker:set_eternal(true) end
+if v.pinned then _joker.pinned = true end'''
+position = "at"
+payload = '''ArrowAPI.eternal_compat_bypass = true
+local _joker = add_joker(v.id, v.edition, k ~= 1, v.eternal)
+if v.pinned then _joker.pinned = true end
+ArrowAPI.eternal_compat_bypass = nil'''
+match_indent = true
+times = 1
+
+
+
+
+
+#
+# Patches softlocks that occur when you replace blinds
+#
+
+[[patches]]
+[patches.pattern]
+target = 'functions/state_events.lua'
+pattern = """if G.GAME.round_resets.blind == G.P_BLINDS.bl_small then"""
+position = 'at'
+payload = """if G.GAME.round_resets.effective_blind == 'Small' then"""
+match_indent = true
+times = 2
+
+[[patches]]
+[patches.pattern]
+target = 'functions/state_events.lua'
+pattern = """elseif G.GAME.round_resets.blind == G.P_BLINDS.bl_big then"""
+position = 'at'
+payload = """elseif G.GAME.round_resets.effective_blind == 'Big' then"""
+match_indent = true
+times = 2
+
+[[patches]]
+[patches.pattern]
+target = 'functions/button_callbacks.lua'
+pattern = """G.GAME.round_resets.blind_states[G.GAME.blind_on_deck] = 'Current'"""
+position = 'at'
+payload = '''G.GAME.round_resets.effective_blind = G.GAME.blind_on_deck
+G.GAME.round_resets.blind_states[G.GAME.blind_on_deck] = 'Current' -- csau_arrow patch tag'''
+match_indent = true
+times = 1

@@ -1,30 +1,26 @@
 local consumInfo = {
     name = 'The Room',
-    key = 'theroom',
+    atlas = 'vhs',
+	pos = {x = 6, y = 3},
     set = "VHS",
+    runtime = 2,
     cost = 3,
-    alerted = true,
     config = {
-        activation = true,
-        activated = false,
-        destroyed = false,
         extra = {
-            runtime = 2,
-            uses = 0,
             blind_mod = 0.15
         }
     },
+    artist = {'MightyKingWario', 'yunkie101'}
 }
 
-
 function consumInfo.loc_vars(self, info_queue, card)
-    info_queue[#info_queue+1] = {key = "vhs_activation", set = "Other"}
-    info_queue[#info_queue+1] = {key = "csau_artistcredit_2", set = "Other", vars = { G.csau_team.wario, G.csau_team.yunkie } }
-    return { vars = { 100*card.ability.extra.blind_mod, card.ability.extra.runtime-card.ability.extra.uses } }
+    return { vars = { 100*card.ability.extra.blind_mod } }
 end
 
 function consumInfo.calculate(self, card, context)
-    if card.ability.activated and context.setting_blind and not card.getting_sliced and not card.debuff then
+    if card.debuff then return end
+
+    if card.ability.activated and context.setting_blind then
         G.E_MANAGER:add_event(Event({
             trigger = 'after',
             func = function()
@@ -40,27 +36,22 @@ function consumInfo.calculate(self, card, context)
                     delay =  0.5,
                     func = (function(t) G.GAME.blind.chip_text = number_format(G.GAME.blind.chips); return math.floor(t) end)
                 }))
-                G.E_MANAGER:add_event(Event({
-                    trigger = 'after',
-                    delay = 0.5,
-                    func = function()
-                        G.GAME.blind.chip_text = number_format(G.GAME.blind.chips)
-                        card.ability.extra.uses = card.ability.extra.uses+1
-                        if to_big(card.ability.extra.uses) >= to_big(card.ability.extra.runtime) then
-                            G.FUNCS.destroy_tape(card)
-                            card.ability.destroyed = true
+                if not context.blueprint then
+                    G.E_MANAGER:add_event(Event({
+                        trigger = 'after',
+                        delay = 0.5,
+                        func = function()
+                            G.GAME.blind.chip_text = number_format(G.GAME.blind.chips)
+                            ArrowAPI.vhs.run_tape(card)
+                            return true
                         end
-                        return true
-                    end
-                }))
+                    }))
+                end
+
                 return true
             end
         }))
     end
-end
-
-function consumInfo.can_use(self, card)
-    if to_big(#G.consumeables.cards) < to_big(G.consumeables.config.card_limit) or card.area == G.consumeables then return true end
 end
 
 return consumInfo

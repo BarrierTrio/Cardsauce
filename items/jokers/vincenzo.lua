@@ -1,5 +1,8 @@
 local jokerInfo = {
 	name = 'Vincenzo',
+	atlas = 'jokers',
+	pos = {x = 5, y = 5},
+	soul_pos = {x = 6, y = 5},
 	config = {},
 	rarity = 4,
 	cost = 20,
@@ -8,42 +11,40 @@ local jokerInfo = {
 	blueprint_compat = true,
 	eternal_compat = true,
 	perishable_compat = true,
-	hasSoul = true,
-	streamer = "vinny",
-	origin = "redvox",
+	origin = {
+		category = "cardsauce",
+		sub_origins = {
+			"redvox",
+		},
+		custom_color = "redvox",
+	},
+	artist = 'BarrierTrio/Gote'
 }
 
 function jokerInfo.loc_vars(self, info_queue, card)
 	info_queue[#info_queue+1] = G.P_CENTERS.e_negative
-	info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.gote } }
-end
-
-function jokerInfo.add_to_deck(self, card)
-	check_for_unlock({ type = "discover_vincenzo" })
 end
 
 function jokerInfo.generate_ui(self, info_queue, card, desc_nodes, specific_vars, full_UI_table)
-	G.FUNCS.generate_legendary_desc(self, info_queue, card, desc_nodes, specific_vars, full_UI_table)
+	ArrowAPI.ui.generate_legendary_desc(self, info_queue, card, desc_nodes, specific_vars, full_UI_table)
 end
 
 function jokerInfo.calculate(self, card, context)
-	if context.end_of_round and G.GAME.blind.boss and (not context.individual) and (not context.repetition) then
-		G.GAME.joker_buffer = G.GAME.joker_buffer + 1
+	if context.end_of_round and context.main_eval and G.GAME.blind:get_type() == 'Boss' then
 		G.E_MANAGER:add_event(Event({
-		func = function() 
-			local card = create_card('Joker', G.jokers, nil, 0, nil, nil, 'j_misprint', 'rif')
-			card:set_edition({negative = true}, true, true)
-			card:add_to_deck()
-			G.jokers:emplace(card)
-			card:start_materialize()
-			G.GAME.joker_buffer = 0
-		return true
-		end}))   
-		card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_vincenzo'), colour = G.C.BLUE})
+			func = function()
+				SMODS.add_card{key = 'j_misprint', edition = 'e_negative'}
+				return true
+			end
+		}))
+
+		return {
+			message = localize('k_vincenzo'),
+			colour = G.C.BLUE
+		}
 	end
 end
 
 
 
 return jokerInfo
-	

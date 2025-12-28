@@ -1,5 +1,7 @@
 local consumInfo = {
     name = "Robot in the Family",
+    atlas = 'vhs',
+	pos = {x = 0, y = 4},
     key = 'ritf',
     set = "VHS",
     cost = 3,
@@ -15,19 +17,20 @@ local consumInfo = {
         },
     },
     origin = {
-        'rlm',
-        'rlm_botw',
-        color = 'rlm'
-    }
+        category = 'rlm',
+        sub_origins = {
+            'rlm_botw',
+        },
+        custom_color = 'rlm'
+    },
+    artist = 'yunkie101'
 }
 
 
 function consumInfo.loc_vars(self, info_queue, card)
     info_queue[#info_queue+1] = {key = "vhs_activation", set = "Other"}
-    info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.yunkie } }
-    return { 
-        vars = { card.ability.extra.runtime-card.ability.extra.uses },
-        key = self.key..(csau_config['detailedDescs'] and '_detailed' or '')
+    return {
+        vars = { card.ability.runtime-card.ability.uses },
     }
 end
 
@@ -55,9 +58,9 @@ function consumInfo.calculate(self, card, context)
     end
     local bad_context = context.repetition or context.individual or context.blueprint
     if context.after and not card.ability.destroyed and card.ability.activated and not bad_context then
-        card.ability.extra.uses = card.ability.extra.uses+1
-        if to_big(card.ability.extra.uses) >= to_big(card.ability.extra.runtime) then
-            G.FUNCS.destroy_tape(card)
+        card.ability.uses = card.ability.uses+1
+        if to_big(card.ability.uses) >= to_big(card.ability.runtime) then
+            ArrowAPI.vhs.destroy_tape(card)
             card.ability.destroyed = true
         end
     end

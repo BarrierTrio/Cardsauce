@@ -1,5 +1,7 @@
 local jokerInfo = {
     name = "Beginner's Luck",
+    atlas = 'jokers',
+	pos = {x = 6, y = 7},
     config = {
         extra = {
             prob_mod = 3,
@@ -11,12 +13,20 @@ local jokerInfo = {
     blueprint_compat = false,
     eternal_compat = true,
     perishable_compat = true,
-    streamer = "vinny",
+    origin = {
+        category = 'cardsauce',
+        sub_origins = {
+            'vinny',
+        },
+        custom_color = 'vinny'
+    },
+    dependencies = {
+        config = {
+            ['VinnyContent'] = true
+        }
+    },
+    artist = 'BarrierTrio/Gote'
 }
-
-function jokerInfo.loc_vars(self, info_queue, card)
-    info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.gote } }
-end
 
 function jokerInfo.in_pool(self, args)
     return to_big(G.GAME.round_resets.ante) <= to_big(self.config.extra.ante)
@@ -32,10 +42,8 @@ end
 
 function jokerInfo.update(self, card)
     if to_big(G.GAME.round_resets.ante) > to_big(card.ability.extra.ante) then
-        card.ability.extra.disabled = true
         card.debuff = true
-    elseif to_big(G.GAME.round_resets.ante) <= to_big(card.ability.extra.ante) and card.ability.extra.disabled then
-        card.ability.extra.disabled = nil
+    else
         card.debuff = false
     end
 end

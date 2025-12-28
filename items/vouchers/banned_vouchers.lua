@@ -1,5 +1,8 @@
+SMODS.Atlas({key = 'banned_vouchers', path = 'banned/banned_vouchers.png', px = 169, py = 123})
+
 local voucherInfo = {
     name = "Banned Vouchers",
+    atlas = 'banned_vouchers',
     cost = 1,
     config = {},
     no_doe = true,
@@ -7,9 +10,6 @@ local voucherInfo = {
     no_collection = true,
     discovered = true,
     unlocked = true,
-    width = 169,
-	height = 123,
-    origin = 'vinny',
 }
 
 function voucherInfo.set_card_type_badge(self, card, badges)

@@ -1,35 +1,46 @@
 local consumInfo = {
     name = 'Creating Rem Lezar',
-    key = 'remlezar',
+    atlas = 'vhs',
+	pos = {x = 1, y = 0},
     set = "VHS",
+    runtime = 1,
     cost = 3,
-    alerted = true,
-    config = {
-        activation = true,
-        unpauseable = true,
-        activated = false,
-        destroy = false,
-        extra = {
-            runtime = 1,
-            uses = 0,
+    blueprint_compat = false,
+    config = {},
+    origin = {
+        category = 'cardsauce',
+        sub_origins = {
+            'vinny',
+        },
+        custom_color = 'vinny'
+    },
+    dependencies = {
+        config = {
+            ['VinnyContent'] = true
         }
     },
-    origin = 'vinny'
+    artist = 'greek_shmeek'
 }
 
-function consumInfo.loc_vars(self, info_queue, card)
-    info_queue[#info_queue+1] = {key = "vhs_activation", set = "Other"}
-    info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.greeky } }
-    return { 
-        vars = {
-            card.ability.extra.runtime-card.ability.extra.uses,
-            (card.ability.extra.runtime-card.ability.extra.uses) > 1 and 's' or ''
-        }
-    }
-end
+function consumInfo.calculate(self, card, context)
+    if card.debuff or context.blueprint then return end
 
-function consumInfo.can_use(self, card)
-    if to_big(#G.consumeables.cards) < to_big(G.consumeables.config.card_limit) or card.area == G.consumeables then return true end
+    if card.ability.activated and not card.ability.destroyed and context.spectral_downside and context.downside then
+
+        ArrowAPI.vhs.run_tape(card)
+
+        if not card.ability.destroyed then
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    card:juice_up()
+                end
+            }))
+        end
+
+        return {
+            prevent_downside = true
+        }
+    end
 end
 
 return consumInfo

@@ -1,18 +1,26 @@
 local jokerInfo = {
 	name = 'Be Someone Forever',
+	atlas = 'jokers',
+	pos = {x = 7, y = 1},
 	config = {},
 	rarity = 1,
 	cost = 4,
 	blueprint_compat = false,
 	eternal_compat = true,
 	perishable_compat = true,
-	streamer = "vinny",
-	origin = "redvox",
+	origin = {
+		category = "cardsauce",
+		sub_origins = {
+			"redvox",
+		},
+		custom_color = "redvox",
+	},
+	dependencies = {
+        config = {
+            ['VinnyContent'] = true
+        }
+    },
+	artist = 'BarrierTrio/Gote'
 }
-
-function jokerInfo.loc_vars(self, info_queue, card)
-	info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.gote } }
-	return { vars = { } }
-end
 
 return jokerInfo

@@ -1,7 +1,8 @@
 local blindInfo = {
     name = "The Outlaw",
-    color = HEX('a0a0cc'),
-    pos = {x = 0, y = 0},
+    atlas = 'blinds',
+    pos = {x = 0, y = 3},
+    boss_colour = HEX('a0a0cc'),
     dollars = 5,
     mult = 2,
     vars = {},
@@ -36,10 +37,10 @@ function blindInfo.get_loc_debuff_text(self)
         return localize('k_outlaw_default')
     end
 
- 
+
     local ordered_array = {}
     for k, v in pairs(G.GAME.blind.played_ranks) do table.insert(ordered_array, {rank = k, nominal = v}) end
-    table.sort(ordered_array, function(a, b) return a.nominal < b.nominal end)  
+    table.sort(ordered_array, function(a, b) return a.nominal < b.nominal end)
 
     local debuff_str = ''
     for i, v in ipairs(ordered_array) do
@@ -68,7 +69,7 @@ function blindInfo.recalc_debuff(self, card, from_blind)
     if card.area == G.jokers or G.GAME.blind.disabled or SMODS.has_no_rank(card) or not card.base.value then
         return false
     end
-    
+
     return (G.GAME.blind.played_ranks[SMODS.Ranks[card.base.value].key] ~= nil)
 end
 

@@ -1,5 +1,7 @@
 local jokerInfo = {
 	name = 'That\'s Werewolves',
+	atlas = 'jokers',
+	pos = {x = 0, y = 6},
 	config = {
 		extra = {
 			x_mult = 3,
@@ -11,64 +13,57 @@ local jokerInfo = {
 	blueprint_compat = true,
 	eternal_compat = true,
 	perishable_compat = true,
-	streamer = "vinny",
+	origin = {
+        category = 'cardsauce',
+        sub_origins = {
+            'vinny',
+        },
+        custom_color = 'vinny'
+    },
+	dependencies = {
+        config = {
+            ['VinnyContent'] = true
+        }
+    },
+	artist = 'BarrierTrio/Gote'
 }
 
 function jokerInfo.loc_vars(self, info_queue, card)
-	info_queue[#info_queue+1] = {key = "csau_artistcredit", set = "Other", vars = { G.csau_team.gote } }
 	return { vars = {card.ability.extra.x_mult, localize(card.ability.extra.hand, 'poker_hands')} }
 end
 
 function jokerInfo.set_ability(self, card, initial, delay_sprites)
-	local _poker_hands = {}
-	for k, v in pairs(G.GAME.hands) do
-		if v.visible then _poker_hands[#_poker_hands+1] = k end
+	local hands = {}
+	for _, v in ipairs(G.handlist) do
+		if SMODS.is_poker_hand_visible(v) then hands[#hands+1] = v end
 	end
-	card.ability.extra.hand = pseudorandom_element(_poker_hands, pseudoseed((card.area and card.area.config.type == 'title') and 'false_werewolves' or 'werewolves'))
-end
-
-local triggered = false
-local debuff_hand_ref = Blind.debuff_hand
-
-function Blind:debuff_hand(cards, hand, handname, check)
-	if next(SMODS.find_card('j_csau_werewolves')) then
-		local werewolves = SMODS.find_card('j_csau_werewolves')
-		if handname == werewolves[1].ability.extra.hand then
-			triggered = true
-			return true
-		end
-		triggered = false
-	else
-		triggered = false
-	end
-	return debuff_hand_ref(self, cards, hand, handname, check)
-end
-
-local get_loc_debuff_textref = Blind.get_loc_debuff_text
-function Blind:get_loc_debuff_text()
-	if triggered then
-		return localize("k_werewolves")
-	end
-	return get_loc_debuff_textref(self)
+	card.ability.extra.hand = pseudorandom_element(hands, (card.area and card.area.config.type == 'title' and 'false_werewolves' or 'werewolves'))
 end
 
 function jokerInfo.calculate(self, card, context)
-	if context.joker_main and context.cardarea == G.jokers then
+	if context.debuff_hand and context.scoring_name == card.ability.extra.hand then
 		return {
-			message = localize{type='variable',key='a_xmult',vars={to_big(card.ability.extra.x_mult)}},
-			Xmult_mod = card.ability.extra.x_mult, 
+			debuff = true,
+			debuff_text = localize('k_werewolves'),
+			debuff_source = card
 		}
 	end
-	if context.end_of_round and G.GAME.blind.boss and not context.other_card then
-		local _poker_hands = {}
-		for k, v in pairs(G.GAME.hands) do
-			if v.visible then _poker_hands[#_poker_hands+1] = k end
+
+	if context.joker_main then
+		return {
+			x_mult = card.ability.extra.x_mult,
+		}
+	end
+
+	if context.end_of_round and context.main_eval and G.GAME.blind:get_type() == 'Boss' then
+		local hands = {}
+		for i, v in ipairs(G.handlist) do
+			if SMODS.is_poker_hand_visible(v) then hands[#hands+1] = v end
 		end
-		card.ability.extra.hand = pseudorandom_element(_poker_hands, pseudoseed((card.area and card.area.config.type == 'title') and 'false_werewolves' or 'werewolves'))
+		card.ability.extra.hand = pseudorandom_element(hands, pseudoseed((card.area and card.area.config.type == 'title') and 'false_werewolves' or 'werewolves'))
 	end
 end
 
 
 
 return jokerInfo
-	

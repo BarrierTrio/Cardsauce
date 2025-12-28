@@ -1,14 +1,17 @@
 local blindInfo = {
     name = "The Wasp",
-    color = HEX('ffd44b'),
-    pos = {x = 0, y = 0},
+    atlas = 'blinds',
+    pos = {x = 0, y = 7},
+    boss_colour = HEX('ffd44b'),
     dollars = 5,
     mult = 2,
     vars = {},
     debuff = {},
     boss = {min = 2, max = 10},
-    csau_dependencies = {
-        'enableJoelContent',
+    dependencies = {
+        config = {
+            ['JoelContent'] = true,
+        }
     }
 }
 
@@ -17,7 +20,7 @@ function blindInfo.defeat(self)
 end
 
 local function american_hornet()
-    if not G.GAME.blind.disabled and G.GAME.blind.name == 'The Wasp' then 
+    if not G.GAME.blind.disabled and G.GAME.blind.name == 'The Wasp' then
         return true
     elseif G.GAME.fnwk_extra_blinds then
         for _, v in ipairs(G.GAME.fnwk_extra_blinds) do
@@ -29,7 +32,6 @@ local function american_hornet()
 
     return false
 end
-
 
 local ref_eval = eval_card
 function eval_card(card, context)

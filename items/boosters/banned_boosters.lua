@@ -1,5 +1,8 @@
+SMODS.Atlas({key = 'banned_boosters', path = 'banned/banned_boosters.png', px = 169, py = 123})
+
 local packInfo = {
     name = "Banned Boosters",
+    atlas = 'banned_boosters',
     config = {},
     weight = 0,
     cost = 1,
@@ -8,9 +11,6 @@ local packInfo = {
     discovered = true,
     unlocked = true,
     kind = 'Joker',
-    width = 169,
-	height = 123,
-    origin = 'vinny',
 }
 
 function packInfo.set_card_type_badge(self, card, badges)

@@ -1,11 +1,13 @@
-local trophyInfo = {
+local achInfo = {
     rarity = 1,
-    hidden_text = true,
+    config = {joker = 'j_csau_fate'},
     unlock_condition = function(self, args)
-        if args.type == "activate_watto" then
-            return true
-        end
+        return args.type == "activate_watto"
     end,
 }
 
-return trophyInfo
+function achInfo.loc_vars(self)
+    return { vars = { G.P_CENTERS[self.config.joker].discovered and localize{type = 'name_text', set = 'Joker', key = self.config.joker} or '?????'}}
+end
+
+return achInfo
