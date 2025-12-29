@@ -16,16 +16,10 @@ end
 if specific_vars.bonus_chips then
     localize{type = 'other', key = 'card_extra_chips', nodes = desc_nodes, vars = {SMODS.signed(specific_vars.bonus_chips)}}
 end
-if card.artist and ArrowAPI.current_config['enable_ItemCredits'] then
+'''
+position = "after"
+payload = '''if card.artist and ArrowAPI.current_config['enable_ItemCredits'] then
     local vars = (type(card.artist) == 'function' and card:artist()) or (type(card.artist) == 'table' and card.artist) or {card.artist}
     localize{type = 'other', nodes = desc_nodes, key = "artistcredit_"..#vars, set = "Other", vars = vars }
-end -- csau_arrow patch tag
-'''
-position = "at"
-payload = '''
-if card.artist and ArrowAPI.current_config['enable_ItemCredits'] then
-    local vars = (type(card.artist) == 'function' and card:artist()) or (type(card.artist) == 'table' and card.artist) or {card.artist}
-    localize{type = 'other', nodes = desc_nodes, key = "artistcredit_"..#vars, set = "Other", vars = vars }
-end
-'''
+end -- csau_arrow patch tag'''
 match_indent = true
