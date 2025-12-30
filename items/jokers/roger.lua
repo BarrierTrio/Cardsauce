@@ -30,7 +30,7 @@ local jokerInfo = {
 
 function jokerInfo.loc_vars(self, info_queue, card)
 	local four_fingers = SMODS.four_fingers()
-	if not ArrowAPI.current_config['enabled_DetailedDescs'] then
+	if not ArrowAPI.config['enabled_DetailedDescs'] then
 		info_queue[#info_queue+1] = {key = "rogernote", set = "Other", vars = {four_fingers}}
 	end
 	return {

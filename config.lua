@@ -1,9 +1,18 @@
 return {
+	["cols"] = 6,
 	["enable_ItemCredits"] = true,
-	["enable_VHSs"] = true,
-	["enable_Jokers"] = true,
-	["enable_Consumables"] = true,
+	["forceEnableOrtalab"] = false,
+	["loaded_packs"] = {
+		"sp_csau_cardsauce",
+		"sp_balatro",
+		["replace_map"] = {
+		},
+	},
+	["enable_DetailedDescs"] = false,
+	["enable_Logo"] = true,
 	["enable_EasterEggs"] = true,
+	["muteWega"] = false,
+	["forceDisableOrtalab"] = false,
 	["saved_palettes"] = {
 		["Spades"] = {
 			{
@@ -12,7 +21,6 @@ return {
 					72,
 					111,
 					1,
-					["default"] = true,
 					["key"] = "64-72-111",
 					["grad_pos"] = {
 						0,
@@ -31,7 +39,6 @@ return {
 					78,
 					138,
 					1,
-					["default"] = true,
 					["key"] = "84-78-138",
 					["grad_pos"] = {
 						0,
@@ -50,7 +57,6 @@ return {
 					99,
 					156,
 					1,
-					["default"] = true,
 					["key"] = "104-99-156",
 					["grad_pos"] = {
 						0,
@@ -69,7 +75,6 @@ return {
 					155,
 					205,
 					1,
-					["default"] = true,
 					["key"] = "158-155-205",
 					["grad_pos"] = {
 						0,
@@ -88,7 +93,6 @@ return {
 					186,
 					231,
 					1,
-					["default"] = true,
 					["key"] = "189-186-231",
 					["grad_pos"] = {
 						0,
@@ -107,8 +111,79 @@ return {
 					229,
 					246,
 					1,
-					["default"] = true,
 					["key"] = "230-229-246",
+					["grad_pos"] = {
+						0,
+					},
+					["grad_config"] = {
+						["pos"] = {
+							0,
+							0,
+						},
+						["mode"] = "linear",
+						["val"] = 0,
+					},
+				},
+				{
+					255,
+					181,
+					51,
+					1,
+					["key"] = "255-163-0",
+					["grad_pos"] = {
+						0,
+					},
+					["grad_config"] = {
+						["pos"] = {
+							0,
+							0,
+						},
+						["mode"] = "linear",
+						["val"] = 0,
+					},
+				},
+				{
+					0,
+					156,
+					253,
+					1,
+					["key"] = "0-156-253",
+					["grad_pos"] = {
+						0,
+					},
+					["grad_config"] = {
+						["pos"] = {
+							0,
+							0,
+						},
+						["mode"] = "linear",
+						["val"] = 0,
+					},
+				},
+				{
+					240,
+					52,
+					100,
+					1,
+					["key"] = "240-52-100",
+					["grad_pos"] = {
+						0,
+					},
+					["grad_config"] = {
+						["pos"] = {
+							0,
+							0,
+						},
+						["mode"] = "linear",
+						["val"] = 0,
+					},
+				},
+				{
+					255,
+					255,
+					255,
+					1,
+					["key"] = "255-255-255",
 					["grad_pos"] = {
 						0,
 					},
@@ -126,7 +201,6 @@ return {
 					72,
 					111,
 					1,
-					["default"] = true,
 					["key"] = "badge",
 					["grad_pos"] = {
 						0,
@@ -141,6 +215,242 @@ return {
 					},
 				},
 				["name"] = "Default",
+				["default"] = true,
+			},
+			{
+				{
+					79,
+					99,
+					103,
+					79,
+					99,
+					103,
+					55,
+					70,
+					73,
+					55,
+					70,
+					73,
+					["key"] = "64-72-111",
+					["grad_pos"] = {
+						0,
+						0.2,
+						0.8,
+						1,
+					},
+					["grad_config"] = {
+						["pos"] = {
+							0,
+							0,
+						},
+						["mode"] = "linear",
+						["val"] = 1.571,
+					},
+				},
+				{
+					91,
+					108,
+					110,
+					91,
+					108,
+					110,
+					62,
+					71,
+					73,
+					62,
+					71,
+					73,
+					["key"] = "84-78-138",
+					["grad_pos"] = {
+						0,
+						0.1,
+						0.9,
+						1,
+					},
+					["grad_config"] = {
+						["pos"] = {
+							0,
+							0,
+						},
+						["mode"] = "linear",
+						["val"] = 1.571,
+					},
+				},
+				{
+					105,
+					123,
+					127,
+					105,
+					123,
+					127,
+					69,
+					83,
+					87,
+					69,
+					83,
+					87,
+					["key"] = "104-99-156",
+					["grad_pos"] = {
+						0,
+						0.1,
+						0.9,
+						1,
+					},
+					["grad_config"] = {
+						["pos"] = {
+							0,
+							0,
+						},
+						["mode"] = "linear",
+						["val"] = 1.571,
+					},
+				},
+				{
+					133,
+					146,
+					149,
+					1,
+					["key"] = "158-155-205",
+					["grad_pos"] = {
+						0,
+					},
+					["grad_config"] = {
+						["pos"] = {
+							0,
+							0,
+						},
+						["mode"] = "linear",
+						["val"] = 0,
+					},
+				},
+				{
+					153,
+					167,
+					171,
+					1,
+					["key"] = "189-186-231",
+					["grad_pos"] = {
+						0,
+					},
+					["grad_config"] = {
+						["pos"] = {
+							0,
+							0,
+						},
+						["mode"] = "linear",
+						["val"] = 0,
+					},
+				},
+				{
+					185,
+					200,
+					202,
+					1,
+					["key"] = "230-229-246",
+					["grad_pos"] = {
+						0,
+					},
+					["grad_config"] = {
+						["pos"] = {
+							0,
+							0,
+						},
+						["mode"] = "linear",
+						["val"] = 0,
+					},
+				},
+				{
+					255,
+					181,
+					51,
+					1,
+					["key"] = "255-163-0",
+					["grad_pos"] = {
+						0,
+					},
+					["grad_config"] = {
+						["pos"] = {
+							0,
+							0,
+						},
+						["mode"] = "linear",
+						["val"] = 0,
+					},
+				},
+				{
+					107,
+					97,
+					139,
+					1,
+					["key"] = "0-156-253",
+					["grad_pos"] = {
+						0,
+					},
+					["grad_config"] = {
+						["pos"] = {
+							0,
+							0,
+						},
+						["mode"] = "linear",
+						["val"] = 0,
+					},
+				},
+				{
+					138,
+					113,
+					225,
+					1,
+					["key"] = "240-52-100",
+					["grad_pos"] = {
+						0,
+					},
+					["grad_config"] = {
+						["pos"] = {
+							0,
+							0,
+						},
+						["mode"] = "linear",
+						["val"] = 0,
+					},
+				},
+				{
+					255,
+					255,
+					255,
+					1,
+					["key"] = "255-255-255",
+					["grad_pos"] = {
+						0,
+					},
+					["grad_config"] = {
+						["pos"] = {
+							0,
+							0,
+						},
+						["mode"] = "linear",
+						["val"] = 0,
+					},
+				},
+				{
+					55,
+					70,
+					73,
+					1,
+					["key"] = "badge",
+					["grad_pos"] = {
+						0,
+					},
+					["grad_config"] = {
+						["pos"] = {
+							0,
+							0,
+						},
+						["mode"] = "linear",
+						["val"] = 0,
+					},
+				},
+				["name"] = "High Contrast",
+				["default"] = true,
 			},
 			["saved_index"] = 1,
 		},
@@ -151,7 +461,6 @@ return {
 					99,
 					103,
 					1,
-					["default"] = true,
 					["key"] = "79-99-103",
 					["grad_pos"] = {
 						0,
@@ -170,7 +479,6 @@ return {
 					229,
 					180,
 					1,
-					["default"] = true,
 					["key"] = "255-229-180",
 					["grad_pos"] = {
 						0,
@@ -189,7 +497,6 @@ return {
 					183,
 					114,
 					1,
-					["default"] = true,
 					["key"] = "218-183-114",
 					["grad_pos"] = {
 						0,
@@ -208,7 +515,6 @@ return {
 					198,
 					89,
 					1,
-					["default"] = true,
 					["key"] = "243-198-89",
 					["grad_pos"] = {
 						0,
@@ -227,7 +533,6 @@ return {
 					133,
 					71,
 					1,
-					["default"] = true,
 					["key"] = "165-133-71",
 					["grad_pos"] = {
 						0,
@@ -246,7 +551,6 @@ return {
 					216,
 					254,
 					1,
-					["default"] = true,
 					["key"] = "233-216-254",
 					["grad_pos"] = {
 						0,
@@ -265,7 +569,6 @@ return {
 					186,
 					249,
 					1,
-					["default"] = true,
 					["key"] = "214-186-249",
 					["grad_pos"] = {
 						0,
@@ -284,7 +587,6 @@ return {
 					162,
 					253,
 					1,
-					["default"] = true,
 					["key"] = "183-162-253",
 					["grad_pos"] = {
 						0,
@@ -303,7 +605,6 @@ return {
 					145,
 					243,
 					1,
-					["default"] = true,
 					["key"] = "167-145-243",
 					["grad_pos"] = {
 						0,
@@ -322,7 +623,6 @@ return {
 					129,
 					234,
 					1,
-					["default"] = true,
 					["key"] = "153-129-234",
 					["grad_pos"] = {
 						0,
@@ -341,7 +641,6 @@ return {
 					113,
 					225,
 					1,
-					["default"] = true,
 					["key"] = "138-113-225",
 					["grad_pos"] = {
 						0,
@@ -360,7 +659,6 @@ return {
 					97,
 					139,
 					1,
-					["default"] = true,
 					["key"] = "107-97-139",
 					["grad_pos"] = {
 						0,
@@ -379,7 +677,6 @@ return {
 					255,
 					255,
 					1,
-					["default"] = true,
 					["key"] = "255-255-255",
 					["grad_pos"] = {
 						0,
@@ -398,7 +695,6 @@ return {
 					130,
 					209,
 					1,
-					["default"] = true,
 					["key"] = "badge",
 					["grad_pos"] = {
 						0,
@@ -413,6 +709,7 @@ return {
 					},
 				},
 				["name"] = "Default",
+				["default"] = true,
 			},
 			["saved_index"] = 1,
 		},
@@ -423,7 +720,6 @@ return {
 					132,
 					110,
 					1,
-					["default"] = true,
 					["key"] = "Small",
 					["grad_pos"] = {
 						0,
@@ -442,7 +738,6 @@ return {
 					99,
 					103,
 					1,
-					["default"] = true,
 					["key"] = "won",
 					["grad_pos"] = {
 						0,
@@ -461,7 +756,6 @@ return {
 					95,
 					85,
 					1,
-					["default"] = true,
 					["key"] = "SHOWDOWN_COL_1",
 					["grad_pos"] = {
 						0,
@@ -480,7 +774,6 @@ return {
 					157,
 					255,
 					1,
-					["default"] = true,
 					["key"] = "SHOWDOWN_COL_2",
 					["grad_pos"] = {
 						0,
@@ -495,503 +788,9 @@ return {
 					},
 				},
 				["name"] = "Default",
+				["default"] = true,
 			},
-			{
-				{
-					75,
-					194,
-					146,
-					1,
-					["key"] = "SHOWDOWN_COL_1",
-					["grad_pos"] = {
-						0,
-					},
-					["grad_config"] = {
-						["pos"] = {
-							0,
-							0,
-						},
-						["mode"] = "linear",
-						["val"] = 0,
-					},
-				},
-				{
-					136,
-					103,
-					165,
-					1,
-					["key"] = "SHOWDOWN_COL_2",
-					["grad_pos"] = {
-						0,
-					},
-					["grad_config"] = {
-						["pos"] = {
-							0,
-							0,
-						},
-						["mode"] = "linear",
-						["val"] = 0,
-					},
-				},
-				["name"] = "Cardsauce",
-			},
-			{
-				{
-					58,
-					102,
-					88,
-					1,
-					["key"] = "Small",
-					["grad_pos"] = {
-						0,
-					},
-					["grad_config"] = {
-						["pos"] = {
-							0,
-							0,
-						},
-						["mode"] = "linear",
-						["val"] = 0,
-					},
-				},
-				{
-					44,
-					153,
-					127,
-					1,
-					["key"] = "SHOWDOWN_COL_1",
-					["grad_pos"] = {
-						0,
-					},
-					["grad_config"] = {
-						["pos"] = {
-							0,
-							0,
-						},
-						["mode"] = "linear",
-						["val"] = 0,
-					},
-				},
-				{
-					9,
-					39,
-					29,
-					1,
-					["key"] = "SHOWDOWN_COL_2",
-					["grad_pos"] = {
-						0,
-					},
-					["grad_config"] = {
-						["pos"] = {
-							0,
-							0,
-						},
-						["mode"] = "linear",
-						["val"] = 0,
-					},
-				},
-				["name"] = "Darkshroom",
-			},
-			{
-				{
-					58,
-					102,
-					76,
-					1,
-					["key"] = "Small",
-					["grad_pos"] = {
-						0,
-					},
-					["grad_config"] = {
-						["pos"] = {
-							0,
-							0,
-						},
-						["mode"] = "linear",
-						["val"] = 0,
-					},
-				},
-				{
-					96,
-					178,
-					131,
-					1,
-					["key"] = "SHOWDOWN_COL_1",
-					["grad_pos"] = {
-						0,
-					},
-					["grad_config"] = {
-						["pos"] = {
-							0,
-							0,
-						},
-						["mode"] = "linear",
-						["val"] = 0,
-					},
-				},
-				{
-					163,
-					200,
-					111,
-					1,
-					["key"] = "SHOWDOWN_COL_2",
-					["grad_pos"] = {
-						0,
-					},
-					["grad_config"] = {
-						["pos"] = {
-							0,
-							0,
-						},
-						["mode"] = "linear",
-						["val"] = 0,
-					},
-				},
-				["name"] = "Vineshroom",
-			},
-			{
-				{
-					58,
-					75,
-					102,
-					1,
-					["key"] = "Small",
-					["grad_pos"] = {
-						0,
-					},
-					["grad_config"] = {
-						["pos"] = {
-							0,
-							0,
-						},
-						["mode"] = "linear",
-						["val"] = 0,
-					},
-				},
-				{
-					84,
-					123,
-					184,
-					1,
-					["key"] = "SHOWDOWN_COL_1",
-					["grad_pos"] = {
-						0,
-					},
-					["grad_config"] = {
-						["pos"] = {
-							0,
-							0,
-						},
-						["mode"] = "linear",
-						["val"] = 0,
-					},
-				},
-				{
-					103,
-					184,
-					116,
-					1,
-					["key"] = "SHOWDOWN_COL_2",
-					["grad_pos"] = {
-						0,
-					},
-					["grad_config"] = {
-						["pos"] = {
-							0,
-							0,
-						},
-						["mode"] = "linear",
-						["val"] = 0,
-					},
-				},
-				["name"] = "Fullsauce",
-			},
-			{
-				{
-					112,
-					75,
-					75,
-					1,
-					["key"] = "Small",
-					["grad_pos"] = {
-						0,
-					},
-					["grad_config"] = {
-						["pos"] = {
-							0,
-							0,
-						},
-						["mode"] = "linear",
-						["val"] = 0,
-					},
-				},
-				{
-					226,
-					101,
-					101,
-					1,
-					["key"] = "SHOWDOWN_COL_1",
-					["grad_pos"] = {
-						0,
-					},
-					["grad_config"] = {
-						["pos"] = {
-							0,
-							0,
-						},
-						["mode"] = "linear",
-						["val"] = 0,
-					},
-				},
-				{
-					165,
-					59,
-					56,
-					1,
-					["key"] = "SHOWDOWN_COL_2",
-					["grad_pos"] = {
-						0,
-					},
-					["grad_config"] = {
-						["pos"] = {
-							0,
-							0,
-						},
-						["mode"] = "linear",
-						["val"] = 0,
-					},
-				},
-				["name"] = "Extrasauce",
-			},
-			{
-				{
-					201,
-					84,
-					120,
-					1,
-					["key"] = "Small",
-					["grad_pos"] = {
-						0,
-					},
-					["grad_config"] = {
-						["pos"] = {
-							0,
-							0,
-						},
-						["mode"] = "linear",
-						["val"] = 0,
-					},
-				},
-				{
-					153,
-					103,
-					167,
-					1,
-					["key"] = "SHOWDOWN_COL_1",
-					["grad_pos"] = {
-						0,
-					},
-					["grad_config"] = {
-						["pos"] = {
-							0,
-							0,
-						},
-						["mode"] = "linear",
-						["val"] = 0,
-					},
-				},
-				{
-					72,
-					48,
-					98,
-					1,
-					["key"] = "SHOWDOWN_COL_2",
-					["grad_pos"] = {
-						0,
-					},
-					["grad_config"] = {
-						["pos"] = {
-							0,
-							0,
-						},
-						["mode"] = "linear",
-						["val"] = 0,
-					},
-				},
-				["name"] = "Twitch",
-			},
-			{
-				{
-					68,
-					97,
-					56,
-					1,
-					["key"] = "Small",
-					["grad_pos"] = {
-						0,
-					},
-					["grad_config"] = {
-						["pos"] = {
-							0,
-							0,
-						},
-						["mode"] = "linear",
-						["val"] = 0,
-					},
-				},
-				{
-					181,
-					230,
-					29,
-					1,
-					["key"] = "SHOWDOWN_COL_1",
-					["grad_pos"] = {
-						0,
-					},
-					["grad_config"] = {
-						["pos"] = {
-							0,
-							0,
-						},
-						["mode"] = "linear",
-						["val"] = 0,
-					},
-				},
-				{
-					4,
-					161,
-					229,
-					1,
-					["key"] = "SHOWDOWN_COL_2",
-					["grad_pos"] = {
-						0,
-					},
-					["grad_config"] = {
-						["pos"] = {
-							0,
-							0,
-						},
-						["mode"] = "linear",
-						["val"] = 0,
-					},
-				},
-				["name"] = "Fren",
-			},
-			{
-				{
-					101,
-					84,
-					120,
-					1,
-					["key"] = "Small",
-					["grad_pos"] = {
-						0,
-					},
-					["grad_config"] = {
-						["pos"] = {
-							0,
-							0,
-						},
-						["mode"] = "linear",
-						["val"] = 0,
-					},
-				},
-				{
-					136,
-					103,
-					165,
-					1,
-					["key"] = "SHOWDOWN_COL_1",
-					["grad_pos"] = {
-						0,
-					},
-					["grad_config"] = {
-						["pos"] = {
-							0,
-							0,
-						},
-						["mode"] = "linear",
-						["val"] = 0,
-					},
-				},
-				{
-					255,
-					255,
-					0,
-					1,
-					["key"] = "SHOWDOWN_COL_2",
-					["grad_pos"] = {
-						0,
-					},
-					["grad_config"] = {
-						["pos"] = {
-							0,
-							0,
-						},
-						["mode"] = "linear",
-						["val"] = 0,
-					},
-				},
-				["name"] = "Jabroni",
-			},
-			{
-				{
-					64,
-					64,
-					64,
-					1,
-					["key"] = "Small",
-					["grad_pos"] = {
-						0,
-					},
-					["grad_config"] = {
-						["pos"] = {
-							0,
-							0,
-						},
-						["mode"] = "linear",
-						["val"] = 0,
-					},
-				},
-				{
-					191,
-					199,
-					213,
-					1,
-					["key"] = "SHOWDOWN_COL_1",
-					["grad_pos"] = {
-						0,
-					},
-					["grad_config"] = {
-						["pos"] = {
-							0,
-							0,
-						},
-						["mode"] = "linear",
-						["val"] = 0,
-					},
-				},
-				{
-					55,
-					66,
-					68,
-					1,
-					["key"] = "SHOWDOWN_COL_2",
-					["grad_pos"] = {
-						0,
-					},
-					["grad_config"] = {
-						["pos"] = {
-							0,
-							0,
-						},
-						["mode"] = "linear",
-						["val"] = 0,
-					},
-				},
-				["name"] = "Uzumaki",
-			},
-			["saved_index"] = 2,
+			["saved_index"] = 1,
 		},
 		["Planet"] = {
 			{
@@ -1000,7 +799,6 @@ return {
 					68,
 					96,
 					1,
-					["default"] = true,
 					["key"] = "61-68-96",
 					["grad_pos"] = {
 						0,
@@ -1019,7 +817,6 @@ return {
 					99,
 					103,
 					1,
-					["default"] = true,
 					["key"] = "79-99-103",
 					["grad_pos"] = {
 						0,
@@ -1038,7 +835,6 @@ return {
 					96,
 					127,
 					1,
-					["default"] = true,
 					["key"] = "88-96-127",
 					["grad_pos"] = {
 						0,
@@ -1057,7 +853,6 @@ return {
 					102,
 					131,
 					1,
-					["default"] = true,
 					["key"] = "59-102-131",
 					["grad_pos"] = {
 						0,
@@ -1076,7 +871,6 @@ return {
 					116,
 					157,
 					1,
-					["default"] = true,
 					["key"] = "54-116-157",
 					["grad_pos"] = {
 						0,
@@ -1095,7 +889,6 @@ return {
 					94,
 					137,
 					1,
-					["default"] = true,
 					["key"] = "72-94-137",
 					["grad_pos"] = {
 						0,
@@ -1114,7 +907,6 @@ return {
 					125,
 					136,
 					1,
-					["default"] = true,
 					["key"] = "87-125-136",
 					["grad_pos"] = {
 						0,
@@ -1133,7 +925,6 @@ return {
 					99,
 					149,
 					1,
-					["default"] = true,
 					["key"] = "102-99-149",
 					["grad_pos"] = {
 						0,
@@ -1152,7 +943,6 @@ return {
 					86,
 					186,
 					1,
-					["default"] = true,
 					["key"] = "66-86-186",
 					["grad_pos"] = {
 						0,
@@ -1171,7 +961,6 @@ return {
 					119,
 					176,
 					1,
-					["default"] = true,
 					["key"] = "135-119-176",
 					["grad_pos"] = {
 						0,
@@ -1190,7 +979,6 @@ return {
 					155,
 					170,
 					1,
-					["default"] = true,
 					["key"] = "91-155-170",
 					["grad_pos"] = {
 						0,
@@ -1209,7 +997,6 @@ return {
 					138,
 					223,
 					1,
-					["default"] = true,
 					["key"] = "77-138-223",
 					["grad_pos"] = {
 						0,
@@ -1228,7 +1015,6 @@ return {
 					176,
 					209,
 					1,
-					["default"] = true,
 					["key"] = "103-176-209",
 					["grad_pos"] = {
 						0,
@@ -1247,7 +1033,6 @@ return {
 					198,
 					208,
 					1,
-					["default"] = true,
 					["key"] = "116-198-208",
 					["grad_pos"] = {
 						0,
@@ -1266,7 +1051,6 @@ return {
 					206,
 					233,
 					1,
-					["default"] = true,
 					["key"] = "113-206-233",
 					["grad_pos"] = {
 						0,
@@ -1285,7 +1069,6 @@ return {
 					220,
 					160,
 					1,
-					["default"] = true,
 					["key"] = "253-220-160",
 					["grad_pos"] = {
 						0,
@@ -1304,7 +1087,6 @@ return {
 					157,
 					199,
 					1,
-					["default"] = true,
 					["key"] = "140-156-199",
 					["grad_pos"] = {
 						0,
@@ -1323,7 +1105,6 @@ return {
 					189,
 					214,
 					1,
-					["default"] = true,
 					["key"] = "176-189-214",
 					["grad_pos"] = {
 						0,
@@ -1342,7 +1123,6 @@ return {
 					162,
 					253,
 					1,
-					["default"] = true,
 					["key"] = "183-162-253",
 					["grad_pos"] = {
 						0,
@@ -1361,7 +1141,6 @@ return {
 					197,
 					210,
 					1,
-					["default"] = true,
 					["key"] = "132-197-210",
 					["grad_pos"] = {
 						0,
@@ -1380,7 +1159,6 @@ return {
 					232,
 					253,
 					1,
-					["default"] = true,
 					["key"] = "137-232-253",
 					["grad_pos"] = {
 						0,
@@ -1437,7 +1215,6 @@ return {
 					175,
 					206,
 					1,
-					["default"] = true,
 					["key"] = "badge",
 					["grad_pos"] = {
 						0,
@@ -1452,6 +1229,7 @@ return {
 					},
 				},
 				["name"] = "Default",
+				["default"] = true,
 			},
 			["saved_index"] = 1,
 		},
@@ -1462,7 +1240,6 @@ return {
 					68,
 					96,
 					1,
-					["default"] = true,
 					["key"] = "61-68-96",
 					["grad_pos"] = {
 						0,
@@ -1481,7 +1258,6 @@ return {
 					101,
 					81,
 					1,
-					["default"] = true,
 					["key"] = "106-101-81",
 					["grad_pos"] = {
 						0,
@@ -1500,7 +1276,6 @@ return {
 					87,
 					121,
 					1,
-					["default"] = true,
 					["key"] = "78-87-121",
 					["grad_pos"] = {
 						0,
@@ -1519,7 +1294,6 @@ return {
 					99,
 					103,
 					1,
-					["default"] = true,
 					["key"] = "79-99-103",
 					["grad_pos"] = {
 						0,
@@ -1538,7 +1312,6 @@ return {
 					120,
 					125,
 					1,
-					["default"] = true,
 					["key"] = "92-120-125",
 					["grad_pos"] = {
 						0,
@@ -1557,7 +1330,6 @@ return {
 					131,
 					97,
 					1,
-					["default"] = true,
 					["key"] = "139-131-97",
 					["grad_pos"] = {
 						0,
@@ -1576,7 +1348,6 @@ return {
 					156,
 					103,
 					1,
-					["default"] = true,
 					["key"] = "167-156-103",
 					["grad_pos"] = {
 						0,
@@ -1595,7 +1366,6 @@ return {
 					178,
 					74,
 					1,
-					["default"] = true,
 					["key"] = "199-178-74",
 					["grad_pos"] = {
 						0,
@@ -1614,7 +1384,6 @@ return {
 					214,
 					127,
 					1,
-					["default"] = true,
 					["key"] = "232-214-127",
 					["grad_pos"] = {
 						0,
@@ -1633,7 +1402,6 @@ return {
 					114,
 					151,
 					1,
-					["default"] = true,
 					["key"] = "94-114-151",
 					["grad_pos"] = {
 						0,
@@ -1652,7 +1420,6 @@ return {
 					100,
 					162,
 					1,
-					["default"] = true,
 					["key"] = "82-100-162",
 					["grad_pos"] = {
 						0,
@@ -1671,7 +1438,6 @@ return {
 					127,
 					193,
 					1,
-					["default"] = true,
 					["key"] = "91-127-193",
 					["grad_pos"] = {
 						0,
@@ -1690,7 +1456,6 @@ return {
 					151,
 					217,
 					1,
-					["default"] = true,
 					["key"] = "114-151-217",
 					["grad_pos"] = {
 						0,
@@ -1709,7 +1474,6 @@ return {
 					143,
 					225,
 					1,
-					["default"] = true,
 					["key"] = "99-143-225",
 					["grad_pos"] = {
 						0,
@@ -1728,7 +1492,6 @@ return {
 					164,
 					242,
 					1,
-					["default"] = true,
 					["key"] = "122-164-242",
 					["grad_pos"] = {
 						0,
@@ -1747,7 +1510,6 @@ return {
 					235,
 					133,
 					1,
-					["default"] = true,
 					["key"] = "225-235-133",
 					["grad_pos"] = {
 						0,
@@ -1766,7 +1528,6 @@ return {
 					241,
 					156,
 					1,
-					["default"] = true,
 					["key"] = "239-241-156",
 					["grad_pos"] = {
 						0,
@@ -1785,7 +1546,6 @@ return {
 					223,
 					174,
 					1,
-					["default"] = true,
 					["key"] = "192-223-174",
 					["grad_pos"] = {
 						0,
@@ -1804,7 +1564,6 @@ return {
 					229,
 					185,
 					1,
-					["default"] = true,
 					["key"] = "207-229-185",
 					["grad_pos"] = {
 						0,
@@ -1823,7 +1582,6 @@ return {
 					170,
 					203,
 					1,
-					["default"] = true,
 					["key"] = "150-170-203",
 					["grad_pos"] = {
 						0,
@@ -1842,7 +1600,6 @@ return {
 					198,
 					234,
 					1,
-					["default"] = true,
 					["key"] = "137-198-234",
 					["grad_pos"] = {
 						0,
@@ -1861,7 +1618,6 @@ return {
 					204,
 					227,
 					1,
-					["default"] = true,
 					["key"] = "191-204-227",
 					["grad_pos"] = {
 						0,
@@ -1880,7 +1636,6 @@ return {
 					226,
 					249,
 					1,
-					["default"] = true,
 					["key"] = "144-226-249",
 					["grad_pos"] = {
 						0,
@@ -1899,7 +1654,6 @@ return {
 					226,
 					242,
 					1,
-					["default"] = true,
 					["key"] = "169-226-242",
 					["grad_pos"] = {
 						0,
@@ -1918,7 +1672,6 @@ return {
 					235,
 					249,
 					1,
-					["default"] = true,
 					["key"] = "226-235-249",
 					["grad_pos"] = {
 						0,
@@ -1937,7 +1690,6 @@ return {
 					250,
 					254,
 					1,
-					["default"] = true,
 					["key"] = "239-250-254",
 					["grad_pos"] = {
 						0,
@@ -1956,7 +1708,6 @@ return {
 					84,
 					104,
 					1,
-					["default"] = true,
 					["key"] = "255-84-104",
 					["grad_pos"] = {
 						0,
@@ -1975,7 +1726,6 @@ return {
 					64,
 					92,
 					1,
-					["default"] = true,
 					["key"] = "170-64-92",
 					["grad_pos"] = {
 						0,
@@ -1994,7 +1744,6 @@ return {
 					255,
 					255,
 					1,
-					["default"] = true,
 					["key"] = "255-255-255",
 					["grad_pos"] = {
 						0,
@@ -2013,7 +1762,6 @@ return {
 					132,
 					250,
 					1,
-					["default"] = true,
 					["key"] = "badge",
 					["grad_pos"] = {
 						0,
@@ -2028,425 +1776,9 @@ return {
 					},
 				},
 				["name"] = "Default",
+				["default"] = true,
 			},
-			{
-				{
-					93,
-					141,
-					181,
-					1,
-					["key"] = "94-114-151",
-					["grad_pos"] = {
-						0,
-					},
-					["grad_config"] = {
-						["pos"] = {
-							0,
-							0,
-						},
-						["mode"] = "linear",
-						["val"] = 0,
-					},
-				},
-				{
-					81,
-					110,
-					146,
-					1,
-					["key"] = "78-87-121",
-					["grad_pos"] = {
-						0,
-					},
-					["grad_config"] = {
-						["pos"] = {
-							0,
-							0,
-						},
-						["mode"] = "linear",
-						["val"] = 0,
-					},
-				},
-				{
-					94,
-					181,
-					240,
-					1,
-					["key"] = "99-143-225",
-					["grad_pos"] = {
-						0,
-					},
-					["grad_config"] = {
-						["pos"] = {
-							0,
-							0,
-						},
-						["mode"] = "linear",
-						["val"] = 0,
-					},
-				},
-				{
-					91,
-					166,
-					221,
-					1,
-					["key"] = "91-127-193",
-					["grad_pos"] = {
-						0,
-					},
-					["grad_config"] = {
-						["pos"] = {
-							0,
-							0,
-						},
-						["mode"] = "linear",
-						["val"] = 0,
-					},
-				},
-				{
-					245,
-					169,
-					184,
-					1,
-					["key"] = "199-178-74",
-					["grad_pos"] = {
-						0,
-					},
-					["grad_config"] = {
-						["pos"] = {
-							0,
-							0,
-						},
-						["mode"] = "linear",
-						["val"] = 0,
-					},
-				},
-				{
-					249,
-					136,
-					153,
-					1,
-					["key"] = "167-156-103",
-					["grad_pos"] = {
-						0,
-					},
-					["grad_config"] = {
-						["pos"] = {
-							0,
-							0,
-						},
-						["mode"] = "linear",
-						["val"] = 0,
-					},
-				},
-				{
-					91,
-					206,
-					250,
-					1,
-					["key"] = "122-164-242",
-					["grad_pos"] = {
-						0,
-					},
-					["grad_config"] = {
-						["pos"] = {
-							0,
-							0,
-						},
-						["mode"] = "linear",
-						["val"] = 0,
-					},
-				},
-				{
-					248,
-					196,
-					203,
-					1,
-					["key"] = "232-214-127",
-					["grad_pos"] = {
-						0,
-					},
-					["grad_config"] = {
-						["pos"] = {
-							0,
-							0,
-						},
-						["mode"] = "linear",
-						["val"] = 0,
-					},
-				},
-				{
-					251,
-					113,
-					131,
-					1,
-					["key"] = "139-131-97",
-					["grad_pos"] = {
-						0,
-					},
-					["grad_config"] = {
-						["pos"] = {
-							0,
-							0,
-						},
-						["mode"] = "linear",
-						["val"] = 0,
-					},
-				},
-				{
-					51,
-					65,
-					89,
-					1,
-					["key"] = "61-68-96",
-					["grad_pos"] = {
-						0,
-					},
-					["grad_config"] = {
-						["pos"] = {
-							0,
-							0,
-						},
-						["mode"] = "linear",
-						["val"] = 0,
-					},
-				},
-				{
-					132,
-					140,
-					174,
-					1,
-					["key"] = "92-120-125",
-					["grad_pos"] = {
-						0,
-					},
-					["grad_config"] = {
-						["pos"] = {
-							0,
-							0,
-						},
-						["mode"] = "linear",
-						["val"] = 0,
-					},
-				},
-				{
-					86,
-					136,
-					168,
-					1,
-					["key"] = "82-100-162",
-					["grad_pos"] = {
-						0,
-					},
-					["grad_config"] = {
-						["pos"] = {
-							0,
-							0,
-						},
-						["mode"] = "linear",
-						["val"] = 0,
-					},
-				},
-				{
-					171,
-					94,
-					105,
-					1,
-					["key"] = "106-101-81",
-					["grad_pos"] = {
-						0,
-					},
-					["grad_config"] = {
-						["pos"] = {
-							0,
-							0,
-						},
-						["mode"] = "linear",
-						["val"] = 0,
-					},
-				},
-				{
-					89,
-					135,
-					187,
-					1,
-					["key"] = "114-151-217",
-					["grad_pos"] = {
-						0,
-					},
-					["grad_config"] = {
-						["pos"] = {
-							0,
-							0,
-						},
-						["mode"] = "linear",
-						["val"] = 0,
-					},
-				},
-				{
-					198,
-					233,
-					244,
-					1,
-					["key"] = "169-226-242",
-					["grad_pos"] = {
-						0,
-					},
-					["grad_config"] = {
-						["pos"] = {
-							0,
-							0,
-						},
-						["mode"] = "linear",
-						["val"] = 0,
-					},
-				},
-				{
-					250,
-					222,
-					227,
-					1,
-					["key"] = "225-235-133",
-					["grad_pos"] = {
-						0,
-					},
-					["grad_config"] = {
-						["pos"] = {
-							0,
-							0,
-						},
-						["mode"] = "linear",
-						["val"] = 0,
-					},
-				},
-				{
-					252,
-					190,
-					198,
-					1,
-					["key"] = "192-223-174",
-					["grad_pos"] = {
-						0,
-					},
-					["grad_config"] = {
-						["pos"] = {
-							0,
-							0,
-						},
-						["mode"] = "linear",
-						["val"] = 0,
-					},
-				},
-				{
-					251,
-					177,
-					188,
-					1,
-					["key"] = "207-229-185",
-					["grad_pos"] = {
-						0,
-					},
-					["grad_config"] = {
-						["pos"] = {
-							0,
-							0,
-						},
-						["mode"] = "linear",
-						["val"] = 0,
-					},
-				},
-				{
-					156,
-					219,
-					249,
-					1,
-					["key"] = "144-226-249",
-					["grad_pos"] = {
-						0,
-					},
-					["grad_config"] = {
-						["pos"] = {
-							0,
-							0,
-						},
-						["mode"] = "linear",
-						["val"] = 0,
-					},
-				},
-				{
-					250,
-					219,
-					223,
-					1,
-					["key"] = "239-241-156",
-					["grad_pos"] = {
-						0,
-					},
-					["grad_config"] = {
-						["pos"] = {
-							0,
-							0,
-						},
-						["mode"] = "linear",
-						["val"] = 0,
-					},
-				},
-				{
-					156,
-					209,
-					235,
-					1,
-					["key"] = "137-198-234",
-					["grad_pos"] = {
-						0,
-					},
-					["grad_config"] = {
-						["pos"] = {
-							0,
-							0,
-						},
-						["mode"] = "linear",
-						["val"] = 0,
-					},
-				},
-				{
-					251,
-					113,
-					131,
-					1,
-					["key"] = "255-84-104",
-					["grad_pos"] = {
-						0,
-					},
-					["grad_config"] = {
-						["pos"] = {
-							0,
-							0,
-						},
-						["mode"] = "linear",
-						["val"] = 0,
-					},
-				},
-				{
-					179,
-					94,
-					105,
-					1,
-					["key"] = "170-64-92",
-					["grad_pos"] = {
-						0,
-					},
-					["grad_config"] = {
-						["pos"] = {
-							0,
-							0,
-						},
-						["mode"] = "linear",
-						["val"] = 0,
-					},
-				},
-				["name"] = "Spectrans",
-			},
-			["saved_index"] = 2,
+			["saved_index"] = 1,
 		},
 		["Hearts"] = {
 			{
@@ -2455,7 +1787,6 @@ return {
 					27,
 					67,
 					1,
-					["default"] = true,
 					["key"] = "174-27-67",
 					["grad_pos"] = {
 						0,
@@ -2474,7 +1805,6 @@ return {
 					52,
 					100,
 					1,
-					["default"] = true,
 					["key"] = "240-52-100",
 					["grad_pos"] = {
 						0,
@@ -2493,7 +1823,6 @@ return {
 					99,
 					136,
 					1,
-					["default"] = true,
 					["key"] = "255-99-136",
 					["grad_pos"] = {
 						0,
@@ -2512,7 +1841,6 @@ return {
 					160,
 					182,
 					1,
-					["default"] = true,
 					["key"] = "253-160-182",
 					["grad_pos"] = {
 						0,
@@ -2531,7 +1859,6 @@ return {
 					189,
 					207,
 					1,
-					["default"] = true,
 					["key"] = "253-189-207",
 					["grad_pos"] = {
 						0,
@@ -2550,7 +1877,6 @@ return {
 					211,
 					223,
 					1,
-					["default"] = true,
 					["key"] = "253-211-223",
 					["grad_pos"] = {
 						0,
@@ -2569,7 +1895,6 @@ return {
 					163,
 					0,
 					1,
-					["default"] = true,
 					["key"] = "255-163-0",
 					["grad_pos"] = {
 						0,
@@ -2588,7 +1913,6 @@ return {
 					156,
 					253,
 					1,
-					["default"] = true,
 					["key"] = "0-156-253",
 					["grad_pos"] = {
 						0,
@@ -2607,7 +1931,6 @@ return {
 					70,
 					73,
 					1,
-					["default"] = true,
 					["key"] = "55-70-73",
 					["grad_pos"] = {
 						0,
@@ -2626,7 +1949,6 @@ return {
 					255,
 					255,
 					1,
-					["default"] = true,
 					["key"] = "255-255-255",
 					["grad_pos"] = {
 						0,
@@ -2645,7 +1967,6 @@ return {
 					52,
 					100,
 					1,
-					["default"] = true,
 					["key"] = "badge",
 					["grad_pos"] = {
 						0,
@@ -2660,6 +1981,7 @@ return {
 					},
 				},
 				["name"] = "Default",
+				["default"] = true,
 			},
 			{
 				{
@@ -2883,6 +2205,7 @@ return {
 					},
 				},
 				["name"] = "High Contrast",
+				["default"] = true,
 			},
 			{
 				{
@@ -3090,8 +2413,9 @@ return {
 					},
 				},
 				["name"] = "Cardsauce",
+				["default"] = true,
 			},
-			["saved_index"] = 2,
+			["saved_index"] = 1,
 		},
 		["Diamonds"] = {
 			{
@@ -3100,7 +2424,6 @@ return {
 					79,
 					29,
 					1,
-					["default"] = true,
 					["key"] = "141-79-29",
 					["grad_pos"] = {
 						0,
@@ -3119,7 +2442,6 @@ return {
 					87,
 					27,
 					1,
-					["default"] = true,
 					["key"] = "207-84-27",
 					["grad_pos"] = {
 						0,
@@ -3138,7 +2460,6 @@ return {
 					107,
 					63,
 					1,
-					["default"] = true,
 					["key"] = "240-107-63",
 					["grad_pos"] = {
 						0,
@@ -3157,7 +2478,6 @@ return {
 					142,
 					84,
 					1,
-					["default"] = true,
 					["key"] = "246-142-84",
 					["grad_pos"] = {
 						0,
@@ -3176,7 +2496,6 @@ return {
 					165,
 					133,
 					1,
-					["default"] = true,
 					["key"] = "251-165-133",
 					["grad_pos"] = {
 						0,
@@ -3195,7 +2514,6 @@ return {
 					179,
 					131,
 					1,
-					["default"] = true,
 					["key"] = "225-179-131",
 					["grad_pos"] = {
 						0,
@@ -3214,7 +2532,6 @@ return {
 					207,
 					177,
 					1,
-					["default"] = true,
 					["key"] = "246-207-177",
 					["grad_pos"] = {
 						0,
@@ -3233,7 +2550,6 @@ return {
 					222,
 					194,
 					1,
-					["default"] = true,
 					["key"] = "255-222-194",
 					["grad_pos"] = {
 						0,
@@ -3248,11 +2564,10 @@ return {
 					},
 				},
 				{
-					255,
-					163,
-					0,
+					240,
+					107,
+					63,
 					1,
-					["default"] = true,
 					["key"] = "255-163-0",
 					["grad_pos"] = {
 						0,
@@ -3271,8 +2586,25 @@ return {
 					156,
 					253,
 					1,
-					["default"] = true,
 					["key"] = "0-156-253",
+					["grad_pos"] = {
+						0,
+					},
+					["grad_config"] = {
+						["pos"] = {
+							0,
+							0,
+						},
+						["mode"] = "linear",
+						["val"] = 0,
+					},
+				},
+				{
+					255,
+					163,
+					0,
+					1,
+					["key"] = "240-52-100",
 					["grad_pos"] = {
 						0,
 					},
@@ -3290,7 +2622,6 @@ return {
 					70,
 					73,
 					1,
-					["default"] = true,
 					["key"] = "55-70-73",
 					["grad_pos"] = {
 						0,
@@ -3309,7 +2640,6 @@ return {
 					255,
 					255,
 					1,
-					["default"] = true,
 					["key"] = "255-255-255",
 					["grad_pos"] = {
 						0,
@@ -3328,7 +2658,6 @@ return {
 					107,
 					63,
 					1,
-					["default"] = true,
 					["key"] = "badge",
 					["grad_pos"] = {
 						0,
@@ -3343,6 +2672,7 @@ return {
 					},
 				},
 				["name"] = "Default",
+				["default"] = true,
 			},
 			{
 				{
@@ -3350,7 +2680,6 @@ return {
 					79,
 					29,
 					1,
-					["default"] = true,
 					["key"] = "141-79-29",
 					["grad_pos"] = {
 						0,
@@ -3377,7 +2706,6 @@ return {
 					186,
 					104,
 					4,
-					["default"] = true,
 					["key"] = "207-84-27",
 					["grad_pos"] = {
 						0,
@@ -3407,7 +2735,6 @@ return {
 					199,
 					127,
 					0,
-					["default"] = true,
 					["key"] = "240-107-63",
 					["grad_pos"] = {
 						0,
@@ -3429,7 +2756,6 @@ return {
 					142,
 					84,
 					1,
-					["default"] = true,
 					["key"] = "246-142-84",
 					["grad_pos"] = {
 						0,
@@ -3448,7 +2774,6 @@ return {
 					165,
 					133,
 					1,
-					["default"] = true,
 					["key"] = "251-165-133",
 					["grad_pos"] = {
 						0,
@@ -3525,7 +2850,6 @@ return {
 					232,
 					166,
 					1,
-					["default"] = true,
 					["key"] = "255-222-194",
 					["grad_pos"] = {
 						0,
@@ -3573,6 +2897,35 @@ return {
 						},
 						["mode"] = "linear",
 						["val"] = 0,
+					},
+				},
+				{
+					255,
+					163,
+					0,
+					255,
+					163,
+					0,
+					199,
+					127,
+					0,
+					199,
+					127,
+					0,
+					["key"] = "240-52-100",
+					["grad_pos"] = {
+						0,
+						0.2,
+						0.8,
+						1,
+					},
+					["grad_config"] = {
+						["pos"] = {
+							0,
+							0,
+						},
+						["mode"] = "linear",
+						["val"] = 1.571,
 					},
 				},
 				{
@@ -3630,6 +2983,7 @@ return {
 					},
 				},
 				["name"] = "High Contrast",
+				["default"] = true,
 			},
 			{
 				{
@@ -3637,10 +2991,10 @@ return {
 					55,
 					104,
 					1,
-					["key"] = "141-79-29",
 					["grad_pos"] = {
 						0,
 					},
+					["key"] = "141-79-29",
 					["grad_config"] = {
 						["pos"] = {
 							0,
@@ -3651,13 +3005,144 @@ return {
 					},
 				},
 				{
-					56,
-					84,
-					154,
+					60,
+					82,
+					149,
+					60,
+					82,
+					149,
+					67,
+					97,
+					185,
+					67,
+					97,
+					185,
+					["grad_pos"] = {
+						0,
+						0.1,
+						0.9,
+						1,
+					},
 					["key"] = "207-84-27",
+					["grad_config"] = {
+						["pos"] = {
+							0,
+							0,
+						},
+						["mode"] = "linear",
+						["val"] = 1.571,
+					},
+				},
+				{
+					46,
+					53,
+					150,
+					46,
+					53,
+					150,
+					83,
+					125,
+					181,
+					83,
+					125,
+					181,
+					["grad_pos"] = {
+						0,
+						0.2,
+						0.8,
+						1,
+					},
+					["key"] = "240-107-63",
+					["grad_config"] = {
+						["pos"] = {
+							0,
+							0,
+						},
+						["mode"] = "linear",
+						["val"] = 1.571,
+					},
+				},
+				{
+					88,
+					127,
+					193,
+					1,
 					["grad_pos"] = {
 						0,
 					},
+					["key"] = "246-142-84",
+					["grad_config"] = {
+						["pos"] = {
+							0,
+							0,
+						},
+						["mode"] = "linear",
+						["val"] = 0,
+					},
+				},
+				{
+					108,
+					148,
+					215,
+					1,
+					["grad_pos"] = {
+						0,
+					},
+					["key"] = "251-165-133",
+					["grad_config"] = {
+						["pos"] = {
+							0,
+							0,
+						},
+						["mode"] = "linear",
+						["val"] = 0,
+					},
+				},
+				{
+					109,
+					149,
+					219,
+					1,
+					["grad_pos"] = {
+						0,
+					},
+					["key"] = "225-179-131",
+					["grad_config"] = {
+						["pos"] = {
+							0,
+							0,
+						},
+						["mode"] = "linear",
+						["val"] = 0,
+					},
+				},
+				{
+					139,
+					174,
+					233,
+					1,
+					["grad_pos"] = {
+						0,
+					},
+					["key"] = "246-207-177",
+					["grad_config"] = {
+						["pos"] = {
+							0,
+							0,
+						},
+						["mode"] = "linear",
+						["val"] = 0,
+					},
+				},
+				{
+					197,
+					219,
+					255,
+					1,
+					["grad_pos"] = {
+						0,
+					},
+					["key"] = "255-222-194",
 					["grad_config"] = {
 						["pos"] = {
 							0,
@@ -3671,14 +3156,22 @@ return {
 					46,
 					53,
 					150,
+					46,
+					53,
+					150,
 					83,
 					125,
 					181,
-					["key"] = "240-107-63",
+					83,
+					125,
+					181,
 					["grad_pos"] = {
 						0,
+						0.2,
+						0.8,
 						1,
 					},
+					["key"] = "255-163-0",
 					["grad_config"] = {
 						["pos"] = {
 							0,
@@ -3689,86 +3182,14 @@ return {
 					},
 				},
 				{
-					137,
-					153,
-					200,
+					235,
+					71,
+					63,
 					1,
-					["key"] = "246-142-84",
 					["grad_pos"] = {
 						0,
 					},
-					["grad_config"] = {
-						["pos"] = {
-							0,
-							0,
-						},
-						["mode"] = "linear",
-						["val"] = 0,
-					},
-				},
-				{
-					157,
-					170,
-					209,
-					1,
-					["key"] = "251-165-133",
-					["grad_pos"] = {
-						0,
-					},
-					["grad_config"] = {
-						["pos"] = {
-							0,
-							0,
-						},
-						["mode"] = "linear",
-						["val"] = 0,
-					},
-				},
-				{
-					131,
-					167,
-					225,
-					1,
-					["key"] = "225-179-131",
-					["grad_pos"] = {
-						0,
-					},
-					["grad_config"] = {
-						["pos"] = {
-							0,
-							0,
-						},
-						["mode"] = "linear",
-						["val"] = 0,
-					},
-				},
-				{
-					177,
-					203,
-					246,
-					1,
-					["key"] = "246-207-177",
-					["grad_pos"] = {
-						0,
-					},
-					["grad_config"] = {
-						["pos"] = {
-							0,
-							0,
-						},
-						["mode"] = "linear",
-						["val"] = 0,
-					},
-				},
-				{
-					185,
-					194,
-					222,
-					1,
-					["key"] = "255-222-194",
-					["grad_pos"] = {
-						0,
-					},
+					["key"] = "0-156-253",
 					["grad_config"] = {
 						["pos"] = {
 							0,
@@ -3783,28 +3204,10 @@ return {
 					163,
 					0,
 					1,
-					["key"] = "255-163-0",
 					["grad_pos"] = {
 						0,
 					},
-					["grad_config"] = {
-						["pos"] = {
-							0,
-							0,
-						},
-						["mode"] = "linear",
-						["val"] = 0,
-					},
-				},
-				{
-					0,
-					156,
-					253,
-					1,
-					["key"] = "0-156-253",
-					["grad_pos"] = {
-						0,
-					},
+					["key"] = "240-52-100",
 					["grad_config"] = {
 						["pos"] = {
 							0,
@@ -3819,10 +3222,10 @@ return {
 					70,
 					73,
 					1,
-					["key"] = "55-70-73",
 					["grad_pos"] = {
 						0,
 					},
+					["key"] = "55-70-73",
 					["grad_config"] = {
 						["pos"] = {
 							0,
@@ -3837,10 +3240,10 @@ return {
 					255,
 					255,
 					1,
-					["key"] = "255-255-255",
 					["grad_pos"] = {
 						0,
 					},
+					["key"] = "255-255-255",
 					["grad_config"] = {
 						["pos"] = {
 							0,
@@ -3855,10 +3258,10 @@ return {
 					116,
 					180,
 					1,
-					["key"] = "badge",
 					["grad_pos"] = {
 						0,
 					},
+					["key"] = "badge",
 					["grad_config"] = {
 						["pos"] = {
 							0,
@@ -3869,8 +3272,9 @@ return {
 					},
 				},
 				["name"] = "Cardsauce",
+				["default"] = true,
 			},
-			["saved_index"] = 2,
+			["saved_index"] = 1,
 		},
 		["Clubs"] = {
 			{
@@ -3879,7 +3283,6 @@ return {
 					93,
 					89,
 					1,
-					["default"] = true,
 					["key"] = "37-93-89",
 					["grad_pos"] = {
 						0,
@@ -3898,7 +3301,6 @@ return {
 					112,
 					106,
 					1,
-					["default"] = true,
 					["key"] = "28-112-106",
 					["grad_pos"] = {
 						0,
@@ -3917,7 +3319,6 @@ return {
 					143,
 					135,
 					1,
-					["default"] = true,
 					["key"] = "58-143-135",
 					["grad_pos"] = {
 						0,
@@ -3936,7 +3337,6 @@ return {
 					147,
 					141,
 					1,
-					["default"] = true,
 					["key"] = "72-147-141",
 					["grad_pos"] = {
 						0,
@@ -3955,7 +3355,6 @@ return {
 					179,
 					180,
 					1,
-					["default"] = true,
 					["key"] = "137-179-180",
 					["grad_pos"] = {
 						0,
@@ -3974,7 +3373,6 @@ return {
 					210,
 					212,
 					1,
-					["default"] = true,
 					["key"] = "184-210-212",
 					["grad_pos"] = {
 						0,
@@ -4001,7 +3399,6 @@ return {
 					110,
 					165,
 					179,
-					["default"] = true,
 					["key"] = "96-143-155",
 					["grad_pos"] = {
 						0,
@@ -4031,7 +3428,6 @@ return {
 					155,
 					202,
 					214,
-					["default"] = true,
 					["key"] = "131-175-187",
 					["grad_pos"] = {
 						0,
@@ -4061,7 +3457,6 @@ return {
 					215,
 					234,
 					250,
-					["default"] = true,
 					["key"] = "207-233-231",
 					["grad_pos"] = {
 						0,
@@ -4083,7 +3478,6 @@ return {
 					181,
 					51,
 					1,
-					["default"] = true,
 					["key"] = "255-163-0",
 					["grad_pos"] = {
 						0,
@@ -4102,7 +3496,6 @@ return {
 					156,
 					253,
 					1,
-					["default"] = true,
 					["key"] = "0-156-253",
 					["grad_pos"] = {
 						0,
@@ -4121,7 +3514,6 @@ return {
 					52,
 					100,
 					1,
-					["default"] = true,
 					["key"] = "240-52-100",
 					["grad_pos"] = {
 						0,
@@ -4140,7 +3532,6 @@ return {
 					93,
 					89,
 					1,
-					["default"] = true,
 					["key"] = "55-70-73",
 					["grad_pos"] = {
 						0,
@@ -4159,7 +3550,6 @@ return {
 					255,
 					255,
 					1,
-					["default"] = true,
 					["key"] = "255-255-255",
 					["grad_pos"] = {
 						0,
@@ -4178,7 +3568,6 @@ return {
 					93,
 					89,
 					1,
-					["default"] = true,
 					["key"] = "badge",
 					["grad_pos"] = {
 						0,
@@ -4193,6 +3582,7 @@ return {
 					},
 				},
 				["name"] = "Default",
+				["default"] = true,
 			},
 			{
 				{
@@ -4250,7 +3640,7 @@ return {
 							0,
 						},
 						["mode"] = "linear",
-						["val"] = 0,
+						["val"] = 1.571,
 					},
 				},
 				{
@@ -4279,7 +3669,7 @@ return {
 							0,
 						},
 						["mode"] = "linear",
-						["val"] = 0,
+						["val"] = 1.571,
 					},
 				},
 				{
@@ -4349,7 +3739,6 @@ return {
 					110,
 					165,
 					179,
-					["default"] = true,
 					["key"] = "96-143-155",
 					["grad_pos"] = {
 						0,
@@ -4379,7 +3768,6 @@ return {
 					155,
 					202,
 					214,
-					["default"] = true,
 					["key"] = "131-175-187",
 					["grad_pos"] = {
 						0,
@@ -4409,7 +3797,6 @@ return {
 					165,
 					201,
 					220,
-					["default"] = true,
 					["key"] = "207-233-231",
 					["grad_pos"] = {
 						0,
@@ -4538,32 +3925,363 @@ return {
 					},
 				},
 				["name"] = "High Contrast",
+				["default"] = true,
 			},
-			["saved_index"] = 2,
+			{
+				{
+					32,
+					165,
+					128,
+					32,
+					165,
+					128,
+					108,
+					179,
+					125,
+					108,
+					179,
+					125,
+					["key"] = "37-93-89",
+					["grad_pos"] = {
+						0,
+						0.2,
+						0.8,
+						1,
+					},
+					["grad_config"] = {
+						["pos"] = {
+							0,
+							0,
+						},
+						["mode"] = "linear",
+						["val"] = 1.571,
+					},
+				},
+				{
+					56,
+					125,
+					96,
+					56,
+					125,
+					96,
+					54,
+					101,
+					81,
+					54,
+					101,
+					81,
+					["key"] = "28-112-106",
+					["grad_pos"] = {
+						0,
+						0.1,
+						0.9,
+						1,
+					},
+					["grad_config"] = {
+						["pos"] = {
+							0,
+							0,
+						},
+						["mode"] = "linear",
+						["val"] = 1.571,
+					},
+				},
+				{
+					77,
+					171,
+					131,
+					77,
+					171,
+					131,
+					70,
+					132,
+					106,
+					70,
+					132,
+					106,
+					["key"] = "58-143-135",
+					["grad_pos"] = {
+						0,
+						0.1,
+						0.9,
+						1,
+					},
+					["grad_config"] = {
+						["pos"] = {
+							0,
+							0,
+						},
+						["mode"] = "linear",
+						["val"] = 1.571,
+					},
+				},
+				{
+					99,
+					182,
+					147,
+					1,
+					["key"] = "72-147-141",
+					["grad_pos"] = {
+						0,
+					},
+					["grad_config"] = {
+						["pos"] = {
+							0,
+							0,
+						},
+						["mode"] = "linear",
+						["val"] = 0,
+					},
+				},
+				{
+					143,
+					213,
+					189,
+					1,
+					["key"] = "137-179-180",
+					["grad_pos"] = {
+						0,
+					},
+					["grad_config"] = {
+						["pos"] = {
+							0,
+							0,
+						},
+						["mode"] = "linear",
+						["val"] = 0,
+					},
+				},
+				{
+					186,
+					239,
+					222,
+					1,
+					["key"] = "184-210-212",
+					["grad_pos"] = {
+						0,
+					},
+					["grad_config"] = {
+						["pos"] = {
+							0,
+							0,
+						},
+						["mode"] = "linear",
+						["val"] = 0,
+					},
+				},
+				{
+					83,
+					128,
+					97,
+					83,
+					128,
+					97,
+					106,
+					163,
+					120,
+					106,
+					163,
+					120,
+					["key"] = "96-143-155",
+					["grad_pos"] = {
+						0,
+						0.1,
+						0.9,
+						1,
+					},
+					["grad_config"] = {
+						["pos"] = {
+							0,
+							0,
+						},
+						["mode"] = "linear",
+						["val"] = 1.571,
+					},
+				},
+				{
+					127,
+					172,
+					142,
+					127,
+					172,
+					142,
+					154,
+					207,
+					169,
+					154,
+					207,
+					169,
+					["key"] = "131-175-187",
+					["grad_pos"] = {
+						0,
+						0.1,
+						0.9,
+						1,
+					},
+					["grad_config"] = {
+						["pos"] = {
+							0,
+							0,
+						},
+						["mode"] = "linear",
+						["val"] = 1.571,
+					},
+				},
+				{
+					159,
+					220,
+					179,
+					159,
+					220,
+					179,
+					185,
+					255,
+					204,
+					185,
+					255,
+					204,
+					["key"] = "207-233-231",
+					["grad_pos"] = {
+						0,
+						0.1,
+						0.9,
+						1,
+					},
+					["grad_config"] = {
+						["pos"] = {
+							0,
+							0,
+						},
+						["mode"] = "linear",
+						["val"] = 1.571,
+					},
+				},
+				{
+					255,
+					181,
+					51,
+					1,
+					["key"] = "255-163-0",
+					["grad_pos"] = {
+						0,
+					},
+					["grad_config"] = {
+						["pos"] = {
+							0,
+							0,
+						},
+						["mode"] = "linear",
+						["val"] = 0,
+					},
+				},
+				{
+					235,
+					71,
+					63,
+					1,
+					["key"] = "0-156-253",
+					["grad_pos"] = {
+						0,
+					},
+					["grad_config"] = {
+						["pos"] = {
+							0,
+							0,
+						},
+						["mode"] = "linear",
+						["val"] = 0,
+					},
+				},
+				{
+					32,
+					165,
+					128,
+					32,
+					165,
+					128,
+					108,
+					179,
+					125,
+					108,
+					179,
+					125,
+					["key"] = "240-52-100",
+					["grad_pos"] = {
+						0,
+						0.2,
+						0.8,
+						1,
+					},
+					["grad_config"] = {
+						["pos"] = {
+							0,
+							0,
+						},
+						["mode"] = "linear",
+						["val"] = 1.571,
+					},
+				},
+				{
+					55,
+					70,
+					73,
+					1,
+					["key"] = "55-70-73",
+					["grad_pos"] = {
+						0,
+					},
+					["grad_config"] = {
+						["pos"] = {
+							0,
+							0,
+						},
+						["mode"] = "linear",
+						["val"] = 0,
+					},
+				},
+				{
+					255,
+					255,
+					255,
+					1,
+					["key"] = "255-255-255",
+					["grad_pos"] = {
+						0,
+					},
+					["grad_config"] = {
+						["pos"] = {
+							0,
+							0,
+						},
+						["mode"] = "linear",
+						["val"] = 0,
+					},
+				},
+				{
+					32,
+					165,
+					128,
+					1,
+					["key"] = "badge",
+					["grad_pos"] = {
+						0,
+					},
+					["grad_config"] = {
+						["pos"] = {
+							0,
+							0,
+						},
+						["mode"] = "linear",
+						["val"] = 0,
+					},
+				},
+				["name"] = "Cardsauce",
+				["default"] = true,
+			},
+			["saved_index"] = 1,
 		},
 	},
 	["enable_JoelContent"] = true,
 	["enable_VinnyContent"] = true,
-	["enable_Boosters"] = true,
-	["cols"] = 6,
-	["enable_Achievements"] = true,
 	["rows"] = 2,
-	["forceEnableOrtalab"] = false,
-	["loaded_packs"] = {
-		"sp_csau_cardsauce",
-		"sp_balatro",
-		["replace_map"] = {
-		},
-	},
-	["enable_Challenges"] = true,
-	["enable_Decks"] = true,
-	["enable_Blinds"] = true,
-	["enable_Editions"] = true,
-	["enable_Tags"] = true,
-	["enable_Stands"] = true,
-	["enable_Vouchers"] = true,
-	["muteWega"] = false,
-	["forceDisableOrtalab"] = false,
-	["enable_Logo"] = true,
-	["enable_DetailedDescs"] = false,
 }
