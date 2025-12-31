@@ -297,7 +297,7 @@ ArrowAPI.config_tools.add_default_palette(ArrowAPI, 'Spectral', {
 	{255,255,255,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="255-255-255"},
 	{69,132,250,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="badge"},
 	["name"] = "Spectrans",
-})
+}, true)
 
 ArrowAPI.config_tools.add_default_palette(ArrowAPI, 'Hearts', {
 	{174,27,79,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="174-27-67"},
@@ -312,7 +312,7 @@ ArrowAPI.config_tools.add_default_palette(ArrowAPI, 'Hearts', {
 	{255,255,255,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="255-255-255"},
 	{244,88,120,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="badge"},
 	["name"] = "Cardsauce",
-})
+}, true)
 
 ArrowAPI.config_tools.add_default_palette(ArrowAPI, 'Diamonds', {
 	{38,55,104,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="141-79-29"},
@@ -330,7 +330,7 @@ ArrowAPI.config_tools.add_default_palette(ArrowAPI, 'Diamonds', {
 	{255,255,255,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="255-255-255"},
 	{94,116,180,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="badge"},
 	["name"] = "Cardsauce",
-})
+}, true)
 
 ArrowAPI.config_tools.add_default_palette(ArrowAPI, 'Clubs', {
 	{32,165,128,32,165,128,108,179,125,108,179,125,["grad_pos"]={0,0.2,0.8,1},["grad_config"]={["mode"]="linear",["val"]=1.571,["pos"]={0,0}},["key"]="37-93-89"},
@@ -349,7 +349,7 @@ ArrowAPI.config_tools.add_default_palette(ArrowAPI, 'Clubs', {
 	{255,255,255,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="255-255-255"},
 	{32,165,128,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="badge"},
 	["name"] = "Cardsauce",
-})
+}, true)
 
 ArrowAPI.config_tools.add_default_palette(ArrowAPI, 'Background', {
 	{80,132,110,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="Small"},
@@ -357,7 +357,7 @@ ArrowAPI.config_tools.add_default_palette(ArrowAPI, 'Background', {
 	{75,194,146,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="SHOWDOWN_COL_1"},
 	{136,103,165,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="SHOWDOWN_COL_2"},
 	["name"]="Cardsauce"
-})
+}, true)
 
 ArrowAPI.config_tools.add_default_palette(ArrowAPI, 'Background', {
 	{58,102,88,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="Small"},
