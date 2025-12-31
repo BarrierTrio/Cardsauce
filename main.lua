@@ -1,4 +1,5 @@
-if not ArrowAPI then
+local independent_arrow = ArrowAPI
+if not independent_arrow then
 	SMODS.load_file("modules/Arrow/main.lua")()
 end
 
@@ -228,124 +229,69 @@ ArrowAPI.config_tools.use_credits(Cardsauce, {
     },
 })
 
-ArrowAPI.config_tools.use_default_config(Cardsauce, {
-	{key = 'enable_VinnyContent', before_auto = true, default_value = true},
-	{key = 'enable_JoelContent', before_auto = true, default_value = true},
-	{key = 'enable_Logo', default_value = true},
-	{key = 'enable_EasterEggs', default_value = true},
-	{key = 'muteWega', default_value = false, exclude_from_ui = true},
-	{key = 'forceDisableOrtalab', default_value = false, exclude_from_ui = true},
-	{key = 'forceEnableOrtalab', default_value = false, exclude_from_ui = true},
-	{key = 'loaded_packs', default_value = {
-		[1] = 'sp_csau_cardsauce',
-		[2] = "sp_balatro",
-		replace_map = {}
-	}, exclude_from_ui = true},
+if independent_arrow then
+	ArrowAPI.config_tools.use_default_config(ArrowAPI, {
+		{key = 'loaded_packs', default_value = {
+			[1] = 'sp_csau_cardsauce',
+			[2] = "sp_balatro",
+			replace_map = {}
+		}, exclude_from_ui = true},
+	})
+
+	ArrowAPI.config_tools.use_default_config(Cardsauce, {
+		{key = 'enable_VinnyContent', before_auto = true, default_value = true},
+		{key = 'enable_JoelContent', before_auto = true, default_value = true},
+		{key = 'enable_Logo', default_value = true},
+		{key = 'enable_EasterEggs', default_value = true},
+		{key = 'muteWega', default_value = false, exclude_from_ui = true},
+		{key = 'forceDisableOrtalab', default_value = false, exclude_from_ui = true},
+		{key = 'forceEnableOrtalab', default_value = false, exclude_from_ui = true},
+	})
+else
+	ArrowAPI.config_tools.use_default_config(Cardsauce, {
+		{key = 'enable_VinnyContent', before_auto = true, default_value = true},
+		{key = 'enable_JoelContent', before_auto = true, default_value = true},
+		{key = 'enable_Logo', default_value = true},
+		{key = 'enable_EasterEggs', default_value = true},
+		{key = 'muteWega', default_value = false, exclude_from_ui = true},
+		{key = 'forceDisableOrtalab', default_value = false, exclude_from_ui = true},
+		{key = 'forceEnableOrtalab', default_value = false, exclude_from_ui = true},
+		{key = 'loaded_packs', default_value = {
+			[1] = 'sp_csau_cardsauce',
+			[2] = "sp_balatro",
+			replace_map = {}
+		}, exclude_from_ui = true},
+	})
+end
+
+ArrowAPI.config_tools.add_default_palette(ArrowAPI, 'Spectral', {
+	{93,141,181,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="94-114-151"},
+	{81,110,146,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="78-87-121"},
+	{94,181,240,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="99-143-225"},
+	{91,166,221,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="91-127-193"},
+	{245,169,184,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="199-178-74"},
+	{249,136,153,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="167-156-103"},
+	{91,206,250,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="122-164-242"},
+	{248,196,203,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="232-214-127"},
+	{251,113,131,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="139-131-97"},
+	{51,65,89,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="61-68-96"},
+	{132,140,174,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="92-120-125"},
+	{86,136,168,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="82-100-162"},
+	{171,94,105,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="106-101-81"},
+	{89,135,187,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="114-151-217"},
+	{198,233,244,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="169-226-242"},
+	{250,222,227,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="225-235-133"},
+	{252,190,198,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="192-223-174"},
+	{251,177,188,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="207-229-185"},
+	{156,219,249,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="144-226-249"},
+	{250,219,223,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="239-241-156"},
+	{156,209,235,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="137-198-234"},
+	{251,113,131,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="255-84-104"},
+	{179,94,105,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="170-64-92"},
+	["name"] = "Spectrans",
 })
 
---[[
-{key = 'saved_palettes', default_value = {,
-	["Spectral"] = {
-		{
-			{93,141,181,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="94-114-151"},
-			{81,110,146,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="78-87-121"},
-			{94,181,240,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="99-143-225"},
-			{91,166,221,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="91-127-193"},
-			{245,169,184,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="199-178-74"},
-			{249,136,153,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="167-156-103"},
-			{91,206,250,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="122-164-242"},
-			{248,196,203,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="232-214-127"},
-			{251,113,131,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="139-131-97"},
-			{51,65,89,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="61-68-96"},
-			{132,140,174,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="92-120-125"},
-			{86,136,168,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="82-100-162"},
-			{171,94,105,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="106-101-81"},
-			{89,135,187,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="114-151-217"},
-			{198,233,244,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="169-226-242"},
-			{250,222,227,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="225-235-133"},
-			{252,190,198,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="192-223-174"},
-			{251,177,188,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="207-229-185"},
-			{156,219,249,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="144-226-249"},
-			{250,219,223,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="239-241-156"},
-			{156,209,235,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="137-198-234"},
-			{251,113,131,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="255-84-104"},
-			{179,94,105,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="170-64-92"},
-			["default"] = true,
-			["name"] = "Spectrans",
-		},
-		["saved_index"] = 2,
-	},
-	["Background"] = {
-		{
-			{80,132,110,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="Small"},
-			{79,99,103,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="won"},
-			{75,194,146,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="SHOWDOWN_COL_1"},
-			{136,103,165,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="SHOWDOWN_COL_2"},
-			["default"] = true,
-			["name"]="Cardsauce"
-		},{
-			{58,102,88,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="Small"},
-			{79,99,103,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="won"},
-			{44,153,127,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="SHOWDOWN_COL_1"},
-			{9,39,29,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="SHOWDOWN_COL_2"},
-			["default"] = true,
-			["name"]="Darkshroom"
-		},{
-			{58,102,76,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="Small"},
-			{79,99,103,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="won"},
-			{96,178,131,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="SHOWDOWN_COL_1"},
-			{163,200,111,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="SHOWDOWN_COL_2"},
-			["default"] = true,
-			["name"]="Vineshroom"
-		},{
-			{58,75,102,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="Small"},
-			{79,99,103,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="won"},
-			{84,123,184,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="SHOWDOWN_COL_1"},
-			{103,184,116,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="SHOWDOWN_COL_2"},
-			["default"] = true,
-			["name"]="Fullsauce"
-		},{
-			{112,75,75,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="Small"},
-			{79,99,103,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="won"},
-			{226,101,101,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="SHOWDOWN_COL_1"},
-			{165,59,56,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="SHOWDOWN_COL_2"},
-			["default"] = true,
-			["name"]="Extrasauce"
-		},{
-			{201,84,120,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="Small"},
-			{79,99,103,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="won"},
-			{153,103,167,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="SHOWDOWN_COL_1"},
-			{72,48,98,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="SHOWDOWN_COL_2"},
-			["default"] = true,
-			["name"]="Twitch"
-		},{
-			{68,97,56,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="Small"},
-			{79,99,103,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="won"},
-			{181,230,29,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="SHOWDOWN_COL_1"},
-			{4,161,229,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="SHOWDOWN_COL_2"},
-			["default"] = true,
-			["name"]="Fren"
-		},{
-			{101,84,120,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="Small"},
-			{79,99,103,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="won"},
-			{136,103,165,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="SHOWDOWN_COL_1"},
-			{255,255,0,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="SHOWDOWN_COL_2"},
-			["default"] = true,
-			["name"]="Jabroni"
-		},{
-			{64,64,64,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="Small"},
-			{79,99,103,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="won"},
-			{191,199,213,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="SHOWDOWN_COL_1"},
-			{55,66,68,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="SHOWDOWN_COL_2"},
-			["default"] = true,
-			["name"]="Uzumaki"
-		},
-		["saved_index"] = 2,
-	},
-}, exclude_from_ui = true}
---]]
-
-ArrowAPI.config_tools.add_default_palette(Cardsauce, 'Hearts', {
+ArrowAPI.config_tools.add_default_palette(ArrowAPI, 'Hearts', {
 	{174,27,79,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="174-27-67"},
 	{204,68,75,244,88,120,["grad_pos"]={0,1},["grad_config"]={["mode"]="linear",["val"]=1.571,["pos"]={0,0}},["key"]="240-52-100"},
 	{244,88,120,204,68,75,["grad_pos"]={0,1},["grad_config"]={["mode"]="linear",["val"]=1.571,["pos"]={0,0}},["key"]="255-99-136"},
@@ -360,7 +306,7 @@ ArrowAPI.config_tools.add_default_palette(Cardsauce, 'Hearts', {
 	["name"] = "Cardsauce",
 })
 
-ArrowAPI.config_tools.add_default_palette(Cardsauce, 'Diamonds', {
+ArrowAPI.config_tools.add_default_palette(ArrowAPI, 'Diamonds', {
 	{38,55,104,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="141-79-29"},
 	{60,82,149,60,82,149,67,97,185,67,97,185,["grad_pos"]={0,0.1,0.9,1},["grad_config"]={["mode"]="linear",["val"]=1.571,["pos"]={0,0}},["key"]="207-84-27"},
 	{46,53,150,46,53,150,83,125,181,83,125,181,["grad_pos"]={0,0.2,0.8,1},["grad_config"]={["mode"]="linear",["val"]=1.571,["pos"]={0,0}},["key"]="240-107-63"},
@@ -378,7 +324,7 @@ ArrowAPI.config_tools.add_default_palette(Cardsauce, 'Diamonds', {
 	["name"] = "Cardsauce",
 })
 
-ArrowAPI.config_tools.add_default_palette(Cardsauce, 'Clubs', {
+ArrowAPI.config_tools.add_default_palette(ArrowAPI, 'Clubs', {
 	{32,165,128,32,165,128,108,179,125,108,179,125,["grad_pos"]={0,0.2,0.8,1},["grad_config"]={["mode"]="linear",["val"]=1.571,["pos"]={0,0}},["key"]="37-93-89"},
 	{56,125,96,56,125,96,54,101,81,54,101,81,["grad_pos"]={0,0.1,0.9,1},["grad_config"]={["mode"]="linear",["val"]=1.571,["pos"]={0,0}},["key"]="28-112-106"},
 	{77,171,131,77,171,131,70,132,106,70,132,106,["grad_pos"]={0,0.1,0.9,1},["grad_config"]={["mode"]="linear",["val"]=1.571,["pos"]={0,0}},["key"]="58-143-135"},
@@ -396,6 +342,79 @@ ArrowAPI.config_tools.add_default_palette(Cardsauce, 'Clubs', {
 	{32,165,128,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="badge"},
 	["name"] = "Cardsauce",
 })
+
+ArrowAPI.config_tools.add_default_palette(ArrowAPI, 'Background', {
+	{80,132,110,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="Small"},
+	{79,99,103,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="won"},
+	{75,194,146,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="SHOWDOWN_COL_1"},
+	{136,103,165,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="SHOWDOWN_COL_2"},
+	["name"]="Cardsauce"
+})
+
+ArrowAPI.config_tools.add_default_palette(ArrowAPI, 'Background', {
+	{58,102,88,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="Small"},
+	{79,99,103,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="won"},
+	{44,153,127,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="SHOWDOWN_COL_1"},
+	{9,39,29,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="SHOWDOWN_COL_2"},
+	["name"]="Darkshroom"
+})
+
+ArrowAPI.config_tools.add_default_palette(ArrowAPI, 'Background', {
+	{58,102,76,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="Small"},
+	{79,99,103,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="won"},
+	{96,178,131,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="SHOWDOWN_COL_1"},
+	{163,200,111,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="SHOWDOWN_COL_2"},
+	["name"]="Vineshroom"
+})
+
+ArrowAPI.config_tools.add_default_palette(ArrowAPI, 'Background', {
+	{58,75,102,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="Small"},
+	{79,99,103,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="won"},
+	{84,123,184,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="SHOWDOWN_COL_1"},
+	{103,184,116,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="SHOWDOWN_COL_2"},
+	["name"]="Fullsauce"
+})
+
+ArrowAPI.config_tools.add_default_palette(ArrowAPI, 'Background', {
+	{112,75,75,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="Small"},
+	{79,99,103,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="won"},
+	{226,101,101,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="SHOWDOWN_COL_1"},
+	{165,59,56,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="SHOWDOWN_COL_2"},
+	["name"]="Extrasauce"
+})
+
+ArrowAPI.config_tools.add_default_palette(ArrowAPI, 'Background', {
+	{201,84,120,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="Small"},
+	{79,99,103,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="won"},
+	{153,103,167,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="SHOWDOWN_COL_1"},
+	{72,48,98,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="SHOWDOWN_COL_2"},
+	["name"]="Twitch"
+})
+
+ArrowAPI.config_tools.add_default_palette(ArrowAPI, 'Background', {
+	{68,97,56,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="Small"},
+	{79,99,103,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="won"},
+	{181,230,29,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="SHOWDOWN_COL_1"},
+	{4,161,229,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="SHOWDOWN_COL_2"},
+	["name"]="Fren"
+})
+
+ArrowAPI.config_tools.add_default_palette(ArrowAPI, 'Background', {
+	{101,84,120,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="Small"},
+	{79,99,103,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="won"},
+	{136,103,165,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="SHOWDOWN_COL_1"},
+	{255,255,0,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="SHOWDOWN_COL_2"},
+	["name"]="Jabroni"
+})
+
+ArrowAPI.config_tools.add_default_palette(ArrowAPI, 'Background', {
+	{64,64,64,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="Small"},
+	{79,99,103,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="won"},
+	{191,199,213,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="SHOWDOWN_COL_1"},
+	{55,66,68,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={0,0}},["key"]="SHOWDOWN_COL_2"},
+	["name"]="Uzumaki"
+})
+
 
 ArrowAPI.game.add_game_globals_func(Cardsauce, function(run_start)
     if run_start then
