@@ -9,10 +9,8 @@ return {
 		},
 	},
 	["enable_DetailedDescs"] = false,
-	["enable_Logo"] = true,
+	["rows"] = 2,
 	["enable_EasterEggs"] = true,
-	["muteWega"] = false,
-	["forceDisableOrtalab"] = false,
 	["saved_palettes"] = {
 		["Spades"] = {
 			{
@@ -526,6 +524,34 @@ return {
 					180,
 					1,
 					["overrides"] = {
+						["j_superposition"] = {
+							255,
+							144,
+							137,
+							255,
+							144,
+							137,
+							141,
+							165,
+							205,
+							141,
+							165,
+							205,
+							["grad_pos"] = {
+								0,
+								0.35,
+								0.6,
+								1,
+							},
+							["grad_config"] = {
+								["pos"] = {
+									0,
+									0,
+								},
+								["mode"] = "linear",
+								["val"] = 0,
+							},
+						},
 					},
 					["key"] = "255-229-180",
 					["grad_pos"] = {
@@ -546,6 +572,34 @@ return {
 					114,
 					1,
 					["overrides"] = {
+						["j_superposition"] = {
+							228,
+							57,
+							46,
+							228,
+							57,
+							46,
+							0,
+							132,
+							216,
+							0,
+							132,
+							216,
+							["grad_pos"] = {
+								0,
+								0.4,
+								0.6,
+								1,
+							},
+							["grad_config"] = {
+								["pos"] = {
+									0,
+									0,
+								},
+								["mode"] = "linear",
+								["val"] = 0,
+							},
+						},
 					},
 					["key"] = "218-183-114",
 					["grad_pos"] = {
@@ -566,6 +620,34 @@ return {
 					89,
 					1,
 					["overrides"] = {
+						["j_superposition"] = {
+							253,
+							95,
+							85,
+							253,
+							95,
+							85,
+							0,
+							156,
+							253,
+							0,
+							156,
+							253,
+							["grad_pos"] = {
+								0,
+								0.4,
+								0.6,
+								1,
+							},
+							["grad_config"] = {
+								["pos"] = {
+									0,
+									0,
+								},
+								["mode"] = "linear",
+								["val"] = 0,
+							},
+						},
 					},
 					["key"] = "243-198-89",
 					["grad_pos"] = {
@@ -586,6 +668,34 @@ return {
 					71,
 					1,
 					["overrides"] = {
+						["j_superposition"] = {
+							195,
+							49,
+							39,
+							195,
+							49,
+							39,
+							0,
+							107,
+							175,
+							0,
+							107,
+							175,
+							["grad_pos"] = {
+								0,
+								0.4,
+								0.6,
+								1,
+							},
+							["grad_config"] = {
+								["pos"] = {
+									0,
+									0,
+								},
+								["mode"] = "linear",
+								["val"] = 0,
+							},
+						},
 					},
 					["key"] = "165-133-71",
 					["grad_pos"] = {
@@ -606,6 +716,30 @@ return {
 					254,
 					1,
 					["overrides"] = {
+						["j_superposition"] = {
+							60,
+							180,
+							255,
+							60,
+							180,
+							255,
+							255,
+							150,
+							144,
+							["grad_pos"] = {
+								0,
+								0.2,
+								1,
+							},
+							["grad_config"] = {
+								["pos"] = {
+									0,
+									0,
+								},
+								["mode"] = "linear",
+								["val"] = 1.13,
+							},
+						},
 					},
 					["key"] = "233-216-254",
 					["grad_pos"] = {
@@ -646,6 +780,30 @@ return {
 					253,
 					1,
 					["overrides"] = {
+						["j_superposition"] = {
+							64,
+							155,
+							210,
+							64,
+							155,
+							210,
+							251,
+							96,
+							87,
+							["grad_pos"] = {
+								0,
+								0.2,
+								1,
+							},
+							["grad_config"] = {
+								["pos"] = {
+									0,
+									0,
+								},
+								["mode"] = "linear",
+								["val"] = 1.13,
+							},
+						},
 					},
 					["key"] = "183-162-253",
 					["grad_pos"] = {
@@ -666,6 +824,23 @@ return {
 					243,
 					1,
 					["overrides"] = {
+						["j_superposition"] = {
+							0,
+							156,
+							253,
+							1,
+							["grad_pos"] = {
+								0,
+							},
+							["grad_config"] = {
+								["pos"] = {
+									0,
+									0,
+								},
+								["mode"] = "linear",
+								["val"] = 0,
+							},
+						},
 					},
 					["key"] = "167-145-243",
 					["grad_pos"] = {
@@ -686,6 +861,23 @@ return {
 					234,
 					1,
 					["overrides"] = {
+						["j_superposition"] = {
+							253,
+							95,
+							85,
+							1,
+							["grad_pos"] = {
+								0,
+							},
+							["grad_config"] = {
+								["pos"] = {
+									0,
+									0,
+								},
+								["mode"] = "linear",
+								["val"] = 0,
+							},
+						},
 					},
 					["key"] = "153-129-234",
 					["grad_pos"] = {
@@ -706,6 +898,23 @@ return {
 					225,
 					1,
 					["overrides"] = {
+						["j_superposition"] = {
+							0,
+							139,
+							227,
+							1,
+							["grad_pos"] = {
+								0,
+							},
+							["grad_config"] = {
+								["pos"] = {
+									0,
+									0,
+								},
+								["mode"] = "linear",
+								["val"] = 0,
+							},
+						},
 					},
 					["key"] = "138-113-225",
 					["grad_pos"] = {
@@ -726,6 +935,23 @@ return {
 					139,
 					1,
 					["overrides"] = {
+						["j_superposition"] = {
+							221,
+							70,
+							60,
+							1,
+							["grad_pos"] = {
+								0,
+							},
+							["grad_config"] = {
+								["pos"] = {
+									0,
+									0,
+								},
+								["mode"] = "linear",
+								["val"] = 0,
+							},
+						},
 					},
 					["key"] = "107-97-139",
 					["grad_pos"] = {
@@ -6407,6 +6633,8 @@ return {
 		},
 	},
 	["enable_JoelContent"] = true,
+	["muteWega"] = false,
+	["forceDisableOrtalab"] = false,
 	["enable_VinnyContent"] = true,
-	["rows"] = 2,
+	["enable_Logo"] = true,
 }
