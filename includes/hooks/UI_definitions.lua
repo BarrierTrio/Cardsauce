@@ -184,7 +184,8 @@ end
 local cfb_ref = G.UIDEF.card_focus_button
 function G.UIDEF.card_focus_button(args)
 	if not args then return end
-	if args.type == 'save' then
+	if args.type ==
+	 'save' then
 		local button_contents = {}
 		button_contents = {n=G.UIT.T, config={text = localize('b_save'),colour = G.C.WHITE, scale = 0.4}}
 		return UIBox{
@@ -255,27 +256,6 @@ function G.UIDEF.card_focus_ui(card)
 		end
 	end
 	return ret
-end
-
-function G.FUNCS.csau_run_challenge_functions(challenge)
-	if challenge.restrictions then
-	 	if challenge.restrictions.banned_cards and type(challenge.restrictions.banned_cards) == 'function' then
-			challenge.restrictions.banned_cards = challenge.restrictions.banned_cards()
-		end
-		if challenge.restrictions.banned_tags and type(challenge.restrictions.banned_tags) == 'function' then
-			challenge.restrictions.banned_tags = challenge.restrictions.banned_tags()
-		end
-	end
-end
-
-local ref_cdt = G.UIDEF.challenge_description_tab
-function G.UIDEF.challenge_description_tab(args)
-	args = args or {}
-	if args._tab == 'Restrictions' then
-		local challenge = G.CHALLENGES[args._id]
-		G.FUNCS.csau_run_challenge_functions(challenge)
-	end
-	return ref_cdt(args)
 end
 
 
