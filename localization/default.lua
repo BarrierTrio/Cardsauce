@@ -1429,11 +1429,18 @@ return {
 			j_csau_thisiscrack = {
 				name = "This Is Crack",
 				text = {
-					"This Joker gains {X:mult,C:white}X0.1{} Mult",
-					"per {C:attention}consecutive{} hand played",
+					"This Joker gains {X:mult,C:white}X#1#{} Mult",
+					"per {C:attention}consecutive poker hand{}",
 					"of the {C:attention}same type{}",
-					"{C:inactive}(Currently {}{X:mult,C:white}X#1#{} {C:inactive}Mult){}",
-					"{C:inactive}(Current hand: {}{C:attention}#2#{}{C:inactive}){}",
+					"{C:inactive}(Currently {}{X:mult,C:white}X#2#{} {C:inactive}Mult){}",
+				},
+			},
+			j_csau_thisiscrack_alt = {
+				name = "This Is Crack",
+				text = {
+					"This Joker gains {X:mult,C:white}X#1#{} Mult",
+					"per {C:attention}consecutive #3#{}",
+					"{C:inactive}(Currently {}{X:mult,C:white}X#2#{} {C:inactive}Mult){}",
 				},
 			},
 			j_csau_twoface = {
@@ -1754,9 +1761,9 @@ return {
 				text = {
 					"When {C:attention}Blind{} is selected,",
                     "destroy all Jokers with",
-                    "\"Joker\" in their name and",
-					"gain {X:mult,C:white}X#1#{} Mult for each",
-                    "{C:inactive}(Currently {X:mult,C:white} X#2# {C:inactive} Mult)",
+                    "{C:attention}\"#1#\"{} in their name and",
+					"gain {X:mult,C:white}X#2#{} Mult for each",
+                    "{C:inactive}(Currently {X:mult,C:white}X#3#{C:inactive} Mult)",
 				},
 				unlock={
 					"{E:1,C:attention}Sacrifice{} a Joker",
@@ -2029,8 +2036,9 @@ return {
 			j_csau_bbq = {
 				name = "Barbeque Shoes",
 				text = {
-					"Earn {C:money}$#1#{} for every {C:attention}#2#{} {V:1}#4#{} in your",
-					"{C:attention}full deck{} at end of round",
+					"Earn {C:money}$#1#{} for every",
+					"{C:attention}#2#{} {V:1}#4#{} in your {C:attention}full deck{}",
+					"at end of round",
 					"{C:inactive}(Currently {}{C:money}$#3#{}{C:inactive})"
 				},
 			},

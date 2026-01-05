@@ -35,10 +35,15 @@ local jokerInfo = {
 }
 
 function jokerInfo.loc_vars(self, info_queue, card)
-	return { vars = {
-		card.ability.extra.x_mult,
-		card.ability.extra.crack_hand and localize(card.ability.extra.crack_hand, 'poker_hands') or localize('k_none')
-	} }
+	local key = self.key..(card.ability.extra.crack_hand and '_alt' or '')
+	return {
+		vars = {
+			card.ability.extra.x_mult_mod,
+			card.ability.extra.x_mult,
+			card.ability.extra.crack_hand and localize(card.ability.extra.crack_hand, 'poker_hands') or nil
+		},
+		key = key,
+	}
 end
 
 function jokerInfo.calculate(self, card, context)
@@ -58,11 +63,12 @@ function jokerInfo.calculate(self, card, context)
 			card.ability.extra.crack_hand = hand
 			if to_big(card.ability.extra.x_mult) > to_big(1) then
                 card.ability.extra.x_mult = to_big(1)
-                return {
-                    card = card,
-                    message = localize('k_reset')
-                }
             end
+
+			return {
+				card = card,
+				message = localize(hand, 'poker_hands')..'!'
+			}
 		end
 	end
 

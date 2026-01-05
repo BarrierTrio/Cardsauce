@@ -59,9 +59,14 @@ end
 function jokerInfo.calculate(self, card, context)
 	if card.debuff then return end
 
-	if context.before and (type(SMODS.PokerHands[v].visible) ~= "function" and not SMODS.PokerHands[v].visible or (not not SMODS.PokerHands[v]:visible())) then
-		if not card.ability.extra.ach_hands[context.scoring_name] then
-			card.ability.extra.ach_hands[context.scoring_name] = true
+	if context.before then
+		local hand = context.scoring_name
+		if not (G.GAME.hands[hand].visible and type(SMODS.PokerHands[hand].visible) ~= "function" and not SMODS.PokerHands[hand].visible) then
+			return
+		end
+
+		if not card.ability.extra.ach_hands[hand] then
+			card.ability.extra.ach_hands[hand] = true
 			card.ability.extra.num_hands = card.ability.extra.num_hands + 1
 			if card.ability.extra.num_hands >= 3 then
 				check_for_unlock({ type = "three_pepsecret" })

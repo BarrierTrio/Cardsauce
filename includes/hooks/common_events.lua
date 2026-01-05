@@ -27,13 +27,6 @@ function check_for_unlock(args)
             wigsaw_suit = highest_suit
         end
 
-        if wigsaw_suit then
-            -- unsure about his, but we'll see
-            for _, v in ipairs(SMODS.Suit.obj_buffer) do
-                G.ARGS.LOC_COLOURS[v:lower()] = G.C.SUITS[G.GAME.wigsaw_suits]
-            end
-        end
-
         G.GAME.wigsaw_suit = wigsaw_suit
     end
 

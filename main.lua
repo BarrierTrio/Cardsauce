@@ -264,7 +264,6 @@ else
 	})
 end
 
-
 ArrowAPI.config_tools.add_default_palette(ArrowAPI, 'Spectral', {
 	{51,65,89,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={1,0}},["overrides"]={},["key"]="61-68-96"},
 	{81,110,146,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={1,0}},["overrides"]={},["key"]="78-87-121"},
