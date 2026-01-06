@@ -25,7 +25,7 @@ local jokerInfo = {
 }
 
 function jokerInfo.check_for_unlock(self, args)
-	return args.type == "ante_up" and to_big(args.ante) == to_big(7)
+	return args.type == "ante_up" and args.ante == 7
 end
 
 function jokerInfo.loc_vars(self, info_queue, card)

@@ -68,7 +68,9 @@ local function reduced_set_ability(card, center)
         yorick_discards = center.name == 'Yorick' and center.config.extra.discards,
         burnt_hand = center.name == 'Loyalty Card' and 0 or nil,
         loyalty_remaining = center.name == 'Loyalty Card' and center.config.extra.every or nil,
-        csau_extra_value = 0
+        csau_extra_value = 0,
+        card_limit = card.ability and card.ability.card_limit or 0,
+        extra_slots_used = card.ability and card.ability.extra_slots_used or 0,
     }
 
     card.ability = {}

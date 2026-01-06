@@ -34,7 +34,7 @@ function jokerInfo.loc_vars(self, info_queue, card)
 end
 
 function jokerInfo.calculate(self, card, context)
-    if context.pre_discard and to_big(#context.full_hand) >= to_big(5) then
+    if context.pre_discard and #context.full_hand >= 5 then
         local non_face_count = 0
         for i, v in ipairs(context.full_hand) do
             if not v:is_face() and not v.debuff then

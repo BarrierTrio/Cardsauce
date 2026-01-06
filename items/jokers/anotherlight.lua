@@ -26,7 +26,7 @@ function jokerInfo.calculate(self, card, context)
 	if card.debuff then return end
 
 	if context.before and G.GAME.current_round.hands_played == 0 and context.scoring_name == "Flush"
-	and to_big(#G.consumeables.cards + G.GAME.consumeable_buffer) < to_big(G.consumeables.config.card_limit) then
+	and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
 		G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
 		local flush_type = 'Wild'
 		for k, v in ipairs(context.scoring_hand) do

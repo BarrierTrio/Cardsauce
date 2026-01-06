@@ -5,7 +5,7 @@ local achInfo = {
         if cards and #cards > 0 then
             for i, v in ipairs(cards) do
                 if G.GAME and G.GAME.hands then
-                    if to_big(G.GAME.hands.Pair.played*v.ability.extra) >= to_big(20) then
+                    if G.GAME.hands.Pair.played*v.ability.extra >= 20 then
                         return true
                     end
                 end

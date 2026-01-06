@@ -41,7 +41,7 @@ function jokerInfo.check_for_unlock(self, args)
     end
     if args.type == 'discard_custom' then
         G.GAME.vomit_blast_discards = (G.GAME.vomit_blast_discards or 0) + #args.cards
-        return to_big(G.GAME.vomit_blast_discards) >= to_big(self.unlock_condiiton.num)
+        return G.GAME.vomit_blast_discards >= self.unlock_condiiton.num
     end
 
     if args.type == 'round_win' then
@@ -52,7 +52,7 @@ end
 function jokerInfo.calculate(self, card, context)
     if card.debuff then return end
 
-    if to_big(card.ability.extra.mult) > to_big(0) and context.joker_main then
+    if card.ability.extra.mult > 0 and context.joker_main then
         return {
             mult = card.ability.extra.mult,
         }
@@ -72,7 +72,7 @@ function jokerInfo.calculate(self, card, context)
         })
     end
 
-    if context.end_of_round and to_big(card.ability.extra.mult) > to_big(0) then
+    if context.end_of_round and card.ability.extra.mult > 0 then
         card.ability.extra.mult = 0
         return {
             message = localize('k_reset'),

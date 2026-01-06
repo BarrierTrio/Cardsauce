@@ -4,7 +4,7 @@ local achInfo = {
         local cards = SMODS.find_card('j_csau_bulk')
         if cards and #cards > 0 then
             for i, v in ipairs(cards) do
-                if to_big(v.ability.extra.x_mult) >= to_big(4) then
+                if v.ability.extra.x_mult >= 4 then
                     return true
                 end
             end

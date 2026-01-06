@@ -43,7 +43,7 @@ function jokerInfo.calculate(self, card, context)
         })
     end
 
-    if context.joker_main and to_big(card.ability.extra.x_mult) > to_big(1) then
+    if context.joker_main and card.ability.extra.x_mult > 1 then
         return {
             xmult = card.ability.extra.x_mult
         }

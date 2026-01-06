@@ -108,11 +108,11 @@ function jokerInfo.calculate(self, card, context)
                 })
 
                 if form == "Spades" then
-                    if to_big(G.GAME.current_round.hands_left) > to_big(0) then
+                    if G.GAME.current_round.hands_left > 0 then
                         ease_discard(-G.GAME.current_round.discards_left, nil, true)
                     end
 
-                    if to_big(G.GAME.current_round.hands_left) > to_big(1) then
+                    if G.GAME.current_round.hands_left > 1 then
                         ease_hands_played(-G.GAME.current_round.hands_left + 1, nil, true)
                     end
                 end
@@ -177,8 +177,8 @@ function jokerInfo.calculate(self, card, context)
     if context.joker_main and (card.ability.extra.form == 'Diamonds' or card.ability.extra.form == 'Spades') then
         local form = card.ability.extra.form
         return {
-            x_mult = card.ability.extra[form].x_mult and to_big(card.ability.extra[form].x_mult) > to_big(0) and card.ability.extra[form].x_mult,
-            mult = card.ability.extra[form].mult and to_big(card.ability.extra[form].mult) > to_big(0) and card.ability.extra[form].mult,
+            x_mult = card.ability.extra[form].x_mult and card.ability.extra[form].x_mult > 0 and card.ability.extra[form].x_mult,
+            mult = card.ability.extra[form].mult and card.ability.extra[form].mult > 0 and card.ability.extra[form].mult,
         }
     end
 

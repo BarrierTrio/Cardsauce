@@ -56,7 +56,7 @@ function jokerInfo.check_for_unlock(self, args)
         else
             G.GAME.trip_to_america_hands = 0
         end
-        return to_big(G.GAME.trip_to_america_hands) >= to_big(self.unlock_condition.num)
+        return G.GAME.trip_to_america_hands >= self.unlock_condition.num
     end
 
     if args.type == 'round_win' then
@@ -83,7 +83,7 @@ function jokerInfo.calculate(self, card, context)
         end
     end
 
-    if to_big(card.ability.extra.mult) > to_big(0) and context.joker_main then
+    if card.ability.extra.mult > 0 and context.joker_main then
         return {
             mult = card.ability.extra.mult,
         }

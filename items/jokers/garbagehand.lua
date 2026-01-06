@@ -36,7 +36,7 @@ function jokerInfo.calculate(self, card, context)
 	if card.debuff then return end
 
 	if context.individual and context.cardarea == G.play
-	and to_big(context.other_card.base.nominal) <= to_big(8)
+	and context.other_card.base.nominal <= 8
 	and not next(SMODS.get_enhancements(context.other_card)) then
 		return {
 			mult = card.ability.extra.mult,

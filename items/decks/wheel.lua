@@ -27,11 +27,11 @@ function deckInfo.locked_loc_vars(self, info_queue, card)
 end
 
 function deckInfo.check_for_unlock(self, args)
-    return args.type == 'discover_amount' and (to_big(G.DISCOVER_TALLIES.vhss.tally) >= to_big(self.config.unlock))
+    return args.type == 'discover_amount' and (G.DISCOVER_TALLIES.vhss.tally) >= self.config.unlock
 end
 
 function deckInfo.calculate(self, card, context)
-    if context.end_of_round and context.main_eval and to_big(#G.consumeables.cards + G.GAME.consumeable_buffer) < to_big(G.consumeables.config.card_limit)
+    if context.end_of_round and context.main_eval and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit
     and G.GAME.blind:get_type() == 'Boss' and self.get_current_deck_key() ~= "b_csau_wheel" then
         G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
         G.E_MANAGER:add_event(Event({

@@ -82,14 +82,14 @@ local jokerInfo = {
 
 function jokerInfo.check_for_unlock(self, args)
     if args.type == 'hand' and args.scoring_hand then
-        local grand_total = to_big(0)
+        local grand_total = 0
         for i, v in ipairs(args.scoring_hand) do
             local chip_val = v.base.nominal
             local bonus_chip = v.ability.perma_bonus or 0
-            local total_chip = to_big(chip_val) + to_big(bonus_chip)
+            local total_chip = chip_val + bonus_chip
             grand_total = grand_total + total_chip
         end
-        if grand_total == to_big(21) then
+        if grand_total == 21 then
             return true
         end
     end

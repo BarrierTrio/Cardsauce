@@ -59,7 +59,7 @@ function consumInfo.calculate(self, card, context)
     local bad_context = context.repetition or context.individual or context.blueprint
     if context.after and not card.ability.destroyed and card.ability.activated and not bad_context then
         card.ability.uses = card.ability.uses+1
-        if to_big(card.ability.uses) >= to_big(card.ability.runtime) then
+        if card.ability.uses >= card.ability.runtime then
             ArrowAPI.vhs.destroy_tape(card)
             card.ability.destroyed = true
         end
@@ -67,7 +67,7 @@ function consumInfo.calculate(self, card, context)
 end
 
 function consumInfo.can_use(self, card)
-    if to_big(#G.consumeables.cards) < to_big(G.consumeables.config.card_limit) or card.area == G.consumeables then return true end
+    if #G.consumeables.cards < G.consumeables.config.card_limit or card.area == G.consumeables then return true end
 end
 
 return consumInfo

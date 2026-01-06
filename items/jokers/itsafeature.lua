@@ -58,11 +58,11 @@ function jokerInfo.calculate(self, card, context)
             }
         })
 
-        if to_big(card.ability.extra.money) >= to_big(card.ability.extra.ach_dollars) then
+        if card.ability.extra.money >= card.ability.extra.ach_dollars then
             check_for_unlock({ type = "high_feature" })
         end
 
-        if to_big(card.ability.extra.money) > to_big(0) and SMODS.pseudorandom_probability(card, 'csau_feature', 1, card.ability.extra.prob) then
+        if card.ability.extra.money > 0 and SMODS.pseudorandom_probability(card, 'csau_feature', 1, card.ability.extra.prob) then
             card.ability.csau_feature_activated = true
         end
     end

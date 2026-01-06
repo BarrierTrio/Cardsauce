@@ -33,7 +33,7 @@ end
 function jokerInfo.calculate(self, card, context)
     if card.debuff then return end
 
-    if context.before and to_big(G.GAME.current_round.hands_left) == to_big(0) then
+    if context.before and G.GAME.current_round.hands_left == 0 then
         local cards = {}
         local juice_card = context.blueprint_card or card
         for i=1, card.ability.extra do

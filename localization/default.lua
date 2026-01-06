@@ -1698,9 +1698,9 @@ return {
 			j_csau_joeycastle = {
 				name = "Joey's Castle",
 				text = {
-					"Earn {C:money}$#1#{} per discarded",
-					"{V:1}#2#{} card,",
-					"{C:inactive,s:0.8}suit changes every round"
+					"Earn {C:money}$#1#{} per",
+					"discarded {V:1}#2#{}",
+					"{s:0.8}suit changes every round"
 				},
 			},
 			j_csau_grand = {

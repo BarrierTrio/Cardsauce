@@ -26,7 +26,7 @@ function consumInfo.loc_vars(self, info_queue, card)
 end
 
 function consumInfo.in_pool(self, args)
-    return SMODS.is_poker_hand_visible('csau_Blackjack') and to_big(G.GAME.hands.csau_Blackjack.played) > to_big(0)
+    return SMODS.is_poker_hand_visible('csau_Blackjack') and G.GAME.hands.csau_Blackjack.played > 0
 end
 
 function consumInfo.set_card_type_badge(self, card, badges)

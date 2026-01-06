@@ -424,7 +424,7 @@ function jokerInfo.calculate(self, card, context)
         fake_crash()
     end
 
-    if context.joker_main and to_big(card.ability.extra.mult) > to_big(0) then
+    if context.joker_main and card.ability.extra.mult > 0 then
         return {
             mult = card.ability.extra.mult,
         }

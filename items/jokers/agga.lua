@@ -43,7 +43,7 @@ function jokerInfo.calculate(self, card, context)
 
     if card.debuff then return end
 
-    if context.joker_main and not card.debuff and to_big(card.ability.extra.x_mult) > to_big(1) then
+    if context.joker_main and not card.debuff and card.ability.extra.x_mult > 1 then
         return {
             x_mult = card.ability.extra.x_mult,
         }
@@ -60,7 +60,7 @@ function jokerInfo.calculate(self, card, context)
                     check_for_unlock({ type = "high_agga" })
                 end
 
-                card.ability.extra.x_mult = to_big(1)
+                card.ability.extra.x_mult = 1
                 return {
                     message = localize('k_reset')
                 }

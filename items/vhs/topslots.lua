@@ -51,7 +51,7 @@ function consumInfo.calculate(self, card, context)
     if card.ability.activated and context.end_of_round and context.main_eval and G.GAME.chips > G.GAME.blind.chips then
         local percent = ((G.GAME.chips - G.GAME.blind.chips) / G.GAME.blind.chips) * 100
         local money = math.floor(percent / card.ability.extra.conv_score) + card.ability.extra.conv_money
-        if to_big(money) > to_big(card.ability.extra.max_initial_money) then
+        if money > card.ability.extra.max_initial_money then
             money = card.ability.extra.max_initial_money
         end
 

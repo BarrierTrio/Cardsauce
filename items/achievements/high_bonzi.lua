@@ -4,7 +4,7 @@ local achInfo = {
         local cards = SMODS.find_card('j_csau_bonzi')
         if cards and #cards > 0 then
             for i, v in ipairs(cards) do
-                if to_big(v.ability.extra.mult) >= to_big(100) then
+                if v.ability.extra.mult >= 100 then
                     return true
                 end
             end

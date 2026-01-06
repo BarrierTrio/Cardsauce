@@ -8,7 +8,7 @@ local achInfo = {
             local vhs_obtained = 0
             for k, v in pairs(G.GAME.consumeable_usage) do if v.set == 'VHS' then vhs_obtained = vhs_obtained + 1 end end
             for i, v in ipairs(cards) do
-                return to_big((v.ability.extra.chip_mod * vhs_obtained) * mod) >= to_big(200)
+                return (v.ability.extra.chip_mod * vhs_obtained * mod) >= 200
             end
         end
     end,

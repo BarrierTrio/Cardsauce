@@ -56,8 +56,8 @@ function jokerInfo.calculate(self, card, context)
 		end
 	end
 
-	if context.individual and context.cardarea == G.play and to_big(card.ability.csau_masked_steel_tally) >= #context.full_hand then
-		if to_big(card.ability.csau_masked_steel_tally) >= to_big(card.ability.extra.ach_count) then
+	if context.individual and context.cardarea == G.play and card.ability.csau_masked_steel_tally >= #context.full_hand then
+		if card.ability.csau_masked_steel_tally >= card.ability.extra.ach_count then
 			check_for_unlock({ type = "activate_claus" })
 
 			if next(SMODS.find_card('j_csau_chromedup')) then

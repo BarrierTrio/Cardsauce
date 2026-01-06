@@ -40,7 +40,7 @@ end
 function jokerInfo.calculate(self, card, context)
 	if context.blueprint then return end
 
-	if context.game_over and to_big(G.GAME.chips)/to_big(G.GAME.blind.chips) >= to_big(0.23) then
+	if context.game_over and G.GAME.chips/G.GAME.blind.chips >= 0.23 then
 		if SMODS.find_card('j_csau_wingsoftime')[1] ~= card then
 			return
 		end

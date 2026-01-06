@@ -28,7 +28,7 @@ function jokerInfo.add_to_deck(self, card)
 	card:set_cost()
 	check_for_unlock({ type = "discover_deathcard" })
 
-	if card.ability.num_sold and to_big(card.ability.num_sold) >= to_big(5) then
+	if card.ability.num_sold and card.ability.num_sold >= 5 then
 		check_for_unlock({ type = "five_deathcard" })
 	end
 
@@ -57,7 +57,7 @@ function jokerInfo.calculate(self, card, context)
 
 	if context.joker_main then
 		return {
-			message = localize{type='variable',key='a_mult',vars={to_big(card.ability.extra.mult)}},
+			message = localize{type='variable',key='a_mult',vars={card.ability.extra.mult}},
 			colour = G.C.MULT,
 			mult_mod = card.ability.extra.mult,
 			card = card

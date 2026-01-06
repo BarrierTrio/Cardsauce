@@ -46,7 +46,7 @@ end
 function jokerInfo.calculate(self, card, context)
     if card.debuff then return end
 
-    if context.before and to_big(G.GAME.current_round.hands_played) == to_big(0) and all_faces(context.full_hand) then
+    if context.before and G.GAME.current_round.hands_played == 0 and all_faces(context.full_hand) then
         if not context.blueprint and not context.retrigger_joker
         and SMODS.pseudorandom_probability(card, 'csau_business_1', 1, card.ability.extra.chance) then
             local idx_tbl = {}

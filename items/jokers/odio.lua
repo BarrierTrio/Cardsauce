@@ -31,7 +31,7 @@ local function update_odio(center, card, x_off)
 end
 
 function jokerInfo.in_pool(self, args)
-	return to_big(G.GAME.round_resets.ante) < to_big(9)
+	return G.GAME.round_resets.ante < 9
 end
 
 function jokerInfo.load(self, card, card_table, other_card)

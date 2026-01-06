@@ -9,8 +9,10 @@ return {
 		},
 	},
 	["enable_DetailedDescs"] = false,
-	["rows"] = 2,
+	["enable_Logo"] = true,
 	["enable_EasterEggs"] = true,
+	["muteWega"] = false,
+	["forceDisableOrtalab"] = false,
 	["saved_palettes"] = {
 		["Spades"] = {
 			{
@@ -9818,18 +9820,18 @@ return {
 					},
 				},
 				{
-					251,
-					210,
-					111,
-					251,
-					210,
-					111,
-					207,
-					181,
-					99,
-					207,
-					181,
-					99,
+					234,
+					178,
+					123,
+					234,
+					178,
+					123,
+					209,
+					150,
+					94,
+					209,
+					150,
+					94,
 					["overrides"] = {
 						["D_K_6"] = {
 							255,
@@ -10046,16 +10048,16 @@ return {
 				},
 				{
 					255,
-					227,
+					200,
 					159,
 					255,
-					227,
+					200,
 					159,
 					251,
-					210,
+					180,
 					111,
 					251,
-					210,
+					180,
 					111,
 					["overrides"] = {
 						["D_K_6"] = {
@@ -10245,7 +10247,7 @@ return {
 				},
 				{
 					255,
-					232,
+					218,
 					166,
 					1,
 					["overrides"] = {
@@ -13923,8 +13925,6 @@ return {
 		},
 	},
 	["enable_JoelContent"] = true,
-	["muteWega"] = false,
-	["forceDisableOrtalab"] = false,
 	["enable_VinnyContent"] = true,
-	["enable_Logo"] = true,
+	["rows"] = 2,
 }

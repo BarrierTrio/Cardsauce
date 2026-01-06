@@ -51,7 +51,7 @@ function jokerInfo.calculate(self, card, context)
 
     if context.joker_main then
         local fools = get_fools()
-        if fools > to_big(0) then
+        if fools > 0 then
             return {
                 mult = fools * card.ability.extra.mult_mod,
                 card = context.blueprint_card or card

@@ -5,7 +5,7 @@ local achInfo = {
         local cards = SMODS.find_card(self.config.joker)
         if cards and #cards > 0 then
             for i, v in ipairs(cards) do
-                if to_big(v.ability.extra.x_mult) >= to_big(self.config.x_mult) then
+                if v.ability.extra.x_mult >= self.config.x_mult then
                     return true
                 end
             end

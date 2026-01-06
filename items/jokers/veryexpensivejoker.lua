@@ -41,7 +41,7 @@ end
 function jokerInfo.add_to_deck(self, card, from_debuff)
 	if from_debuff then return end
 
-	if to_big(G.GAME.dollars) >= to_big(60) then
+	if G.GAME.dollars >= 60 then
 		check_for_unlock({ type = "purchase_dink" })
 	end
 
@@ -52,7 +52,7 @@ function jokerInfo.add_to_deck(self, card, from_debuff)
 	card.cost = card.base_cost
 	card.sell_cost = math.min(10, card.cost/2)
 	card_eval_status_text(card, 'extra', nil, nil, nil, {
-		message = localize{type='variable',key='a_xmult',vars={to_big(card.ability.extra.x_mult)}},
+		message = localize{type='variable',key='a_xmult',vars={card.ability.extra.x_mult}},
 		colour = G.C.MONEY,
 	})
 end

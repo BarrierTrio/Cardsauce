@@ -40,7 +40,7 @@ end
 
 
 sleeveInfo.calculate = function(self, card, context)
-    if context.end_of_round and context.main_eval and to_big(#G.consumeables.cards) < to_big(G.consumeables.config.card_limit)
+    if context.end_of_round and context.main_eval and #G.consumeables.cards < G.consumeables.config.card_limit
     and G.GAME.blind:get_type() == 'Boss' and self.get_current_deck_key() ~= "b_csau_wheel" then
         G.E_MANAGER:add_event(Event({
             func = function()

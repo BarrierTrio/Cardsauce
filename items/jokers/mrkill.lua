@@ -35,11 +35,11 @@ function jokerInfo.calculate(self, card, context)
     if card.debuff then return end
 
     if context.first_hand_drawn then
-        local eval = function() return to_big(G.GAME.current_round.discards_used) == to_big(0) and not G.RESET_JIGGLES end
+        local eval = function() return G.GAME.current_round.discards_used == 0 and not G.RESET_JIGGLES end
         juice_card_until(card, eval, true)
     end
 
-    if context.pre_discard and to_big(G.GAME.current_round.discards_used) <= to_big(0) and #context.full_hand == 1 and not context.blueprint then
+    if context.pre_discard and G.GAME.current_round.discards_used <= 0 and #context.full_hand == 1 and not context.blueprint then
         local destroy = context.full_hand[1]
         local rank = SMODS.Ranks[destroy.base.value]
         local scale_table = {chip_mod = (SMODS.has_no_rank(destroy) and 0 or rank.nominal) + destroy.ability.bonus + (destroy.ability.perma_bonus or 0)}
@@ -54,7 +54,7 @@ function jokerInfo.calculate(self, card, context)
         })
     end
 
-    if to_big(card.ability.extra.chips) > to_big(0) and context.joker_main then
+    if card.ability.extra.chips > 0 and context.joker_main then
         return {
             chips = card.ability.extra.chips,
         }

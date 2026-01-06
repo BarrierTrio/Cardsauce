@@ -73,7 +73,7 @@ function jokerInfo.calculate(self, card, context)
 		end
 	end
 
-	if context.after and to_big(card.ability.extra.remain) <= to_big(0) then
+	if context.after and card.ability.extra.remain <= 0 then
 		ArrowAPI.game.card_expire(card, 'k_meat_destroy', G.C.MONEY)
 		check_for_unlock({ type = "meat_beaten" })
 	end

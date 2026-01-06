@@ -126,7 +126,7 @@ function jokerInfo.calculate(self, card, context)
                 no_message = true
             })
 
-            if to_big(card.ability.extra.rounds) <= to_big(0) then
+            if card.ability.extra.rounds <= 0 then
                 check_for_unlock({ type = "activate_mug" })
                 change_form(card, "moment")
                 card:juice_up()

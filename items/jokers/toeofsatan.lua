@@ -57,7 +57,7 @@ function jokerInfo.calculate(self, card, context)
             no_message = true,
         })
 
-        if to_big(card.ability.extra.discards) > to_big(0) then
+        if card.ability.extra.discards > 0 then
             return {
                 message = "-"..card.ability.extra.discards_mod,
                 colour = G.C.RED

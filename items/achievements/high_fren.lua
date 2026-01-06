@@ -9,7 +9,7 @@ local achInfo = {
                     for k, _v in pairs(G.playing_cards) do
                         if _v:is_face() then faces = faces+1 end
                     end
-                    return to_big(v.ability.extra.chips_mod * faces) >= to_big(100)
+                    return v.ability.extra.chips_mod * faces >= 100
                 end
             end
         end

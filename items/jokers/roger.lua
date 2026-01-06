@@ -41,7 +41,7 @@ end
 function jokerInfo.calculate(self, card, context)
 	if card.debuff then return end
 
-	if context.joker_main and to_big(card.ability.extra.x_mult) > to_big(1) then
+	if context.joker_main and card.ability.extra.x_mult > 1 then
 		return {
 			x_mult = card.ability.extra.x_mult,
 		}
@@ -59,7 +59,7 @@ function jokerInfo.calculate(self, card, context)
 		})
 	end
 
-	if context.end_of_round and to_big(card.ability.extra.x_mult) > to_big(1) then
+	if context.end_of_round and card.ability.extra.x_mult > 1 then
 		card.ability.extra.x_mult = 1
 		return {
 			message = localize('k_reset'),

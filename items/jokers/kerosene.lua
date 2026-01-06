@@ -36,9 +36,9 @@ end
 function jokerInfo.calculate(self, card, context)
     if card.debuff then return end
 
-    if context.joker_main and to_big(card.ability.extra.chips) > to_big(0) then
+    if context.joker_main and card.ability.extra.chips > 0 then
         return {
-            message = localize{type='variable',key='a_chips',vars={to_big(card.ability.extra.chips)}},
+            message = localize{type='variable',key='a_chips',vars={card.ability.extra.chips}},
             chip_mod = card.ability.extra.chips,
             colour = G.C.CHIPS
         }

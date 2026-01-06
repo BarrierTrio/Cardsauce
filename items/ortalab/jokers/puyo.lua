@@ -95,7 +95,7 @@ end
 
 jokerInfo.calculate = function(self, card, context)
     if context.cardarea == G.jokers and context.joker_main then
-        if to_big(card.ability.extra.chips) > to_big(0) then
+        if card.ability.extra.chips > 0 then
             return {
                 chips = card.ability.extra.chips
             }

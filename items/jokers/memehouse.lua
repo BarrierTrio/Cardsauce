@@ -39,7 +39,7 @@ function jokerInfo.calculate(self, card, context)
         end
 
         if faces >= 3 and next(context.poker_hands['Full House'])
-        and to_big(#G.consumeables.cards + G.GAME.consumeable_buffer) < to_big(G.consumeables.config.card_limit) then
+        and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
             G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
             G.E_MANAGER:add_event(Event({
                 func = function()
