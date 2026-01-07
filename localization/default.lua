@@ -352,6 +352,8 @@ return {
 			b_save_morshu_1 = 'Come Back',
 			b_save_morshu_2 = 'MMMMMMM',
 			b_save_morshu_3 = 'Richer',
+			k_blind_hidden = 'Hidden!',
+			k_monkey_mondays = 'Monkey Mondays!',
 
 			-- save strings
 			ph_armageddon = "Annihilated by Odio",
@@ -914,12 +916,6 @@ return {
             },
         },
 		Blind = {
-			bl_mystery={
-				name="???",
-				text={
-					"?????",
-				},
-			},
 			bl_final_vessel = {
 				text = {
 					"HEY WALL",
@@ -2113,9 +2109,9 @@ return {
 			j_csau_monkey = {
 				name = "Monkey Mondays",
 				text = {
-					"All cards have {C:mult}+#1#{} Mult and",
+					"{C:attention}All cards{} have {C:mult}+#1#{} Mult and",
 					"{C:green}#2# in #3#{} chance to be",
-					"destroyed when scored",
+					"{C:attention}destroyed{}3 when scored",
 				},
 				unlock={
 					"Have a {E:1,C:attention}Gros Michel{} go {E:1,C:attention}extinct",
@@ -2352,7 +2348,7 @@ return {
 				text = {
 					"This Joker gains a bonus {C:money}$#1#{} in sell",
 					"value per {C:attention}Face Card{} held in hand",
-					"Sell this Joker to destroy all",
+					"{C:attention}Sell{} this Joker to destroy all",
 					"{C:attention}Face Cards{} held in hand"
 				},
 				unlock = {
@@ -2382,6 +2378,18 @@ return {
 					"in your full deck",
 					"{C:inactive,s:0.8}(Not applicable if{}",
 					"{C:attention,s:0.8}multiple suits{} {C:inactive,s:0.8}are tied){}"
+				},
+				unlock = {
+					"{E:1,s:1.3}?????"
+				}
+			},
+			j_csau_wigsaw_alt = {
+				name = "Wigsaw",
+				text = {
+					"All {C:attention}suit{} effects target the",
+					"suit with the {C:attention}most cards{}",
+					"in your full deck",
+					"{C:inactive}(Currently {} {V:1}#1#{}{C:inactive}){}"
 				},
 				unlock = {
 					"{E:1,s:1.3}?????"

@@ -52,8 +52,16 @@ function jokerInfo.calculate(self, card, context)
 
     if context.destroy_card and context.cardarea == G.play and SMODS.in_scoring(context.destroy_card, context.scoring_hand)
     and SMODS.pseudorandom_probability(card, 'csau_monkey', 1, card.ability.extra.prob) then
+        context.destroy_card.csau_monkey_removed = true
         return {
             remove = true
+        }
+    end
+
+    if context.post_playing_card_removed and context.removed.csau_monkey_removed then
+        return {
+            message = localize('k_monkey_mondays'),
+            card = card
         }
     end
 end

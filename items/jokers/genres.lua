@@ -35,7 +35,7 @@ function jokerInfo.add_to_deck(self, card)
     local count = ArrowAPI.vhs.get_vhs_count()
     if count > 0 then
         G.hand:change_size(card.ability.extra.h_mod * count)
-        card.ability.added_h_size = card.ability.added_h_size + card.ability.extra.h_mod * count
+        card.ability.added_h_size = card.ability.extra.h_mod * count
     end
 end
 
@@ -49,21 +49,15 @@ end
 function jokerInfo.calculate(self, card, context)
     if context.blueprint or card.debuff then return end
 
-    if context.vhs_death and card.ability.added_h_size > card.ability.extra.h_mod then
-        G.hand:change_size(-card.ability.extra.h_mod)
-        card.ability.added_h_size = card.ability.added_h_size - card.ability.extra.h_mod
-        card:juice_up()
-    end
-
     if context.card_added and context.card.ability.set == "VHS" then
         G.hand:change_size(card.ability.extra.h_mod)
         card.ability.added_h_size = card.ability.added_h_size + card.ability.extra.h_mod
         card:juice_up()
     end
 
-    if context.selling_card and context.card.ability.set == "VHS" and card.ability.added_h_size > card.ability.extra.h_mod then
+    if context.removed_card and context.removed_card.ability.set == "VHS" then
         G.hand:change_size(-card.ability.extra.h_mod)
-        card.ability.added_h_size = card.ability.added_h_size - card.ability.extra.h_mod
+        card.ability.added_h_size = math.max(0, card.ability.added_h_size - card.ability.extra.h_mod)
         card:juice_up()
     end
 end

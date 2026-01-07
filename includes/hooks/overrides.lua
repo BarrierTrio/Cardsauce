@@ -112,7 +112,7 @@ SMODS.Consumable:take_ownership('wheel_of_fortune', {
                         blockable = false,
                         blocking = false,
                         func = function()
-                            local nutbuster_active = SMODS.find_card('j_csau_nutbuster')
+                            local nutbuster_active = next(SMODS.find_card('j_csau_nutbuster'))
                             play_sound(nutbuster_active and 'csau_doot' or 'tarot2', nutbuster_active and 1 or 0.76, 0.4);
                             return true
                         end

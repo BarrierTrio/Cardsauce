@@ -74,13 +74,6 @@ function Card:set_cost()
     end
 
     local ret = ref_set_cost(self)
-
-    if (self.ability.set == 'VHS' or (self.ability.set == 'Booster' and self.ability.name:find('Analog'))) then
-        if #SMODS.find_card('j_csau_weretrulyfrauds') > 0 then
-            self.cost = 0
-        end
-    end
-
     self.sell_cost = self.sell_cost + (self.ability.csau_extra_value or 0)
 
     return ret

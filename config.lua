@@ -9,10 +9,8 @@ return {
 		},
 	},
 	["enable_DetailedDescs"] = false,
-	["enable_Logo"] = true,
+	["rows"] = 2,
 	["enable_EasterEggs"] = true,
-	["muteWega"] = false,
-	["forceDisableOrtalab"] = false,
 	["saved_palettes"] = {
 		["Spades"] = {
 			{
@@ -13925,6 +13923,8 @@ return {
 		},
 	},
 	["enable_JoelContent"] = true,
+	["muteWega"] = false,
+	["forceDisableOrtalab"] = false,
 	["enable_VinnyContent"] = true,
-	["rows"] = 2,
+	["enable_Logo"] = true,
 }

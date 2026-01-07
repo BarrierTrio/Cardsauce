@@ -44,6 +44,12 @@ function jokerInfo.loc_vars(self, info_queue, card)
 end
 
 function jokerInfo.calculate(self, card, context)
+    if context.buying_card and context.card.config.center.key == 'v_directors_cut' then
+        return {
+            message = localize('k_upgrade_ex')
+        }
+    end
+
     if context.joker_main and get_chips(card) > 0 then
         return {
             chips = get_chips(card)

@@ -43,7 +43,8 @@ function jokerInfo.check_for_unlock(self, args)
 end
 
 function jokerInfo.calculate(self, card, context)
-    if context.blind_hidden then
+    if context.blind_hidden and context.blind_obj.boss then
+        card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('k_blind_hidden'), colour = G.P_BLINDS['bl_arrow_mystery'].boss_colour})
         return {
             blind_hidden = true
         }
