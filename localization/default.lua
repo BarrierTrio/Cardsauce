@@ -1033,6 +1033,14 @@ return {
 					"Fuck you.",
 				},
 			},
+			csau_glass_alt = {
+				name = "Glass Card",
+				text = {
+					"{X:mult,C:white}X#1#{} Mult",
+                    "{C:green}#2# in #3#{} chance to",
+                    "destroy card",
+				},
+			},
 		},
 		Joker = {
 			j_csau_diaper = {
@@ -2232,10 +2240,14 @@ return {
 			j_csau_itsafeature = {
 				name = "IT'S A FEATURE",
 				text = {
-					"This Joker gains {C:money}$#1#{} per hand played",
-					"{C:green}#2# in #3#{} chance to gain accumulated",
-					"money when a {C:attention}Straight{} is played",
-					"{C:inactive}(Currently {}{C:money}$#4#{}{C:inactive}){}",
+					{
+						"This Joker gains {C:money}$#1#{} per hand played",
+					},
+					{
+						"{C:green}#2# in #3#{} chance to gain accumulated",
+						"money when a {C:attention}Straight{} is played",
+						"{C:inactive}(Currently {}{C:money}$#4#{}{C:inactive}){}",
+					}
 				},
 			},
 			j_csau_bulk = {

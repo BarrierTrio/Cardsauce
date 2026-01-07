@@ -57,6 +57,10 @@ function jokerInfo.calculate(self, card, context)
                 end
             }))
 
+            if i ~= card.ability.extra then
+                delay(0.3)
+            end
+
             cards[#cards+1] = new_card
         end
 

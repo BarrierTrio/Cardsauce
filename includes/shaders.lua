@@ -1,3 +1,8 @@
+SMODS.Shader {
+    key = 'vertex_only',
+    path = 'vertex_only.fs',
+}
+
 ---------------------------
 --------------------------- Stand Draw Steps
 ---------------------------

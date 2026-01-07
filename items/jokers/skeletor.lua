@@ -45,17 +45,19 @@ function jokerInfo.loc_vars(self, info_queue, card)
         card.ability.extra.chips_mod,
         card.ability.extra.x_mult_mod,
         card.ability.extra.chips_mod * num_food,
-        1 + card.ability.extra.x_mult * num_food
+        1 + card.ability.extra.x_mult_mod * num_food
     } }
 end
 
 function jokerInfo.calculate(self, card, context)
     if context.joker_main then
         local num_food = get_food()
-        return {
-            chips = card.ability.extra.chips_mod * num_food,
-            x_mult = 1 + card.ability.extra.x_mult * num_food,
-        }
+        if num_food > 0 then
+            return {
+                chips = card.ability.extra.chips_mod * num_food,
+                x_mult = 1 + card.ability.extra.x_mult_mod * num_food,
+            }
+        end
     end
 end
 

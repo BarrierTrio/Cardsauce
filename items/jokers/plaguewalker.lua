@@ -41,8 +41,9 @@ local function apply_plague(x_mult, break_chance)
 end
 
 function jokerInfo.loc_vars(self, info_queue, card)
-    info_queue[#info_queue+1] = G.P_CENTERS.m_glass
     local num, dom = SMODS.get_probability_vars(card, 1, card.ability.extra.glass_break, 'glass')
+    info_queue[#info_queue+1] = next(SMODS.find_card('j_csau_plaguewalker'))
+    and {key = "csau_glass_alt", set = "Other", specific_vars = {card.ability.extra.glass_mult, num, dom, }} or G.P_CENTERS.m_glass
     return { vars = { card.ability.extra.glass_mult, num, dom } }
 end
 
@@ -61,11 +62,11 @@ function jokerInfo.add_to_deck(self, card, from_debuff)
 end
 
 function jokerInfo.load(self, card, cardTable, other_card)
-    apply_plague(card.ability.extra.glass_mult, card.ability.extra.glass_break)
+    apply_plague(cardTable.ability.extra.glass_mult, cardTable.ability.extra.glass_break)
 end
 
 function jokerInfo.remove_from_deck(self, card, from_debuff)
-    apply_plague(SMODS.Enhancements.m_glass.config.Xmult, SMODS.Enhancements.m_glass.config.extra)
+    apply_plague(G.P_CENTERS.m_glass.config.Xmult, G.P_CENTERS.m_glass.config.extra)
 end
 
 return jokerInfo

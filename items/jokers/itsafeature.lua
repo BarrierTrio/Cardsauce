@@ -48,22 +48,23 @@ function jokerInfo.calculate(self, card, context)
     if context.blueprint then return end
 
     if context.before then
-        SMODS.scale_card(card, {
-            ref_table = card.ability.extra,
-            ref_value = "money",
-            scalar_value = "money_mod",
-            scale_message = {
-                message = localize('$')..card.ability.extra.money,
-                colour = G.C.ATTENTION,
-            }
-        })
+        if card.ability.extra.money > 0 and SMODS.pseudorandom_probability(card, 'csau_feature', 1, card.ability.extra.prob) then
+            card.ability.csau_feature_activated = true
+        else
+            SMODS.scale_card(card, {
+                ref_table = card.ability.extra,
+                ref_value = "money",
+                scalar_value = "money_mod",
+                scaling_message = {
+                    message = localize('$')..card.ability.extra.money,
+                    colour = G.C.MONEY,
+                }
+            })
+        end
+
 
         if card.ability.extra.money >= card.ability.extra.ach_dollars then
             check_for_unlock({ type = "high_feature" })
-        end
-
-        if card.ability.extra.money > 0 and SMODS.pseudorandom_probability(card, 'csau_feature', 1, card.ability.extra.prob) then
-            card.ability.csau_feature_activated = true
         end
     end
 

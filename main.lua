@@ -358,7 +358,7 @@ ArrowAPI.config_tools.add_default_palette(ArrowAPI, 'Clubs', {
 }, true)
 
 ArrowAPI.config_tools.add_default_palette(ArrowAPI, 'Background', {
-	{80,132,110,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={1,0}},["overrides"]={},["key"]="Small"},
+	{75,194,146,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={1,0}},["overrides"]={},["key"]="Small"},
 	{79,99,103,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={1,0}},["overrides"]={},["key"]="won"},
 	{75,194,146,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={1,0}},["overrides"]={},["key"]="SHOWDOWN_COL_1"},
 	{136,103,165,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={1,0}},["overrides"]={},["key"]="SHOWDOWN_COL_2"},
@@ -451,6 +451,12 @@ ArrowAPI.game.add_game_globals_func(Cardsauce, function(run_start)
 	csau_reset_joeycastle()
 	csau_reset_choicevoice()
 	csau_reset_duane()
+end)
+
+ArrowAPI.game.add_reset_keys_func(Cardsauce, function()
+    return {
+        'tetris'
+    }
 end)
 
 local includes = {

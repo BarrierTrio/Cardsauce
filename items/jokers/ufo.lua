@@ -61,7 +61,7 @@ function jokerInfo.loc_vars(self, info_queue, card)
     end
 
     return {
-        vars = { card.ability.extra },
+        vars = { card.ability.extra.round_limit - card.ability.extra.ufo_rounds },
         main_end = main_end
     }
 end
@@ -84,6 +84,13 @@ function jokerInfo.add_to_deck(self, card)
                 return true end
         }))
         card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('k_abducted')})
+    end
+end
+
+function jokerInfo.load(self, card, cardTable, other_card)
+    if cardTable.ability.extra.ufo_rounds == cardTable.ability.extra.round_limit then
+        local eval = function(condition_card) return not condition_card.REMOVED end
+        juice_card_until(card, eval, true)
     end
 end
 
@@ -116,20 +123,20 @@ function jokerInfo.calculate(self, card, context)
             ref_table = card.ability.extra,
             ref_value = "ufo_rounds",
             scalar_value = "rounds_mod",
-            scale_message = {
-                message = (card.ability.extra.ufo_rounds < card.ability.extra.round_limit)
-                and (card.ability.extra.ufo_rounds..'/'..card.ability.extra.round_limit) or localize('k_active_ex'),
+            scaling_message = {
+                message = (card.ability.extra.ufo_rounds + card.ability.extra.rounds_mod < card.ability.extra.round_limit)
+                and ((card.ability.extra.ufo_rounds + card.ability.extra.rounds_mod)..'/'..card.ability.extra.round_limit) or localize('k_active_ex'),
                 colour = G.C.DARK_EDITION
             }
         })
 
-        if card.ability.ufo_rounds == card.ability.extra then
+        if card.ability.extra.ufo_rounds == card.ability.extra.round_limit then
             local eval = function(condition_card) return not condition_card.REMOVED end
             juice_card_until(card, eval, true)
         end
     end
 
-    if context.selling_self and (card.ability.extra.ufo_rounds >= card.ability.extra.extra) then
+    if context.selling_self and (card.ability.extra.ufo_rounds >= card.ability.extra.round_limit) then
         card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('k_duplicated_ex')})
         local dropped_card = SMODS.create_card({ set = 'Joker', area = G.jokers, key = card.ability.extra.card_key, edition = 'e_negative' } )
         dropped_card.ability = card.ability.extra.card_ability

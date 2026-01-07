@@ -5,7 +5,6 @@ local jokerInfo = {
     config = {
         extra = {
             x_mult_mod = 0.25,
-            x_mult = 1,
         },
     },
     rarity = 2,
@@ -56,7 +55,7 @@ function jokerInfo.calculate(self, card, context)
         local vouchers = voucher_count()
         if vouchers > 0 then
             return {
-                x_mult = voucher_count() * card.ability.extra.x_mult_mod,
+                x_mult = 1 + vouchers * card.ability.extra.x_mult_mod,
             }
         end
     end

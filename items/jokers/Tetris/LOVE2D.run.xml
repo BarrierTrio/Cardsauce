@@ -1,9 +1,0 @@
-<component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="LOVE2D" type="Application" factoryName="Application" singleton="false">
-    <module name="CardsauceTetris" />
-    <option name="PROGRAM_PARAMETERS" value="D:\Modding\Cardsauce\CardsauceTetris" />
-    <method v="2">
-      <option name="ToolBeforeRunTask" enabled="true" actionId="Tool_External Tools_Love2D" />
-    </method>
-  </configuration>
-</component>

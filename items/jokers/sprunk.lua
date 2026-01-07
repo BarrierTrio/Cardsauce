@@ -373,8 +373,7 @@ local jokerInfo = {
 }
 
 function jokerInfo.loc_vars(self, info_queue, card)
-    local num, dom = SMODS.get_probability_vars(card, card.ability.extra.prob_extra, card.ability.extra.prob, 'csau_sprunk_crash')
-    num = SMODS.food_expires(card, true) and 0 or num
+    local num, dom = SMODS.get_probability_vars(card, SMODS.food_expires(card) and card.ability.extra.prob_extra or 0, card.ability.extra.prob, 'csau_sprunk_crash')
     return { vars = { card.ability.extra.mult_mod, card.ability.extra.prob_mod, num, dom, card.ability.extra.mult } }
 end
 
@@ -386,7 +385,7 @@ function jokerInfo.calculate(self, card, context)
     if card.debuff then return end
 
     if context.money_altered and context.from_shop then
-        local scale_table = {mult_mod = -context.amount * v.ability.extra.mult_mod, prob_mod = -context.amount * v.ability.extra.prob_mod}
+        local scale_table = {mult_mod = -context.amount * card.ability.extra.mult_mod, prob_mod = -context.amount * card.ability.extra.prob_mod}
         SMODS.scale_card(card, {
             ref_table = card.ability.extra,
             ref_value = "mult",
@@ -404,8 +403,8 @@ function jokerInfo.calculate(self, card, context)
         })
     end
 
-    if context.before and SMODS.pseudorandom_probability(card, 'csau_sprunk_crash', card.ability.extra.prob_extra, card.ability.extra.prob)
-    and SMODS.food_expires(card) then
+    if context.before and SMODS.food_expires(card)
+    and SMODS.pseudorandom_probability(card, 'csau_sprunk_crash', card.ability.extra.prob_extra, card.ability.extra.prob) then
 
         local numerator = card.ability.hidden_prob.manip and 1 or card.ability.hidden_prob.non_manip_rate
         if SMODS.pseudorandom_probability(card, 'csau_sprunk_delete', numerator, card.ability.hidden_prob.prob) then

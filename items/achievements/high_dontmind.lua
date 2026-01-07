@@ -3,7 +3,7 @@ local achInfo = {
     config = {joker_1 = 'j_csau_dontmind', joker_2 = 'j_csau_pivot', level = 20},
     unlock_condition = function(self, args)
         return args.type == "hand_level" and (next(SMODS.find_card(self.config.joker_1)) or next(SMODS.find_card(self.config.joker_2)))
-        and args.hand == "High Card" and to_big(args.level) < to_big(self.config.level) and to_big(args.level_after) >= to_big(self.config.level)
+        and args.hand == "High Card" and args.level < self.config.level and args.level_after >= self.config.level
     end,
 }
 

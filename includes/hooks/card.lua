@@ -4,8 +4,10 @@ function Card:set_ability(center, initial, delay_sprites)
 
     if self.config.center.key == 'm_glass' and next(SMODS.find_card('j_csau_plaguewalker')) then
         local plague = SMODS.find_card('j_csau_plaguewalker')[1]
+        sendDebugMessage('updating glass card to plague values')
         self.ability.extra = plague.ability.extra.glass_break
         self.ability.Xmult = plague.ability.extra.glass_mult
+        self.ability.x_mult = plague.ability.extra.glass_mult
     end
 
     return ret

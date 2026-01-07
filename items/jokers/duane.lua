@@ -40,9 +40,15 @@ function jokerInfo.loc_vars(self, info_queue, card)
     }
 end
 
+function jokerInfo.set_sprites(self, card, front)
+    local suit = G.GAME.current_round.duane_suit
+    local y_off = (suit == 'Hearts' and 1) or (suit == 'Clubs' and 2)
+    or (suit == 'Diamonds' and 3) or (suit == 'Spades' and 4) or 0
+    card.children.center:set_sprite_pos({x = self.pos.x, y = self.pos.y + y_off})
+end
+
 function jokerInfo.calculate(self, card, context)
     if context.csau_duane_change then
-
         local y_off = (context.suit == 'Hearts' and 1) or (context.suit == 'Clubs' and 2)
         or (context.suit == 'Diamonds' and 3) or (context.suit == 'Spades' and 4) or 0
         G.E_MANAGER:add_event(Event({
@@ -56,6 +62,7 @@ function jokerInfo.calculate(self, card, context)
             message = localize{type = 'variable', key = 'a_duane', vars = {string.upper(localize(context.suit, 'suits_plural'))}}
         }
     end
+
     if context.cardarea == G.play and context.repetition and not card.debuff
     and context.other_card:is_suit(G.GAME.current_round.duane_suit) then
         return {

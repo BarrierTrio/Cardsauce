@@ -31,14 +31,14 @@ local jokerInfo = {
 function jokerInfo.loc_vars(self, info_queue, card)
     local four_fingers = SMODS.four_fingers()
     if not ArrowAPI.config['enabled_DetailedDescs'] then
-        info_queue[#info_queue+1] = {key = "rogernote", set = "Other", vars = {four_fingers and 4 or 5}}
+        info_queue[#info_queue+1] = {key = "rogernote", set = "Other", vars = {four_fingers}}
         return {
-            vars = { math.ceil(card.ability.extra.fingers / (four_fingers and 4 or 5)) }
+            vars = {card.ability.extra.fingers }
         }
     end
 
     return {
-        vars = { card.ability.extra.fingers },
+        vars = { math.ceil(card.ability.extra.fingers / (four_fingers)) },
     }
 end
 
@@ -46,7 +46,7 @@ function jokerInfo.calculate(self, card, context)
     if card.debuff or context.blueprint or context.joker_retrigger then return end
 
     if context.destroy_card and context.cardarea == G.play then
-        card.ability.extra.fingers = math.max(0, card.ability.extra.fingers - (SMODS.four_fingers() and 4 or 5))
+        card.ability.extra.fingers = math.max(0, card.ability.extra.fingers - (SMODS.four_fingers()))
 
         if card.ability.extra.fingers > 0 then
              G.E_MANAGER:add_event(Event({
