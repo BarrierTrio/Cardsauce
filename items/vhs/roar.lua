@@ -18,6 +18,7 @@ local consumInfo = {
 
 function consumInfo.calculate(self, card, context)
     if context.filter_draw then
+        ArrowAPI.vhs.run_tape(card)
         return {
             rank_min = 6
         }

@@ -1,0 +1,42 @@
+[manifest]
+version = "1.0.0"
+priority = 0
+
+#
+# Adds a "nope" text and effect when a card returns 0
+#
+
+# CardArea:parse_highlighted()
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = '''if num_dollars < 0 then dollars_to_loop = (num_dollars*-1)+1 else dollars_to_loop = num_dollars end'''
+position = "after"
+payload = '''if num_dollars == 0 then
+    G.E_MANAGER:add_event(Event({
+        trigger = 'before',
+        delay = 0.18,
+        func = function()
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                delay = 0.06*G.SETTINGS.GAMESPEED,
+                blockable = false,
+                blocking = false,
+                func = function()
+                    play_sound('tarot2', 0.76, 0.4);
+                    return true
+                end
+            }))
+            play_sound('tarot2', 0.76, 0.4)
+
+            G.round_eval:add_child({n=G.UIT.R, config={align = "cm", id = 'dollar_row_'..(dollar_row+1)..'_'..config.name}, nodes={
+                {n=G.UIT.T, config={text = localize('k_nope_ex'), colour = G.C.FILTER, scale = 0.58, shadow = true, hover = true, can_collide = false, juice = true}}
+            }}, G.round_eval:get_UIE_by_ID('dollar_'..config.name))
+            G.VIBRATION = G.VIBRATION + 0.4
+            return true
+        end
+    }))
+    return
+end'''
+match_indent = true
+

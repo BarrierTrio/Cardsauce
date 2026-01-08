@@ -6,7 +6,11 @@ local consumInfo = {
     runtime = 3,
     cost = 3,
     alerted = true,
-    config = {},
+    config = {
+        extra = {
+
+        }
+    },
     origin = {
         category = 'rlm',
         sub_origins = {
@@ -32,15 +36,6 @@ function consumInfo.calculate(self, card, context)
     end
 
     card.ability.extra.csau_chopping_this_hand = true
-
-    G.E_MANAGER:add_event(Event({
-        trigger = 'immediate',
-        blocking = false,
-        func = function()
-            card:juice_up()
-            return true
-        end
-    }))
 
     return {
         message = localize('k_again_ex'),

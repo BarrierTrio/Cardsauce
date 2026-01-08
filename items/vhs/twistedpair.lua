@@ -14,21 +14,23 @@ function consumInfo.calculate(self, card, context)
     if card.debuff then return end
 
     if card.ability.activated and context.before then
-        if not context.blueprint then
-            ArrowAPI.vhs.run_tape(card)
-        end
+        local new_copy = copy_card(context.scoring_hand[1])
+        new_copy:start_materialize({G.C.SECONDARY_SET.Enhanced})
+        G.hand:emplace(new_copy)
+        table.insert(G.playing_cards, new_copy)
+        new_copy.states.visible = nil
 
         G.E_MANAGER:add_event(Event({
             func = function()
-                local _card = copy_card(context.scoring_hand[1])
-                _card:start_materialize({G.C.SECONDARY_SET.Enhanced})
-                G.hand:emplace(_card)
-                table.insert(G.playing_cards, _card)
-                playing_card_joker_effects({_card})
+                new_copy:start_materialize()
                 card:juice_up()
                 return true
             end
         }))
+
+        if not context.blueprint then
+            ArrowAPI.vhs.run_tape(card)
+        end
     end
 end
 

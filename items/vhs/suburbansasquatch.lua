@@ -8,7 +8,7 @@ local consumInfo = {
     alerted = true,
     config = {
         extra = {
-            runtime = 2,
+            inc = 2
         },
     },
     origin = {
@@ -20,6 +20,10 @@ local consumInfo = {
     },
     artist = 'AlizarinRed'
 }
+
+function consumInfo.loc_vars(self, info_queue, card)
+    return { vars = {card.ability.extra.inc}}
+end
 
 function consumInfo.calculate(self, card, context)
     if card.ability.activated and context.final_scoring_step then

@@ -4,7 +4,7 @@ local jokerInfo = {
 	pos = {x = 7, y = 13},
     config = {
         extra = {
-            x_mult_mod = 0.25,
+            x_mult_mod = 0.4,
         },
     },
     rarity = 2,

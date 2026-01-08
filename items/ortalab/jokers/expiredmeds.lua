@@ -53,12 +53,13 @@ function jokerInfo.calculate(self, card, context)
         end
     end
 
-    if context.created_card and context.area == G.shop_jokers and G.GAME.csau_sold_meds then
-        context.created_card:set_ability(G.P_CENTERS[G.GAME.csau_sold_meds.key], nil, nil)
-        context.created_card.ability.extra.chips = context.created_card.ability.extra.chips + context.created_card.ability.extra.chips_mod * G.GAME.csau_unique_meds_acquired
+    if context.modify_shop_card and G.GAME.csau_sold_meds then
+        context.card:set_ability(G.P_CENTERS[G.GAME.csau_sold_meds.key], nil, nil)
+        context.card.ability.extra.chips = context.created_card.ability.extra.chips + context.created_card.ability.extra.chips_mod * G.GAME.csau_unique_meds_acquired
         if G.GAME.csau_sold_meds.edition then
-            context.created_card:set_edition({[G.GAME.csau_sold_meds.edition] = true}, true, true)
+            context.card:set_edition({[G.GAME.csau_sold_meds.edition] = true}, true, true)
         end
+        G.GAME.csau_sold_meds = nil
     end
 end
 

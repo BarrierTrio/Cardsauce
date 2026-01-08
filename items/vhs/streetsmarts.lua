@@ -22,17 +22,18 @@ local consumInfo = {
     artist = 'yumz'
 }
 
+function consumInfo.loc_vars(self, info_queue, card)
+    return { vars = {card.ability.extra.mult}}
+end
+
 function consumInfo.calculate(self, card, context)
     if card.debuff then return end
 
     if card.ability.activated and context.joker_main and G.GAME.current_round.hands_left == 0 then
+        ArrowAPI.vhs.run_tape(card)
         return {
             mult = card.ability.extra.mult
         }
-    end
-
-    if card.ability.activated and context.end_of_round and context.main_eval and not context.blueprint then
-        ArrowAPI.vhs.run_tape(card)
     end
 end
 

@@ -5,7 +5,7 @@ local jokerInfo = {
 	config = {
 		extra = {
 			mult = 0,
-			mult_mod = 2,
+			mult_mod = 4,
 			tally = 0,
 			rank_id = 2,
 		}

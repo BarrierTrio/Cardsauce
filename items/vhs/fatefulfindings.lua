@@ -33,21 +33,20 @@ function consumInfo.calculate(self, card, context)
         G.E_MANAGER:add_event(Event({
             trigger = 'after',
             func = function()
-                local _card = find_first_card(G.pack_cards.cards)
-                if _card then
-                    _card.area:remove_card(_card)
-                    _card:add_to_deck()
-                    if _card.children.price then
-                        _card.children.price:remove()
+                local stolen_card = find_first_card(G.pack_cards.cards)
+                if stolen_card then
+                    stolen_card.area:remove_card(stolen_card)
+                    stolen_card:add_to_deck()
+                    if stolen_card.children.price then
+                        stolen_card.children.price:remove()
                     end
-                    _card.children.price = nil
-                    if _card.children.buy_button then
-                        _card.children.buy_button:remove()
+                    stolen_card.children.price = nil
+                    if stolen_card.children.buy_button then
+                        stolen_card.children.buy_button:remove()
                     end
-                    _card.children.buy_button = nil
-                    remove_nils(_card.children)
-                    G.consumeables:emplace(_card)
-                    card:juice_up()
+                    stolen_card.children.buy_button = nil
+                    remove_nils(stolen_card.children)
+                    G.consumeables:emplace(stolen_card)
 
                     ArrowAPI.vhs.run_tape(card)
                 end

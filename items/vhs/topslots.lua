@@ -8,14 +8,12 @@ local consumInfo = {
     alerted = true,
     config = {
         extra = {
-            max_initial_money = 20,
+            max_winnings = 20,
             winnings = 0,
-            conv_money = 1,
-            conv_score = 20,
+            money_mod = 1,
+            score_per = 0.2,
             prob_double = 6,
-            double = 2,
             prob_triple = 8,
-            triple = 3,
         },
         alt_title = true,
     },
@@ -29,53 +27,27 @@ local consumInfo = {
     artist = 'chvsau'
 }
 
-
 function consumInfo.loc_vars(self, info_queue, card)
     local num, dom1 = SMODS.get_probability_vars(card, 1, card.ability.extra.prob_double, 'csau_topslots_double')
     local _, dom2 = SMODS.get_probability_vars(card, 1, card.ability.extra.prob_triple, 'csau_topslots_triple')
 
     return {
         vars = {
-            card.ability.extra.conv_money,
-            card.ability.extra.conv_score,
-            card.ability.extra.max_initial_money,
+            card.ability.extra.money_mod,
+            card.ability.extra.score_per * 100,
+            card.ability.extra.max_winnings,
             num, dom1, dom2,
         },
-        key = self.key..'_alt_title'
+        key = self.key..'_alt'
     }
 end
 
 function consumInfo.calculate(self, card, context)
     if card.debuff or context.blueprint then return end
 
-    if card.ability.activated and context.end_of_round and context.main_eval and G.GAME.chips > G.GAME.blind.chips then
-        local percent = ((G.GAME.chips - G.GAME.blind.chips) / G.GAME.blind.chips) * 100
-        local money = math.floor(percent / card.ability.extra.conv_score) + card.ability.extra.conv_money
-        if money > card.ability.extra.max_initial_money then
-            money = card.ability.extra.max_initial_money
-        end
-
-        local doubled, tripled = false, false
-        if SMODS.pseudorandom_probability(card, 'csau_topslots_double', 1, card.ability.extra.prob_double) then
-            money = money * card.ability.extra.double
-            doubled = true
-        end
-
-        if SMODS.pseudorandom_probability(card, 'csau_topslots_triple', 1, card.ability.extra.prob_triple) then
-            money = money * card.ability.extra.triple
-            tripled = true
-        end
-
-        card.ability.extra.winnings = money
-
-        ArrowAPI.vhs.run_tape(card)
-
-        if doubled or tripled then
-            return {
-                message = localize((doubled and tripled and 'k_ts_wild') or (doubled and not tripled and 'k_ts_doubled') or (tripled and not doubled and 'k_ts_tripled')),
-                card = card
-            }
-        end
+    if context.end_of_round and context.main_eval and not context.game_over then
+        local percent = ((G.GAME.chips - G.GAME.blind.chips) / G.GAME.blind.chips)
+        card.ability.extra.winnings = math.min(card.ability.extra.max_winnings, math.floor(percent / card.ability.extra.score_per) * card.ability.extra.money_mod)
     end
 
     if card.ability.activated and context.game_over then
@@ -84,7 +56,34 @@ function consumInfo.calculate(self, card, context)
 end
 
 function consumInfo.calc_dollar_bonus(self, card)
-    return card.ability.extra.winnings
+    if card.ability.activated then
+        local winnings = card.ability.extra.winnings
+        ArrowAPI.vhs.run_tape(card)
+
+        if winnings == 0 then
+            return winnings
+        end
+        local doubled, tripled = false, false
+        if SMODS.pseudorandom_probability(card, 'csau_topslots_double', 1, card.ability.extra.prob_double) then
+            money = money * card.ability.extra.double
+            doubled = true
+        end
+        if SMODS.pseudorandom_probability(card, 'csau_topslots_triple', 1, card.ability.extra.prob_triple) then
+            money = money * card.ability.extra.triple
+            tripled = true
+        end
+
+
+        if doubled or tripled then
+            local loc_key = (doubled and tripled and 'k_ts_wild') or (doubled and 'k_ts_doubled') or 'k_ts_tripled'
+            card_eval_status_text(card, 'extra', nil, nil, nil, {
+                message = localize(loc_key),
+                colour = G.C.MONEY,
+            })
+        end
+
+        return card.ability.extra.winnings
+    end
 end
 
 return consumInfo
