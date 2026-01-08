@@ -78,6 +78,9 @@ ArrowAPI.misc.add_colors({
     ['CSAU_ACH_RARE_2'] = HEX('CECECE'),
     ['CSAU_ACH_RARE_3'] = HEX('EBB04F'),
     ['CSAU_ACH_RARE_4'] = copy_table(Cardsauce.badge_colour),
+	['GRAND_1'] = HEX('0C5EDF'),
+	['GRAND_2'] = HEX('FF8D6E'),
+	['GRAND_3'] = HEX('751000')
 })
 
 ArrowAPI.ui.add_badge_colors(Cardsauce, {

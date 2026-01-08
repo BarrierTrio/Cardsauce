@@ -353,7 +353,6 @@ return {
 			b_save_morshu_2 = 'MMMMMMM',
 			b_save_morshu_3 = 'Richer',
 			k_blind_hidden = 'Hidden!',
-			k_monkey_mondays = 'Monkey Mondays!',
 
 			-- save strings
 			ph_armageddon = "Annihilated by Odio",
@@ -436,6 +435,15 @@ return {
 			k_ufo_alert = "Nothing to abduct!",
 			b_planet_card = "Planet Card",
 			k_survived = 'Survived!',
+			k_monkey_mondays = 'Monkey Mondays!',
+			k_grand_1 = "GRAND DAD!",
+			k_grand_2 = "FLEENTSTONES?",
+			k_grand_3 = 'UHHHHHHHHH',
+			k_grand_4 = "GRAND DAD?",
+			k_grand_5 = "WHAT THE FUCK!",
+			k_grand_6 = "WHAT THE SHIT!",
+			k_grand_7 = "GRAND DAD!",
+			k_grand_expire = "Mario's Bloody Teeth?",
 
 			-- badge titles
 			ba_cardsauce = "Cardsauce",
@@ -1709,8 +1717,8 @@ return {
 			j_csau_grand = {
 				name = "7 Funny Story",
 				text = {
-					"{C:green}#1# in #2#{} chance to give {X:mult,C:white}X#3#{} Mult",
-					"if played hand contains a {C:attention}7"
+					"The next {C:attention}#1#{} scored {C:attention}#2#s{}",
+					"give {X:mult,C:white}X#3#{} Mult"
 				},
 			},
 			j_csau_voice = {

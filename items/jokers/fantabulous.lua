@@ -41,7 +41,13 @@ function jokerInfo.calculate(self, card, context)
 	if context.blueprint then return end
 
 	if context.end_of_round and context.main_eval and SMODS.food_expires(card) then
-		card.ability.extra.sell_val = card.ability.extra.sell_val - card.ability.extra.money_mod
+		SMODS.scale_card(card, {
+            ref_table = card.ability.extra,
+            ref_value = "sell_val",
+            scalar_value = "sell_val",
+			operation = '-',
+            no_message = true
+        })
 		card.sell_cost = card.ability.extra.sell_val
 		if card.ability.extra.sell_val > 0 then
 			return {

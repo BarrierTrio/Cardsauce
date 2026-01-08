@@ -44,7 +44,13 @@ function jokerInfo.calculate(self, card, context)
     if card.debuff or context.blueprint then return end
 
     if context.starting_shop and SMODS.food_expires(card) then
-        card.ability.extra.dollars = card.ability.extra.dollars - card.ability.extra.dollars_mod
+        SMODS.scale_card(card, {
+            ref_table = card.ability.extra,
+            ref_value = "dollars",
+            scalar_value = "dollars_mod",
+			operation = '-',
+            no_message = true
+        })
         if card.ability.extra.dollars <= 0 then
             check_for_unlock({ type = "expire_crudeoil" })
             ArrowAPI.game.card_expire(card, 'k_drank_ex', G.C.MONEY)

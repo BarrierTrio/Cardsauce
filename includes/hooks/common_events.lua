@@ -34,7 +34,11 @@ function check_for_unlock(args)
     return ret
 end
 
---------------------------- Force clear main_start and main_end
+
+
+
+---------------------------
+--------------------------- Fix suit colors for wigsaw
 ---------------------------
 local ref_card_ui = generate_card_ui
 function generate_card_ui(_c, full_UI_table, specific_vars, card_type, badges, hide_desc, main_start, main_end, card, ...)
@@ -50,4 +54,17 @@ function generate_card_ui(_c, full_UI_table, specific_vars, card_type, badges, h
     end
 
     return ref_card_ui(_c, full_UI_table, specific_vars, card_type, badges, hide_desc, main_start, main_end, card, ...)
+end
+
+
+---------------------------
+--------------------------- grand dad percent change
+---------------------------
+local ref_status_text = card_eval_status_text
+function card_eval_status_text(card, eval_type, amt, percent, dir, extra)
+    if extra and extra.manual_percent then
+        percent = extra.manual_percent
+    end
+
+    return ref_status_text(card, eval_type, amt, percent, dir, extra)
 end
