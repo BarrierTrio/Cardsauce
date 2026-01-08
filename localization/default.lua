@@ -2045,13 +2045,15 @@ return {
 					"{C:inactive}(Currently {}{C:money}$#3#{}{C:inactive})"
 				},
 			},
-			j_csau_lidl = {
-				name = "LiDL",
-				text = {
-					"All Vouchers in",
-					"shop are {C:attention}#1#%{} off"
-				},
-			},
+            j_csau_lidl = {
+                name = "LiDL",
+                text={
+                    "Earn {C:money}$#1#{} at end of round",
+                    "for each {C:attention}Voucher{}",
+                    "redeemed this run",
+                    "{C:inactive}(Currently {C:money}$#2#{C:inactive})",
+                },
+            },
 			j_csau_toeofsatan = {
 				name = "Toe of Satan",
 				text = {
