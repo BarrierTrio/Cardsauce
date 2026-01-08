@@ -408,7 +408,7 @@ function jokerInfo.calculate(self, card, context)
 
         local numerator = card.ability.hidden_prob.manip and 1 or card.ability.hidden_prob.non_manip_rate
         if SMODS.pseudorandom_probability(card, 'csau_sprunk_delete', numerator, card.ability.hidden_prob.prob) then
-            send("RUN DELETED! LOL")
+            ArrowAPI.logging.send("RUN DELETED! LOL")
             check_for_unlock({ type = "get_sprunked" })
             if G.STAGE == G.STAGES.RUN then
                 G.STATE = G.STATES.GAME_OVER

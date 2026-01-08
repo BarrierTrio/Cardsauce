@@ -4,7 +4,7 @@ local jokerInfo = {
 	pos = {x = 4, y = 9},
     config = {
         extra = {
-            discount = 0.5,
+            dollars_mod = 2,
         },
     },
     rarity = 1,
@@ -12,7 +12,7 @@ local jokerInfo = {
     blueprint_compat = false,
     eternal_compat = true,
     perishable_compat = true,
-origin = {
+    origin = {
         category = 'cardsauce',
         sub_origins = {
             'joel',
@@ -27,30 +27,26 @@ origin = {
     artist = {'BardVergil', 'Kekulism'}
 }
 
+local function get_voucher_count()
+    if G.GAME and G.GAME.used_vouchers then
+        local count = 0
+        for k, v in pairs(G.GAME.used_vouchers) do
+            if v then count = count + 1 end
+        end
+        return count
+    else
+        return 0
+    end
+end
+
 function jokerInfo.loc_vars(self, info_queue, card)
-    return { vars = { card.ability.extra.discount * 100 } }
+    return { vars = { card.ability.extra.dollars_mod, (get_voucher_count() * card.ability.extra.dollars_mod) } }
 end
 
-function jokerInfo.add_to_deck(self, card, from_debuff)
-    G.E_MANAGER:add_event(Event({
-        trigger = 'after',
-        delay = 0.15,
-        func = function()
-            ArrowAPI.game.set_center_discount(card, card.ability.extra.discount, true, 'Voucher')
-            return true
-        end
-    }))
-end
-
-function jokerInfo.remove_from_deck(self, card, from_debuff)
-    G.E_MANAGER:add_event(Event({
-        trigger = 'after',
-        delay = 0.15,
-        func = function()
-            ArrowAPI.game.clear_discount(card)
-            return true
-        end
-    }))
+function jokerInfo.calc_dollar_bonus(self, card)
+    if not card.debuff then
+        return ( get_voucher_count() * card.ability.extra.dollars_mod )
+    end
 end
 
 return jokerInfo
