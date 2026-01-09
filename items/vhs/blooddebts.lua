@@ -4,11 +4,11 @@ local consumInfo = {
 	pos = {x = 5, y = 1},
     set = "VHS",
     runtime = 3,
-    cost = 3,
+    cost = 6,
     blueprint_compat = false,
     config = {
         extra = {
-            interest = 1,
+            interest = 2,
         }
     },
     origin = {

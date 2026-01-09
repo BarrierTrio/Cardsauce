@@ -3,8 +3,8 @@ local consumInfo = {
     atlas = 'vhs',
 	pos = {x = 6, y = 3},
     set = "VHS",
-    runtime = 2,
-    cost = 3,
+    runtime = 3,
+    cost = 6,
     config = {
         extra = {
             blind_mod = 0.15

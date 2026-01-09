@@ -3,8 +3,8 @@ local consumInfo = {
     set = "VHS",
     atlas = 'vhs',
 	pos = {x = 4, y = 1},
-    runtime = 3,
-    cost = 3,
+    runtime = 4,
+    cost = 6,
     config = {
         extra = {
             x_mult = 2,

@@ -74,9 +74,38 @@ function Card:set_cost()
     end
 
     local ret = ref_set_cost(self)
+
+    if self.config.center.key == 'j_csau_fantabulous' then
+        sendDebugMessage('setting fantabulous sell')
+        self.csau_fantabulous_sell = self.sell_cost + (self.ability.csau_extra_value or 0)
+        self.sell_cost = self.ability.extra.sell_val + (self.ability.csau_extra_value or 0)
+        self.sell_cost_label = self.sell_cost..'?'
+        return ret
+    end
+
     self.sell_cost = self.sell_cost + (self.ability.csau_extra_value or 0)
 
     return ret
+end
+
+local ref_card_update = Card.update
+function Card:update(dt)
+    local ret = ref_card_update(self, dt)
+    if self.config.center.key == 'j_csau_fantabulous' then
+        self.sell_cost_label = self.sell_cost..'?'
+    end
+
+    return ret
+end
+
+local ref_sell_card = Card.sell_card
+function Card:sell_card()
+    if self.config.center.key == 'j_csau_fantabulous' then
+        self.sell_cost = self.csau_fantabulous_sell
+        sendDebugMessage('setting sell cost to '..tostring(self.csau_fantabulous_sell))
+    end
+
+    return ref_sell_card(self)
 end
 
 

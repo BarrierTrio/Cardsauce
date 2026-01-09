@@ -4,16 +4,12 @@ local consumInfo = {
 	pos = {x = 4, y = 2},
     set = "VHS",
     runtime = 5,
-    cost = 3,
+    cost = 6,
     blueprint_compat = false,
     config = {
-        activation = true,
         extra = {
-            runtime = 1,
-            uses = 0,
-        },
-        activated = false,
-        destroyed = false,
+            edition = 'negative',
+        }
     },
     origin = {
         category = 'cardsauce',
@@ -34,13 +30,13 @@ function consumInfo.calculate(self, card, context)
         G.E_MANAGER:add_event(Event({
             trigger = 'after',
             func = function()
-                created:set_edition({ negative = true }, true)
+                created:set_edition({ [card.ability.extra.edition] = true }, true)
                 created:set_rental(true)
                 return true
             end
         }))
 
-        ArrowAPI.vhs.run_tape(created)
+        ArrowAPI.vhs.run_tape(card)
         delay(0.3)
     end
 end

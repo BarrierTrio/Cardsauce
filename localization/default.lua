@@ -373,6 +373,7 @@ return {
 			k_child = "Child",
 			k_plus_judge = "+1 Judgement",
 			k_plus_negative = "+1 Negative Tag",
+			k_plus_csau_corrupted = "+1 Corrupted Tag",
 			k_plus_charm = "+1 Charm Tag",
 			k_meat_seal = "Yeow!",
 			k_meat_destroy = "Nyomp!",
@@ -443,7 +444,7 @@ return {
 			k_grand_5 = "WHAT THE FUCK!",
 			k_grand_6 = "WHAT THE SHIT!",
 			k_grand_7 = "GRAND DAD!",
-			k_grand_expire = "Mario's Bloody Teeth?",
+			k_grand_expire = "Hold On!",
 
 			-- badge titles
 			ba_cardsauce = "Cardsauce",
@@ -1466,9 +1467,16 @@ return {
 			j_csau_emmanuel = {
 				name = "Emmanuel Blast",
 				text = {
-					"{C:green}#1# in #2#{} chance to create",
-					"a {C:dark_edition}Negative Tag{} at",
-					"end of round",
+					{
+						"{C:green}#1# in #2#{} chance to create",
+						"a {C:dark_edition}#3#{} at",
+						"end of round"
+					},
+					{
+						"{C:green}#1# in #4#{} chance to create",
+						"a {C:dark_edition}#5#{} at",
+						"end of round"
+					}
 				},
 			},
 			j_csau_anotherlight = {
@@ -1504,7 +1512,7 @@ return {
 				name = "Depressed Brother",
 				text = {
 					"All {C:attention}unscored{} cards",
-					"gain {C:mult}+#3#{} Mult"
+					"gain {C:mult}+#1#{} Mult"
 				},
 			},
 			j_csau_code = {
@@ -1701,9 +1709,14 @@ return {
 			j_csau_fantabulous = {
 				name = "Fantabulous Joker",
 				text = {
-					"{C:money}$#1#{} {C:attention}sell value{},",
-					"loses {C:money}$#2#{} of {C:attention}sell value{}",
-					"at end of round",
+					{
+						"{C:money}$#1#{} {C:attention}\"sell value\"{},",
+						"loses {C:money}$#2#{} of {C:attention}\"sell value\"{}",
+						"at end of round",
+					},
+					{
+						"{C:attention}Sell{} this card for {C:money}$#3#{}"
+					}
 				},
 			},
 			j_csau_joeycastle = {
@@ -2144,8 +2157,7 @@ return {
 				name = "Passport",
 				text = {
 					"This Joker gains {X:mult,C:white} X#1# {} Mult",
-					"for each {C:attention}Voucher{} redeemed",
-					"this run",
+					"when a {C:attention}Voucher{} is redeemed",
 					"{C:inactive}(Currently {X:mult,C:white} X#2# {C:inactive} Mult)",
 				},
 			},
@@ -2673,11 +2685,11 @@ return {
 				name = "Chopping Mall",
 				text = {
 					{
-						"While {C:attention}playing{}, retrigger all",
-						"card {C:attention}held in hand{} abilities",
+						"While {C:attention}playing{}, retrigger all ",
+						"{C:attention}held in hand{} abilities {C:attention}#1# times{}",
 					},
 					{
-						"{C:vhs}Running Time{}: {C:attention}#1#{} Hand"
+						"{C:vhs}Running Time{}: {C:attention}#2#{} Hand"
 					}
 				},
 			},
@@ -2685,11 +2697,11 @@ return {
 				name = "Chopping Mall",
 				text = {
 					{
-						"While {C:attention}playing{}, retrigger all",
-						"card {C:attention}held in hand{} abilities",
+						"While {C:attention}playing{}, retrigger all ",
+						"{C:attention}held in hand{} abilities {C:attention}#1# times{}",
 					},
 					{
-						"{C:vhs}Running Time{}: {C:attention}#1#{} Hands"
+						"{C:vhs}Running Time{}: {C:attention}#2#{} Hands"
 					}
 				},
 			},
@@ -2959,7 +2971,7 @@ return {
 						"from a {C:attention}Booster Pack{}",
 					},
 					{
-						"{C:vhs}Running Time{}: {C:attention}#1#{} Card"
+						"{C:vhs}Running Time{}: {C:attention}#1#{} Pack"
 					}
 				},
 			},
@@ -2972,7 +2984,7 @@ return {
 						"from a {C:attention}Booster Pack{}",
 					},
 					{
-						"{C:vhs}Running Time{}: {C:attention}#1#{} Cards"
+						"{C:vhs}Running Time{}: {C:attention}#1#{} Packs"
 					}
 				},
 			},
@@ -3057,11 +3069,13 @@ return {
 				},
 				text = {
 					{
-						"Each Joker gives {C:mult}+#1#{} Mult",
-						"while this tape is {C:attention}playing{}",
+						"While this tape is {C:attention}playing{},",
+						"{V:1}#1#{} Jokers give {C:mult}+#2#{} Mult,",
+						"{V:2}#3#{} Jokers give {C:mult}+#4#{} Mult,",
+						"and {V:3}#6#{} Jokers give {C:mult}+#6#{} Mult"
 					},
 					{
-						"{C:vhs}Running Time{}: {C:attention}#2#{} Hand"
+						"{C:vhs}Running Time{}: {C:attention}#7#{} Round"
 					}
 				},
 			},
@@ -3072,11 +3086,13 @@ return {
 				},
 				text = {
 					{
-						"Each Joker gives {C:mult}+#1#{} Mult",
-						"while this tape is {C:attention}playing{}",
+						"While this tape is {C:attention}playing{},",
+						"{V:1}#1#{} Jokers give {C:mult}+#2#{} Mult,",
+						"{V:2}#3#{} Jokers give {C:mult}+#4#{} Mult,",
+						"and {V:3}#5#{} Jokers give {C:mult}+#6#{} Mult"
 					},
 					{
-						"{C:vhs}Running Time{}: {C:attention}#2#{} Hands"
+						"{C:vhs}Running Time{}: {C:attention}#7#{} Rounds"
 					}
 				},
 			},
@@ -3161,10 +3177,10 @@ return {
 				text = {
 					{
 						"While {C:attention}playing{}, retrigger first",
-						"{C:attention}2{} cards in scoring hand",
+						"{C:attention}#1#{} scoring cards {C:attention}#2#{} times",
 					},
 					{
-						"{C:vhs}Running Time{}: {C:attention}#1#{} Hand"
+						"{C:vhs}Running Time{}: {C:attention}#3#{} Hand"
 					}
 				},
 			},
@@ -3173,10 +3189,10 @@ return {
 				text = {
 					{
 						"While {C:attention}playing{}, retrigger first",
-						"{C:attention}2{} cards in scoring hand",
+						"{C:attention}#1#{} scoring cards {C:attention}#2#{} times",
 					},
 					{
-						"{C:vhs}Running Time{}: {C:attention}#1#{} Hands"
+						"{C:vhs}Running Time{}: {C:attention}#3#{} Hands"
 					}
 				},
 			},
@@ -3188,11 +3204,11 @@ return {
 				},
 				text = {
 					{
-						"While {C:attention}playing{}, gain {C:blue}+1{} Hand",
+						"While {C:attention}playing{}, gain {C:blue}+#1#{} Hands",
 						"when {C:attention}Blind{} is selected",
 					},
 					{
-						"{C:vhs}Running Time{}: {C:attention}#1#{} Round"
+						"{C:vhs}Running Time{}: {C:attention}#2#{} Round"
 					}
 				},
 			},
@@ -3204,11 +3220,11 @@ return {
 				},
 				text = {
 					{
-						"While {C:attention}playing{}, gain {C:blue}+1{} Hand",
+						"While {C:attention}playing{}, gain {C:blue}+#1#{} Hands",
 						"when {C:attention}Blind{} is selected",
 					},
 					{
-						"{C:vhs}Running Time{}: {C:attention}#1#{} Rounds"
+						"{C:vhs}Running Time{}: {C:attention}#2#{} Rounds"
 					}
 				},
 			},
@@ -3264,7 +3280,7 @@ return {
 				name = "Kid Sand Airbags",
 				text = {
 					{
-						"While {C:attention}playing{}, gain {C:red}+#1#{} Discard",
+						"While {C:attention}playing{}, gain {C:red}+#1#{} Discards",
 						"when {C:attention}Blind{} is selected",
 					},
 					{
@@ -3276,7 +3292,7 @@ return {
 				name = "Kid Sand Airbags",
 				text = {
 					{
-						"While {C:attention}playing{}, gain {C:red}+#1#{} Discard",
+						"While {C:attention}playing{}, gain {C:red}+#1#{} Discards",
 						"when {C:attention}Blind{} is selected",
 					},
 					{

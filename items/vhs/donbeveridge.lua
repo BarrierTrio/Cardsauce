@@ -4,7 +4,7 @@ local consumInfo = {
 	pos = {x = 3, y = 4},
     set = "VHS",
     runtime = 5,
-    cost = 3,
+    cost = 6,
     config = {},
     blueprint_compat = false,
     origin = {

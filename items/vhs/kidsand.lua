@@ -4,10 +4,10 @@ local consumInfo = {
 	pos = {x = 4, y = 3},
     set = "VHS",
     runtime = 3,
-    cost = 3,
+    cost = 6,
     config = {
         extra = {
-            discard_mod = 1,
+            discard_mod = 2,
         }
     },
     origin = {
@@ -35,12 +35,6 @@ function consumInfo.calculate(self, card, context)
         if not context.blueprint then
             ArrowAPI.vhs.run_tape(card)
         end
-
-        return {
-            card = context.blueprint_card or card,
-            message = localize{type = 'variable', key = 'a_plus_discard', vars = {card.ability.extra.discard_mod}},
-            colour = G.C.RED
-        }
     end
 end
 

@@ -4,7 +4,7 @@ local consumInfo = {
 	pos = {x = 4, y = 4},
     set = "VHS",
     runtime = 100,
-    cost = 3,
+    cost = 6,
     config = {
         extra = {
             chance_mod = 1,

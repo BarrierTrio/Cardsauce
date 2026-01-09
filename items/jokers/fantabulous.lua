@@ -9,7 +9,7 @@ local jokerInfo = {
 		}
 	},
 	rarity = 1,
-	cost = 20,
+	cost = 8,
 	blueprint_compat = false,
 	eternal_compat = false,
 	perishable_compat = true,
@@ -30,11 +30,14 @@ local jokerInfo = {
 }
 
 function jokerInfo.loc_vars(self, info_queue, card)
-	return { vars = {card.ability.extra.sell_val, card.ability.extra.money_mod} }
+	if not self.csau_fantabulous_sell then
+		card:set_cost()
+	end
+	return { vars = {card.ability.extra.sell_val, card.ability.extra.money_mod, card.csau_fantabulous_sell} }
 end
 
 function jokerInfo.add_to_deck(self, card)
-	card.sell_cost = card.ability.extra.sell_val
+	card:set_cost()
 end
 
 function jokerInfo.calculate(self, card, context)
@@ -48,7 +51,9 @@ function jokerInfo.calculate(self, card, context)
 			operation = '-',
             no_message = true
         })
-		card.sell_cost = card.ability.extra.sell_val
+
+		card:set_cost()
+
 		if card.ability.extra.sell_val > 0 then
 			return {
 				message = localize('k_val_down'),

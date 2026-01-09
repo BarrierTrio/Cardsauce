@@ -3,12 +3,13 @@ local consumInfo = {
     atlas = 'vhs',
 	pos = {x = 0, y = 3},
     set = "VHS",
-    runtime = 2,
-    cost = 3,
+    runtime = 3,
+    cost = 6,
     alerted = true,
     config = {
         extra = {
-            retrigger = 1,
+            num_cards = 2,
+            retrigger = 2,
         }
     },
     origin = {
@@ -28,19 +29,22 @@ local consumInfo = {
 
 
 function consumInfo.loc_vars(self, info_queue, card)
-    return { vars = { card.ability.runtime-card.ability.uses } }
+    return { vars = { card.ability.extra.num_cards, card.ability.extra.retrigger } }
 end
 
 function consumInfo.calculate(self, card, context)
     if card.ability.activated and context.cardarea == G.play and context.repetition then
-        if (context.scoring_hand[1] and context.other_card == context.scoring_hand[1]) or (context.scoring_hand[2] and context.other_card == context.scoring_hand[2]) then
-            return {
-                message = 'Again!',
-                repetitions = card.ability.extra.retrigger,
-                card = card
-            }
+        for i=1, card.ability.extra.num_cards do
+            if context.scoring_hand[i] and context.other_card == context.scoring_hand[i] then
+                return {
+                    message = localize('k_again_ex'),
+                    repetitions = card.ability.extra.retrigger,
+                    card = card
+                }
+            end
         end
     end
+
     if context.after and card.ability.activated and not context.blueprint then
         ArrowAPI.vhs.run_tape(card)
     end

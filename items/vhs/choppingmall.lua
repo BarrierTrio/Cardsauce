@@ -4,11 +4,11 @@ local consumInfo = {
 	pos = {x = 7, y = 0},
     set = "VHS",
     runtime = 3,
-    cost = 3,
+    cost = 6,
     alerted = true,
     config = {
         extra = {
-
+            reps = 2
         }
     },
     origin = {
@@ -20,6 +20,10 @@ local consumInfo = {
     },
     artist = 'MightyKingWario'
 }
+
+function consumInfo.loc_vars(self, info_queue, card)
+    return { vars = {card.ability.extra.reps}}
+end
 
 function consumInfo.calculate(self, card, context)
     if not card.ability.activated then return end
@@ -39,7 +43,7 @@ function consumInfo.calculate(self, card, context)
 
     return {
         message = localize('k_again_ex'),
-        repetitions = 1,
+        repetitions = card.ability.extra.reps,
         card = card
     }
 end

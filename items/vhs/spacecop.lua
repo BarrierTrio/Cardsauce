@@ -4,7 +4,7 @@ local consumInfo = {
 	pos = {x = 5, y = 3},
     set = "VHS",
     runtime = 3,
-    cost = 3,
+    cost = 6,
     alerted = true,
     config = {},
     origin = {

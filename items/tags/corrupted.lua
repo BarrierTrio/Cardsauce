@@ -10,7 +10,7 @@ local tagInfo = {
     artist = 'BarrierTrio/Gote'
 }
 
-tagInfo.apply = function(self, tag, context)
+function tagInfo.apply(self, tag, context)
     if context.type == self.config.type then
         local applied = nil
         if context.card and not context.card.edition and not context.card.temp_edition and context.card.ability.set == 'Joker' then

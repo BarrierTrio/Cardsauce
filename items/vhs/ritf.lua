@@ -4,15 +4,11 @@ local consumInfo = {
 	pos = {x = 0, y = 4},
     key = 'ritf',
     set = "VHS",
-    cost = 3,
+    cost = 6,
+    runtime = 5,
     alerted = true,
     config = {
-        activation = true,
-        activated = false,
-        destroyed = false,
         extra = {
-            runtime = 5,
-            uses = 0,
             pi_index = 1,
         },
     },
@@ -43,31 +39,27 @@ local function get_pi_digit(i)
 end
 
 function consumInfo.calculate(self, card, context)
+    if card.debuff then return end
+
     if card.ability.activated and context.individual and not context.end_of_round then
         if context.cardarea == G.play then
-            card.ability.extra.pi_index = card.ability.extra.pi_index+1
+            if not context.blueprint then card.ability.extra.pi_index = card.ability.extra.pi_index+1 end
             return {
                 mult = get_pi_digit(card.ability.extra.pi_index-1)
             }
         elseif context.cardarea == G.hand then
-            card.ability.extra.pi_index = card.ability.extra.pi_index+1
+            if not context.blueprint then card.ability.extra.pi_index = card.ability.extra.pi_index+1 end
             return {
                 chips = get_pi_digit(card.ability.extra.pi_index-1)
             }
         end
     end
-    local bad_context = context.repetition or context.individual or context.blueprint
-    if context.after and not card.ability.destroyed and card.ability.activated and not bad_context then
-        card.ability.uses = card.ability.uses+1
-        if card.ability.uses >= card.ability.runtime then
-            ArrowAPI.vhs.destroy_tape(card)
-            card.ability.destroyed = true
-        end
-    end
-end
 
-function consumInfo.can_use(self, card)
-    if #G.consumeables.cards < G.consumeables.config.card_limit or card.area == G.consumeables then return true end
+    if context.blueprint then return end
+
+    if context.after and not card.ability.destroyed and card.ability.activated then
+        ArrowAPI.vhs.run_tape(card)
+    end
 end
 
 return consumInfo

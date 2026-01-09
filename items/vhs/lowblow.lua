@@ -3,8 +3,8 @@ local consumInfo = {
     atlas = 'vhs',
 	pos = {x = 3, y = 3},
     set = "VHS",
-    runtime = 2,
-    cost = 3,
+    runtime = 3,
+    cost = 6,
     config = {
         extra = {
             retrigger = 4,

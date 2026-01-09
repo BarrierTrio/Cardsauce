@@ -3,12 +3,12 @@ local jokerInfo = {
     atlas = 'jokers',
 	pos = {x = 1, y = 9},
     config = {extra = {rerolled = false}},
-    rarity = 1,
+    rarity = 2,
     cost = 5,
     blueprint_compat = false,
     eternal_compat = true,
     perishable_compat = true,
-origin = {
+    origin = {
         category = 'cardsauce',
         sub_origins = {
             'vinny',

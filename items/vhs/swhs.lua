@@ -4,11 +4,11 @@ local consumInfo = {
 	pos = {x = 5, y = 0},
     set = "VHS",
     runtime = 3,
-    cost = 3,
+    cost = 6,
     alerted = true,
     config = {
         extra = {
-            dollars = 1,
+            dollars = 2,
         },
     },
     artist = 'chvsau'

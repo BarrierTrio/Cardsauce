@@ -3,8 +3,8 @@ local consumInfo = {
     atlas = 'vhs',
 	pos = {x = 2, y = 0},
     set = "VHS",
-    runtime = 4,
-    cost = 3,
+    runtime = 6,
+    cost = 6,
     blueprint_compat = false,
     config = {},
     origin = {
