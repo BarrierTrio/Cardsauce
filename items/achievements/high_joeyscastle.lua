@@ -1,8 +1,10 @@
 local achInfo = {
     rarity = 1,
-    config = {key = 'j_csau_joeycastle', val = 5},
+    config = {key = 'j_csau_joeycastle', val = 5, ref_value = 'count'},
     unlock_condition = function(self, args)
-        return args.type == "high_joeyscastle"
+        if args.type ~= 'scale_card' or args.card.config.center.key ~= self.config.key then return end
+
+        return args.ref_value == self.config.ref_value and args.ref_table[args.ref_value] >= self.config.val
     end,
 }
 

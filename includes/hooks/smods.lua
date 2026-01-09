@@ -135,3 +135,13 @@ SMODS.Center.generate_ui = function(self, info_queue, card, desc_nodes, specific
 	end
 	desc_nodes.background_colour = res.background_colour
 end
+
+
+local ref_scale_card = SMODS.scale_card
+function SMODS.scale_card(card, args)
+	local ret = ref_scale_card(card.args)
+    if not G.deck then return end
+
+	check_for_unlock({type = 'scale_card', card = card, ref_table = args.ref_table, ref_value = args.ref_value})
+   	return ret
+end

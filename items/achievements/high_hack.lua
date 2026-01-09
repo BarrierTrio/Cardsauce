@@ -1,17 +1,18 @@
 local achInfo = {
     rarity = 1,
+    config = {key = 'j_csau_hack', val = 200, ref_value = 'chips'},
     unlock_condition = function(self, args)
-        local cards = SMODS.find_card('j_csau_hack')
-        if cards and #cards > 0 then
-            local mod = 1
-            if G.GAME and G.GAME.used_vouchers.v_directors_cut then mod = 2 end
-            local vhs_obtained = 0
-            for k, v in pairs(G.GAME.consumeable_usage) do if v.set == 'VHS' then vhs_obtained = vhs_obtained + 1 end end
-            for i, v in ipairs(cards) do
-                return (v.ability.extra.chip_mod * vhs_obtained * mod) >= 200
-            end
-        end
+        if args.type ~= 'scale_card' or args.card.config.center.key ~= self.config.key then return end
+
+        return args.ref_value == self.config.ref_value and args.ref_table[args.ref_value] >= self.config.val
     end,
 }
+
+function achInfo.loc_vars(self)
+    return { vars = {
+        G.P_CENTERS[self.config.key].discovered and localize{type = 'name_text', set = 'Joker', key = self.config.key} or '????????',
+        self.config.val
+    }}
+end
 
 return achInfo

@@ -221,6 +221,7 @@ function Tetris:update(dt)
     else
         if (self.lines_cleared >= (self.current_speed * 5 + 5)) and self.current_speed < #self.speeds then
             self.current_speed = self.current_speed + 1
+            self.queue[#self.queue+1] = {type = 'speed'}
             self.speed.grid[self.speed.height - self.current_speed + 1][1] = self.colors.speeds[self.current_speed]
             play_sound('csau_tetris_speed', nil, 0.1)
         end

@@ -30,10 +30,11 @@ function jokerInfo.loc_vars(self, info_queue, card)
 end
 
 function jokerInfo.calculate(self, card, context)
-    if context.joker_main then
-        local num_pairs = G.GAME.hands['Pair'].played
+    if context.joker_main and G.GAME.hands['Pair'].played > 0 then
+        local mult = G.GAME.hands['Pair'].played * card.ability.extra
+        check_for_unlock({type = 'scale_card', card = card, ref_table = {mult = mult}, ref_value = 'mult'})
         return {
-            mult = num_pairs*card.ability.extra,
+            mult = mult,
         }
     end
 end

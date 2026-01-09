@@ -39,7 +39,7 @@ function jokerInfo.calculate(self, card, context)
 	if context.joker_main and not card.debuff then
 		local tally = ArrowAPI.game.get_rank_tally(card.ability.extra.rank_id)
 		if tally > 0 then
-			check_for_unlock({type = 'scale_card', card = card, value = tally * card.ability.extra.mult_mod})
+			check_for_unlock({type = 'scale_card', card = card, ref_table = {mult = tally * card.ability.extra.mult_mod}, ref_value = 'mult'})
 			return {
 				mult = tally * card.ability.extra.mult_mod,
 				card = card

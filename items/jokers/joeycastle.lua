@@ -43,13 +43,14 @@ function jokerInfo.calculate(self, card, context)
     if card.debuff then return end
 
     if context.pre_discard and #context.full_hand >= 5 then
+        local count = 0
         for i, v in ipairs(context.full_hand) do
-            if not v:is_suit(G.GAME.current_round.joeycastle.suit) then
-                return
+            if v:is_suit(G.GAME.current_round.joeycastle.suit) then
+                count = count + 1
             end
         end
 
-        check_for_unlock({ type = "high_joeyscastle" })
+        check_for_unlock({type = 'scale_card', card = card, ref_table = {count = count}, ref_value = 'count'})
     end
 
 

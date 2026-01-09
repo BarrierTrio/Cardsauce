@@ -1,10 +1,10 @@
 local achInfo = {
     rarity = 1,
-    config = {joker = 'j_jojobal_jojo_sotw', val = 3},
+    config = {joker = 'j_jojobal_jojo_sotw', val = 3, ref_value = 'x_mult'},
     unlock_condition = function(self, args)
         if args.type ~= 'scale_card' or args.card.config.center.key ~= self.config.key then return end
 
-        return args.value >= self.config.val
+        return args.ref_value == self.config.ref_value and args.ref_table[args.ref_value] >= self.config.val
     end,
 }
 

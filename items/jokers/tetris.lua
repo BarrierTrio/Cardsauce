@@ -168,16 +168,14 @@ function jokerInfo.update(self, card, dt)
     if G.STAGE == G.STAGES.RUN and card.tetris then
         card.tetris:update(dt)
 
-        if card.tetris.current_speed >= 16 then
-            check_for_unlock({ type = "high_tetris" })
-        end
-
         if #card.tetris.queue > 0 then
             local msg = card.tetris.queue[1]
             if msg.type == 'line' then
                 card_eval_status_text(card, 'extra', nil, nil, nil, {blockable = false, message = localize{type = 'variable', key = 'a_mult', vars = {card.tetris.lines_cleared}}})
             elseif msg.type == 'reset' then
                 card_eval_status_text(card, 'extra', nil, nil, nil, {blockable = false, message = localize('k_reset'), colour = G.C.RED})
+            elseif msg.type == 'speed' then
+                check_for_unlock({type = 'scale_card', card = card, ref_table = {speed = card.tetris.current_speed}, ref_value = 'speed'})
             end
             table.remove(card.tetris.queue, 1)
         end

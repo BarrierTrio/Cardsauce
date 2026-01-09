@@ -59,7 +59,6 @@ function jokerInfo.calculate(self, card, context)
                 message_key = 'a_xmult',
 				message_colour = G.C.MULT
             })
-			check_for_unlock({type = 'scale_card', card = card, value = card.ability.extra.x_mult})
 		else
 			card.ability.extra.crack_hand = hand
 			if card.ability.extra.x_mult > 1 then

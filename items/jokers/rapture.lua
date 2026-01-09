@@ -52,10 +52,6 @@ function jokerInfo.calculate(self, card, context)
                 message_key = 'a_mult',
                 message_colour = G.C.MULT
             })
-            check_for_unlock({type = 'scale_card', card = card, value = card.ability.extra.mult})
-            if card.ability.extra.mult >= 30 and next(SMODS.find_card('j_csau_kings')) then
-                check_for_unlock({ type = "supreme_ascend" })
-            end
         end
     end
 

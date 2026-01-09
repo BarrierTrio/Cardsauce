@@ -7,7 +7,6 @@ local jokerInfo = {
             money = 0,
             money_mod = 2,
             prob = 2,
-            ach_dollars = 50,
         },
     },
     rarity = 2,
@@ -60,11 +59,6 @@ function jokerInfo.calculate(self, card, context)
                     colour = G.C.MONEY,
                 }
             })
-        end
-
-
-        if card.ability.extra.money >= card.ability.extra.ach_dollars then
-            check_for_unlock({ type = "high_feature" })
         end
     end
 

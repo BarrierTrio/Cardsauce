@@ -61,7 +61,6 @@ function jokerInfo.calculate(self, card, context)
 				card = card
 			}
 		else
-			check_for_unlock({ type = "expire_fantabulous" })
 			ArrowAPI.game.card_expire(card, 'k_worthless_ex', G.C.MONEY)
 		end
 

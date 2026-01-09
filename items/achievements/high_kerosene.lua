@@ -1,22 +1,17 @@
 local achInfo = {
     rarity = 1,
-    config = {chips = 200, joker = 'j_csau_kerosene'},
+    config = {key = 'j_csau_kerosene', val = 200, ref_value = 'chips'},
     unlock_condition = function(self, args)
-        local cards = SMODS.find_card(self.config.joker)
-        if cards and #cards > 0 then
-            for _, v in ipairs(cards) do
-                if v.ability.extra.chips >= self.config.chips then
-                    return true
-                end
-            end
-        end
+        if args.type ~= 'scale_card' or args.card.config.center.key ~= self.config.key then return end
+
+        return args.ref_value == self.config.ref_value and args.ref_table[args.ref_value] >= self.config.val
     end,
 }
 
 function achInfo.loc_vars(self)
     return { vars = {
-        G.P_CENTERS[self.config.joker].discovered and localize{type = 'name_text', set = 'Joker', key = self.config.joker} or '????????',
-        self.config.chips
+        G.P_CENTERS[self.config.key].discovered and localize{type = 'name_text', set = 'Joker', key = self.config.key} or '????????',
+        self.config.val
     }}
 end
 

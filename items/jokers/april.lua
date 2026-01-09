@@ -43,8 +43,10 @@ function jokerInfo.calculate(self, card, context)
     if card.debuff then return end
 
     if not context.blueprint and context.using_consumeable and context.consumeable.config.center.key == "c_fool" then
+        local mult = get_fools() * card.ability.extra.mult_mod
+        check_for_unlock({type = 'scale_card', card = card, ref_table = {mult = mult}, ref_value = 'mult'})
         return {
-            message = localize {type = 'variable', key = 'a_mult', vars = {get_fools() * card.ability.extra.mult_mod} },
+            message = localize {type = 'variable', key = 'a_mult', vars = {mult} },
             colour = G.C.MULT
         }
     end

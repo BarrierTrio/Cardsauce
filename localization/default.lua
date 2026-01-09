@@ -983,7 +983,7 @@ return {
 			ach_csau_hold_botw = {
 				name = "Best of the Worst!",
 				text = {
-					"Hold {C:attention}3{} {C:vhs}VHS Tapes{}",
+					"Hold {C:attention}#1#{} {C:vhs}VHS Tapes{}",
 					"at one time"
 				}
 			},
@@ -1039,9 +1039,9 @@ return {
 			ach_csau_high_horse = {
 				name = "HORSE!",
 				text = {
-					"Play a hand of {C:attention}5{}",
+					"Play a hand of {C:attention}#3#{}",
 					"scoring {C:attention}#1#{} while",
-					"{C:attention}#2#{} is playing"
+					"{C:vhs}#2#{} is playing"
 				}
 			},
 			ach_csau_activate_supershow = {

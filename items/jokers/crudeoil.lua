@@ -52,7 +52,6 @@ function jokerInfo.calculate(self, card, context)
             no_message = true
         })
         if card.ability.extra.dollars <= 0 then
-            check_for_unlock({ type = "expire_crudeoil" })
             ArrowAPI.game.card_expire(card, 'k_drank_ex', G.C.MONEY)
         else
             return {

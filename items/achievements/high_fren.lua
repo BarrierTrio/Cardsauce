@@ -1,19 +1,18 @@
 local achInfo = {
     rarity = 1,
+    config = {key = 'j_csau_frens', val = 100, ref_value = 'chips'},
     unlock_condition = function(self, args)
-        local cards = SMODS.find_card('j_csau_frens')
-        if cards and #cards > 0 then
-            for i, v in ipairs(cards) do
-                local faces = 0
-                if G.playing_cards then
-                    for k, _v in pairs(G.playing_cards) do
-                        if _v:is_face() then faces = faces+1 end
-                    end
-                    return v.ability.extra.chips_mod * faces >= 100
-                end
-            end
-        end
+        if args.type ~= 'scale_card' or args.card.config.center.key ~= self.config.key then return end
+
+        return args.ref_value == self.config.ref_value and args.ref_table[args.ref_value] >= self.config.val
     end,
 }
+
+function achInfo.loc_vars(self)
+    return { vars = {
+        G.P_CENTERS[self.config.key].discovered and localize{type = 'name_text', set = 'Joker', key = self.config.key} or '????????',
+        self.config.val
+    }}
+end
 
 return achInfo

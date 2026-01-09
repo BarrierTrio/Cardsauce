@@ -9,7 +9,6 @@ local consumInfo = {
         extra = {
             dollars = 3,
             ach_enhancement = 'm_gold',
-            ach_count = 5
         },
     },
     origin = {
@@ -43,9 +42,7 @@ function consumInfo.calculate(self, card, context)
             end
         end
 
-        if ach >= card.ability.extra.ach_count then
-            check_for_unlock({ type = 'high_horse' })
-        end
+        check_for_unlock({type = 'scale_card', card = card, ref_table = {count = ach}, ref_value = 'count'})
     end
 
     if not card.ability.destroyed and context.individual and context.cardarea == G.play

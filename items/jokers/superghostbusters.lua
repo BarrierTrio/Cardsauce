@@ -46,6 +46,7 @@ function jokerInfo.calculate(self, card, context)
     if context.joker_main then
         local used_spectrals = get_used_spectrals()
         if used_spectrals > 0 then
+            check_for_unlock({type = 'scale_card', card = card, ref_table = {mult = used_spectrals * card.ability.extra}, ref_value = 'mult'})
             return {
                 mult = used_spectrals * card.ability.extra,
             }

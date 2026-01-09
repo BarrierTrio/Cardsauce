@@ -45,6 +45,7 @@ function jokerInfo.calculate(self, card, context)
     if context.joker_main then
         local faces = get_faces()
         if faces > 0 then
+            check_for_unlock({type = 'scale_card', card = card, ref_table = {chips = card.ability.extra.chips_mod * faces}, ref_value = 'chips'})
             return {
                 chips = card.ability.extra.chips_mod * faces,
             }

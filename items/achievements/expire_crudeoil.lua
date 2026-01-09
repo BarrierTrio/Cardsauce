@@ -2,9 +2,7 @@ local achInfo = {
     rarity = 1,
     config = {key = 'j_csau_crudeoil'},
     unlock_condition = function(self, args)
-        if args.type == "expire_crudeoil" then
-            return true
-        end
+        return args.type == "card_expire" and args.card.center.key == self.config.key
     end,
 }
 

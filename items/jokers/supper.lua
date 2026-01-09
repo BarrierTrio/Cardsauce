@@ -46,9 +46,7 @@ function jokerInfo.calculate(self, card, context)
 
 	if context.individual and context.cardarea == G.play and card.ability.extra.valid_ids[context.other_card:get_id()] then
 		card.ability.extra.procs_this_hand = card.ability.extra.procs_this_hand + 1
-		if card.ability.extra.procs_this_hand >= 10 then
-			check_for_unlock({ type = "high_supper" })
-		end
+		check_for_unlock({type = 'scale_card', card = card, ref_table = card.ability.extra, ref_value = 'procs_this_hand'})
 
 		return {
 			x_mult = card.ability.extra.x_mult,
