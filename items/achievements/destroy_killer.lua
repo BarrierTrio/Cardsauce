@@ -1,10 +1,16 @@
 local achInfo = {
     rarity = 1,
+    hidden_text = true,
+    config = {key = 'c_jojobal_diamond_killer'},
     unlock_condition = function(self, args)
-        if args.type == "destroy_killer" then
-            return true
-        end
+        return args.type == "destroy_killer"
     end,
 }
+
+function achInfo.loc_vars(self)
+    return { vars = {
+        G.P_CENTERS[self.config.key].discovered and localize{type = 'name_text', set = 'Stand', key = self.config.key} or '????????',
+    }}
+end
 
 return achInfo

@@ -29,11 +29,12 @@ local jokerInfo = {
 }
 
 function jokerInfo.loc_vars(self, info_queue, card)
+    local suit = (G.GAME.current_round.joeycastle or {}).suit or 'Clubs'
     return { vars = {
         card.ability.extra.dollars,
-        localize(G.GAME.current_round.joeycastle.suit, 'suits_singular'),
+        localize(suit, 'suits_singular'),
         colours = {
-            G.C.SUITS[G.GAME.current_round.joeycastle.suit]}
+            G.C.SUITS[suit]}
         }
     }
 end

@@ -1,15 +1,18 @@
 local achInfo = {
     rarity = 1,
+    config = {joker = 'j_jojobal_jojo_sotw', val = 3},
     unlock_condition = function(self, args)
-        local cards = SMODS.find_card('j_csau_sotw')
-        if cards and #cards > 0 then
-            for i, v in ipairs(cards) do
-                local stands_obtained = 0
-                for k, _v in pairs(G.GAME.consumeable_usage) do if _v.set == 'Stand' then stands_obtained = stands_obtained + 1 end end
-                return 1 + (v.ability.extra.x_mult_mod*stands_obtained) >= 3
-            end
-        end
+        if args.type ~= 'scale_card' or args.card.config.center.key ~= self.config.key then return end
+
+        return args.value >= self.config.val
     end,
 }
+
+function achInfo.loc_vars(self)
+    return { vars = {
+        G.P_CENTERS[self.config.joker].discovered and localize{type = 'name_text', set = 'Joker', key = self.config.joker} or '????????',
+        self.config.val
+    }}
+end
 
 return achInfo

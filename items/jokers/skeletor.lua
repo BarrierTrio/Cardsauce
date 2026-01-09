@@ -29,12 +29,15 @@ local jokerInfo = {
 }
 
 local function get_food()
+    if not G.jokers then return 0 end
+
     local food = 0
-    for _, v in ipairs((G.jokers or {}).cards) do
+    for _, v in ipairs(G.jokers.cards) do
         if ArrowAPI.table.contains(G.P_CENTER_POOLS.Food, v.config.center) then
             food = food + 1
         end
     end
+
     return food
 end
 

@@ -1,4 +1,6 @@
-local function isBlackjack(hand)
+
+
+local function get_blackjack(hand)
     local total = 0
     local ace_count = 0
     for _, v in ipairs(hand) do
@@ -17,8 +19,17 @@ local function isBlackjack(hand)
     return total == 21
 end
 
+SMODS.PokerHandPart {
+    key = 'csau_blackjack',
+    prefix_config = false,
+    func = function(hand)
+        return get_blackjack(hand) and hand or {}
+    end,
+}
+
 SMODS.PokerHand {
     key = "csau_Blackjack",
+    prefix_config = false,
     chips = 21,
     mult = 6,
     l_chips = 11,
@@ -30,17 +41,24 @@ SMODS.PokerHand {
         { 'C_3', true },
     },
     evaluate = function(parts, hand)
-        return { next(SMODS.find_card("j_csau_blackjack")) and isBlackjack(hand) and hand or nil }
+        if not next(parts.csau_blackjack) then
+            return {}
+        end
+
+        return { G.GAME.hands['csau_Blackjack'].visible and parts.csau_blackjack or nil }
     end,
 }
 
 SMODS.PokerHand {
     key = "csau_FlushBlackjack",
+    prefix_config = false,
     chips = 84,
     mult = 8,
     l_chips = 42,
     l_mult = 4,
-    visible = false,
+    visible = function()
+        return G.GAME.hands['csau_Blackjack'].visible and G.GAME.hands.csau_Blackjack.played > 0
+    end,
     example = {
         { 'C_A', true },
         { 'C_8', true },
@@ -49,7 +67,12 @@ SMODS.PokerHand {
         { 'C_3', true },
     },
     evaluate = function(parts, hand)
-        return { next(SMODS.find_card("j_csau_blackjack")) and next(parts._flush) and isBlackjack(hand) and hand or nil }
+        if not next(parts.csau_blackjack) or not next(parts._flush) then
+            return {}
+        end
+
+        return { G.GAME.hands['csau_Blackjack'].visible
+        and SMODS.merge_lists(parts.csau_blackjack, parts._flush) or nil }
     end,
 }
 
@@ -96,17 +119,11 @@ function jokerInfo.check_for_unlock(self, args)
 end
 
 function jokerInfo.add_to_deck(self, card)
-    G.GAME.hands['csau_Blackjack'].visible = true
-    if G.GAME.hands.csau_FlushBlackjack.played > 0 then
-        G.GAME.hands['csau_FlushBlackjack'].visible = true
-    end
+    ArrowAPI.game.toggle_poker_hand('csau_Blackjack', true, card)
 end
 
 function jokerInfo.remove_from_deck(self, card, from_debuff)
-    G.GAME.hands['csau_Blackjack'].visible = false
-    G.GAME.hands['csau_FlushBlackjack'].visible = false
+    ArrowAPI.game.toggle_poker_hand('csau_Blackjack', false, card)
 end
-
-
 
 return jokerInfo

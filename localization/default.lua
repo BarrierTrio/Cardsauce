@@ -494,52 +494,6 @@ return {
 		achievement_names = {
 			--- [[NEW ACHIEVEMENTS]]
 			--- Bronz
-			ach_csau_high_charity = "Compassionate Card",
-			ach_csau_high_newjoker = "Wiseau Serious?",
-			ach_csau_high_speen = "RÖTATE",
-			ach_csau_high_diaper = "I'm Vetoing That Bit",
-			ach_csau_activate_eman = "Emmanuel in Chat",
-			ach_csau_activate_wot = "Good Morning, Crono",
-			ach_csau_high_joeyscastle = "SHIT CANNON",
-			ach_csau_activate_voice = "maarrrio̸̊oò̶o̿̀o͚͂ooo",
-			ach_csau_high_killjester = "Well Worth It",
-			ach_csau_high_rapture = "I've Been A Good Christian!",
-			ach_csau_destroy_meteor = "Did Sephiroth... Do This?",
-			ach_csau_activate_dud = "A DUHD!?",
-			ach_csau_frich_cavendish = "FINE DINING",
-			ach_csau_preserve_gros = "Lemme Just Say This... Yum",
-			ach_csau_expire_crudeoil = "I CAN'T STOP",
-			ach_csau_expire_grannycream = "Heat n' Sip",
-			ach_csau_gamer_blowzo = "*Chain Attack OST Plays*",
-			ach_csau_activate_drippy = "The Dripping Tap",
-			ach_csau_transform_sts = "ResidentSleeper",
-			ach_csau_high_passport = "Can I See Your... Passport?",
-			ach_csau_destroy_killer = "What A Beautiful Duwang",
-			ach_csau_high_sotw = "Finally Here",
-			ach_csau_play_flushblackjack = "Double Down Again",
-			ach_csau_play_flushfib = "Art of the Spiral",
-			ach_csau_high_fren = "We Love Fren",
-			ach_csau_high_bonzi = "my computer now :)",
-			ach_csau_activate_proto = "I Recover",
-			ach_csau_high_superghostbusters = "JOKERS ON YOU DUMBASS",
-			ach_csau_high_facade = "You Need To Leave",
-			ach_csau_high_bulk = "oughghhgh spider strongke",
-			ach_csau_high_mrkill = "Teehee.",
-			ach_csau_high_agga = "YUUUUUUKEIIIIIIIIII",
-			ach_csau_activate_mug = "I LOVE MY MUG ROOT BEER",
-			ach_csau_hold_botw = "Best of the Worst!",
-			ach_csau_high_april = "Det är dags igen",
-			ach_csau_high_feature = "Here Forever",
-			ach_csau_high_triptoamerica = "Feelings of Patriotism",
-			ach_csau_high_hack = "Borderline Experimental",
-			ach_csau_high_junka = "Never A Winner",
-			ach_csau_high_pacman = "Drugs Are Bad",
-			ach_csau_expire_fantabulous = "I Feel Fantastic",
-			ach_csau_high_horse = "HORSE!",
-			ach_csau_activate_supershow = "Who REALLY Died That Day?",
-			ach_csau_the_scot = "The Scot",
-			ach_csau_monkey_butt = "Monkeys Fly Out Of Your Butt",
-			ach_csau_wheres_po = "Hey, Where's Po At?",
 
 			--- Silver
 			ach_csau_flip_sosad = "I'm Unhappy When You're Happy",
@@ -603,54 +557,6 @@ return {
 		},
 		achievement_descriptions = {
 			--- [[NEW ACHIEVEMENTS]]
-			--- Bronze
-			ach_csau_activate_voice = "Activate Choicest Voice",
-			ach_csau_activate_dud = "Remove a sticker with The Dud",
-			ach_csau_activate_proto = "Survive Death with Protegent Antivirus",
-			ach_csau_activate_wot = "Activate Wings Of Time",
-			ach_csau_activate_eman = "Activate Emmanuel Blast",
-			ach_csau_activate_drippy = "Activate an Enhancement with Dripping Joker",
-			ach_csau_activate_mug = "Get a MUG MOMENT",
-			ach_csau_activate_supershow = "Trigger The Super Mario Bros. Super Show",
-			ach_csau_destroy_meteor = "Break a 7 with Meteor",
-			ach_csau_destroy_killer = "Destroy a card with Killer Queen",
-			ach_csau_gamer_blowzo = "Activate both triggers of Blowzo Brothers",
-			ach_csau_frich_cavendish = "Use Gourmand of Faramore to buy Cavendish",
-			ach_csau_transform_sts = "Transform Murder the Monolith",
-			ach_csau_expire_grannycream = "Have Granny Cream expire",
-			ach_csau_expire_crudeoil = "Have Crude Oil expire",
-			ach_csau_expire_fantabulous = "Have Fantabulous Joker expire",
-			ach_csau_discover_muppet = "Get Movin' Right Along to X4 Mult",
-			ach_csau_high_speen = "Get Polychrome from a Wheel of Fortune with SPEEEEEEN in your Joker slots",
-			ach_csau_high_joeyscastle = "Activate Joey's Castle 5 times with one discard",
-			ach_csau_high_agga = "Have AGGA reset at above X3 Mult",
-			ach_csau_high_newjoker = "Play a card of 5 Enhanced cards with The NEW Joker!",
-			ach_csau_high_charity = "Get Charity Stream to +50 Mult",
-			ach_csau_high_diaper = "Get Diaper Joker to +16 Mult",
-			ach_csau_high_pacman = "Get PAC-MAN Incident to +30 Mult",
-			ach_csau_high_killjester = "Get Kill Jester to X4 Mult",
-			ach_csau_high_rapture = "Get Rapture to +77 Mult",
-			ach_csau_high_passport = "Get Passport to X3 Mult",
-			ach_csau_high_sotw = "Get Stand of the Week to X3 Mult",
-			ach_csau_high_fren = "Get Frens to +100 Chips",
-			ach_csau_high_bonzi = "Get Bonzi Buddy to +100 Mult",
-			ach_csau_high_superghostbusters = "Get Super Jokebusters to +30 Mult",
-			ach_csau_high_facade = "Get Couples' Joker to +20 Mult",
-			ach_csau_high_bulk = "Get Bulkin' the Mouscles to X4 Mult",
-			ach_csau_high_mrkill = "Get Mr. Kill to +100 Chips",
-			ach_csau_high_triptoamerica = "Get Trip to America to +90 Mult",
-			ach_csau_high_april = "Få Aprilskämt-jokern till +40 Mult",
-			ach_csau_high_hack = "Get Hack Fraud to +200 Chips",
-			ach_csau_high_junka = "Get Black Spine Junka to X5 Mult",
-			ach_csau_high_feature = "Have IT'S A FEATURE pay out $50 or more",
-			ach_csau_high_horse = "Play a hand of 5 scoring Gold Cards while Devil Story is playing",
-			ach_csau_play_flushfib = "Play a Flush Fibonacci",
-			ach_csau_play_flushblackjack = "Play a Flush Blackjack",
-			ach_csau_preserve_gros = "Use Scourge of Pantsylvania to preserve Gros Michel",
-			ach_csau_hold_botw = "Hold 3 VHS Tapes at one time",
-			ach_csau_the_scot = "Fail to score the required chips with Top Slots activated",
-			ach_csau_monkey_butt = "Have Wayne's World VCR Board Game expire",
-			ach_csau_wheres_po = "Obtain a Tarot Card from The Purple Joker while rAw TiMe is activated",
 			--- Silver
 			ach_csau_flip_sosad = "Win a round with I'm So Happy, causing it to flip to I'm So Sad",
 			ach_csau_activate_quixotic = "Use a Quixotic Card",
@@ -803,54 +709,385 @@ return {
 					"to {X:mult,C:white}X#2#{} Mult"
 				},
 			},
+			ach_csau_high_charity = {
+				name = "Compassionate Card",
+				text = {
+					"Scale {C:attention}#1#{}",
+					"to {C:mult}+#2#{} Mult"
+				}
+			},
+			ach_csau_high_newjoker = {
+				name = "Wiseau Serious?",
+				text = {
+					"Play a hand of",
+					"{C:attention}#2# Enhanced{} cards",
+					"with {C:attention}#1#{}"
+				}
+			},
+			ach_csau_high_speen = {
+				name = "RÖTATE",
+				text = {
+					"Get {C:dark_edition}Polychrome{} from a",
+					"{C:tarot}#2#{} while",
+					"you have {C:attention}#1#{}"
+				}
+			},
+			ach_csau_high_diaper = {
+				name = "I'm Vetoing That Bit",
+				text = {
+					"Scale {C:attention}#1#{}",
+					"to {C:mult}+#2#{} Mult"
+				}
+			},
+			ach_csau_activate_eman = {
+				name = "Emmanuel in Chat",
+				text = {
+					"Activate",
+					"{C:attention}#1#{}"
+				}
+			},
+			ach_csau_activate_wot = {
+				name = "Good Morning, Crono",
+				text = {
+					"Activate",
+					"{C:attention}#1#{}"
+				}
+			},
+			ach_csau_activate_wot_hidden = {
+				name = "Good Morning, Crono",
+				text = {
+					"Travel to a",
+					"{C:attention}different era{}"
+				}
+			},
+			ach_csau_high_joeyscastle = {
+				name = "SHIT CANNON",
+				text = {
+					"Activate {C:attention}#1#{}",
+					"{C:attention}#2# times{} in one discard{}"
+				}
+			},
+			ach_csau_activate_voice = {
+				name = "maarrrio̸̊oò̶o̿̀o͚͂ooo",
+				text = {
+					"Activate",
+					"{C:attention}#1#{}"
+				}
+			},
+			ach_csau_high_killjester = {
+				name = "Well Worth It",
+				text = {
+					"Scale {C:attention}#1#{}",
+					"to {X:mult,C:white}X#2#{} Mult"
+				}
+			},
+			ach_csau_high_rapture = {
+				name = "I've Been A Good Christian!",
+				text = {
+					"Scale {C:attention}#1#{}",
+					"to {C:mult}+#2#{} Mult"
+				}
+			},
+			ach_csau_destroy_meteor = {
+				name = "Did Sephiroth... Do This?",
+				text = {
+					"Break a {C:attention}7{}",
+					"with {C:attention}#1#{}"
+				}
+			},
+			ach_csau_destroy_meteor_hidden = {
+				name = "Did Sephiroth... Do This?",
+				text = {
+					"Bring {C:attention}harm{}",
+					"to the {C:attention}planet{}"
+				}
+			},
+			ach_csau_activate_dud = {
+				name = "A DUHD!?",
+				text = {
+					"Remove a sticker",
+					"with {C:attention}#1#{}"
+				}
+			},
+
+			ach_csau_frich_cavendish = {
+				name = "FINE DINING",
+				text = {
+					"Use {C:attention}#1#{}",
+					"to buy {C:attention}#2#{}",
+				}
+			},
+
+			ach_csau_preserve_gros = {
+				name = "Lemme Just Say This... Yum",
+				text = {
+					"Use {C:attention}#1#{}",
+					"to preserve {C:attention}#2#{}"
+				}
+			},
+			ach_csau_expire_crudeoil = {
+				name = "I CAN'T STOP",
+				text = {
+					"Let {C:attention}#1#{}",
+					"{C:attention}expire{}"
+				}
+			},
+			ach_csau_expire_grannycream = {
+				name = "Heat n' Sip",
+				text = {
+					"Sip {C:attention}#1#{}",
+					"until it {C:attention}expires{}"
+				}
+			},
+			ach_csau_expire_grannycream_hidden = {
+				name = "Heat n' Sip",
+				text = {
+					"Mix the {C:attention}hot butter{}",
+					"with the {C:attention}ice cream{},",
+					"{C:blue,E:1}freeze{} it up (cool),",
+					"see it on {C:attention}your screen{}"
+				}
+			},
+			ach_csau_gamer_blowzo = {
+				name = "*Chain Attack OST Plays*",
+				text = {
+					"Activate both triggers",
+					"of {C:attention}#1#{}"
+				}
+			},
+			ach_csau_activate_drippy = {
+				name = "The Dripping Tap",
+				text = {
+					"Activate",
+					"{C:attention}#1#{}"
+				}
+			},
+			ach_csau_transform_sts = {
+				name = "ResidentSleeper",
+				text = {
+					"Change the {C:attention}form{} of",
+					"{C:attention}#1#{}",
+				}
+			},
+			ach_csau_high_passport = {
+				name = "Can I See Your... Passport?",
+				text = {
+					"Scale {C:attention}#1#{}",
+					"to {X:mult,C:white}X7{} Mult"
+				}
+			},
+			ach_csau_destroy_killer = {
+				name = "What A Beautiful Duwang",
+				text = {
+					"{C:attention}Destroy a card{}",
+					"with {C:stand}#1#{}"
+				}
+			},
+			ach_csau_destroy_killer_hidden = {
+				name = "\"What A Beautiful Duwang\"",
+				text = {
+					"*chew*"
+				}
+			},
+			ach_csau_high_sotw = {
+				name = "Finally Here",
+				text = {
+					"Scale {C:attention}#1#{}",
+					"to {X:mult,C:white}X3{} Mult"
+				}
+			},
+			ach_csau_play_flushblackjack = {
+				name = "Double Down Again",
+				text = {
+					"Play a",
+					"{C:dark_edition}Flush Blackjack{}"
+				}
+			},
+			ach_csau_play_flushfib = {
+				name = "The Golden Spin",
+				text = {
+					"Play a",
+					"{C:dark_edition}Flush Fibonacci{}"
+				}
+			},
+			ach_csau_high_fren = {
+				name = "We Love Fren",
+				text = {
+					"Scale {C:attention}#1#{}",
+					"to {C:chips}+100{} Chips"
+				}
+			},
+			ach_csau_high_bonzi = {
+				name = "my computer now :)",
+				text = {
+					"Scale {C:attention}#1#{}",
+					"to {C:mult}+100{} Mult"
+				}
+			},
+			ach_csau_high_bonzi_hidden = {
+				name = "my computer now :)",
+				text = {
+					"Nice to meet you,",
+					"{C:attention,E:1}Expand Dong!{}"
+				}
+			},
+			ach_csau_activate_proto = {
+				name = "I Recover",
+				text = {
+					"Recover {C:red,E:1}lost data{}",
+					"with {C:attention}#1#{}"
+				}
+			},
+			ach_csau_high_superghostbusters = {
+				name = "JOKERS ON YOU DUMBASS",
+				text = {
+					"Scale {C:attention}#1#{}",
+					"to {C:mult}+30{} Mult"
+				}
+			},
+			ach_csau_high_facade = {
+				name = "You Need To Leave",
+				text = {
+					"Scale {C:attention}#1#{}",
+					"to {C:mult}+20{} Mult"
+				}
+			},
+			ach_csau_high_bulk = {
+				name = "oughghhgh spider strongke",
+				text = {
+					"Scale {C:attention}#1#{}",
+					"to {X:mult,C:white}X4{} Mult"
+				}
+			},
+			ach_csau_high_mrkill = {
+				name = "Teehee.",
+				text = {
+					"Scale {C:attention}#1#{}",
+					"to {C:chips}+100{} Chips"
+				}
+			},
+			ach_csau_high_agga = {
+				name = "YUUUUUUKEIIIIIIIIII",
+				text = {
+					"Reset {C:attention}#1#{}",
+					"above {X:mult,C:white}X3{} Mult"
+				}
+			},
+			ach_csau_activate_mug = {
+				name = "I LOVE MY MUG ROOT BEER",
+				text = {
+					"Experience a",
+					"{C:mug}MUG MOMENT{}"
+				}
+			},
+			ach_csau_hold_botw = {
+				name = "Best of the Worst!",
+				text = {
+					"Hold {C:attention}3{} {C:vhs}VHS Tapes{}",
+					"at one time"
+				}
+			},
+			ach_csau_high_april = {
+				name = "Det är dags igen",
+				text = {
+					"Få Aprilskämt-jokern",
+					"till {C:mult}+40{} Mult"
+				}
+			},
+			ach_csau_high_feature = {
+				name = "Here Forever",
+				text = {
+					"Pay out {C:money}$50{} or more",
+					"with {C:attention}#1#{}"
+				}
+			},
+			ach_csau_high_triptoamerica = {
+				name = "Feelings of Patriotism",
+				text = {
+					"Scale {C:attention}#1#{}",
+					"to {C:mult}+90{} Mult"
+				}
+			},
+			ach_csau_high_hack = {
+				name = "Borderline Experimental",
+				text = {
+					"Scale {C:attention}#1#{}",
+					"to {C:chips}+200{} Chips"
+				}
+			},
+			ach_csau_high_junka = {
+				name = "Never A Winner",
+				text = {
+					"Reset {C:attention}#1#{}",
+					"above {X:mult,C:white}X5{} Mult"
+				}
+			},
+			ach_csau_high_pacman = {
+				name = "Drugs Are Bad",
+				text = {
+					"Scale {C:attention}#1#{}",
+					"to {C:mult}+30{} Mult"
+				}
+			},
+			ach_csau_expire_fantabulous = {
+				name = "I Feel Fantastic",
+				text = {
+					"Let {C:attention}#1#{}",
+					"{C:attention}expire{}"
+				}
+			},
+			ach_csau_high_horse = {
+				name = "HORSE!",
+				text = {
+					"Play a hand of {C:attention}5{}",
+					"scoring {C:attention}#1#{} while",
+					"{C:attention}#2#{} is playing"
+				}
+			},
+			ach_csau_activate_supershow = {
+				name = "Who REALLY Died That Day?",
+				text = {
+					"Trigger {C:attention}The Super Mario{}",
+					"{C:attention}Bros. Super Show{}"
+				}
+			},
+			ach_csau_activate_supershow_alt = {
+				name = "Who REALLY Died That Day?",
+				text = {
+					"Trigger {C:attention}?????{}"
+				}
+			},
+			ach_csau_the_scot = {
+				name = "The Scot",
+				text = {
+					"{C:red,E:1}Lose a run{} while",
+					"{C:vhs}#1#{} is playing"
+				}
+			},
+			ach_csau_monkey_butt = {
+				name = "Monkeys Fly Out Of Your Butt",
+				text = {
+					"Let {C:vhs}Wayne's World VCR{}",
+					"{C:vhs}Board Game{} expire"
+				}
+			},
+			ach_csau_monkey_butt_alt = {
+				name = "Monkeys Fly Out Of Your Butt",
+				text = {
+					"Let {C:vhs}????????{}",
+					"expire"
+				}
+			},
+			ach_csau_wheres_po = {
+				name = "Hey, Where's Po At?",
+				text = {
+					"Obtain a {C:tarot}Tarot Card{} from",
+					"{C:attention}#1#{} while",
+					"{C:vhs}#2#{} is playing",
+				}
+			},
 
 			--[[
-			ach_csau_high_charity = "Compassionate Card",
-			ach_csau_high_newjoker = "Wiseau Serious?",
-			ach_csau_high_speen = "RÖTATE",
-			ach_csau_high_diaper = "I'm Vetoing That Bit",
-			ach_csau_activate_eman = "Emmanuel in Chat",
-			ach_csau_activate_wot = "Good Morning, Crono",
-			ach_csau_high_joeyscastle = "SHIT CANNON",
-			ach_csau_activate_voice = "maarrrio̸̊oò̶o̿̀o͚͂ooo",
-			ach_csau_high_killjester = "Well Worth It",
-			ach_csau_high_rapture = "I've Been A Good Christian!",
-			ach_csau_destroy_meteor = "Did Sephiroth... Do This?",
-			ach_csau_activate_dud = "A DUHD!?",
-			ach_csau_frich_cavendish = "FINE DINING",
-			ach_csau_preserve_gros = "Lemme Just Say This... Yum",
-			ach_csau_expire_crudeoil = "I CAN'T STOP",
-			ach_csau_expire_grannycream = "Heat n' Sip",
-			ach_csau_gamer_blowzo = "*Chain Attack OST Plays*",
-			ach_csau_activate_drippy = "The Dripping Tap",
-			ach_csau_transform_sts = "ResidentSleeper",
-			ach_csau_high_passport = "Can I See Your... Passport?",
-			ach_csau_destroy_killer = "What A Beautiful Duwang",
-			ach_csau_high_sotw = "Finally Here",
-			ach_csau_play_flushblackjack = "Double Down Again",
-			ach_csau_play_flushfib = "Art of the Spiral",
-			ach_csau_high_fren = "We Love Fren",
-			ach_csau_high_bonzi = "my computer now :)",
-			ach_csau_activate_proto = "I Recover",
-			ach_csau_high_superghostbusters = "JOKERS ON YOU DUMBASS",
-			ach_csau_high_facade = "You Need To Leave",
-			ach_csau_high_bulk = "oughghhgh spider strongke",
-			ach_csau_high_mrkill = "Teehee.",
-			ach_csau_high_agga = "YUUUUUUKEIIIIIIIIII",
-			ach_csau_activate_mug = "I LOVE MY MUG ROOT BEER",
-			ach_csau_hold_botw = "Best of the Worst!",
-			ach_csau_high_april = "Det är dags igen",
-			ach_csau_high_feature = "Here Forever",
-			ach_csau_high_triptoamerica = "Feelings of Patriotism",
-			ach_csau_high_hack = "Borderline Experimental",
-			ach_csau_high_junka = "Never A Winner",
-			ach_csau_high_pacman = "Drugs Are Bad",
-			ach_csau_expire_fantabulous = "I Feel Fantastic",
-			ach_csau_high_horse = "HORSE!",
-			ach_csau_activate_supershow = "Who REALLY Died That Day?",
-			ach_csau_the_scot = "The Scot",
-			ach_csau_monkey_butt = "Monkeys Fly Out Of Your Butt",
-			ach_csau_wheres_po = "Hey, Where's Po At?",
 
 			--- Silver
 			ach_csau_flip_sosad = "I'm Unhappy When You're Happy",
@@ -1771,7 +2008,7 @@ return {
 				text = {
 					"This Joker gives {C:mult}+#1#{} Mult",
 					"for each {C:attention}consecutive{} hand",
-					"that is not a{C:attention}High Card{}",
+					"that is not a {C:attention}High Card{}",
 					"{C:inactive}(Currently {}{C:mult}+#2#{}{C:inactive} Mult{}{C:inactive}){}",
 				},
 				unlock={
@@ -2053,7 +2290,7 @@ return {
 				text = {
 					"When {C:attention}Blind{} is selected, this Joker",
 					"gains {C:mult}+#1#{} Mult if it can take {C:money}$#2#{}",
-					"If not, Mult becomes negative this round",
+					"If not, Mult is {C:red,E:1}negative{} this round",
 					"{C:inactive}(Currently {}{C:mult}#3#{}{C:inactive} Mult{}{C:inactive}){}",
 				},
 			},
@@ -2248,10 +2485,16 @@ return {
 			j_csau_sprunk = {
 				name = "Sprunk",
 				text = {
-					"Gain {C:mult}+#1#{} Mult and {C:green}+#2#{} chance per {C:money}$1{} spent",
-					"{C:green}#3# in #4#{} chance to get {C:green}Sprunk'd{} and",
-					"{E:1,C:dark_edition}maybe{} {C:attention}lose the run{} when hand is played",
-					"{C:inactive}(Currently {}{C:mult}+#5#{}{C:inactive} Mult{}{C:inactive}){}",
+					{
+						"Gains {C:mult}+#1#{} Mult per {C:money}$#2#{} spent",
+						"{C:inactive}(Currently {}{C:mult}+#3#{}{C:inactive} Mult{}{C:inactive}){}",
+					},
+					{
+						"Gains {C:green}+#4#{} chance per {C:attention}shop{}",
+						"{C:inactive}({}{C:green}#5# in #6#{} {C:inactive}chance to get{} {C:green}Sprunk'd{}",
+						"{C:inactive}and{} {E:1,C:dark_edition}maybe{} {C:red,E:1}lose your run{} {C:inactive}when{}",
+						"{C:inactive}hand is played){}",
+					},
 				},
 			},
 			j_csau_itsafeature = {
@@ -3447,6 +3690,7 @@ return {
 					{
 						"While {C:attention}playing{}, each scoring",
 						"card increases in rank by {C:attention}#1#{}",
+						"after scoring"
 					},
 					{
 						"{C:vhs}Running Time{}: {C:attention}#2#{} Hand"
@@ -3459,6 +3703,7 @@ return {
 					{
 						"While {C:attention}playing{}, each scoring",
 						"card increases in rank by {C:attention}#1#{}",
+						"after scoring"
 					},
 					{
 						"{C:vhs}Running Time{}: {C:attention}#2#{} Hands"

@@ -62,8 +62,9 @@ function jokerInfo.calculate(self, card, context)
 				message_key = 'a_mult',
 				message_colour = G.C.MULT
 			})
-		end
 
+			check_for_unlock({type = 'scale_card', card = card, value = card.ability.extra.mult})
+		end
 	end
 end
 

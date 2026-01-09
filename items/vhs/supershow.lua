@@ -4,7 +4,7 @@ local consumInfo = {
 	pos = {x = 5, y = 4},
     key = 'supershow',
     set = "VHS",
-    runtime = 3,
+    runtime = 4,
     cost = 6,
     blueprint_compat = false,
     config = {},
@@ -44,24 +44,23 @@ function consumInfo.calculate(self, card, context)
                         new_card:hard_set_T(G.ROOM.T.x + G.ROOM.T.w/2 - new_card.T.w/2, G.ROOM.T.y + G.ROOM.T.h/2 - new_card.T.h/2, new_card.T.w, new_card.T.h)
 
                         G.E_MANAGER:add_event(Event({
-                            trigger = 'immediate',
+                            trigger = 'after',
                             func = function()
                                 card:juice_up()
                                 new_card:start_materialize({G.C.SECONDARY_SET.Enhanced})
+                                draw_card(nil, G.deck, 90, 'up', nil, new_card)
                                 return true
                             end
                         }))
                         delay(0.65)
-                        draw_card(nil, G.deck, 90, 'up', nil, new_card)
 
                         new_cards[#new_cards+1] = new_card
-
-                        ArrowAPi.vhs.run_tape(card)
                     end
                 end
 
                 if #new_cards > 0 then
                     playing_card_joker_effects(new_cards)
+                    ArrowAPI.vhs.run_tape(card, nil, #new_cards)
                 end
 
                 return true

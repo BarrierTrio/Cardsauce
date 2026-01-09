@@ -34,6 +34,7 @@ function jokerInfo.calculate(self, card, context)
                     return true
                 end
             }))
+            check_for_unlock({type = 'activate_drippy'})
 
             return {
                 message = localize('k_enhanced'),

@@ -83,6 +83,7 @@ function jokerInfo.calculate(self, card, context)
                         scalar_value = "x_mult_mod",
                         no_message = true
                     })
+                    check_for_unlock({type = 'scale_card', card = card, value = card.ability.extra.x_mult})
                     joker.getting_sliced = true
                     trigger = true
 

@@ -26,26 +26,56 @@ function consumInfo.loc_vars(self, info_queue, card)
 end
 
 function consumInfo.calculate(self, card, context)
-    if card.ability.activated and context.final_scoring_step then
-        if not context.blueprint then
-            ArrowAPI.vhs.destroy_tape(card)
+    if card.ability.activated and context.after then
+        local change_cards = {}
+        for i, v in ipairs(context.scoring_hand) do
+            SMODS.modify_rank(v, card.ability.extra.inc, true)
+            change_cards[#change_cards+1] = {card = v, card_key = v.config.card_key}
         end
 
-        G.E_MANAGER:add_event(Event({
-            func = function()
-                for i, v in ipairs(context.scoring_hand) do
-                    assert(SMODS.modify_rank(v, card.ability.extra.inc))
-                    v:juice_up()
+        for _, v in ipairs(change_cards) do
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                delay = 0.15,
+                func = function()
+                    v.card:flip()
+                    play_sound('card1')
+                    v.card:juice_up(0.3, 0.3)
+                    return true
                 end
-                card:juice_up()
-                return true
-            end
-        }))
+            }))
+        end
 
-        return {
-            message = localize('k_upgrade_ex'),
-            card = card
-        }
+        for _, v in ipairs(change_cards) do
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                delay = 0.1,
+                func = function()
+                    v.card:set_sprites(nil, G.P_CARDS[v.card_key])
+                    return true
+                end
+            }))
+        end
+
+        -- do flip back over
+        for _, v in ipairs(change_cards) do
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                delay = 0.25,
+                func = function()
+                    v.card:flip()
+                    play_sound('tarot2', 1, 0.6)
+                    v.card:juice_up(0.3, 0.3)
+                    return true
+                end
+            }))
+        end
+
+        delay(0.25)
+
+        if not context.blueprint then
+            ArrowAPI.vhs.run_tape(card)
+        end
     end
 end
 

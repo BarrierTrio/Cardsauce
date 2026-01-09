@@ -346,6 +346,7 @@ ArrowAPI.loading.batch_load({
 			'high_muppet',
 			'high_dontmind',
 			'high_crack',
+
 			'high_charity',
 			'high_newjoker',
 			'high_speen',
@@ -358,6 +359,7 @@ ArrowAPI.loading.batch_load({
 			'high_rapture',
 			'destroy_meteor',
 			'activate_dud',
+
 			'frich_cavendish',
 			'preserve_gros',
 			'expire_crudeoil',
@@ -370,6 +372,7 @@ ArrowAPI.loading.batch_load({
 			'high_sotw',
 			'play_flushblackjack',
 			'play_flushfib',
+
 			'high_fren',
 			'high_bonzi',
 			'activate_proto',
@@ -382,6 +385,7 @@ ArrowAPI.loading.batch_load({
 			'hold_botw',
 			'high_april',
 			'high_feature',
+
 			'high_triptoamerica',
 			'high_hack',
 			'high_junka',

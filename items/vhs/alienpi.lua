@@ -10,7 +10,7 @@ local consumInfo = {
             chance_mod = 1,
             chance = 0,
             rate = 100,
-            x_mult = 1.25,
+            x_mult = 1.5,
         },
     },
     origin = {
@@ -31,8 +31,19 @@ end
 function consumInfo.calculate(self, card, context)
     if card.debuff then return end
 
+    if card.ability.activated and not card.ability.destroyed and context.before then
+        local scale_table = {chance_mod = #context.scoring_hand * card.ability.extra.chance_mod}
+        SMODS.scale_card(card, {
+            ref_table = card.ability.extra,
+            ref_value = "chance",
+            scalar_table = scale_table,
+            scalar_value = "chance_mod",
+            no_message = true,
+        })
+        ArrowAPI.vhs.run_tape(card, nil, #context.scoring_hand)
+    end
+
     if card.ability.activated and not card.ability.destroyed and context.individual and context.cardarea == G.play then
-        ArrowAPI.vhs.run_tape(card)
         return {
             x_mult = card.ability.extra.x_mult,
             card = context.blueprint_card or card

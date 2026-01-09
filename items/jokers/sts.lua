@@ -15,11 +15,11 @@ local jokerInfo = {
                 mult = 0
             },
             Spades = {
-                x_mult = 3,
-                extra_cards = 3,
+                x_mult = 2,
+                extra_cards = 2,
                 hands = 1,
                 discards = 0,
-                repetitions = 2
+                repetitions = 1
             },
             Clubs = {},
             changed_forms = {

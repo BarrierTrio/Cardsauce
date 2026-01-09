@@ -1,15 +1,18 @@
 local achInfo = {
     rarity = 1,
+    config = {key = 'j_csau_charity', val = 50},
     unlock_condition = function(self, args)
-        local cards = SMODS.find_card('j_csau_charity')
-        if cards and #cards > 0 then
-            for i, v in ipairs(cards) do
-                if v.ability.extra.mult >= 50 then
-                    return true
-                end
-            end
-        end
+        if args.type ~= 'scale_card' or args.card.config.center.key ~= self.config.key then return end
+
+        return args.value >= self.config.val
     end,
 }
+
+function achInfo.loc_vars(self)
+    return { vars = {
+        G.P_CENTERS[self.config.key].discovered and localize{type = 'name_text', set = 'Joker', key = self.config.key} or '????????',
+        self.config.val
+    }}
+end
 
 return achInfo

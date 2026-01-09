@@ -341,8 +341,9 @@ local jokerInfo = {
         extra = {
             mult = 0,
             prob_extra = 0,
+            dollar_mod = 1,
             mult_mod = 1,
-            prob_mod = 1,
+            prob_mod = 3,
             prob = 200,
         },
         hidden_prob = {
@@ -374,7 +375,16 @@ local jokerInfo = {
 
 function jokerInfo.loc_vars(self, info_queue, card)
     local num, dom = SMODS.get_probability_vars(card, SMODS.food_expires(card, true) and card.ability.extra.prob_extra or 0, card.ability.extra.prob, 'csau_sprunk_crash')
-    return { vars = { card.ability.extra.mult_mod, card.ability.extra.prob_mod, num, dom, card.ability.extra.mult } }
+    return {
+        vars = {
+            card.ability.extra.mult_mod,
+            card.ability.extra.dollar_mod,
+            card.ability.extra.mult,
+            card.ability.extra.prob_mod,
+            num,
+            dom,
+        }
+    }
 end
 
 function jokerInfo.in_pool(self, args)
@@ -385,22 +395,29 @@ function jokerInfo.calculate(self, card, context)
     if card.debuff then return end
 
     if context.money_altered and context.from_shop then
-        local scale_table = {mult_mod = -context.amount * card.ability.extra.mult_mod, prob_mod = -context.amount * card.ability.extra.prob_mod}
+        local scale_table = {mult_mod = math.floor(-context.amount / card.ability.extra.dollar_mod) * card.ability.extra.mult_mod,}
         SMODS.scale_card(card, {
             ref_table = card.ability.extra,
             ref_value = "mult",
             scalar_table = scale_table,
             scalar_value = "mult_mod",
+            message_key = 'a_mult',
             message_colour = G.C.RED
         })
+    end
 
+    if context.ending_shop and not context.blueprint then
         SMODS.scale_card(card, {
             ref_table = card.ability.extra,
             ref_value = "prob_extra",
-            scalar_table = scale_table,
             scalar_value = "prob_mod",
             no_message = true,
         })
+
+        return {
+            message = localize({type='variable', key='a_chance', vars={card.ability.extra.prob_extra, card.ability.extra.prob}}),
+            colour = G.C.GREEN
+        }
     end
 
     if context.before and SMODS.food_expires(card)
