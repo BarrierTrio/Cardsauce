@@ -1,8 +1,8 @@
 local achInfo = {
     rarity = 2,
-    config = {key_1 = 'j_csau_rapture', key_2 = 'j_csau_kings', val = 30, ref_value = 'mult'},
+    config = {key_1 = 'j_csau_rapture', key_2 = 'j_csau_kings', val = 2, ref_value = 'mult'},
     unlock_condition = function(self, args)
-        if args.type ~= 'scale_card' or args.card.config.center.key ~= self.config.key then return end
+        if args.type ~= 'scale_card' or args.card.config.center.key ~= self.config.key_1 then return end
 
         return next(SMODS.find_card(self.config.key_2)) and args.ref_value == self.config.ref_value
         and args.ref_table[args.ref_value] >= self.config.val

@@ -139,7 +139,7 @@ end
 
 local ref_scale_card = SMODS.scale_card
 function SMODS.scale_card(card, args)
-	local ret = ref_scale_card(card.args)
+	local ret = ref_scale_card(card, args)
     if not G.deck then return end
 
 	check_for_unlock({type = 'scale_card', card = card, ref_table = args.ref_table, ref_value = args.ref_value})

@@ -1,6 +1,6 @@
 local achInfo = {
     rarity = 3,
-    config = {key = 'j_csau_veryexpensivejoker', num = 5},
+    config = {key = 'j_csau_deathcard', num = 5},
     unlock_condition = function(self, args)
         return args.type == "deathcard" and args.num >= self.config.num
     end,

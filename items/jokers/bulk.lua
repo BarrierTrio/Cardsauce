@@ -43,7 +43,7 @@ function jokerInfo.calculate(self, card, context)
         })
     end
 
-    if context.using_consumeable and context.card.ability.consumeable and context.card.ability.mod_conv then
+    if context.using_consumeable and context.consumeable.ability.mod_conv then
         SMODS.scale_card(card, {
             ref_table = card.ability.extra,
             ref_value = "x_mult",
