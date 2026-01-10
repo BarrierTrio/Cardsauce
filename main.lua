@@ -248,7 +248,7 @@ if independent_arrow then
 	ArrowAPI.config_tools.use_default_config(Cardsauce, {
 		{key = 'enable_VinnyContent', before_auto = true, default_value = true},
 		{key = 'enable_JoelContent', before_auto = true, default_value = true},
-		{key = 'enable_Logo', default_value = true},
+		{key = 'enable_Logo', before_auto = true, default_value = true},
 		{key = 'enable_EasterEggs', default_value = true},
 		{key = 'muteWega', default_value = false, exclude_from_ui = true},
 		{key = 'forceDisableOrtalab', default_value = false, exclude_from_ui = true},
@@ -258,7 +258,7 @@ else
 	ArrowAPI.config_tools.use_default_config(Cardsauce, {
 		{key = 'enable_VinnyContent', before_auto = true, default_value = true},
 		{key = 'enable_JoelContent', before_auto = true, default_value = true},
-		{key = 'enable_Logo', default_value = true},
+		{key = 'enable_Logo', before_auto = true, default_value = true},
 		{key = 'enable_EasterEggs', default_value = true},
 		{key = 'muteWega', default_value = false, exclude_from_ui = true},
 		{key = 'forceDisableOrtalab', default_value = false, exclude_from_ui = true},
@@ -490,6 +490,7 @@ local includes = {
 	--- jokers are required for some following files so include them first
 
 	'items',
+	'skins',
 
 	Cardsauce.ortalab_dlc and 'ortalab_dlc' or nil
 }

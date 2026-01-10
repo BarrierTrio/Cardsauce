@@ -4,7 +4,6 @@ function Card:set_ability(center, initial, delay_sprites)
 
     if self.config.center.key == 'm_glass' and next(SMODS.find_card('j_csau_plaguewalker')) then
         local plague = SMODS.find_card('j_csau_plaguewalker')[1]
-        sendDebugMessage('updating glass card to plague values')
         self.ability.extra = plague.ability.extra.glass_break
         self.ability.Xmult = plague.ability.extra.glass_mult
         self.ability.x_mult = plague.ability.extra.glass_mult
@@ -76,7 +75,6 @@ function Card:set_cost()
     local ret = ref_set_cost(self)
 
     if self.config.center.key == 'j_csau_fantabulous' then
-        sendDebugMessage('setting fantabulous sell')
         self.csau_fantabulous_sell = self.sell_cost + (self.ability.csau_extra_value or 0)
         self.sell_cost = self.ability.extra.sell_val + (self.ability.csau_extra_value or 0)
         self.sell_cost_label = self.sell_cost..'?'
@@ -102,7 +100,6 @@ local ref_sell_card = Card.sell_card
 function Card:sell_card()
     if self.config.center.key == 'j_csau_fantabulous' then
         self.sell_cost = self.csau_fantabulous_sell
-        sendDebugMessage('setting sell cost to '..tostring(self.csau_fantabulous_sell))
     end
 
     return ref_sell_card(self)
