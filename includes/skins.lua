@@ -108,7 +108,9 @@ for _, suit in ipairs({'Hearts', 'Diamonds', 'Clubs', 'Spades'}) do
             },
             artist = 'Kekulism'
         }},
-
+        loc_txt = {
+            ['en-us'] = "Vineshroom"
+        },
         prefix_config = { key = false },
     })
 
@@ -125,7 +127,7 @@ for _, suit in ipairs({'Hearts', 'Diamonds', 'Clubs', 'Spades'}) do
             atlas = 'csau_'..(suit_lower)..'_vargshroom_ace',
             pos_style = 'ranks',
             loc_txt = {
-                ['en-us'] = "Vineshroom"
+                ['en-us'] = "Vargshroom"
             },
             colour = G.C[suit:upper()],
             suit_icon = {
@@ -133,7 +135,9 @@ for _, suit in ipairs({'Hearts', 'Diamonds', 'Clubs', 'Spades'}) do
             },
             artist = 'Kekulism'
         }},
-
+        loc_txt = {
+            ['en-us'] = "Vargshroom"
+        },
         prefix_config = { key = false },
     })
 
@@ -148,7 +152,21 @@ for _, suit in ipairs({'Hearts', 'Diamonds', 'Clubs', 'Spades'}) do
             atlas = 'csau_'..(suit_lower)..'_jazz_ace',
             pos_style = 'ranks',
             loc_txt = {
-                ['en-us'] = "Vineshroom"
+                ['en-us'] = "Jazz Mister"
+            },
+            colour = G.C[suit:upper()],
+            suit_icon = {
+                atlas = 'suits'
+            },
+            artist = 'Kekulism'
+        },{
+            key = 'hc',
+            ranks = {'Ace'},
+            display_ranks = {'Ace'},
+            atlas = 'csau_'..(suit_lower)..'_jazz_ace',
+            pos_style = 'ranks',
+            loc_txt = {
+                ['en-us'] = "Jazz Mister 2"
             },
             colour = G.C[suit:upper()],
             suit_icon = {
@@ -156,7 +174,9 @@ for _, suit in ipairs({'Hearts', 'Diamonds', 'Clubs', 'Spades'}) do
             },
             artist = 'Kekulism'
         }},
-
+        loc_txt = {
+            ['en-us'] = "Jazz Mister"
+        },
         prefix_config = { key = false },
     })
 end

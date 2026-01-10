@@ -73,7 +73,6 @@ function jokerInfo.calculate(self, card, context)
             local joker = G.jokers.cards[i]
             if joker ~= card and not joker.getting_sliced then
                 local name = localize({type = 'name_text', set = 'Joker', key = joker.config.center.key})
-                sendDebugMessage('checking name '..name)
                 local loc_str = lang_table[G.LANG.key]
                 if (ArrowAPI.string.contains(name, loc_str) or ArrowAPI.string.contains(name, 'Joker')) and not SMODS.is_eternal(joker, card) then
                     num_destroyed = num_destroyed + 1
