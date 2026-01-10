@@ -1,10 +1,7 @@
 local achInfo = {
-    rarity = 1,
-    hidden_text = true,
+    rarity = 2,
     unlock_condition = function(self, args)
-        if args.type == "get_sprunked" then
-            return true
-        end
+        return args.type == "get_sprunked"
     end,
 }
 

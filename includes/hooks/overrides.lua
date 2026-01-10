@@ -45,22 +45,6 @@ SMODS.Joker:take_ownership('mr_bones', {
 
 
 ---------------------------
---------------------------- Austin unlock
----------------------------
-
-SMODS.Blind:take_ownership('bl_wall', {
-    calculate = function(self, context)
-        if context.blind_defeated and G.GAME.blind.config.blind.key == self.key then
-            check_for_unlock({ type = 'defeat_wall' })
-        end
-    end
-}, true)
-
-
-
-
-
----------------------------
 --------------------------- All the various wheel code
 ---------------------------
 

@@ -1,6 +1,6 @@
 local achInfo = {
     rarity = 1,
-    config = {joker = 'j_csau_passport', val = 7},
+    config = {key = 'j_csau_passport', val = 7},
     unlock_condition = function(self, args)
         if args.type ~= 'scale_card' or args.card.config.center.key ~= self.config.key then return end
 
@@ -10,7 +10,7 @@ local achInfo = {
 
 function achInfo.loc_vars(self)
     return { vars = {
-        G.P_CENTERS[self.config.joker].discovered and localize{type = 'name_text', set = 'Joker', key = self.config.joker} or '????????',
+        G.P_CENTERS[self.config.key].discovered and localize{type = 'name_text', set = 'Joker', key = self.config.key} or '????????',
         self.config.val
     }}
 end

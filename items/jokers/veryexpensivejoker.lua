@@ -41,9 +41,7 @@ end
 function jokerInfo.add_to_deck(self, card, from_debuff)
 	if from_debuff then return end
 
-	if G.GAME.dollars >= 60 then
-		check_for_unlock({ type = "purchase_dink" })
-	end
+	check_for_unlock({ type = "purchase_dink", dollars = G.GAME.dollars })
 
 	card.ability.extra.x_mult = 1 + math.floor(G.GAME.dollars/10) * card.ability.extra.x_mult_mod
 	card.base_cost = G.GAME.dollars

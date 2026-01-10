@@ -1,9 +1,17 @@
 local achInfo = {
     rarity = 3,
-    unlock_key = 'j_csau_vincenzo',
+    config = {key = 'j_csau_vincenzo'},
     unlock_condition = function(self, args)
-        return (G.P_CENTERS[self.unlock_key] or {}).discovered
+        if args.type ~= 'discover_amount' then return false end
+
+        return (G.P_CENTERS[self.config.key] or {}).discovered
     end,
 }
+
+function achInfo.loc_vars(self)
+    return {vars = {
+        localize{type = 'name_text', set = 'Joker', key = self.config.key},
+    }}
+end
 
 return achInfo

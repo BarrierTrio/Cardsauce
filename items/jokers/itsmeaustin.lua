@@ -37,9 +37,7 @@ function jokerInfo.loc_vars(self, info_queue, card)
 end
 
 function jokerInfo.check_for_unlock(self, args)
-    if args.type == "defeat_wall" then
-        return true
-    end
+    return args.type == "blind_defeated" and args.blind.config.blind.key == 'bl_wall'
 end
 
 function jokerInfo.calculate(self, card, context)

@@ -1,6 +1,5 @@
 local achInfo = {
     rarity = 1,
-    hidden_text = true,
     config = {key = 'j_csau_wingsoftime'},
     unlock_condition = function(self, args)
         return args.type == "activate_wot"

@@ -491,130 +491,6 @@ return {
 			ch_c_csau_nmbb = {"Only hands that contain a {C:attention}Blackjack{} are allowed"},
 			ch_c_csau_marathon = {"All Non-{C:vhs}Analog{} consumables are {C:attention}banned{}"},
 		},
-		achievement_names = {
-			--- [[NEW ACHIEVEMENTS]]
-			--- Bronz
-
-			--- Silver
-			ach_csau_flip_sosad = "I'm Unhappy When You're Happy",
-			ach_csau_activate_roche = "You Earned It, Big Boy!",
-			ach_csau_activate_quixotic = "From Some Place Even Higher",
-			ach_csau_defeat_hog = "The Hawg Strikes Again",
-			ach_csau_defeat_tray = "One Third Tray of: Chips!",
-			ach_csau_defeat_vod = "The Final Cut",
-			ach_csau_reno_colors = "Headin' On Back",
-			ach_csau_fuckingkill_jimbo = "NOOOOOO HOW COULD YOU",
-			ach_csau_miracle_inherit = "Recessive Genes",
-			ach_csau_skin_characters = "The Gang's All Here",
-			ach_csau_skin_vineshroom = "thwomp.mp3",
-			ach_csau_high_one = "All You Need Is One",
-			ach_csau_supreme_ascend = "Supreme Ascendancy",
-			ach_csau_defeat_finger = "Handy",
-			ach_csau_triple_seven = "Triple Seven",
-			ach_csau_dark_luigi = "DARK LUIGI",
-			ach_csau_get_sprunked = "Essence of Life",
-			ach_csau_grey_vomit = "Murder of the Universe",
-			ach_csau_evolve_echoes = "S! H! I! T!",
-			ach_csau_evolve_btd = "The Next Day",
-			ach_csau_evolve_ger = "This Is... Requiem",
-			ach_csau_evolve_kingcrimson = "Perfect Pair",
-			ach_csau_evolve_heaven = "STAIRWAY TO HEAVEN",
-			ach_csau_evolve_tusk = "Heeeeere's Johnny!",
-			ach_csau_evolve_d4c = "Dimes 4 Crimes",
-			ach_csau_evolve_soft = "Highly Illogical",
-			ach_csau_defeat_darkest = "Jesus Wept",
-			ach_csau_defeat_outlaw = "Mindcrash",
-			ach_csau_defeat_paint = "Or Is It Gonna Look Bad",
-			ach_csau_defeat_wasp = "Play A Melody",
-
-			--- Gold
-			ach_csau_discover_vincenzo = "Step Right In",
-			ach_csau_discover_quarterdumb = "Drown In It",
-			ach_csau_purchase_dink = "VERY Expensive.",
-			ach_csau_five_deathcard = "Ouroboros",
-			ach_csau_final_odio = "MEGALOMANIA",
-			ach_csau_chadley_power = "The Power of Chadnova",
-			ach_csau_the_band = "The Band",
-			ach_csau_win_vine = "Growing Free",
-			ach_csau_ult_choomera = "Ultimate Choomera",
-			ach_csau_sts_allforms = "Art of Heartbreak",
-			ach_csau_discover_wigsaw = "Playing My Game",
-			ach_csau_fucking_idiot = "YOU FUCKING IDIOT",
-			ach_csau_high_tetris = "WEE-OOO",
-			ach_csau_defeat_mochamike = "Put Your Deck Away",
-			ach_csau_defeat_feltfortress = "Crumbling Castle",
-			ach_csau_win_varg = "Don't Quit for Nothin'",
-			ach_csau_win_cbt = "Now Gold Stake, Pussy",
-			ach_csau_win_wheel = "Fuck Movies",
-			ach_csau_win_disc = "ORAORAORAORA",
-
-			--- Vine
-			ach_csau_big_meat = "The Big Meat",
-			ach_csau_all_discovered = "Card Addict",
-			ach_csau_cardsauceplus = "Cardsauce+",
-			ach_csau_cardsauceplusplus = "Cardsauce++",
-			ach_stand_master = "Stand Master",
-		},
-		achievement_descriptions = {
-			--- [[NEW ACHIEVEMENTS]]
-			--- Silver
-			ach_csau_flip_sosad = "Win a round with I'm So Happy, causing it to flip to I'm So Sad",
-			ach_csau_activate_quixotic = "Use a Quixotic Card",
-			ach_csau_activate_roche = "Receive a gift from Motorcyclist Joker",
-			ach_csau_fuckingkill_jimbo = "Fucking kill Jimbo",
-			ach_csau_high_one = "Have 2 unique High Card enhancing Jokers in your Joker slots",
-			ach_csau_miracle_inherit = "Use Miracle of Life to create a child that inherits an Enhancement, Seal, or Edition",
-			ach_csau_reno_colors = "Set the title screen colors to black and red",
-			ach_csau_skin_vineshroom = "Customize your deck to use the Classic Vineshroom for the Ace of Clubs",
-			ach_csau_skin_characters = "Customize your deck to include all of the Vinesauce characters",
-			ach_csau_supreme_ascend = "Have Rapture at or above +30 Mult and 2 Kings 2:23-24 in your Joker slots",
-			ach_csau_triple_seven = "Have all 3 Final Fantasy Jokers in your Joker Slots",
-			ach_csau_defeat_outlaw = "Defeat The Outlaw",
-			ach_csau_defeat_darkest = "Defeat The Paint",
-			ach_csau_defeat_wasp = "Defeat The Wasp",
-			ach_csau_defeat_paint = "Defeat The Paint",
-			ach_csau_defeat_hog = "Defeat The Hog",
-			ach_csau_defeat_tray = "Defeat The Tray",
-			ach_csau_defeat_vod = "Defeat The Vod",
-			ach_csau_defeat_finger = "Defeat The Finger",
-			ach_csau_grey_vomit = "Have Grey Joker and Vomit Blast in your Joker slots",
-			ach_csau_get_sprunked = "Get Sprunk'd",
-			ach_csau_dark_luigi = "Obtain a Negative WAAUGGHGHHHHGHH",
-			ach_csau_evolve_echoes = "Evolve your Stand into Echoes ACT3",
-			ach_csau_evolve_btd = "Evolve your Stand into Killer Queen: Bites the Dust",
-			ach_csau_evolve_ger = "Evolve your Stand into Gold Experience Requiem",
-			ach_csau_evolve_kingcrimson = "Evolve your Stand into King Crimson",
-			ach_csau_evolve_heaven = "Evolve your Stand into Made In Heaven",
-			ach_csau_evolve_tusk = "Evolve your Stand into Tusk ACT4",
-			ach_csau_evolve_d4c = "Evolve your Stand into D4C -Love Train-",
-			ach_csau_evolve_soft = "Evolve your Stand into Soft & Wet: Go Beyond",
-			--- Gold
-			ach_csau_high_tetris = "Get to maximum speed in YOU GOT THE TETRIS!",
-			ach_csau_fucking_idiot = "Have both Live Dangerously and Oops! All 6's or Beginner's Luck in your Joker slots",
-			ach_csau_discover_vincenzo = "Discover Vincenzo",
-			ach_csau_discover_quarterdumb = "Discover Quarterdumb",
-			ach_csau_discover_wigsaw = "Discover Wigsaw",
-			ach_csau_purchase_dink = "Purchase Very Expensive Joker at a price of at least $60",
-			ach_csau_final_odio = "Reach the final form of Odious Joker, Armageddon",
-			ach_csau_defeat_mochamike = "Defeat Mocha Mike",
-			ach_csau_defeat_feltfortress = "Defeat Felt Fortress",
-			ach_csau_win_vine = "Win a run with Vine Deck on any difficulty",
-			ach_csau_win_varg = "Win a run with Varg Deck on any difficulty",
-			ach_csau_win_cbt = "Win a run with CBT Deck on any difficulty",
-			ach_csau_win_wheel = "Win a run with Wheel Deck on any difficulty",
-			ach_csau_win_disc = "Win a run with DISC Deck on any difficulty",
-			ach_csau_the_band = "Have 4 Red Vox Jokers in your Joker slots",
-			ach_csau_chadley_power = "Harness but a fraction of Chadley's secret power",
-			ach_csau_five_deathcard = "Purchase the same Deathcard from the shop 5 times in a single run",
-			ach_csau_ult_choomera = "Play a hand of 5 scoring Steel Cards with Chromed Up and Masked Joker",
-			ach_csau_sts_allforms = "Use all Murder the Monolith forms in a single run",
-			--- Vine
-			ach_csau_all_discovered = "Discover All Cardsauce Jokers",
-			ach_csau_big_meat = "Unlock every Cardsauce Achievement",
-			ach_csau_cardsauceplus = "Win a run with all Cardsauce Decks on Gold Stake",
-			ach_csau_cardsauceplusplus = "Get Gold Stickers on all Cardsauce Jokers",
-			ach_stand_master = "Get Gold Stickers on all Cardsauce Stands",
-		}
 	},
 	descriptions = {
 		Achievements = {
@@ -1087,68 +963,496 @@ return {
 				}
 			},
 
-			--[[
+			-- Silver
+			ach_csau_defeat_hog = {
+				name = "The Hawg Strikes Again",
+				text = {
+					"Defeat",
+					"{V:1}#1#{}"
+				}
+			},
+			ach_csau_defeat_tray = {
+				name = "One Third Tray of: Chips!",
+				text = {
+					"Defeat",
+					"{V:1}#1#{}"
+				}
+			},
+			ach_csau_defeat_vod = {
+				name = "The Final Cut",
+				text = {
+					"Defeat",
+					"{V:1}#1#{}"
+				}
+			},
+			ach_csau_defeat_darkest = {
+				name = "Jesus Wept",
+				text = {
+					"Defeat",
+					"{V:1}#1#{}"
+				}
+			},
+			ach_csau_defeat_outlaw = {
+				name = "Mindcrash",
+				text = {
+					"Defeat",
+					"{V:1}#1#{}"
+				}
+			},
+			ach_csau_defeat_paint = {
+				name = "Or Is It Gonna Look Bad",
+				text = {
+					"Defeat",
+					"{V:1}#1#{}"
+				}
+			},
+			ach_csau_defeat_wasp = {
+				name = "Play A Melody",
+				text = {
+					"Defeat",
+					"{V:1}#1#{}"
+				}
+			},
+			ach_csau_defeat_finger = {
+				name = "Handy",
+				text = {
+					"Defeat",
+					"{V:1}#1#{}"
+				}
+			},
+			ach_csau_reno_colors = {
+				name = "Headin' On Back",
+				text = {
+					"Set {C:attention}title screen{} colors",
+					"to {C:black}black{} and {C:red}red{}"
+				}
+			},
+			ach_csau_skin_characters = {
+				name = "The Gang's All Here",
+				text = {
+					"{C:attention}Customize your deck{}",
+					"to include {C:attention}all{} the",
+					"{C:cardsauce}Vinesauce{} {C:attention}characters{}",
+				}
+			},
+			ach_csau_skin_vineshroom = {
+				name = "thwomp.mp3",
+				text = {
+					"{C:attention}Customize your deck{} with",
+					"{C:cardsauce}Classic Vineshroom{} for the",
+					"{C:attention}Ace{} of {C:clubs}Clubs{}",
+				}
+			},
+			ach_csau_flip_sosad = {
+				name = "I'm Unhappy When You're Happy",
+				text = {
+					"Flip {C:attention}#1#{}",
+					"into {C:attention}#2#{}"
+				}
+			},
+			ach_csau_activate_roche = {
+				name = "You Earned It, Big Boy!",
+				text = {
+					"Receive a gift from",
+					"{C:attention}#1#{}"
+				}
+			},
+			ach_csau_activate_quixotic = {
+				name = "From Some Place Even Higher",
+				text = {
+					"Use {C:spectral}#1#{}"
+				}
+			},
+			ach_csau_fuckingkill_jimbo = {
+				name = "NOOOOOO HOW COULD YOU",
+				text = {
+					"Fucking {C:red,E:2}kill{} {C:attention}Jimbo{}"
+				}
+			},
+			ach_csau_fuckingkill_jimbo_hidden = {
+				name = "?????????",
+				text = {
+					"{C:red,E:1}????????{}"
+				}
+			},
+			ach_csau_miracle_inherit = {
+				name = "Recessive Genes",
+				text = {
+					"Create a child with",
+					"{C:attention}#1#{} that inherits",
+					"an {C:attention}Enhancement{}, {C:attention}Seal{},",
+					"or {C:dark_edition}Edition{}"
+				}
+			},
+			ach_csau_high_one = {
+				name = "All You Need Is One",
+				text = {
+					"Have {C:attention}#1#{} unique",
+					"{C:attention}High Card{} Jokers",
+					"at the {C:attention}same time{}"
+				}
+			},
+			ach_csau_supreme_ascend = {
+				name = "Supreme Ascendancy",
+				text = {
+					"Have {C:attention}#1#{} while",
+					"{C:attention}#2#{} has {C:mult}+#3#{} Mult"
+				}
+			},
+			ach_csau_triple_seven = {
+				name = "Triple Seven",
+				text = {
+					"Have {C:attention}#1#{} unique",
+					"{C:dark_edition.E:1}Final Fantasy{} {C:attention}Jokers{}",
+					"at the {C:attention}same time{}",
+				}
+			},
+			ach_csau_dark_luigi = {
+				name = "DARK LUIGI",
+				text = {
+					"Obtain a {C:dark_edition}Negative{}",
+					"{C:attention}#1#{}"
+				}
+			},
+			ach_csau_get_sprunked = {
+				name = "Essence of Life",
+				text = {
+					"Get {C:green}Sprunk'd{}"
+				}
+			},
+			ach_csau_grey_vomit = {
+				name = "Murder of the Universe",
+				text = {
+					"Have {C:attention}#1#{}",
+					"and {C:attention}#2#{}",
+					"at the same time"
+				}
+			},
+			ach_csau_evolve_echoes = {
+				name = "S! H! I! T!",
+				text = {
+					"Evolve {C:stand}#1#{}",
+					"into {C:stand}#2#{}"
+				}
+			},
+			ach_csau_evolve_echoes_hidden = {
+				name = "????????",
+				text = {
+					"Become a",
+					"{C:attention,E:2}reliable guy{}"
+				}
+			},
+			ach_csau_evolve_btd = {
+				name = "The Next Day",
+				text = {
+					"Evolve {C:stand}#1#{}",
+					"into {C:stand}#2#{}"
+				}
+			},
+			ach_csau_evolve_btd_hidden = {
+				name = "????????",
+				text = {
+					"Protect your",
+					"{C:attention,E:2}quiet life{}"
+				}
+			},
+			ach_csau_evolve_ger = {
+				name = "This Is... Requiem",
+				text = {
+					"Evolve {C:stand}#1#{}",
+					"into {C:stand}#2#{}"
+				}
+			},
+			ach_csau_evolve_ger_hidden = {
+				name = "????????",
+				text = {
+					"Be {C:attention}chosen{}",
+					"by {C:tarot,E:2}The Arrow{}"
+				}
+			},
+			ach_csau_evolve_kingcrimson = {
+				name = "Perfect Pair",
+				text = {
+					"Evolve {C:stand}#1#{}",
+					"into {C:stand}#2#{}"
+				}
+			},
+			ach_csau_evolve_kingcrimson_hidden = {
+				name = "????????",
+				text = {
+					"Restore your",
+					"{C:attention,E:2}pride{}"
+				}
+			},
+			ach_csau_evolve_heaven = {
+				name = "STAIRWAY TO HEAVEN",
+				text = {
+					"Evolve {C:stand}#1#{}",
+					"into {C:stand}#2#{}"
+				}
+			},
+			ach_csau_evolve_heaven_hidden = {
+				name = "????????",
+				text = {
+					"Fulfill {C:attention,E:2}DIO's",
+					"plan",
+				}
+			},
+			ach_csau_evolve_tusk = {
+				name = "Heeeeere's Johnny!",
+				text = {
+					"Evolve {C:stand}#1#{}",
+					"into {C:stand}#2#{}"
+				}
+			},
+			ach_csau_evolve_tusk_hidden = {
+				name = "????????",
+				text = {
+					"Learn {C:attention,E:2}Lesson 5{}"
+				}
+			},
+			ach_csau_evolve_d4c = {
+				name = "Dimes 4 Crimes",
+				text = {
+					"Evolve {C:stand}#1#{}",
+					"into {C:stand}#2#{}"
+				}
+			},
+			ach_csau_evolve_d4c_hidden = {
+				name = "????????",
+				text = {
+					"Perform",
+					"{C:attention,E:2}napkin diplomacy{}"
+				}
+			},
+			ach_csau_evolve_soft = {
+				name = "Highly Illogical",
+				text = {
+					"Evolve {C:stand}#1#{}",
+					"into {C:stand}#2#{}"
+				}
+			},
+			ach_csau_evolve_soft_hidden = {
+				name = "????????",
+				text = {
+					"Go {C:attention,E:2}beyond{}",
+				}
+			},
 
-			--- Silver
-			ach_csau_flip_sosad = "I'm Unhappy When You're Happy",
-			ach_csau_activate_roche = "You Earned It, Big Boy!",
-			ach_csau_activate_quixotic = "From Some Place Even Higher",
-			ach_csau_defeat_hog = "The Hawg Strikes Again",
-			ach_csau_defeat_tray = "One Third Tray of: Chips!",
-			ach_csau_defeat_vod = "The Final Cut",
-			ach_csau_reno_colors = "Headin' On Back",
-			ach_csau_fuckingkill_jimbo = "NOOOOOO HOW COULD YOU",
-			ach_csau_miracle_inherit = "Recessive Genes",
-			ach_csau_skin_characters = "The Gang's All Here",
-			ach_csau_skin_vineshroom = "thwomp.mp3",
-			ach_csau_high_one = "All You Need Is One",
-			ach_csau_supreme_ascend = "Supreme Ascendancy",
-			ach_csau_defeat_finger = "Handy",
-			ach_csau_triple_seven = "Triple Seven",
-			ach_csau_dark_luigi = "DARK LUIGI",
-			ach_csau_get_sprunked = "Essence of Life",
-			ach_csau_grey_vomit = "Murder of the Universe",
-			ach_csau_evolve_echoes = "S! H! I! T!",
-			ach_csau_evolve_btd = "The Next Day",
-			ach_csau_evolve_ger = "This Is... Requiem",
-			ach_csau_evolve_kingcrimson = "Perfect Pair",
-			ach_csau_evolve_heaven = "STAIRWAY TO HEAVEN",
-			ach_csau_evolve_tusk = "Heeeeere's Johnny!",
-			ach_csau_evolve_d4c = "Dimes 4 Crimes",
-			ach_csau_evolve_soft = "Highly Illogical",
-			ach_csau_defeat_darkest = "Jesus Wept",
-			ach_csau_defeat_outlaw = "Mindcrash",
-			ach_csau_defeat_paint = "Or Is It Gonna Look Bad",
-			ach_csau_defeat_wasp = "Play A Melody",
 
 			--- Gold
-			ach_csau_discover_vincenzo = "Step Right In",
-			ach_csau_discover_quarterdumb = "Drown In It",
-			ach_csau_purchase_dink = "VERY Expensive.",
-			ach_csau_five_deathcard = "Ouroboros",
-			ach_csau_final_odio = "MEGALOMANIA",
-			ach_csau_chadley_power = "The Power of Chadnova",
-			ach_csau_the_band = "The Band",
-			ach_csau_win_vine = "Growing Free",
-			ach_csau_ult_choomera = "Ultimate Choomera",
-			ach_csau_sts_allforms = "Art of Heartbreak",
-			ach_csau_discover_wigsaw = "Playing My Game",
-			ach_csau_fucking_idiot = "YOU FUCKING IDIOT",
-			ach_csau_high_tetris = "WEE-OOO",
-			ach_csau_defeat_mochamike = "Put Your Deck Away",
-			ach_csau_defeat_feltfortress = "Crumbling Castle",
-			ach_csau_win_varg = "Don't Quit for Nothin'",
-			ach_csau_win_cbt = "Now Gold Stake, Pussy",
-			ach_csau_win_wheel = "Fuck Movies",
-			ach_csau_win_disc = "ORAORAORAORA",
+			ach_csau_defeat_mochamike = {
+				name = "Put Your Deck Away",
+				text = {
+					"Defeat",
+					"{V:1}#1#{}"
+				}
+			},
+			ach_csau_defeat_feltfortress = {
+				name = "Crumbling Castle",
+				text = {
+					"Defeat",
+					"{V:1}#1#{}"
+				}
+			},
+			ach_csau_discover_vincenzo = {
+				name = "Step Right In",
+				text = {
+					"Discover {C:attention}#1#{}"
+				}
+			},
+
+			ach_csau_win_vine = {
+				name = "Growing Free",
+				text = {
+					"Win a run using",
+					"{C:attention}#1#{}"
+				}
+			},
+
+			ach_csau_win_varg = {
+				name = "Don't Quit for Nothin'",
+				text = {
+					"Win a run using",
+					"{C:attention}#1#{}"
+				}
+			},
+
+			ach_csau_win_cbt = {
+				name = "Now Gold Stake, Pussy",
+				text = {
+					"Win a run using",
+					"{C:attention}#1#{}"
+				}
+			},
+
+			ach_csau_win_wheel = {
+				name = "Fuck Movies",
+				text = {
+					"Win a run using",
+					"{C:attention}#1#{}"
+				}
+			},
+
+			ach_csau_win_disc = {
+				name = "ORAORAORAORA",
+				text = {
+					"Win a run using",
+					"{C:attention}#1#{}"
+				}
+			},
+
+			ach_csau_discover_vincenzo_hidden = {
+				name = "Step Right In",
+				text = {
+					"{C:attention}????????{}"
+				}
+			},
+			ach_csau_discover_quarterdumb = {
+				name = "Drown In It",
+				text = {
+					"Discover {C:attention}#1#{}"
+				}
+			},
+			ach_csau_discover_quarterdumb_hidden = {
+				name = "Drown In It",
+				text = {
+					"{C:attention}????????{}"
+				}
+			},
+			ach_csau_discover_wigsaw = {
+				name = "Playing My Game",
+				text = {
+					"Discover {C:attention}#1#{}"
+				}
+			},
+			ach_csau_discover_wigsaw_hidden = {
+				name = "Playing My Game",
+				text = {
+					"{C:attention}????????{}"
+				}
+			},
+			ach_csau_purchase_dink = {
+				name = "VERY Expensive.",
+				text = {
+					"Purchase {C:attention}#1#{}",
+					"at a price of {C:money}at least $#2#{}"
+				}
+			},
+			ach_csau_five_deathcard = {
+				name = "Ouroboros",
+				text = {
+					"Purchase the same {C:attention}#1#{}",
+					"from the shop {C:attention}#2#{} times",
+					"in a single run",
+				}
+			},
+			ach_csau_final_odio = {
+				name = "MEGALOMANIA",
+				text = {
+					"Reach the {C:attention}final form{}",
+					"of {C:attention}#1#{}"
+				}
+			},
+			ach_csau_final_odio_hidden = {
+				name = "MEGALOMANIA",
+				text = {
+					"{C:attention}????????{}"
+				}
+			},
+			ach_csau_the_band = {
+				name = "The Band",
+				text = {
+					"Have {C:attention}#1#{} unique",
+					"{C:dark_edition,E:2}Red Vox{} {C:attention}Jokers{}",
+					"at the {C:attention}same time{}"
+				}
+			},
+			ach_csau_ult_choomera = {
+				name = "Ultimate Choomera",
+				text = {
+					"Play a hand of {C:attention}#1#{}",
+					"scoring {C:attention}Steel Cards{}",
+					"with {C:attention}#2#{} and",
+					"{C:attention}#3#{}",
+				}
+			},
+			ach_csau_sts_allforms = {
+				name = "Art of Heartbreak",
+				text = {
+					"Use {C:attention}every form{} of",
+					"{C:attention}#1#{}",
+					"in a single run"
+				}
+			},
+			ach_csau_fucking_idiot = {
+				name = "YOU FUCKING IDIOT",
+				text = {
+					"Have both {C:attention}#1#{}",
+					"and {C:attention}#2#{} or",
+					"{C:attention}#3#{} at",
+					"the {C:attention}same time{}"
+				}
+			},
+			ach_csau_high_tetris = {
+				name = "WEE-OOO",
+				text = {
+					"Reach the {C:attention}maximum speed{}",
+					"in {C:attention}#1#{}"
+				}
+			},
+			ach_csau_chadley_power = {
+				name = "The Power of Chadnova",
+				text = {
+					"Harness a {C:attention}fraction{} of",
+					"{C:attention}Chadley's{} {C:dark_edition,E:1}secret power{}"
+				}
+			},
+			ach_csau_chadley_power_hidden = {
+				name = "The Power of Chadnova",
+				text = {
+					"{C:dark_edition,E:1}????????{}"
+				}
+			},
 
 			--- Vine
-			ach_csau_big_meat = "The Big Meat",
-			ach_csau_all_discovered = "Card Addict",
-			ach_csau_cardsauceplus = "Cardsauce+",
-			ach_csau_cardsauceplusplus = "Cardsauce++",
-			ach_stand_master = "Stand Master",
-			--]]
+			ach_csau_all_discovered = {
+				name = "Card Addict",
+				text = {
+					"Discover all",
+					"{C:cardsauce}Cardsauce{} {C:attention}Jokers{}"
+				}
+			},
+			ach_csau_cardsauceplus = {
+				name = "Cardsauce+",
+				text = {
+					"Complete all",
+					"{C:cardsauce}Cardsauce{} {C:attention}Decks{}",
+					"on {V:1}#1#{}"
+				}
+			},
+			ach_csau_cardsauceplusplus = {
+				name = "Cardsauce++",
+				text = {
+					"Earn a {V:1}#1# Sticker{}",
+					"on every {C:cardsauce}Cardsauce{} {C:attention}Joker{}",
+				}
+			},
+			ach_csau_stand_master = {
+				name = "Stand Master",
+				text = {
+					"Earn a {V:1}#1# Sticker{}",
+					"on every {C:cardsauce}Cardsauce{} {C:stand}Stand{}",
+				}
+			},
+			ach_csau_big_meat = {
+				name = "The Big Meat",
+				text = {
+					"Unlock every",
+					"{C:cardsauce}Cardsauce{} {C:attention}Achievement{}"
+
+				}
+			},
 		},
 		SoundPack = {
 			---------------------------

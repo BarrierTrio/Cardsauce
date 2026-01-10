@@ -30,6 +30,10 @@ Cardsauce.calculate = function(self, context)
 		check_for_unlock({ type = "unlock_killjester" })
 	end
 
+	if context.blind_defeated then
+		check_for_unlock({type = 'blind_defeated', blind = G.GAME.blind})
+	end
+
 	if context.using_consumeable then
 		if context.consumeable.config.center.key == 'c_immolate' then
 			check_for_unlock({type = 'unlock_kings'})

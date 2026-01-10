@@ -1,5 +1,5 @@
 local achInfo = {
-    rarity = 1,
+    rarity = 3,
     config = {key = 'j_csau_tetris', val = 17, ref_value = 'speed'},
     unlock_condition = function(self, args)
         if args.type ~= 'scale_card' or args.card.config.center.key ~= self.config.key then return end

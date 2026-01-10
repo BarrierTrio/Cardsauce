@@ -1,6 +1,5 @@
 local achInfo = {
     rarity = 1,
-    hidden_text = true,
     config = {key = 'c_jojobal_diamond_killer'},
     unlock_condition = function(self, args)
         return args.type == "destroy_killer"

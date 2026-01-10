@@ -28,8 +28,8 @@ function jokerInfo.add_to_deck(self, card)
 	card:set_cost()
 	check_for_unlock({ type = "discover_deathcard" })
 
-	if card.ability.num_sold and card.ability.num_sold >= 5 then
-		check_for_unlock({ type = "five_deathcard" })
+	if card.ability.num_sold then
+		check_for_unlock({ type = "deathcards", num = card.ability.num_sold })
 	end
 
 	if not card.ability.deathcard_id then
