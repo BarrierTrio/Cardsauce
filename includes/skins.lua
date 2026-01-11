@@ -99,18 +99,12 @@ for _, suit in ipairs({'Hearts', 'Diamonds', 'Clubs', 'Spades'}) do
             display_ranks = {'Jack', 'Queen', 'King', 'Ace'},
             atlas = 'csau_'..(suit_lower)..'_vineshroom',
             pos_style = {
-                ['Jack'] = {atlas = 'arrow_'..suit_lower, pos = {x = 0, y = 0}},
-                ['Queen'] = {atlas = 'arrow_'..suit_lower, pos = {x = 1, y = 0}},
-                ['King'] = {atlas = 'arrow_'..suit_lower, pos = {x = 2, y = 0}},
                 ['Ace'] = {atlas = 'csau_'..(suit_lower)..'_vineshroom', pos = {x = 3, y = 0}}
             },
             loc_txt = {
                 ['en-us'] = "Vineshroom"
             },
             colour = G.C[suit:upper()],
-            suit_icon = {
-                atlas = 'suits'
-            },
             artist = 'Kekulism'
         },{
             key = "csau_default_"..suit_lower..'_characters',
@@ -122,9 +116,6 @@ for _, suit in ipairs({'Hearts', 'Diamonds', 'Clubs', 'Spades'}) do
                 ['en-us'] = "Vineshroom (Characters)"
             },
             colour = G.C[suit:upper()],
-            suit_icon = {
-                atlas = 'suits'
-            },
             artist = 'Kekulism'
         }},
         loc_txt = {
@@ -145,18 +136,12 @@ for _, suit in ipairs({'Hearts', 'Diamonds', 'Clubs', 'Spades'}) do
             display_ranks = {'Jack', 'Queen', 'King', 'Ace'},
             atlas = 'csau_'..(suit_lower)..'_vargshroom',
             pos_style = {
-                ['Jack'] = {atlas = 'arrow_'..suit_lower, pos = {x = 0, y = 0}},
-                ['Queen'] = {atlas = 'arrow_'..suit_lower, pos = {x = 1, y = 0}},
-                ['King'] = {atlas = 'arrow_'..suit_lower, pos = {x = 2, y = 0}},
                 ['Ace'] = {atlas = 'csau_'..(suit_lower)..'_vargshroom', pos = {x = 3, y = 0}}
             },
             loc_txt = {
                 ['en-us'] = "Vargshroom"
             },
             colour = G.C[suit:upper()],
-            suit_icon = {
-                atlas = 'suits'
-            },
             artist = 'Kekulism'
         },{
             key = "csau_varg_"..suit_lower..'_characters',
@@ -168,9 +153,6 @@ for _, suit in ipairs({'Hearts', 'Diamonds', 'Clubs', 'Spades'}) do
                 ['en-us'] = "Vargshroom (Characters)"
             },
             colour = G.C[suit:upper()],
-            suit_icon = {
-                atlas = 'suits'
-            },
             artist = 'Kekulism'
         }},
         loc_txt = {
@@ -189,18 +171,12 @@ for _, suit in ipairs({'Hearts', 'Diamonds', 'Clubs', 'Spades'}) do
             display_ranks = {'Jack', 'Queen', 'King', 'Ace'},
             atlas = 'csau_'..(suit_lower)..'_jazz',
             pos_style = {
-                ['Jack'] = {atlas = 'arrow_'..suit_lower, pos = {x = 0, y = 0}},
-                ['Queen'] = {atlas = 'arrow_'..suit_lower, pos = {x = 1, y = 0}},
-                ['King'] = {atlas = 'arrow_'..suit_lower, pos = {x = 2, y = 0}},
                 ['Ace'] = {atlas = 'csau_'..(suit_lower)..'_jazz', pos = {x = 3, y = 0}}
             },
             loc_txt = {
                 ['en-us'] = "Jazz Mister"
             },
             colour = G.C[suit:upper()],
-            suit_icon = {
-                atlas = 'suits'
-            },
             artist = 'Kekulism'
         },{
             key = 'csau_jazz_'..suit_lower..'_characters',
@@ -212,9 +188,6 @@ for _, suit in ipairs({'Hearts', 'Diamonds', 'Clubs', 'Spades'}) do
                 ['en-us'] = "Jazz Mister (Characters)"
             },
             colour = G.C[suit:upper()],
-            suit_icon = {
-                atlas = 'suits'
-            },
             artist = 'Kekulism'
         }},
         loc_txt = {

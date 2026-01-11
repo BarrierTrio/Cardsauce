@@ -313,7 +313,7 @@ ArrowAPI.config_tools.add_default_palette(ArrowAPI, 'Spectral', {
 }, true)
 
 ArrowAPI.config_tools.add_default_palette(ArrowAPI, 'Hearts', {
-	{174,27,79,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={1,0}},["overrides"]={},["key"]="174-27-67"},
+	{174,27,79,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={1,0}},["overrides"]={},["key"]="194-34-77"},
 	{204,68,75,244,88,120,["grad_pos"]={0,1},["grad_config"]={["mode"]="linear",["val"]=1.571,["pos"]={1,0}},["overrides"]={},["key"]="240-52-100"},
 	{244,88,120,204,68,75,["grad_pos"]={0,1},["grad_config"]={["mode"]="linear",["val"]=1.571,["pos"]={1,0}},["overrides"]={},["key"]="255-99-136"},
 	{251,166,178,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={1,0}},["overrides"]={},["key"]="253-160-182"},
@@ -328,7 +328,7 @@ ArrowAPI.config_tools.add_default_palette(ArrowAPI, 'Hearts', {
 }, true)
 
 ArrowAPI.config_tools.add_default_palette(ArrowAPI, 'Diamonds', {
-	{38,55,104,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={1,0}},["overrides"]={},["key"]="141-79-29"},
+	{38,55,104,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={1,0}},["overrides"]={},["key"]="149-83-29"},
 	{60,82,149,60,82,149,67,97,185,67,97,185,["grad_pos"]={0,0.1,0.9,1},["grad_config"]={["mode"]="linear",["val"]=1.571,["pos"]={1,0}},["overrides"]={},["key"]="207-84-27"},
 	{46,53,150,46,53,150,83,125,181,83,125,181,["grad_pos"]={0,0.2,0.8,1},["grad_config"]={["mode"]="linear",["val"]=1.571,["pos"]={1,0}},["overrides"]={},["key"]="240-107-63"},
 	{88,127,193,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={1,0}},["overrides"]={},["key"]="246-142-84"},
