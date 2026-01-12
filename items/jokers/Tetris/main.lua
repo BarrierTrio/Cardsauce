@@ -6,13 +6,6 @@ SMODS.Sound({key = 'tetris_land', path = 'tetris_land.ogg'})
 SMODS.Sound({key = 'tetris_drop', path = 'tetris_drop.ogg'})
 SMODS.Sound({key = 'tetris_speed', path = 'tetris_speed.ogg'})
 
-function HEX(hex)
-    if #hex <= 6 then hex = hex.."FF" end
-    local _,_,r,g,b,a = hex:find('(%x%x)(%x%x)(%x%x)(%x%x)')
-    local color = {tonumber(r,16)/255,tonumber(g,16)/255,tonumber(b,16)/255,tonumber(a,16)/255 or 255}
-    return color
-end
-
 local width = 59
 local height = 65
 local board_width = 10
