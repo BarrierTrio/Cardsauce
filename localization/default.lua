@@ -4187,13 +4187,13 @@ return {
 			},
 		},
 		Spectral = {
-			c_csau_quixotic = {
+			c_csau_spec_quixotic = {
 				name = "Quixotic",
 				text = {
 					"Gain an {C:attention}Ethereal Tag",
 				},
 			},
-			c_csau_protojoker = {
+			c_csau_spec_protojoker = {
 				name = "Protojoker",
 				text = {
 					"Transform every {C:attention}Joker{} with \"Joker\"",

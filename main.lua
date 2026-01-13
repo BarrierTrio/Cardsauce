@@ -310,7 +310,7 @@ ArrowAPI.config_tools.add_default_palette(ArrowAPI, 'Spectral', {
 	{255,255,255,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={1,0}},["overrides"]={},["key"]="255-255-255"},
 	{69,132,250,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={1,0}},["overrides"]={},["key"]="badge"},
 	["name"] = "Spectrans",
-}, true)
+})
 
 ArrowAPI.config_tools.add_default_palette(ArrowAPI, 'Hearts', {
 	{174,27,79,1,["grad_pos"]={0},["grad_config"]={["mode"]="linear",["val"]=0,["pos"]={1,0}},["overrides"]={},["key"]="194-34-77"},
