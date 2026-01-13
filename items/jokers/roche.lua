@@ -63,7 +63,7 @@ function jokerInfo.calculate(self, card, context)
 		end
 
 		--- say_quip() function is found in `includes > hooks > card.lua`
-		card:say_quip(2, nil, true, 'csau_roche')
+		card:say_quip(1, nil, true, 'csau_roche')
 		G.E_MANAGER:add_event(Event({
 			trigger = 'before',
 			blockable = false,
