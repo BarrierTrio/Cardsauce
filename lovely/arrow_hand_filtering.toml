@@ -10,10 +10,10 @@ priority = 0
 [[patches]]
 [patches.pattern]
 target = "functions/state_events.lua"
-pattern = '''SMODS.cards_to_draw = (SMODS.cards_to_draw or 0) + space_taken
+pattern = '''SMODS.cards_to_draw = (SMODS.cards_to_draw or 0) + hand_space
 SMODS.drawn_cards = {}'''
 position = "at"
-payload = '''SMODS.cards_to_draw = (SMODS.cards_to_draw or 0) + space_taken
+payload = '''SMODS.cards_to_draw = (SMODS.cards_to_draw or 0) + hand_space
 SMODS.drawn_cards = {} -- csau_arrow patch tag
 SMODS.filter_draw(hand_space)
 for i=0, hand_space - 1 do

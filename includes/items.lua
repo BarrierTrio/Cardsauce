@@ -325,6 +325,7 @@ ArrowAPI.loading.batch_load({
             'tucker',
             'tgyh',
             'nmbb',
+            'kriskross',
             'marathon'
         }
     },

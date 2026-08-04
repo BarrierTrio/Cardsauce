@@ -9,17 +9,15 @@ priority = 0
 [[patches]]
 [patches.pattern]
 target = "functions/common_events.lua"
-pattern = '''
-if specific_vars.nominal_chips then
-    localize{type = 'other', key = 'card_chips', nodes = desc_nodes, vars = {specific_vars.nominal_chips}}
-end
-if specific_vars.bonus_chips then
+pattern = '''if specific_vars.bonus_chips then
     localize{type = 'other', key = 'card_extra_chips', nodes = desc_nodes, vars = {SMODS.signed(specific_vars.bonus_chips)}}
 end
 '''
 position = "after"
-payload = '''if card.artist and ArrowAPI.config['enable_ItemCredits'] then
+payload = '''
+if card.artist and ArrowAPI.config['enable_ItemCredits'] then
     local vars = (type(card.artist) == 'function' and card:artist()) or (type(card.artist) == 'table' and card.artist) or {card.artist}
     localize{type = 'other', nodes = desc_nodes, key = "artistcredit_"..#vars, set = "Other", vars = vars }
-end -- csau_arrow patch tag'''
+end -- csau_arrow patch tag
+'''
 match_indent = true

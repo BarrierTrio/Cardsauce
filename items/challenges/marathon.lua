@@ -65,7 +65,7 @@ local chalInfo = {
         },
     },
     vouchers = {
-        { id = 'v_csau_scavenger'}
+        { id = 'v_arrow_scavenger'}
     },
     restrictions = {
         banned_cards = function()

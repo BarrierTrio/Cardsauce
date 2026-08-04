@@ -1,5 +1,6 @@
 local jokerInfo = {
     name = "Bonzi Buddy",
+    key = "j_csau_bonzi",
     animation = {
         frames = 12,
         fps = 10,
@@ -61,7 +62,7 @@ end
 
 function jokerInfo.calculate(self, card, context)
     if context.setting_blind and not card.getting_sliced and not card.debuff and not context.blueprint then
-        if G.GAME.dollars - card.ability.extra.dollars >= next(SMODS.find_card('j_credit_card')) and -20 or 0 then
+        if G.GAME.dollars - card.ability.extra.dollars >= (next(SMODS.find_card('j_credit_card')) and -20 or 0) then
             if card.ability.extra.mult < 0 then
                 card.ability.extra.mult = -card.ability.extra.mult
             end

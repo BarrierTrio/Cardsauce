@@ -9,10 +9,10 @@ local chalInfo = {
         }
     },
     vouchers = {
-        { id = 'v_csau_foo'}
+        { id = 'v_arrow_foo'}
     },
     unlocked = function(self)
-        return ArrowAPI.game.check_mod_discoveries(Cardsauce.id, 'Stand', 1)
+        return ArrowAPI.game.check_mod_discoveries(Cardsauce.id, 'Stand') >= 1
     end
 }
 
